@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Шатон. Маркетинг</title>
+<meta name="description" content="Маркетинг и разработка в одних руках: Авито, Яндекс Директ, сайты, SEO и SMM — без пересадки между подрядчиками.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1c1c;
+    --ink-soft:#252321;
+    --paper:#f5f5f3;
+    --surface:#ffffff;
+    --line:#e6e1d6;
+    --ember:#ef5603;
+    --ember-2:#ff7d01;
+    --coral:#ff8562;
+    --text:#1c1c1c;
+    --text-dim:#6b665c;
+    --on-dark:#ffffff;
+    --on-dark-dim:#b9b3a6;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#151412; --surface:#1e1c19; --text:#f1ede4; --text-dim:#a89f8e; --line:#332f28;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#151412; --surface:#1e1c19; --text:#f1ede4; --text-dim:#a89f8e; --line:#332f28;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--text);font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  h1,h2,h3{font-family:'Montserrat',system-ui,sans-serif;font-weight:800;letter-spacing:-0.02em;text-wrap:balance;margin:0;}
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin-inline:auto;padding-inline:24px;}
+  @media (max-width:640px){ .wrap{padding-inline:18px;} }
+  section{padding-block:6px;}
+  .wrap-section{padding-block:80px;}
+  @media (max-width:640px){ .wrap-section{padding-block:52px;} }
+
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;padding:14px 26px;border-radius:500px;border:1px solid transparent;cursor:pointer;transition:transform .18s ease;white-space:nowrap;}
+  .btn:focus-visible{outline:2px solid var(--ember);outline-offset:3px;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:linear-gradient(85deg,var(--ember-2) 0%,var(--ember) 100%);color:#fff;box-shadow:0 10px 24px -10px rgba(239,86,3,.6);}
+  .btn-ghost-dark{background:transparent;border-color:rgba(255,255,255,.22);color:#fff;}
+  .btn-ghost-dark:hover{border-color:var(--ember);}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--text);}
+  .btn-outline-ember{background:transparent;border-color:var(--ember);color:var(--ember);}
+
+  .eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);text-align:center;margin-bottom:12px;}
+
+  /* ===== HEADER ===== */
+  header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(28,28,28,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding-block:14px;gap:20px;max-width:1180px;margin-inline:auto;padding-inline:24px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Montserrat';font-weight:800;font-size:17px;color:#fff;}
+  .brand-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--coral),var(--ember));display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-family:'Space Mono';flex:none;}
+  .nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--on-dark-dim);}
+  .nav-links a:hover{color:#fff;}
+  .nav-right{display:flex;align-items:center;gap:14px;}
+  .msg-ic{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex:none;}
+  @media (max-width:900px){ .nav-links{display:none;} }
+
+  /* ===== HERO ===== */
+  .hero{position:relative;background:var(--ink);color:#fff;overflow:hidden;padding-block:90px 60px;}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 88% 8%, rgba(239,86,3,.28), transparent 60%);pointer-events:none;}
+  .hero-arcs{position:absolute;left:-120px;top:60px;width:420px;height:420px;opacity:.55;pointer-events:none;}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.25fr .85fr;gap:40px;align-items:center;}
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero h1{font-size:clamp(30px,4.6vw,54px);line-height:1.08;max-width:16ch;}
+  .hero h1 .accent{color:var(--ember-2);}
+  .hero-cta-row{display:flex;align-items:center;gap:18px;margin-top:34px;flex-wrap:wrap;}
+  .hero-tip{position:relative;background:#2c2a27;border:1px solid rgba(255,255,255,.1);color:var(--on-dark-dim);font-size:12.5px;padding:10px 14px;border-radius:12px;max-width:190px;line-height:1.4;}
+  .hero-video{display:inline-flex;align-items:center;gap:10px;font-size:13.5px;color:var(--on-dark-dim);margin-top:22px;}
+  .hero-video .dot{width:28px;height:28px;border-radius:50%;background:var(--ember);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;flex:none;}
+  .hero-photo-wrap{display:flex;justify-content:center;position:relative;}
+  .hero-photo{width:230px;height:230px;border-radius:50%;background:linear-gradient(150deg,var(--coral),var(--ember));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Montserrat';font-weight:800;font-size:52px;border:6px solid rgba(255,255,255,.08);}
+
+  .stat-row{position:relative;margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);}
+  .stat-row .stat{padding:22px 18px;border-right:1px solid rgba(255,255,255,.12);}
+  .stat-row .stat:last-child{border-right:none;}
+  .stat-row b{display:block;font-family:'Space Mono';font-size:24px;color:var(--ember-2);margin-bottom:4px;}
+  .stat-row span{font-size:12.5px;color:var(--on-dark-dim);line-height:1.4;display:block;}
+  @media (max-width:760px){ .stat-row{grid-template-columns:1fr 1fr;} .stat-row .stat:nth-child(2n){border-right:none;} .stat-row .stat{border-bottom:1px solid rgba(255,255,255,.12);} }
+
+  /* ===== SITUATIONS (dark, 4 col) ===== */
+  .situations{background:var(--ink);color:#fff;padding-block:60px 90px;}
+  .situations h2{text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:44px;}
+  .sit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(255,255,255,.12);}
+  .sit{padding:26px 22px;border-right:1px solid rgba(255,255,255,.12);}
+  .sit:last-child{border-right:none;}
+  .sit .ic{width:34px;height:34px;border-radius:9px;background:var(--ember);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;margin-bottom:16px;}
+  .sit h3{font-size:16px;margin-bottom:8px;color:#fff;}
+  .sit p{font-size:13.5px;color:var(--on-dark-dim);line-height:1.55;margin:0;}
+  @media (max-width:860px){ .sit-grid{grid-template-columns:1fr 1fr;} .sit:nth-child(2n){border-right:none;} .sit{border-bottom:1px solid rgba(255,255,255,.12);} }
+  @media (max-width:520px){ .sit-grid{grid-template-columns:1fr;} }
+
+  /* ===== FIT (light, 4 cards) ===== */
+  .fit{background:var(--paper);}
+  .fit h2{text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:44px;}
+  .fit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media (max-width:860px){ .fit-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .fit-grid{grid-template-columns:1fr;} }
+  .fit-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 20px;}
+  .fit-card h3{font-size:16px;margin-bottom:8px;}
+  .fit-card p{font-size:13.5px;color:var(--text-dim);line-height:1.55;margin:0;}
+
+  /* ===== QUOTE ===== */
+  .quote-band{background:var(--paper);padding-block:20px 90px;}
+  .quote-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:30px;align-items:center;}
+  @media (max-width:760px){ .quote-wrap{grid-template-columns:1fr;} }
+  .quote-photo{width:100%;aspect-ratio:4/5;border-radius:20px;background:linear-gradient(160deg,#2c2a27,var(--ink));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Montserrat';font-weight:800;font-size:64px;}
+  .quote-card{background:linear-gradient(100deg,var(--ember-2) 0%, #ff4353 100%);border-radius:20px;padding:38px 34px;color:#fff;position:relative;}
+  .quote-card .qmark{font-family:'Montserrat';font-size:44px;font-weight:800;opacity:.5;line-height:1;margin-bottom:10px;}
+  .quote-card p{font-family:'Montserrat';font-weight:700;font-size:clamp(18px,2.2vw,24px);line-height:1.4;margin:0;}
+  .quote-card cite{display:block;margin-top:20px;font-style:normal;font-size:13px;color:rgba(255,255,255,.85);font-family:'Space Mono';}
+
+  /* ===== PROCESS ===== */
+  .process-sec{background:var(--ink);color:#fff;}
+  .process-sec h2{text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:44px;}
+  .process-sec h2 .accent{color:var(--ember-2);}
+  .proc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media (max-width:760px){ .proc-grid{grid-template-columns:1fr;} }
+  .proc-card{border-radius:18px;padding:26px 24px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;}
+  .proc-card.filled{background:linear-gradient(120deg,var(--ember-2),var(--ember));color:#fff;}
+  .proc-card.outline{background:#232120;border:1px solid rgba(255,255,255,.1);}
+  .proc-step-tag{display:inline-block;font-family:'Space Mono';font-size:11px;letter-spacing:.08em;padding:5px 11px;border-radius:500px;background:rgba(255,255,255,.16);width:fit-content;margin-bottom:14px;}
+  .proc-card.outline .proc-step-tag{background:rgba(255,255,255,.08);color:var(--ember-2);}
+  .proc-card h3{font-size:19px;color:inherit;}
+  .proc-card p{font-size:13.5px;line-height:1.5;margin-top:8px;color:inherit;opacity:.92;}
+  .proc-illustration{align-self:flex-end;opacity:.9;}
+
+  /* ===== EXPERIENCE (opt cards) ===== */
+  .experience{background:var(--paper);}
+  .experience h2{text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:44px;}
+  .exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media (max-width:900px){ .exp-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .exp-grid{grid-template-columns:1fr;} }
+  .exp-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 20px;}
+  .exp-tag{display:flex;align-items:center;gap:8px;font-family:'Space Mono';font-size:11.5px;color:var(--ember);text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;}
+  .exp-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--ember);}
+  .exp-card h3{font-size:15.5px;margin-bottom:8px;line-height:1.4;}
+  .exp-card p{font-size:13px;color:var(--text-dim);line-height:1.5;margin:0;}
+
+  /* ===== WHY / REASON GRID ===== */
+  .why{background:var(--paper);}
+  .why-head{text-align:center;margin-bottom:44px;}
+  .why-head h2{font-size:clamp(22px,3vw,32px);}
+  .why-head .task{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px;font-size:14px;color:var(--text-dim);flex-wrap:wrap;}
+  .why-head .task .pill{background:var(--surface);border:1px solid var(--line);padding:6px 14px;border-radius:500px;}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media (max-width:860px){ .why-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .why-grid{grid-template-columns:1fr;} }
+  .why-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 22px;}
+  .why-card .num{font-family:'Space Mono';color:var(--ember);font-size:13px;margin-bottom:12px;}
+  .why-card h3{font-size:15.5px;margin-bottom:8px;}
+  .why-card p{font-size:13px;color:var(--text-dim);line-height:1.5;margin:0;}
+  .why-cta{text-align:center;margin-top:36px;}
+
+  /* ===== FOUNDER ===== */
+  .founder{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .founder-grid{display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start;}
+  @media (max-width:760px){ .founder-grid{grid-template-columns:1fr;} }
+  .founder-photo{width:100%;aspect-ratio:1;border-radius:20px;background:linear-gradient(150deg,var(--coral),var(--ember));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Montserrat';font-weight:800;font-size:48px;}
+  .founder h2{font-size:clamp(20px,2.6vw,28px);margin-bottom:16px;}
+  .founder p{font-size:15px;color:var(--text-dim);line-height:1.7;max-width:66ch;}
+  .founder-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;}
+  @media (max-width:640px){ .founder-stats{grid-template-columns:1fr 1fr;} }
+  .founder-stats b{display:block;font-family:'Space Mono';color:var(--ember);font-size:22px;}
+  .founder-stats span{font-size:12.5px;color:var(--text-dim);}
+
+  /* ===== TESTIMONIALS marquee ===== */
+  .testi{background:var(--paper);overflow:hidden;}
+  .testi h2{text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:36px;}
+  .testi-track{display:flex;gap:16px;}
+  .testi-card{flex:0 0 300px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;}
+  .testi-card .stars{color:var(--ember);font-size:13px;margin-bottom:10px;letter-spacing:2px;}
+  .testi-card h4{font-family:'Montserrat';font-size:15px;margin:0 0 2px;}
+  .testi-card .role{font-size:12px;color:var(--text-dim);margin-bottom:12px;}
+  .testi-card p{font-size:13.5px;line-height:1.55;color:var(--text-dim);margin:0;}
+
+  /* ===== CASES grid ===== */
+  .cases{background:var(--paper);}
+  .cases h2{text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:44px;}
+  .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media (max-width:900px){ .case-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .case-grid{grid-template-columns:1fr;} }
+  .case-card{position:relative;border-radius:18px;padding:170px 20px 20px;overflow:hidden;color:#fff;isolation:isolate;}
+  .case-card::before{content:"";position:absolute;inset:0;z-index:-1;}
+  .case-card .tag{position:absolute;top:16px;left:16px;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);font-family:'Space Mono';font-size:10.5px;padding:5px 10px;border-radius:500px;text-transform:uppercase;letter-spacing:.05em;}
+  .case-card h3{font-size:17px;margin-bottom:6px;color:#fff;}
+  .case-card p{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5;margin:0 0 14px;}
+  .case-card .btn{padding:9px 18px;font-size:12.5px;}
+  .c1::before{background:linear-gradient(160deg,#3a4f45,#1c1c1c);}
+  .c2::before{background:linear-gradient(160deg,#2e3a4a,#1c1c1c);}
+  .c3::before{background:linear-gradient(160deg,#4a3a2e,#1c1c1c);}
+  .c4::before{background:linear-gradient(160deg,#3a2e40,#1c1c1c);}
+  .c5::before{background:linear-gradient(160deg,#4a2e2e,#1c1c1c);}
+  .more-cases{text-align:center;margin-top:32px;}
+
+  /* ===== TRUST ===== */
+  .trust{background:var(--ink);color:#fff;}
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  @media (max-width:860px){ .trust-grid{grid-template-columns:1fr;} }
+  .trust h2{font-size:clamp(22px,3vw,30px);margin-bottom:16px;}
+  .trust h2 .accent{color:var(--ember-2);}
+  .trust p.lede{color:var(--on-dark-dim);font-size:14.5px;line-height:1.6;margin-bottom:22px;max-width:52ch;}
+  .trust-list{display:flex;flex-wrap:wrap;gap:10px;}
+  .trust-list span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:8px 14px;border-radius:500px;font-size:13px;}
+  .trust-video{position:relative;border-radius:20px;background:linear-gradient(150deg,#2c2a27,var(--ink));aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.1);}
+  .play-btn{width:62px;height:62px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;box-shadow:0 0 0 10px rgba(239,86,3,.18);}
+  .trust-video .lbl{position:absolute;bottom:16px;left:16px;font-family:'Space Mono';font-size:12px;color:var(--on-dark-dim);}
+
+  /* ===== PRICING ===== */
+  .pricing{background:var(--paper);}
+  .pricing h2{text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:44px;}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;}
+  @media (max-width:900px){ .plans{grid-template-columns:1fr;} }
+  .plan{border:1px solid var(--line);border-radius:20px;padding:30px 26px;background:var(--surface);display:flex;flex-direction:column;gap:16px;}
+  .plan.flag{background:var(--ink);color:#fff;border-color:var(--ink);position:relative;transform:scale(1.02);}
+  .plan.flag::before{content:"Флагман";position:absolute;top:-13px;left:26px;background:var(--ember);color:#fff;font-size:11px;font-family:'Space Mono';padding:4px 12px;border-radius:500px;}
+  .plan h3{font-size:18px;}
+  .plan .desc{font-size:13.5px;color:var(--text-dim);margin:-8px 0 0;}
+  .plan.flag .desc{color:var(--on-dark-dim);}
+  .plan .price{font-family:'Space Mono';font-size:26px;color:var(--ember-2);}
+  .plan ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13.5px;}
+  .plan.flag ul{color:var(--on-dark-dim);}
+  .plan:not(.flag) ul{color:var(--text-dim);}
+  .plan li{display:flex;gap:8px;}
+  .plan li::before{content:"✓";color:var(--ember-2);flex:none;font-weight:700;}
+  .plan .btn{margin-top:auto;justify-content:center;}
+
+  /* ===== GIFT BANNER ===== */
+  .gift{position:relative;background:linear-gradient(100deg,var(--ember-2),var(--ember));border-radius:24px;padding:44px 40px;color:#fff;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+  .gift h3{font-size:clamp(19px,2.4vw,26px);max-width:32ch;color:#fff;}
+  .gift p{font-size:14px;color:rgba(255,255,255,.9);margin:8px 0 0;max-width:44ch;}
+  .gift .confetti{position:absolute;border-radius:50%;opacity:.5;}
+  .gift .btn-primary{background:#fff;color:var(--ember);box-shadow:none;}
+
+  /* ===== QUIZ (reused) ===== */
+  .quiz{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:36px;max-width:640px;margin-inline:auto;margin-top:40px;}
+  @media (max-width:640px){ .quiz{padding:24px;} }
+  .quiz-progress{display:flex;gap:6px;margin-bottom:26px;}
+  .quiz-progress i{flex:1;height:3px;border-radius:3px;background:var(--line);}
+  .quiz-progress i.done{background:var(--ember);}
+  .q-step{display:none;}
+  .q-step.active{display:block;}
+  .q-step h3{font-size:18px;margin-bottom:16px;}
+  .opt{display:block;width:100%;text-align:left;padding:14px 16px;margin-bottom:10px;border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--text);font-family:'Manrope';font-size:14.5px;cursor:pointer;}
+  .opt:hover{border-color:var(--ember);}
+  .opt.selected{border-color:var(--ember);background:rgba(239,86,3,.08);}
+  .q-nav{display:flex;justify-content:space-between;margin-top:6px;}
+  .q-result{display:none;}
+  .q-result.active{display:block;}
+  .q-result h3{font-size:20px;margin-bottom:10px;}
+  .q-result p{color:var(--text-dim);font-size:14.5px;line-height:1.6;}
+  .btn[disabled]{opacity:.4;cursor:not-allowed;}
+
+  /* ===== FAQ ===== */
+  .faq{background:var(--paper);}
+  .faq h2{text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:36px;}
+  .faq-list{max-width:760px;margin-inline:auto;}
+  details{border-top:1px solid var(--line);padding-block:18px;}
+  details:last-of-type{border-bottom:1px solid var(--line);}
+  summary{cursor:pointer;font-family:'Montserrat';font-weight:700;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;gap:16px;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+";color:var(--ember);font-size:20px;transition:transform .2s;flex:none;}
+  details[open] summary::after{transform:rotate(45deg);}
+  details p{margin:14px 0 0;color:var(--text-dim);font-size:14px;line-height:1.6;max-width:70ch;}
+
+  /* ===== FINAL CTA FORM ===== */
+  .final-cta{position:relative;background:var(--ink);color:#fff;overflow:hidden;}
+  .final-cta::before{content:"";position:absolute;inset:0;background:radial-gradient(55% 65% at 15% 20%, rgba(239,86,3,.3), transparent 60%);pointer-events:none;}
+  .final-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  @media (max-width:860px){ .final-grid{grid-template-columns:1fr;} }
+  .final-cta h2{font-size:clamp(22px,3vw,32px);max-width:16ch;}
+  .final-cta h2 .accent{color:var(--ember-2);}
+  .final-list{margin:22px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .final-list li{display:flex;gap:10px;font-size:14.5px;color:var(--on-dark-dim);}
+  .final-list li::before{content:"✓";color:var(--ember-2);font-weight:700;}
+  .cta-form{background:#232120;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:28px;}
+  .phone-input{display:flex;align-items:center;gap:8px;background:#171512;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+  .phone-input span{font-family:'Space Mono';color:var(--on-dark-dim);}
+  .phone-input input{background:transparent;border:none;outline:none;color:#fff;font-size:15px;width:100%;font-family:'Manrope';}
+  .consent{display:flex;gap:8px;font-size:11.5px;color:var(--on-dark-dim);line-height:1.5;margin-bottom:10px;}
+  .consent input{margin-top:2px;flex:none;}
+  .cta-form .btn{width:100%;justify-content:center;margin-top:8px;}
+
+  /* ===== FOOTER ===== */
+  footer{background:#141312;color:var(--on-dark-dim);padding-block:40px;font-size:13px;}
+  .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:20px;}
+  .footer-links{display:flex;gap:22px;flex-wrap:wrap;}
+  .footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .disclaimer{font-size:11.5px;color:#655f53;margin-top:20px;line-height:1.6;max-width:900px;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-mark">ДШ</span> Шатон</div>
+    <nav class="nav-links">
+      <a href="#experience">Опыт</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#pricing">Услуги</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <div class="nav-right">
+      <span class="msg-ic" title="Telegram">✈</span>
+      <a class="btn btn-primary" href="#audit" style="padding:10px 20px;font-size:13.5px;">Получить аудит</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-arcs" viewBox="0 0 400 400" fill="none">
+    <circle cx="200" cy="200" r="180" stroke="var(--ember)" stroke-width="1" stroke-dasharray="4 10" opacity=".5"/>
+    <circle cx="160" cy="160" r="120" stroke="var(--ember)" stroke-width="1" opacity=".35"/>
+    <path d="M20 320 Q 120 260 180 340" stroke="var(--ember)" stroke-width="1.5" opacity=".6"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow" style="text-align:left;">маркетинг + разработка · один человек</div>
+      <h1>Авито, Директ, сайт, SEO, SMM — <span class="accent">без пересадки</span> между подрядчиками</h1>
+      <p style="color:var(--on-dark-dim);font-size:16px;max-width:46ch;margin-top:18px;line-height:1.6;">Веду весь маркетинг вашего бизнеса лично, от карточки на Авито до кода сайта. Один человек вместо агентства из пяти.</p>
+      <div class="hero-cta-row">
+        <a href="#audit" class="btn btn-primary">Старт <span aria-hidden="true">→</span></a>
+        <div class="hero-tip">Точка входа — кодовое слово «АУДИТ» в директ</div>
+      </div>
+      <div class="hero-video"><span class="dot">▶</span> Посмотреть, как проходит аудит</div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo">ДШ</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stat-row">
+      <div class="stat"><b>9+</b><span>лет в диджитале</span></div>
+      <div class="stat"><b>5</b><span>направлений в одной голове</span></div>
+      <div class="stat"><b>24ч</b><span>на аудит и обратную связь</span></div>
+      <div class="stat"><b>1</b><span>человек ведёт весь проект</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SITUATIONS -->
+<section class="situations">
+  <div class="wrap">
+    <h2>Ситуации, в которых я <span style="color:var(--ember-2);">незаменим</span></h2>
+    <div class="sit-grid">
+      <div class="sit"><div class="ic">◐</div><h3>Мало заявок</h3><p>Разбираю воронку целиком, а не один канал — часто дело в стыке между Авито, сайтом и рекламой.</p></div>
+      <div class="sit"><div class="ic">↗</div><h3>Рост нестабильный</h3><p>Системная работа с профилем и кампанией вместо разовых всплесков активности.</p></div>
+      <div class="sit"><div class="ic">◷</div><h3>Нет времени</h3><p>Беру всё на себя: от настройки объявлений до сдачи отчёта по итогам месяца.</p></div>
+      <div class="sit"><div class="ic">✕</div><h3>Уже пробовали</h3><p>Бесплатный аудит честно покажет, что именно тормозит заявки — без домыслов.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FIT -->
+<section class="fit wrap-section">
+  <div class="wrap">
+    <h2>Кому подойдёт</h2>
+    <div class="fit-grid">
+      <div class="fit-card"><h3>Частный специалист</h3><p>Запущу Авито с нуля и помогу получить первые заявки без лишних затрат.</p></div>
+      <div class="fit-card"><h3>Малый бизнес</h3><p>Локальные услуги, ремонт, аренда — Авито и Директ как основной канал.</p></div>
+      <div class="fit-card"><h3>Средний бизнес</h3><p>Эко-базы, недвижимость — сайт или приложение, реклама и SEO в связке.</p></div>
+      <div class="fit-card"><h3>B2B</h3><p>Сайт под лиды и настройка Директа под длинный цикл сделки.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-band">
+  <div class="wrap quote-wrap">
+    <div class="quote-photo">ДШ</div>
+    <div class="quote-card">
+      <div class="qmark">“</div>
+      <p>Слежу за тем, что приносит реальные заявки, а не за красивыми метриками в кабинете. Один человек, который видит всю воронку целиком, находит узкое место быстрее, чем отдел из агентства.</p>
+      <cite>Дэвид Шатон, маркетолог и разработчик</cite>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-sec wrap-section">
+  <div class="wrap">
+    <h2>Как строится <span class="accent">работа</span></h2>
+    <div class="proc-grid">
+      <div class="proc-card filled">
+        <div><span class="proc-step-tag">Шаг 01</span><h3>Заявка</h3><p>Пишете кодовое слово «АУДИТ» в директ, коротко описываете нишу и ситуацию.</p></div>
+      </div>
+      <div class="proc-card outline">
+        <div><span class="proc-step-tag">Шаг 02</span><h3>Аудит текущего состояния</h3><p>Смотрю профиль на Авито, сайт и рекламу. Показываю, что мешает получать заявки.</p></div>
+      </div>
+      <div class="proc-card outline">
+        <div><span class="proc-step-tag">Шаг 03</span><h3>Предложение по формату</h3><p>Базовый, ПРО или Премиум — под задачу, а не по шаблону.</p></div>
+      </div>
+      <div class="proc-card filled">
+        <div><span class="proc-step-tag">Шаг 04</span><h3>Запуск и настройка</h3><p>Беру выбранные направления на себя — от карточки до кода сайта.</p></div>
+      </div>
+      <div class="proc-card outline" style="grid-column:1/-1;">
+        <div><span class="proc-step-tag">Далее</span><h3>Регулярная отчётность</h3><p>Показываю, что сработало, а что нет, и корректирую стратегию по ходу совместной работы.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="experience wrap-section">
+  <div class="wrap">
+    <h2>Наш опыт</h2>
+    <div class="exp-grid">
+      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Гостеприимство</div><h3>«Романтик» — эко-база отдыха</h3><p>PWA-приложение с онлайн-бронированием, продвижение на Авито, ведение рекламы.</p></div>
+      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Недвижимость</div><h3>Центр выкупа недвижимости</h3><p>Лидогенерация через Яндекс Директ, текущее сопровождение кампаний.</p></div>
+      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Платформы</div><h3>СЕРВО — совместные закупки</h3><p>Разработка продукта с нуля: от архитектуры до интерфейса.</p></div>
+      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>B2B</div><h3>Транспортные технологии</h3><p>Сайт и настройка рекламных каналов для транспортной компании.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why wrap-section">
+  <div class="wrap">
+    <div class="why-head">
+      <h2>Наша задача — <span style="color:var(--ember);">заявки</span>, а не просмотры</h2>
+      <div class="task"><span class="pill">показы и просмотры</span> → <span class="pill">клиенты и продажи</span></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="num">01</div><h3>Аудит перед стартом</h3><p>Смотрю текущее состояние, чтобы работать по факту, а не запускать вслепую.</p></div>
+      <div class="why-card"><div class="num">02</div><h3>Прозрачная отчётность</h3><p>Вы видите, что происходит с проектом, без размытых формулировок.</p></div>
+      <div class="why-card"><div class="num">03</div><h3>Работаю лично</h3><p>Проект ведёт один человек от начала до конца — без передачи менеджерам.</p></div>
+      <div class="why-card"><div class="num">04</div><h3>Регулярная связь</h3><p>Обсуждаем результаты и корректируем стратегию по ходу работы.</p></div>
+      <div class="why-card"><div class="num">05</div><h3>Визуал под заявки</h3><p>Изображения и тексты, ориентированные на поведение клиентов, а не на эстетику ради эстетики.</p></div>
+      <div class="why-card"><div class="num">06</div><h3>Контроль результата</h3><p>Ориентируюсь на реальные заявки и рост бизнеса, а не на цифры в кабинете.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder wrap-section">
+  <div class="wrap founder-grid">
+    <div class="founder-photo">ДШ</div>
+    <div>
+      <div class="eyebrow" style="text-align:left;">обо мне</div>
+      <h2>Дэвид Шатон — маркетолог и разработчик</h2>
+      <p><b style="color:var(--text);">Моя задача — сделать ваш маркетинг устойчивым каналом роста</b>, а не набором разрозненных подрядчиков. 9+ лет в диджитале, специализация — алгоритм ранжирования Ranker 3 на Авито: понимаю, почему одни объявления получают заявки, а другие нет. Помимо Авито — сайты и приложения, Яндекс Директ, SEO и SMM. Веду всё лично, без передачи менеджерам.</p>
+      <div class="founder-stats">
+        <div><b>9+ лет</b><span>в диджитал-маркетинге</span></div>
+        <div><b>Ranker 3</b><span>специализация на Авито</span></div>
+        <div><b>5</b><span>направлений одновременно</span></div>
+        <div><b>100%</b><span>личное ведение проекта</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi wrap-section">
+  <div class="wrap">
+    <h2>Отзывы клиентов</h2>
+    <div class="testi-track">
+      <div class="testi-card"><div class="stars">★★★★★</div><h4>[Имя клиента]</h4><div class="role">[компания]</div><p>«[Здесь появится реальная цитата клиента о совместной работе]»</p></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><h4>[Имя клиента]</h4><div class="role">[компания]</div><p>«[Отзыв появится после первых завершённых проектов — не заполняю вымышленными именами]»</p></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><h4>[Имя клиента]</h4><div class="role">[компания]</div><p>«[Место под ваш будущий отзыв]»</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="cases wrap-section">
+  <div class="wrap">
+    <h2>Результаты работы</h2>
+    <div class="case-grid">
+      <div class="case-card c1"><span class="tag">Ведение под ключ</span><h3>«Романтик» — эко-база</h3><p>PWA-бронирование + продвижение на Авито</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
+      <div class="case-card c2"><span class="tag">Ведение под ключ</span><h3>Центр выкупа недвижимости</h3><p>Лидогенерация через Яндекс Директ</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
+      <div class="case-card c3"><span class="tag">Разработка</span><h3>СЕРВО</h3><p>Платформа совместных закупок с нуля</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
+      <div class="case-card c4"><span class="tag">Локальный бизнес</span><h3>Ремонт стиральных машин, Краснодар</h3><p>Продвижение через Авито и Директ</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
+      <div class="case-card c5"><span class="tag">B2B</span><h3>Транспортные технологии</h3><p>Сайт + настройка рекламных каналов</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust wrap-section">
+  <div class="wrap trust-grid">
+    <div>
+      <div class="eyebrow" style="text-align:left;">почему мне доверяют</div>
+      <h2>Работаю <span class="accent">открыто</span>, без обещаний вслепую</h2>
+      <p class="lede">Слежу за обновлениями алгоритма Ranker 3 и тестирую новые возможности площадки на своих проектах, прежде чем предлагать их клиентам.</p>
+      <div class="trust-list">
+        <span>по договору</span>
+        <span>с прозрачной отчётностью</span>
+        <span>с регулярными созвонами</span>
+        <span>с контролем результата</span>
+      </div>
+    </div>
+    <div class="trust-video">
+      <div class="play-btn">▶</div>
+      <div class="lbl">Как проходит аудит — 2 мин</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="pricing wrap-section">
+  <div class="wrap">
+    <h2>Услуги</h2>
+    <div class="plans">
+      <div class="plan">
+        <h3>Базовый</h3>
+        <p class="desc">Разовая настройка одного канала под конкретную проблему</p>
+        <div class="price">от [цена] ₽</div>
+        <ul><li>Анализ ниши и спроса</li><li>Точечная настройка канала</li><li>Рекомендации по дальнейшим шагам</li></ul>
+        <a href="#audit" class="btn btn-outline-ember">Начать работу</a>
+      </div>
+      <div class="plan flag">
+        <h3>ПРО</h3>
+        <p class="desc">Глубокая разовая настройка нескольких направлений сразу</p>
+        <div class="price">от [цена] ₽</div>
+        <ul><li>Например: Авито + сайт</li><li>Или Директ + SEO</li><li>Единая стратегия вместо разрозненных правок</li></ul>
+        <a href="#audit" class="btn btn-primary">Начать работу</a>
+      </div>
+      <div class="plan">
+        <h3>Премиум</h3>
+        <p class="desc">Постоянное ежемесячное сопровождение всех направлений</p>
+        <div class="price">от [цена] ₽<span style="font-size:13px;color:var(--text-dim);"> /мес</span></div>
+        <ul><li>Веду все направления сразу</li><li>Регулярная отчётность</li><li>Корректировка стратегии по ходу</li></ul>
+        <a href="#audit" class="btn btn-outline-ember">Начать работу</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GIFT + QUIZ -->
+<section id="audit" class="wrap-section">
+  <div class="wrap">
+    <div class="gift">
+      <svg class="confetti" width="30" height="30" style="top:10%;right:20%;background:#fff;"></svg>
+      <svg class="confetti" width="18" height="18" style="bottom:15%;right:35%;background:#fff;"></svg>
+      <svg class="confetti" width="14" height="14" style="top:30%;right:10%;background:#fff;"></svg>
+      <div>
+        <h3>Ответьте на 3 вопроса — запишу видео-разбор вашей ниши</h3>
+        <p>Займёт меньше минуты. Разбор пришлю в директ в течение суток.</p>
+      </div>
+      <a href="#quiz" class="btn btn-primary">Получить разбор</a>
+    </div>
+
+    <div class="quiz" id="quiz">
+      <div class="quiz-progress"><i data-bar="0" class="done"></i><i data-bar="1"></i><i data-bar="2"></i></div>
+
+      <div class="q-step active" data-step="0">
+        <h3>1. В какой сфере работаете?</h3>
+        <button class="opt" type="button">Жильё / аренда</button>
+        <button class="opt" type="button">Недвижимость</button>
+        <button class="opt" type="button">Услуги</button>
+        <button class="opt" type="button">Товары</button>
+        <button class="opt" type="button">B2B</button>
+        <div class="q-nav"><span></span><button class="btn btn-primary next" type="button" disabled>Далее</button></div>
+      </div>
+
+      <div class="q-step" data-step="1">
+        <h3>2. Что сейчас с Авито / рекламой?</h3>
+        <button class="opt" type="button">Есть профиль или кампания</button>
+        <button class="opt" type="button">Начинаю с нуля</button>
+        <div class="q-nav"><button class="btn btn-ghost back" type="button">Назад</button><button class="btn btn-primary next" type="button" disabled>Далее</button></div>
+      </div>
+
+      <div class="q-step" data-step="2">
+        <h3>3. Что важнее сейчас?</h3>
+        <button class="opt" type="button">Больше заявок</button>
+        <button class="opt" type="button">Стабильность</button>
+        <button class="opt" type="button">Разбор, почему не работает</button>
+        <div class="q-nav"><button class="btn btn-ghost back" type="button">Назад</button><button class="btn btn-primary finish" type="button" disabled>Готово</button></div>
+      </div>
+
+      <div class="q-result">
+        <h3>Готово.</h3>
+        <p>Разбор пришлю в директ в течение суток. Напишите кодовое слово «АУДИТ» — и приложите ответы выше, если удобно списком.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq wrap-section">
+  <div class="wrap">
+    <h2>Часто задаваемые вопросы</h2>
+    <div class="faq-list">
+      <details open><summary>Чем ты отличаешься от агентства?</summary><p>Один человек ведёт всё направление, без потери контекста между отделами.</p></details>
+      <details><summary>Как быстро будет результат?</summary><p>После аудита понятно, что мешает — сроки индивидуальны под нишу.</p></details>
+      <details><summary>С какими нишами работаешь?</summary><p>Гостеприимство, недвижимость, e-commerce, B2B, локальный бизнес.</p></details>
+      <details><summary>Что входит в бесплатный аудит?</summary><p>Разбор карточек или кампании, слабых мест воронки, конкретные рекомендации.</p></details>
+      <details><summary>Работаешь по договору?</summary><p>[впишите свой реальный формат сотрудничества]</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta wrap-section">
+  <div class="wrap final-grid">
+    <div>
+      <div class="eyebrow" style="text-align:left;">бесплатный аудит</div>
+      <h2>Получите разбор <span class="accent">вашего проекта</span> на Авито</h2>
+      <ul class="final-list">
+        <li>Слабые места воронки заявок</li>
+        <li>Что именно мешает получать заявки</li>
+        <li>Рекомендации по следующему шагу</li>
+      </ul>
+    </div>
+    <form class="cta-form" onsubmit="event.preventDefault();">
+      <div class="phone-input"><span>+7</span><input id="phone" type="tel" placeholder="000 000 00 00" aria-label="Телефон"></div>
+      <label class="consent"><input type="checkbox" id="consent1" required> Даю согласие на обработку персональных данных</label>
+      <button class="btn btn-primary" type="submit">Старт <span aria-hidden="true">→</span></button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="brand" style="color:#fff;"><span class="brand-mark">ДШ</span> Шатон</div>
+      <div class="footer-links">
+        <a href="#experience">Опыт</a><a href="#cases">Кейсы</a><a href="#pricing">Услуги</a><a href="#faq">Вопросы</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>[+7 000 000 00 00]</span>
+      <span>Точка входа: кодовое слово «АУДИТ» в директ</span>
+    </div>
+    <p class="disclaimer">Информация на сайте не является публичной офертой. © Дэвид Шатон — маркетинг и разработка.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.q-step'));
+  var bars = Array.prototype.slice.call(document.querySelectorAll('.quiz-progress i'));
+  var result = document.querySelector('.q-result');
+  var current = 0;
+
+  function showStep(i){
+    steps.forEach(function(s,idx){ s.classList.toggle('active', idx===i); });
+    bars.forEach(function(b,idx){ b.classList.toggle('done', idx<=i); });
+    result.classList.remove('active');
+  }
+
+  steps.forEach(function(step, idx){
+    var opts = step.querySelectorAll('.opt');
+    var nextBtn = step.querySelector('.next, .finish');
+    var backBtn = step.querySelector('.back');
+
+    opts.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        opts.forEach(function(o){ o.classList.remove('selected'); });
+        opt.classList.add('selected');
+        if(nextBtn) nextBtn.disabled = false;
+      });
+    });
+
+    if(backBtn){ backBtn.addEventListener('click', function(){ current = idx - 1; showStep(current); }); }
+    if(nextBtn && nextBtn.classList.contains('next')){
+      nextBtn.addEventListener('click', function(){ current = idx + 1; showStep(current); });
+    }
+    if(nextBtn && nextBtn.classList.contains('finish')){
+      nextBtn.addEventListener('click', function(){
+        steps.forEach(function(s){ s.classList.remove('active'); });
+        result.classList.add('active');
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>
