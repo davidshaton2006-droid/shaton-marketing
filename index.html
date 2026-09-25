@@ -601,6 +601,26 @@
   .mp span{font-family:'Oswald',sans-serif;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:#ffe36a;}
   @keyframes mp{from{transform:scale(.8);opacity:0;}to{transform:none;opacity:1;}}
   @media (prefers-reduced-motion: reduce){ .mp{animation:none;} }
+
+  /* ===== HERO: real vs comic slider ===== */
+  .cmp{cursor:ew-resize;touch-action:pan-y;-webkit-user-select:none;user-select:none;--p:50%;}
+  .cmp .hero-photo{pointer-events:none;-webkit-user-drag:none;}
+  .cmp-real{clip-path:inset(0 calc(100% - var(--p)) 0 0);}
+  .cmp-toon{clip-path:inset(0 0 0 var(--p));}
+  .cmp-handle{position:absolute;top:0;bottom:0;left:var(--p);width:48px;margin-left:-24px;z-index:5;display:flex;align-items:center;justify-content:center;outline:none;cursor:grab;}
+  .cmp.drag,.cmp.drag .cmp-handle{cursor:grabbing;}
+  .cmp-line{position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:linear-gradient(#fff,#ffe36a);
+    box-shadow:0 0 0 1px rgba(255,46,147,.65),0 0 18px 3px rgba(255,46,147,.85),0 0 34px 6px rgba(255,154,31,.5);}
+  .cmp-knob{position:relative;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#ff9a1f,#ff2e93);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;letter-spacing:-1px;
+    box-shadow:0 0 0 3px #fff,0 8px 24px rgba(0,0,0,.5),0 0 26px rgba(255,46,147,.85);}
+  .cmp:not(.touched) .cmp-knob{animation:knobpulse 2s ease-in-out infinite;}
+  @keyframes knobpulse{0%,100%{box-shadow:0 0 0 3px #fff,0 8px 24px rgba(0,0,0,.5),0 0 26px rgba(255,46,147,.85);}50%{box-shadow:0 0 0 3px #fff,0 0 0 12px rgba(255,255,255,.25),0 0 40px rgba(255,46,147,1);}}
+  .cmp-handle:focus-visible .cmp-knob{box-shadow:0 0 0 3px #fff,0 0 0 6px #00e5d0,0 0 26px rgba(0,229,208,.8);}
+  .cmp-lab,.cmp-hint{position:absolute;z-index:4;font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(8,5,15,.72);border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:99px;pointer-events:none;transition:opacity .3s;}
+  .cmp-lab{bottom:16px;} .cmp-l{left:16px;} .cmp-r{right:16px;}
+  .cmp-hint{top:16px;left:50%;transform:translateX(-50%);white-space:nowrap;}
+  .cmp.touched .cmp-hint{opacity:0;}
+  @media (prefers-reduced-motion: reduce){ .cmp:not(.touched) .cmp-knob{animation:none;} }
 </style>
 </head>
 <body>
@@ -641,8 +661,14 @@
       </div>
       <div class="hero-video"><span class="dot">▶</span> Посмотреть, как проходит аудит</div>
     </div>
-    <div class="hero-photo-wrap">
-      <img class="hero-photo" src="portrait.webp" alt="Дэвид Шатон" width="760" height="950" fetchpriority="high">
+    <div class="hero-photo-wrap cmp" id="cmp">
+      <img class="hero-photo cmp-real" src="portrait.webp" alt="Дэвид Шатон" width="760" height="950" fetchpriority="high" draggable="false">
+      <img class="hero-photo cmp-toon" src="portrait-toon.webp" alt="Дэвид Шатон в стиле комикса" width="760" height="950" draggable="false">
+      <span class="cmp-hint">← тяни →</span>
+      <span class="cmp-lab cmp-l">Я в жизни</span><span class="cmp-lab cmp-r">Я в GTA</span>
+      <div class="cmp-handle" role="slider" tabindex="0" aria-label="Сравнение: я в жизни и в стиле комикса" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <span class="cmp-line"></span><span class="cmp-knob">◀▶</span>
+      </div>
     </div>
   </div>
   <div class="wrap">
@@ -1505,6 +1531,57 @@
     });
     status.appendChild(copy);
   });
+})();
+</script>
+<script>
+(function(){
+  var box = document.getElementById('cmp'); if (!box || !window.gsap) return;
+  var handle = box.querySelector('.cmp-handle'), labL = box.querySelector('.cmp-l'), labR = box.querySelector('.cmp-r');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var st = { p: 50 }, auto = null, idleT = null, side = 1;
+
+  function apply(){
+    var p = Math.max(0, Math.min(100, st.p));
+    box.style.setProperty('--p', p + '%');
+    handle.setAttribute('aria-valuenow', Math.round(p));
+    labL.style.opacity = p > 24 ? 1 : 0; labR.style.opacity = p < 76 ? 1 : 0;
+  }
+  function stopAuto(){ if (auto) { auto.kill(); auto = null; } gsap.killTweensOf(st); clearTimeout(idleT); }
+  function hold(){ auto = gsap.delayedCall(5 + Math.random() * 2, sweep); }
+  function sweep(){
+    var target = side > 0 ? 90 : 10; side = -side;
+    auto = gsap.to(st, { p: target, duration: 1.7, ease: 'power3.inOut', onUpdate: apply, onComplete: hold });
+  }
+  function startAuto(){ if (reduce) return; stopAuto(); hold(); }
+  function touch(){ box.classList.add('touched'); }
+
+  function pos(e){ var r = box.getBoundingClientRect(); return Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)); }
+  box.addEventListener('pointerdown', function(e){
+    if (e.button > 0) return;
+    stopAuto(); touch(); box.classList.add('drag');
+    try { box.setPointerCapture(e.pointerId); } catch (err) {}
+    var onHandle = handle.contains(e.target);
+    if (onHandle) { st.p = pos(e); apply(); }
+    else gsap.to(st, { p: pos(e), duration: 0.3, ease: 'power2.out', onUpdate: apply });
+  });
+  box.addEventListener('pointermove', function(e){
+    if (!box.classList.contains('drag')) return;
+    gsap.killTweensOf(st); st.p = pos(e); apply();
+  });
+  function end(){
+    if (!box.classList.contains('drag')) return;
+    box.classList.remove('drag'); idleT = setTimeout(startAuto, 9000);
+  }
+  box.addEventListener('pointerup', end); box.addEventListener('pointercancel', end);
+  box.addEventListener('lostpointercapture', end);
+
+  handle.addEventListener('keydown', function(e){
+    var d = { ArrowLeft: -5, ArrowRight: 5 }[e.key];
+    if (e.key === 'Home') st.p = 0; else if (e.key === 'End') st.p = 100; else if (d) st.p += d; else return;
+    e.preventDefault(); stopAuto(); touch(); apply(); idleT = setTimeout(startAuto, 9000);
+  });
+
+  apply(); startAuto();
 })();
 </script>
 <script>
