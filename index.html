@@ -45,9 +45,11 @@
   .wrap-section{padding-block:80px;}
   @media (max-width:640px){ .wrap-section{padding-block:52px;} }
 
-  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;padding:14px 26px;border-radius:500px;border:1px solid transparent;cursor:pointer;transition:transform .18s ease;white-space:nowrap;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;padding:14px 26px;border-radius:500px;border:1px solid transparent;cursor:pointer;white-space:nowrap;will-change:transform;}
   .btn:focus-visible{outline:2px solid var(--ember);outline-offset:3px;}
-  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{position:relative;overflow:hidden;}
+  .btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);transform:translateX(-130%);pointer-events:none;}
+  .btn-primary:hover::after{transform:translateX(130%);transition:transform .8s ease;}
   .btn-primary{background:linear-gradient(85deg,var(--ember-2) 0%,var(--ember) 100%);color:#fff;box-shadow:0 10px 24px -10px rgba(239,86,3,.6);}
   .btn-ghost-dark{background:transparent;border-color:rgba(255,255,255,.22);color:#fff;}
   .btn-ghost-dark:hover{border-color:var(--ember);}
@@ -298,6 +300,80 @@
   .footer-links{display:flex;gap:22px;flex-wrap:wrap;}
   .footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
   .disclaimer{font-size:11.5px;color:#655f53;margin-top:20px;line-height:1.6;max-width:900px;}
+
+  /* ===== SCROLL PROGRESS ===== */
+  .scroll-progress{position:fixed;left:0;top:0;height:3px;width:100%;background:linear-gradient(90deg,var(--ember-2),var(--ember));transform:scaleX(0);transform-origin:0 50%;z-index:60;pointer-events:none;}
+
+  /* ===== CHAPTERS: sticky visual + content ===== */
+  .chapter{background:var(--paper);}
+  .chapter-inner{max-width:1280px;margin-inline:auto;padding-inline:24px;display:grid;grid-template-columns:360px minmax(0,1fr);gap:28px;align-items:start;}
+  .chapter-phone .chapter-inner{grid-template-columns:minmax(0,1fr) 360px;}
+  .chapter-phone .stick{order:2;}
+  .chapter-body{padding-block:16px 0;min-width:0;}
+  .chapter-body > section{border-radius:24px;overflow:hidden;margin-bottom:16px;border:1px solid var(--line);}
+  .chapter-body .wrap{padding-inline:28px;}
+  .chapter-body .sit-grid,.chapter-body .fit-grid,.chapter-body .exp-grid,.chapter-body .why-grid,.chapter-body .case-grid{grid-template-columns:1fr 1fr;}
+  .chapter-body .sit:nth-child(2n){border-right:none;}
+  .chapter-body .sit{border-bottom:1px solid rgba(255,255,255,.12);}
+  .chapter-body .plan{padding:24px 18px;}
+  .chapter-body .trust-grid,.chapter-body .founder-grid{gap:28px;}
+  .chapter-body .founder-grid{grid-template-columns:150px 1fr;}
+  @media (max-width:1100px){ .chapter-body .founder-grid,.chapter-body .trust-grid{grid-template-columns:1fr;} .chapter-body .plans{grid-template-columns:1fr;} }
+  @media (max-width:960px){
+    .chapter-inner,.chapter-phone .chapter-inner{grid-template-columns:minmax(0,1fr);padding-inline:0;}
+    .stick{display:none;}
+    .chapter-body > section{border-radius:0;margin-bottom:0;border-left:none;border-right:none;}
+  }
+
+  .stick{position:sticky;top:calc(84px + env(safe-area-inset-top,0px));height:calc(100vh - 108px);max-height:720px;min-height:540px;margin-top:16px;}
+  .panel{position:relative;height:100%;background:var(--ink);border-radius:28px;color:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:22px 20px 20px;}
+  .panel::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 45% at 50% 30%,rgba(239,86,3,.26),transparent 70%);pointer-events:none;}
+  .panel > *{position:relative;}
+  .panel-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember-2);align-self:flex-start;}
+  .orbit{width:100%;max-width:330px;flex:none;margin-top:6px;overflow:visible;}
+  .oc{text-align:center;margin-top:auto;min-height:92px;}
+  .oc h4{font-family:'Montserrat';font-weight:800;font-size:19px;margin:0 0 6px;}
+  .oc p{margin:0;font-size:13px;line-height:1.5;color:var(--on-dark-dim);max-width:30ch;margin-inline:auto;}
+  .dots{display:flex;gap:6px;margin-top:14px;}
+  .dots i{width:6px;height:6px;border-radius:6px;background:rgba(255,255,255,.22);transition:width .35s ease,background .35s ease;}
+  .dots i.on{width:22px;background:var(--ember);}
+
+  .phone-wrap{margin-top:12px;position:relative;width:232px;flex:none;}
+  .phone-scale{position:relative;width:232px;transform:scale(var(--k,1));transform-origin:top center;}
+  .phone{position:relative;width:232px;height:470px;border-radius:38px;background:#f5f5f3;border:8px solid #34322e;box-shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08);overflow:hidden;color:var(--ink);}
+  .notch{position:absolute;top:8px;left:50%;width:70px;height:18px;margin-left:-35px;background:#34322e;border-radius:12px;z-index:3;}
+  .scr{position:absolute;inset:0;padding:40px 14px 14px;opacity:0;visibility:hidden;display:flex;flex-direction:column;gap:9px;font-size:11px;}
+  .scr.first{opacity:1;visibility:inherit;}
+  .scr h5{margin:0;font-family:'Montserrat';font-weight:800;font-size:13px;}
+  .avatar-s{width:64px;height:64px;border-radius:50%;background:linear-gradient(150deg,var(--coral),var(--ember));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Montserrat';font-weight:800;font-size:20px;margin:6px auto 0;}
+  .sname{text-align:center;font-family:'Montserrat';font-weight:800;font-size:14px;}
+  .ssub{text-align:center;color:#6b665c;margin-top:-5px;}
+  .tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;}
+  .tags i{font-style:normal;background:#fff;border:1px solid #e6e1d6;border-radius:99px;padding:4px 9px;font-weight:700;font-size:10px;}
+  .sbtn{margin-top:auto;background:linear-gradient(85deg,#ff7d01,#ef5603);color:#fff;text-align:center;padding:11px;border-radius:99px;font-weight:700;}
+  .rev{background:#fff;border:1px solid #e6e1d6;border-radius:12px;padding:10px;}
+  .rev b{color:#ef5603;font-size:10px;letter-spacing:2px;display:block;margin-bottom:6px;}
+  .rev u{display:block;height:5px;border-radius:4px;background:#e9e4d9;margin-top:5px;text-decoration:none;}
+  .rev u:nth-child(3){width:70%;}
+  .bars{display:flex;align-items:flex-end;gap:6px;height:140px;background:#fff;border:1px solid #e6e1d6;border-radius:12px;padding:12px;}
+  .bars i{flex:1;background:linear-gradient(180deg,#ff7d01,#ef5603);border-radius:5px 5px 0 0;transform-origin:50% 100%;}
+  .metric{display:flex;justify-content:space-between;background:#fff;border:1px solid #e6e1d6;border-radius:10px;padding:9px 10px;font-weight:700;}
+  .metric span{color:#ef5603;font-family:'Space Mono';}
+  .chart{background:#fff;border:1px solid #e6e1d6;border-radius:12px;padding:8px;}
+  .plan-s{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid #e6e1d6;border-radius:12px;padding:14px 12px;font-weight:800;font-family:'Montserrat';font-size:12px;}
+  .plan-s.hi{background:#1c1c1c;color:#fff;border-color:#1c1c1c;}
+  .plan-s small{font-family:'Space Mono';font-weight:400;color:#ef5603;font-size:10px;}
+  .bub{max-width:82%;padding:9px 12px;border-radius:14px;line-height:1.4;}
+  .bub.u{align-self:flex-end;background:linear-gradient(85deg,#ff7d01,#ef5603);color:#fff;border-bottom-right-radius:4px;font-weight:700;}
+  .bub.b{align-self:flex-start;background:#fff;border:1px solid #e6e1d6;border-bottom-left-radius:4px;}
+  .typing{display:flex;gap:4px;align-self:flex-start;background:#fff;border:1px solid #e6e1d6;border-radius:14px;padding:10px 12px;}
+  .typing i{width:5px;height:5px;border-radius:50%;background:#ef5603;animation:blink 1.2s infinite ease-in-out;}
+  .typing i:nth-child(2){animation-delay:.15s;} .typing i:nth-child(3){animation-delay:.3s;}
+  @keyframes blink{0%,80%,100%{opacity:.25;transform:translateY(0);}40%{opacity:1;transform:translateY(-3px);}}
+  @media (prefers-reduced-motion: reduce){ .typing i{animation:none;opacity:.7;} }
+  .chip{position:absolute;z-index:4;background:rgba(28,28,28,.82);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:11.5px;font-weight:700;padding:8px 12px;border-radius:12px;max-width:140px;line-height:1.3;box-shadow:0 12px 26px -10px rgba(0,0,0,.6);}
+  .chip::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ember);margin-right:7px;vertical-align:1px;}
+  .chip-a{left:-46px;top:70px;} .chip-b{right:-46px;bottom:90px;}
 </style>
 </head>
 <body>
@@ -350,8 +426,30 @@
   </div>
 </section>
 
+<div class="chapter chapter-orbit">
+<div class="chapter-inner">
+<aside class="stick stick-orbit" aria-hidden="true">
+  <div class="panel">
+    <div class="panel-label">5 направлений · 1 человек</div>
+    <svg class="orbit" viewBox="-180 -180 360 360">
+      <defs><linearGradient id="gEmber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7d01"/><stop offset="1" stop-color="#ef5603"/></linearGradient></defs>
+      <circle r="120" fill="none" stroke="rgba(255,255,255,.14)" stroke-dasharray="3 7"/>
+      <circle r="70" fill="none" stroke="rgba(255,255,255,.08)"/>
+      <circle class="prog" r="165" fill="none" stroke="#ef5603" stroke-width="2" stroke-linecap="round" transform="rotate(-90)"/>
+      <g class="particles"></g>
+      <g class="spin"></g>
+      <circle class="pulse" r="44" fill="none" stroke="#ff7d01" stroke-width="1.5"/>
+      <circle r="44" fill="url(#gEmber)"/>
+      <text y="6" text-anchor="middle" fill="#fff" font-family="Montserrat" font-weight="800" font-size="18">ДШ</text>
+    </svg>
+    <div class="oc"><h4 class="oc-t">Один человек</h4><p class="oc-p">Все пять направлений — в одной голове, без потери контекста</p></div>
+    <div class="dots" data-dots="6"></div>
+  </div>
+</aside>
+<div class="chapter-body">
+
 <!-- SITUATIONS -->
-<section class="situations">
+<section class="situations" data-node="0">
   <div class="wrap">
     <h2>Ситуации, в которых я <span style="color:var(--ember-2);">незаменим</span></h2>
     <div class="sit-grid">
@@ -364,7 +462,7 @@
 </section>
 
 <!-- FIT -->
-<section class="fit wrap-section">
+<section class="fit wrap-section" data-node="1">
   <div class="wrap">
     <h2>Кому подойдёт</h2>
     <div class="fit-grid">
@@ -377,7 +475,7 @@
 </section>
 
 <!-- QUOTE -->
-<section class="quote-band">
+<section class="quote-band" data-node="all">
   <div class="wrap quote-wrap">
     <div class="quote-photo">ДШ</div>
     <div class="quote-card">
@@ -389,7 +487,7 @@
 </section>
 
 <!-- PROCESS -->
-<section class="process-sec wrap-section">
+<section class="process-sec wrap-section" data-node="2">
   <div class="wrap">
     <h2>Как строится <span class="accent">работа</span></h2>
     <div class="proc-grid">
@@ -413,7 +511,7 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience" class="experience wrap-section">
+<section id="experience" class="experience wrap-section" data-node="3">
   <div class="wrap">
     <h2>Наш опыт</h2>
     <div class="exp-grid">
@@ -426,7 +524,7 @@
 </section>
 
 <!-- WHY -->
-<section class="why wrap-section">
+<section class="why wrap-section" data-node="4">
   <div class="wrap">
     <div class="why-head">
       <h2>Наша задача — <span style="color:var(--ember);">заявки</span>, а не просмотры</h2>
@@ -443,8 +541,74 @@
   </div>
 </section>
 
+</div></div></div>
+<div class="chapter chapter-phone">
+<div class="chapter-inner">
+<aside class="stick stick-phone" aria-hidden="true">
+  <div class="panel">
+    <div class="panel-label">Как это выглядит на практике</div>
+    <div class="phone-wrap">
+      <div class="phone-scale">
+        <div class="phone-float"><div class="phone">
+          <div class="notch"></div>
+
+          <div class="scr first">
+            <div class="stg avatar-s">ДШ</div>
+            <div class="stg sname">Дэвид Шатон</div>
+            <div class="stg ssub">маркетолог и разработчик</div>
+            <div class="stg tags"><i>Авито</i><i>Директ</i><i>Сайт</i><i>SEO</i><i>SMM</i></div>
+            <div class="stg sbtn">Написать «АУДИТ»</div>
+          </div>
+
+          <div class="scr">
+            <h5 class="stg">Отзывы клиентов</h5>
+            <div class="stg rev"><b>★★★★★</b><u></u><u></u><u></u></div>
+            <div class="stg rev"><b>★★★★★</b><u></u><u></u><u></u></div>
+            <div class="stg rev"><b>★★★★★</b><u></u><u></u><u></u></div>
+          </div>
+
+          <div class="scr">
+            <h5 class="stg">Кейс</h5>
+            <div class="stg bars"><i style="height:22%"></i><i style="height:38%"></i><i style="height:34%"></i><i style="height:58%"></i><i style="height:74%"></i><i style="height:92%"></i></div>
+            <div class="stg metric">Результат <span>[цифры]</span></div>
+            <div class="stg metric">Период <span>[срок]</span></div>
+          </div>
+
+          <div class="scr">
+            <h5 class="stg">Отчёт за месяц</h5>
+            <div class="stg chart"><svg viewBox="0 0 200 90" width="100%"><path d="M4 76 C30 70 40 50 66 54 S110 30 134 34 S176 12 196 8" fill="none" stroke="#ef5603" stroke-width="3" stroke-linecap="round" class="line"/></svg></div>
+            <div class="stg metric">Заявки <span>[ ]</span></div>
+            <div class="stg metric">Стоимость заявки <span>[ ]</span></div>
+            <div class="stg metric">Конверсия <span>[ ]</span></div>
+          </div>
+
+          <div class="scr">
+            <h5 class="stg">Формат работы</h5>
+            <div class="stg plan-s">Базовый <small>разовая настройка</small></div>
+            <div class="stg plan-s hi">ПРО <small>несколько направлений</small></div>
+            <div class="stg plan-s">Премиум <small>сопровождение</small></div>
+          </div>
+
+          <div class="scr">
+            <h5 class="stg">Директ</h5>
+            <div class="stg bub u">АУДИТ</div>
+            <div class="stg bub b">Принял. Смотрю профиль, сайт и рекламу.</div>
+            <div class="stg bub b">Разбор пришлю в течение суток.</div>
+            <div class="stg typing"><i></i><i></i><i></i></div>
+          </div>
+        </div></div>
+        <span class="chip chip-a">Работаю лично</span>
+        <span class="chip chip-b">Разбор за сутки</span>
+      </div>
+    </div>
+    <div class="oc"><h4 class="pc-t">Профиль</h4><p class="pc-p">Один человек ведёт проект лично</p></div>
+    <div class="dots" data-dots="6"></div>
+  </div>
+</aside>
+<div class="chapter-body">
+
 <!-- FOUNDER -->
-<section class="founder wrap-section">
+<section class="founder wrap-section" data-scr="0">
   <div class="wrap founder-grid">
     <div class="founder-photo">ДШ</div>
     <div>
@@ -462,7 +626,7 @@
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testi wrap-section">
+<section class="testi wrap-section" data-scr="1">
   <div class="wrap">
     <h2>Отзывы клиентов</h2>
     <div class="testi-track">
@@ -474,7 +638,7 @@
 </section>
 
 <!-- CASES -->
-<section id="cases" class="cases wrap-section">
+<section id="cases" class="cases wrap-section" data-scr="2">
   <div class="wrap">
     <h2>Результаты работы</h2>
     <div class="case-grid">
@@ -488,7 +652,7 @@
 </section>
 
 <!-- TRUST -->
-<section class="trust wrap-section">
+<section class="trust wrap-section" data-scr="3">
   <div class="wrap trust-grid">
     <div>
       <div class="eyebrow" style="text-align:left;">почему мне доверяют</div>
@@ -509,7 +673,7 @@
 </section>
 
 <!-- PRICING -->
-<section id="pricing" class="pricing wrap-section">
+<section id="pricing" class="pricing wrap-section" data-scr="4">
   <div class="wrap">
     <h2>Услуги</h2>
     <div class="plans">
@@ -539,7 +703,7 @@
 </section>
 
 <!-- GIFT + QUIZ -->
-<section id="audit" class="wrap-section">
+<section id="audit" class="wrap-section" data-scr="5">
   <div class="wrap">
     <div class="gift">
       <svg class="confetti" width="30" height="30" style="top:10%;right:20%;background:#fff;"></svg>
@@ -588,6 +752,7 @@
   </div>
 </section>
 
+</div></div></div>
 <!-- FAQ -->
 <section id="faq" class="faq wrap-section">
   <div class="wrap">
@@ -710,6 +875,225 @@
 
     return function(){ tl.kill(); };
   });
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var D = reduce ? 0 : 1;
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ---------- page scroll progress bar ---------- */
+  var bar = document.createElement('div'); bar.className = 'scroll-progress'; document.body.appendChild(bar);
+  gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
+
+  /* ---------- dots ---------- */
+  $$('.dots').forEach(function(d){ for (var i = 0; i < +d.dataset.dots; i++) d.appendChild(document.createElement('i')); });
+  function setDots(root, idx){ $$('.dots i', root).forEach(function(d, i){ d.classList.toggle('on', i === idx); }); }
+
+  /* ================= CHAPTER 1: ORBIT ================= */
+  var orbitPanel = $('.stick-orbit .panel');
+  if (orbitPanel) {
+    var NODES = [
+      { t: 'Авито',  d: 'Ranker 3, рейтинг профиля, воронка из директ-сообщений' },
+      { t: 'Директ', d: 'Кампании, семантика, ставки и связка с Метрикой' },
+      { t: 'Сайт',   d: 'От лендинга под рекламу до приложения с бронированием' },
+      { t: 'SEO',    d: 'Техбаза, структура и микроразметка — трафик без рекламы' },
+      { t: 'SMM',    d: 'Контент и Reels, которые приводят клиентов' }
+    ];
+    var ALL = { t: 'Один человек', d: 'Все пять направлений — в одной голове, без потери контекста' };
+    var NS = 'http://www.w3.org/2000/svg';
+    var mk = function(n, a, p){ var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+    var spin = $('.spin', orbitPanel), R = 120, nodes = [];
+    NODES.forEach(function(n, i){
+      var a = (-90 + i * 72) * Math.PI / 180, x = R * Math.cos(a), y = R * Math.sin(a), len = R;
+      var line = mk('line', { x1: 0, y1: 0, x2: x, y2: y, stroke: '#ef5603', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-dasharray': len, 'stroke-dashoffset': len }, spin);
+      var ni = mk('g', {}, spin);
+      var c = mk('circle', { cx: x, cy: y, r: 27, fill: '#2a2724', stroke: 'rgba(255,255,255,.18)' }, ni);
+      var tx = mk('text', { x: x, y: y, 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: '#fff', 'font-family': 'Montserrat', 'font-weight': 700, 'font-size': 9.5 }, ni);
+      tx.textContent = n.t;
+      nodes.push({ line: line, ni: ni, c: c, x: x, y: y, len: len });
+    });
+
+    var rotSt = { v: 0 };
+    var applyRot = function(){
+      spin.setAttribute('transform', 'rotate(' + rotSt.v + ')');
+      nodes.forEach(function(n){ n.ni.setAttribute('transform', 'rotate(' + (-rotSt.v) + ' ' + n.x + ' ' + n.y + ')'); });
+    };
+    var setRot = gsap.quickTo(rotSt, 'v', { duration: 0.9, ease: 'power3', onUpdate: applyRot });
+
+    var oT = $('.oc-t', orbitPanel), oP = $('.oc-p', orbitPanel), cur = null;
+    function setNode(v){
+      if (v === cur) return; cur = v;
+      var all = v === 'all', info = all ? ALL : NODES[v];
+      nodes.forEach(function(n, i){
+        var on = all || i === v;
+        gsap.to(n.c, { attr: { r: (on && !all) ? 33 : 27 }, fill: on ? '#ef5603' : '#2a2724', duration: 0.5 * D, ease: 'back.out(2)', overwrite: 'auto' });
+        gsap.to(n.ni, { opacity: on ? 1 : 0.4, duration: 0.4 * D, overwrite: 'auto' });
+        gsap.to(n.line, { strokeDashoffset: on ? 0 : n.len, duration: 0.7 * D, ease: 'power2.out', overwrite: 'auto' });
+      });
+      oT.textContent = info.t; oP.textContent = info.d;
+      gsap.fromTo([oT, oP], { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5 * D, stagger: 0.08 * D, ease: 'power3.out', overwrite: 'auto' });
+      setDots(orbitPanel, all ? 2 : [0, 1, 3, 4, 5][v]);
+    }
+    setNode('all'); setDots(orbitPanel, 0);
+
+    $$('.chapter-orbit [data-node]').forEach(function(sec){
+      var v = sec.dataset.node === 'all' ? 'all' : +sec.dataset.node;
+      ScrollTrigger.create({ trigger: sec, start: 'top 55%', end: 'bottom 55%', onToggle: function(s){ if (s.isActive) setNode(v); } });
+    });
+
+    var prog = $('.prog', orbitPanel), C = 2 * Math.PI * 165;
+    prog.setAttribute('stroke-dasharray', C); prog.setAttribute('stroke-dashoffset', C);
+    ScrollTrigger.create({ trigger: '.chapter-orbit', start: 'top bottom', end: 'bottom top', onUpdate: function(s){
+      setRot(s.progress * 160);
+      gsap.to(prog, { strokeDashoffset: C * (1 - s.progress), duration: 0.3, overwrite: true });
+    } });
+
+    if (!reduce) {
+      gsap.fromTo($('.pulse', orbitPanel), { attr: { r: 44 }, opacity: 0.8 }, { attr: { r: 84 }, opacity: 0, duration: 2.6, repeat: -1, ease: 'power1.out' });
+      var pg = $('.particles', orbitPanel);
+      for (var k = 0; k < 10; k++) {
+        var g = mk('g', {}, pg), r = 92 + Math.random() * 78, a2 = Math.random() * 6.28;
+        mk('circle', { cx: r * Math.cos(a2), cy: r * Math.sin(a2), r: 1.5 + Math.random() * 1.8, fill: k % 3 ? '#ff8562' : '#fff', opacity: 0.55 }, g);
+        gsap.to(g, { rotation: (Math.random() > 0.5 ? 360 : -360), svgOrigin: '0 0', duration: 24 + Math.random() * 40, repeat: -1, ease: 'none' });
+      }
+    }
+  }
+
+  /* ================= CHAPTER 2: PHONE ================= */
+  var phonePanel = $('.stick-phone .panel');
+  if (phonePanel) {
+    var SCR = [
+      { t: 'Профиль', d: 'Один человек ведёт проект лично', a: 'Работаю лично', b: 'Без менеджеров' },
+      { t: 'Отзывы', d: 'Только реальные отзывы клиентов', a: 'Без выдуманных имён', b: 'Реальные истории' },
+      { t: 'Кейс', d: 'Результат по каждому проекту', a: 'Цифры, не слова', b: 'Динамика по месяцам' },
+      { t: 'Отчёт', d: 'Прозрачная отчётность без воды', a: 'Заявки, а не просмотры', b: 'Понятные цифры' },
+      { t: 'Формат', d: 'Формат под задачу, не по шаблону', a: 'Базовый · ПРО · Премиум', b: 'Разово или на постоянку' },
+      { t: 'Директ', d: 'Пишете «АУДИТ» — разбор за сутки', a: 'Ответ в течение суток', b: 'Живой созвон или видео' }
+    ];
+    var scrs = $$('.scr', phonePanel), pcT = $('.pc-t', phonePanel), pcP = $('.pc-p', phonePanel);
+    var chipA = $('.chip-a', phonePanel), chipB = $('.chip-b', phonePanel), line = $('.line', phonePanel);
+    var pcur = 0;
+    if (line) { var ll = line.getTotalLength(); line.style.strokeDasharray = ll; }
+
+    function setScr(i){
+      if (i === pcur) return;
+      var prev = scrs[pcur], next = scrs[i]; pcur = i;
+      gsap.to(prev, { autoAlpha: 0, y: -18, duration: 0.35 * D, overwrite: true });
+      gsap.fromTo(next, { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.5 * D, ease: 'power3.out', overwrite: true });
+      gsap.fromTo($$('.stg', next), { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5 * D, stagger: 0.08 * D, delay: 0.12 * D, ease: 'power2.out', overwrite: true });
+      if (i === 2) gsap.fromTo($$('.bars i', next), { scaleY: 0 }, { scaleY: 1, duration: 0.7 * D, stagger: 0.07 * D, delay: 0.3 * D, ease: 'power3.out' });
+      if (i === 3 && line) gsap.fromTo(line, { strokeDashoffset: ll }, { strokeDashoffset: 0, duration: 1.1 * D, delay: 0.3 * D, ease: 'power2.inOut' });
+      pcT.textContent = SCR[i].t; pcP.textContent = SCR[i].d;
+      gsap.fromTo([pcT, pcP], { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5 * D, stagger: 0.08 * D, overwrite: 'auto' });
+      chipA.textContent = SCR[i].a; chipB.textContent = SCR[i].b;
+      gsap.fromTo(chipA, { autoAlpha: 0, x: -20, scale: 0.8 }, { autoAlpha: 1, x: 0, scale: 1, duration: 0.6 * D, delay: 0.2 * D, ease: 'back.out(2)', overwrite: 'auto' });
+      gsap.fromTo(chipB, { autoAlpha: 0, x: 20, scale: 0.8 }, { autoAlpha: 1, x: 0, scale: 1, duration: 0.6 * D, delay: 0.35 * D, ease: 'back.out(2)', overwrite: 'auto' });
+      setDots(phonePanel, i);
+    }
+    setDots(phonePanel, 0);
+
+    $$('.chapter-phone [data-scr]').forEach(function(sec){
+      ScrollTrigger.create({ trigger: sec, start: 'top 55%', end: 'bottom 55%', onToggle: function(s){ if (s.isActive) setScr(+sec.dataset.scr); } });
+    });
+
+    var fit = function(){
+      var k = Math.min(1, (phonePanel.clientHeight - 170) / 470);
+      var w = $('.phone-wrap', phonePanel); w.style.setProperty('--k', k); w.style.height = (470 * k) + 'px';
+      $('.phone-scale', phonePanel).style.setProperty('--k', k);
+    };
+    fit(); window.addEventListener('resize', fit);
+
+    gsap.set('.phone-float', { transformPerspective: 900 });
+    var tiltY = gsap.quickTo('.phone-float', 'rotationY', { duration: 0.8, ease: 'power3' });
+    var tiltX = gsap.quickTo('.phone-float', 'rotationX', { duration: 0.8, ease: 'power3' });
+    ScrollTrigger.create({ trigger: '.chapter-phone', start: 'top bottom', end: 'bottom top', onUpdate: function(s){
+      if (reduce) return;
+      tiltY(-14 + s.progress * 28); tiltX(Math.sin(s.progress * Math.PI * 2) * 4);
+    } });
+    if (!reduce) gsap.to('.phone-float', { y: -8, duration: 2.8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+  }
+
+  if (reduce) { document.fonts && document.fonts.ready.then(function(){ ScrollTrigger.refresh(); }); return; }
+
+  /* ================= GLOBAL: headings / text / cards / buttons ================= */
+  function splitWords(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(n){
+      if (n.nodeType === 3) {
+        var frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(function(part){
+          if (!part.trim()) { frag.appendChild(document.createTextNode(part)); return; }
+          var mask = document.createElement('span');
+          mask.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em;';
+          var w = document.createElement('span'); w.className = 'hw'; w.style.display = 'inline-block'; w.textContent = part;
+          mask.appendChild(w); frag.appendChild(mask);
+        });
+        node.replaceChild(frag, n);
+      } else if (n.nodeType === 1 && n.tagName !== 'BR') splitWords(n);
+    });
+  }
+
+  $$('section:not(.hero) h2, .quote-card p, .philosophy blockquote, .gift h3').forEach(function(h){
+    splitWords(h);
+    gsap.from($$('.hw', h), { yPercent: 115, rotation: 3, duration: 0.9, stagger: 0.05, ease: 'power3.out',
+      scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+  });
+
+  var CARDS = '.sit,.fit-card,.exp-card,.why-card,.proc-card,.case-card,.plan,.testi-card,.rev-none,.stat:not(.stat-row .stat),.founder-stats > div,.trust-list span';
+  var cards = $$(CARDS).filter(function(el){ return !el.closest('.hero,.phone'); });
+  var flagScale = function(t){ return t.classList.contains('flag') ? 1.02 : 1; };
+  cards.forEach(function(el){ gsap.set(el, { autoAlpha: 0, y: 44, scale: 0.95 * flagScale(el) }); });
+  ScrollTrigger.batch(cards, { start: 'top 90%', once: true, onEnter: function(b){
+    gsap.to(b, { autoAlpha: 1, y: 0, scale: function(i, t){ return flagScale(t); }, duration: 0.85, stagger: 0.09, ease: 'power3.out' });
+  } });
+
+  cards.forEach(function(el){
+    el.addEventListener('mouseenter', function(){ gsap.to(el, { y: -7, duration: 0.35, ease: 'power2.out', overwrite: 'auto' }); });
+    el.addEventListener('mouseleave', function(){ gsap.to(el, { y: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' }); });
+  });
+
+  var TEXTS = $$('.eyebrow, p, li, details, .task, .quiz, .founder-photo, .quote-photo, .trust-video, .gift')
+    .filter(function(el){ return !el.closest('.hero,.phone,.stick,.cta-form,.q-result,.oc,.chip') && !el.closest(CARDS) && !el.querySelector('.hw') && !el.closest('.quote-card,.philosophy') || el.matches('.gift,.quiz,.founder-photo,.quote-photo,.trust-video'); });
+  TEXTS = TEXTS.filter(function(el, i, arr){ return arr.indexOf(el) === i; });
+  TEXTS.forEach(function(el){ gsap.set(el, { autoAlpha: 0, y: 28 }); });
+  ScrollTrigger.batch(TEXTS, { start: 'top 92%', once: true, onEnter: function(b){
+    gsap.to(b, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.07, ease: 'power3.out' });
+  } });
+
+  var btns = $$('.btn').filter(function(el){ return !el.closest('.hero,.q-step,.q-result'); });
+  btns.forEach(function(el){ gsap.set(el, { autoAlpha: 0, scale: 0.85 }); });
+  ScrollTrigger.batch(btns, { start: 'top 94%', once: true, onEnter: function(b){
+    gsap.to(b, { autoAlpha: 1, scale: 1, duration: 0.7, stagger: 0.08, ease: 'back.out(1.8)' });
+  } });
+
+  /* magnetic buttons + press */
+  $$('.btn').forEach(function(b){
+    var qx = gsap.quickTo(b, 'x', { duration: 0.5, ease: 'power3' }), qy = gsap.quickTo(b, 'y', { duration: 0.5, ease: 'power3' });
+    var arrow = b.querySelector('[aria-hidden]');
+    b.addEventListener('mousemove', function(e){
+      var r = b.getBoundingClientRect();
+      qx((e.clientX - r.left - r.width / 2) * 0.28); qy((e.clientY - r.top - r.height / 2) * 0.4);
+    });
+    b.addEventListener('mouseenter', function(){ if (arrow) gsap.to(arrow, { x: 5, duration: 0.3, overwrite: 'auto' }); });
+    b.addEventListener('mouseleave', function(){ qx(0); qy(0); if (arrow) gsap.to(arrow, { x: 0, duration: 0.4, overwrite: 'auto' }); });
+    b.addEventListener('mousedown', function(){ gsap.to(b, { scale: 0.94, duration: 0.12, overwrite: 'auto' }); });
+    window.addEventListener('mouseup', function(){ gsap.to(b, { scale: 1, duration: 0.5, ease: 'elastic.out(1,.5)', overwrite: 'auto' }); });
+  });
+
+  /* section-specific flourishes */
+  if ($('.quote-card')) gsap.from('.quote-card', { clipPath: 'inset(0 100% 0 0 round 20px)', duration: 1.1, ease: 'power3.inOut', scrollTrigger: { trigger: '.quote-card', start: 'top 85%', once: true } });
+  if ($('.quote-photo')) gsap.fromTo('.quote-photo', { yPercent: 6 }, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: '.quote-band', scrub: true } });
+  $$('.gift .confetti').forEach(function(c, i){ gsap.to(c, { y: -14 - i * 4, x: (i % 2 ? 8 : -8), duration: 2 + i * 0.4, ease: 'sine.inOut', yoyo: true, repeat: -1 }); });
+  gsap.to('.plan.flag', { boxShadow: '0 22px 48px -14px rgba(239,86,3,.55)', duration: 1.8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+  $$('.play-btn').forEach(function(p){ gsap.to(p, { boxShadow: '0 0 0 22px rgba(239,86,3,0)', duration: 1.6, repeat: -1, ease: 'power1.out' }); });
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
 })();
 </script>
 <script>
