@@ -329,7 +329,7 @@
     <div>
       <div class="eyebrow" style="text-align:left;">маркетинг + разработка · один человек</div>
       <h1>Авито, Директ, сайт, SEO, SMM — <span class="accent">без пересадки</span> между подрядчиками</h1>
-      <p style="color:var(--on-dark-dim);font-size:16px;max-width:46ch;margin-top:18px;line-height:1.6;">Веду весь маркетинг вашего бизнеса лично, от карточки на Авито до кода сайта. Один человек вместо агентства из пяти.</p>
+      <p class="lede" style="color:var(--on-dark-dim);font-size:16px;max-width:46ch;margin-top:18px;line-height:1.6;">Веду весь маркетинг вашего бизнеса лично, от карточки на Авито до кода сайта. Один человек вместо агентства из пяти.</p>
       <div class="hero-cta-row">
         <a href="#audit" class="btn btn-primary">Старт <span aria-hidden="true">→</span></a>
         <div class="hero-tip">Точка входа — кодовое слово «АУДИТ» в директ</div>
@@ -638,6 +638,80 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function(){
+  if (!window.gsap) return;
+  var mm = gsap.matchMedia();
+
+  mm.add({ motion: "(prefers-reduced-motion: no-preference)" }, function(){
+    var h1 = document.querySelector('.hero h1');
+    // wrap each word in a masked span so lines rise up from below
+    (function splitWords(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function(part){
+            if (!part.trim()) { frag.appendChild(document.createTextNode(part)); return; }
+            var mask = document.createElement('span');
+            mask.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;';
+            var w = document.createElement('span');
+            w.className = 'hw';
+            w.style.display = 'inline-block';
+            w.textContent = part;
+            mask.appendChild(w);
+            frag.appendChild(mask);
+          });
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') {
+          splitWords(n);
+        }
+      });
+    })(h1);
+
+    var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    tl.from('.hero-arcs', { autoAlpha: 0, scale: .8, rotation: -25, duration: 1.6, ease: "power2.out" }, 0)
+      .from('.hero .eyebrow', { autoAlpha: 0, x: -20, duration: .6 }, .1)
+      .from('.hero h1 .hw', { yPercent: 110, rotation: 3, duration: .9, stagger: .07 }, .2)
+      .from('.hero .lede', { autoAlpha: 0, y: 20, duration: .7 }, "-=.5")
+      .from('.hero-cta-row .btn', { autoAlpha: 0, scale: .85, y: 16, duration: .6, ease: "back.out(1.7)" }, "-=.4")
+      .from('.hero-tip', { autoAlpha: 0, x: -16, duration: .5 }, "<.15")
+      .from('.hero-video', { autoAlpha: 0, y: 12, duration: .5 }, "-=.2")
+      .from('.hero-photo', { autoAlpha: 0, scale: .6, rotation: -12, duration: 1, ease: "elastic.out(1, .6)" }, .5)
+      .from('.stat-row', { borderTopColor: 'rgba(255,255,255,0)', borderBottomColor: 'rgba(255,255,255,0)', duration: .6 }, "-=.6")
+      .from('.stat-row .stat', { autoAlpha: 0, y: 24, duration: .6, stagger: .1 }, "<");
+
+    // count-up on stat numbers, e.g. "9+" -> 0..9 then "+"
+    document.querySelectorAll('.stat-row b').forEach(function(el, i){
+      var m = el.textContent.match(/^(\d+)(.*)$/);
+      if (!m) return;
+      var target = parseInt(m[1], 10), suffix = m[2], obj = { v: 0 };
+      tl.to(obj, { v: target, duration: 1, ease: "power1.out",
+        onUpdate: function(){ el.textContent = Math.round(obj.v) + suffix; },
+        onComplete: function(){ el.textContent = m[1] + suffix; }
+      }, .95 + i * .1);
+    });
+
+    // ambient loops after intro
+    gsap.to('.hero-arcs', { rotation: "+=360", duration: 90, ease: "none", repeat: -1, delay: 1.7 });
+    gsap.to('.hero-photo', { y: -10, duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 });
+    gsap.to('.hero-cta-row .btn-primary', { boxShadow: '0 14px 34px -8px rgba(239,86,3,.9)', duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 2 });
+
+    // subtle pointer parallax
+    var hero = document.querySelector('.hero');
+    var qx = gsap.quickTo('.hero-photo-wrap', 'x', { duration: .8, ease: "power3" });
+    var qy = gsap.quickTo('.hero-photo-wrap', 'y', { duration: .8, ease: "power3" });
+    var qa = gsap.quickTo('.hero-arcs', 'x', { duration: 1.2, ease: "power3" });
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      var nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
+      qx(nx * 24); qy(ny * 18); qa(nx * -30);
+    });
+
+    return function(){ tl.kill(); };
+  });
+})();
+</script>
 <script>
 (function(){
   var steps = Array.prototype.slice.call(document.querySelectorAll('.q-step'));
