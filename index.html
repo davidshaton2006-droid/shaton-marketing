@@ -404,6 +404,37 @@
   @media (max-width:640px){ .hero-photo-wrap{width:min(100%,340px);border-radius:24px;} }
   .quote-photo{aspect-ratio:1;background:#000;box-shadow:0 0 0 1px rgba(255,125,1,.55),0 24px 60px -24px rgba(239,86,3,.55);}
   .quote-photo img{object-position:50% 50%;}
+
+  /* ===== PROJECTS PARALLAX ===== */
+  .pp{position:relative;background:var(--ink);color:#fff;height:260vh;overflow:hidden;perspective:1000px;padding-block:0;}
+  .pp-stage{padding-top:40px;transform-style:preserve-3d;will-change:transform,opacity;}
+  .pp-head{max-width:1280px;margin-inline:auto;padding:70px 24px 90px;}
+  .pp-h{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(30px,5.2vw,68px);line-height:1.04;letter-spacing:-.02em;max-width:15ch;text-wrap:balance;}
+  .pp-h .accent{color:var(--ember-2);}
+  .pp-sub{max-width:42ch;color:var(--on-dark-dim);font-size:16px;line-height:1.6;margin:22px 0 0;}
+  .pp-row{display:flex;gap:80px;margin-bottom:80px;--w:min(78vw,30rem);--h:min(58vw,24rem);}
+  .pp-row.rev{flex-direction:row-reverse;}
+  .pp-card{position:relative;flex:none;width:var(--w);height:var(--h);border-radius:22px;overflow:hidden;display:block;color:#fff;
+    background:var(--g);box-shadow:0 30px 60px -28px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.08);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;}
+  .pp-card:hover{transform:translateY(-20px);box-shadow:0 40px 70px -26px rgba(239,86,3,.55),0 0 0 1px rgba(255,138,31,.6);}
+  .pp-thumb{position:absolute;inset:0;}
+  .pp-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:2;}
+  .pp-chrome{position:absolute;left:18px;right:18px;top:16px;height:26px;border-radius:9px;background:rgba(255,255,255,.14);display:flex;align-items:center;gap:6px;padding-left:10px;}
+  .pp-chrome i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);}
+  .pp-mock{position:absolute;left:18px;right:18px;top:60px;display:flex;flex-direction:column;gap:12px;}
+  .pp-mock b{display:block;height:64px;border-radius:12px;background:rgba(255,255,255,.16);}
+  .pp-mock u{display:block;height:9px;border-radius:6px;background:rgba(255,255,255,.22);text-decoration:none;}
+  .pp-mock u:nth-of-type(2){width:72%;} .pp-mock u:nth-of-type(3){width:46%;}
+  .pp-idx{position:absolute;right:20px;bottom:6px;font-family:'Space Mono',monospace;font-size:88px;line-height:1;color:rgba(255,255,255,.1);}
+  .pp-ov{position:absolute;inset:0;z-index:3;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,.05) 65%);opacity:.55;transition:opacity .35s;}
+  .pp-card:hover .pp-ov{opacity:1;}
+  .pp-tag{position:absolute;left:18px;top:52px;z-index:4;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:99px;}
+  .pp-name{position:absolute;left:20px;right:20px;bottom:18px;z-index:4;margin:0;font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;line-height:1.2;opacity:.0;transform:translateY(8px);transition:opacity .35s,transform .35s;}
+  .pp-card:hover .pp-name{opacity:1;transform:none;}
+  @media (hover:none){ .pp-name{opacity:1;transform:none;} .pp-ov{opacity:1;} }
+  @media (max-width:640px){ .pp-row{gap:28px;margin-bottom:28px;} .pp-head{padding-block:40px 50px;} }
+  .pp.pp-static{height:auto;}
+  .pp.pp-static .pp-row{flex-wrap:wrap;flex-direction:row;padding-inline:24px;gap:20px;}
 </style>
 </head>
 <body>
@@ -793,6 +824,20 @@
 </section>
 
 </div></div></div>
+
+<!-- PROJECTS PARALLAX -->
+<section class="pp" id="projects" aria-label="Проекты">
+  <div class="pp-stage">
+    <div class="pp-head">
+      <div class="eyebrow" style="text-align:left;">портфолио</div>
+      <div class="pp-h" role="heading" aria-level="2">Проекты, где я держу <span class="accent">всю воронку</span></div>
+      <p class="pp-sub">От карточки на Авито до кода сайта: реальные задачи реальных клиентов в разных нишах.</p>
+    </div>
+    <div class="pp-row rev" data-row="0"></div>
+    <div class="pp-row" data-row="1"></div>
+    <div class="pp-row rev" data-row="2"></div>
+  </div>
+</section>
 <!-- FAQ -->
 <section id="faq" class="faq wrap-section">
   <div class="wrap">
@@ -1096,7 +1141,7 @@
   });
 
   var TEXTS = $$('.eyebrow, p, li, details, .task, .quiz, .founder-photo, .quote-photo, .trust-video, .gift')
-    .filter(function(el){ return !el.closest('.hero,.phone,.stick,.cta-form,.q-result,.oc,.chip') && !el.closest(CARDS) && !el.querySelector('.hw') && !el.closest('.quote-card,.philosophy') || el.matches('.gift,.quiz,.founder-photo,.quote-photo,.trust-video'); });
+    .filter(function(el){ return !el.closest('.hero,.phone,.stick,.cta-form,.q-result,.oc,.chip,.pp') && !el.closest(CARDS) && !el.querySelector('.hw') && !el.closest('.quote-card,.philosophy') || el.matches('.gift,.quiz,.founder-photo,.quote-photo,.trust-video'); });
   TEXTS = TEXTS.filter(function(el, i, arr){ return arr.indexOf(el) === i; });
   TEXTS.forEach(function(el){ gsap.set(el, { autoAlpha: 0, y: 28 }); });
   ScrollTrigger.batch(TEXTS, { start: 'top 92%', once: true, onEnter: function(b){
@@ -1132,6 +1177,74 @@
 
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
   window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+<script>
+(function(){
+  if (!window.gsap || !window.ScrollTrigger) return;
+  // Edit this list: add `link` (URL) and `img` (thumbnail path) for each project.
+  var PROJECTS = [
+    { t: 'Романтик', tag: 'Эко-база · PWA' },
+    { t: '[Название проекта]', tag: 'Авито' },
+    { t: 'СЕРВО', tag: 'Платформа закупок' },
+    { t: '[Название проекта]', tag: 'Директ' },
+    { t: 'Центр выкупа недвижимости', tag: 'Директ' },
+
+    { t: '[Название проекта]', tag: 'Сайт' },
+    { t: 'ЦВН', tag: 'Продвижение' },
+    { t: '[Название проекта]', tag: 'SEO' },
+    { t: 'Ремонт стиральных машин', tag: 'Авито + Директ' },
+    { t: '[Название проекта]', tag: 'SMM' },
+
+    { t: 'Транспортные технологии', tag: 'Сайт + реклама · B2B' },
+    { t: '[Название проекта]', tag: 'Авито' },
+    { t: '[Название проекта]', tag: 'Сайт' },
+    { t: '[Название проекта]', tag: 'Директ' },
+    { t: '[Название проекта]', tag: 'SEO' }
+  ];
+  var GRADS = [
+    'linear-gradient(135deg,#ff7d01,#5a1f02)',
+    'linear-gradient(135deg,#34322e,#ef5603)',
+    'linear-gradient(135deg,#ef5603,#1c1c1c)',
+    'linear-gradient(135deg,#4a2f3d,#ff8562)',
+    'linear-gradient(135deg,#243038,#ff7d01)'
+  ];
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.pp-row'));
+  PROJECTS.forEach(function(p, i){
+    var el = document.createElement(p.link ? 'a' : 'div');
+    el.className = 'pp-card';
+    el.style.setProperty('--g', GRADS[i % GRADS.length]);
+    if (p.link) { el.href = p.link; el.target = '_blank'; el.rel = 'noopener'; }
+    el.innerHTML =
+      '<div class="pp-thumb"><span class="pp-chrome"><i></i><i></i><i></i></span>' +
+      '<div class="pp-mock"><b></b><u></u><u></u><u></u></div>' +
+      '<span class="pp-idx">' + String(i + 1).padStart(2, '0') + '</span>' +
+      (p.img ? '<img src="' + p.img + '" alt="' + p.t + '" loading="lazy">' : '') + '</div>' +
+      '<span class="pp-tag"></span><div class="pp-ov"></div><h3 class="pp-name"></h3>';
+    el.querySelector('.pp-tag').textContent = p.tag;
+    el.querySelector('.pp-name').textContent = p.t;
+    rows[Math.floor(i / 5)].appendChild(el);
+  });
+
+  var section = document.querySelector('.pp');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { section.classList.add('pp-static'); return; }
+
+  var stage = section.querySelector('.pp-stage');
+  var st = { p: 0, i: 0 };
+  function apply(){
+    var k = Math.min(1, window.innerWidth / 1200), travel = 1000 * k;
+    gsap.set(stage, { rotationX: 15 * (1 - st.i), rotationZ: 20 * k * (1 - st.i), y: -160 * k * (1 - st.i), opacity: 0.2 + 0.8 * st.i });
+    gsap.set(rows[0], { x: st.p * travel });
+    gsap.set(rows[1], { x: -st.p * travel });
+    gsap.set(rows[2], { x: st.p * travel });
+  }
+  var qp = gsap.quickTo(st, 'p', { duration: 0.6, ease: 'power3', onUpdate: apply });
+  var qi = gsap.quickTo(st, 'i', { duration: 0.6, ease: 'power3', onUpdate: apply });
+  ScrollTrigger.create({ trigger: section, start: 'top bottom', end: 'bottom top', onUpdate: function(s){
+    qp(s.progress); qi(Math.min(1, s.progress / 0.3));
+  } });
+  apply();
+  window.addEventListener('resize', apply);
 })();
 </script>
 <script>
