@@ -621,6 +621,14 @@
   .cmp-hint{top:16px;left:50%;transform:translateX(-50%);white-space:nowrap;}
   .cmp.touched .cmp-hint{opacity:0;}
   @media (prefers-reduced-motion: reduce){ .cmp:not(.touched) .cmp-knob{animation:none;} }
+
+  /* ===== slider captions: big neon tags ===== */
+  .cmp-lab{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(15px,1.5vw,20px);letter-spacing:.12em;padding:9px 20px;border-radius:99px;bottom:20px;color:#fff;
+    background:rgba(8,5,15,.82);border:2px solid #fff;text-shadow:0 0 10px rgba(255,255,255,.55);}
+  .cmp-l{left:18px;border-color:#00e5d0;box-shadow:0 0 0 1px rgba(0,229,208,.4),0 0 16px 2px rgba(0,229,208,.85),0 0 34px 6px rgba(0,229,208,.4),inset 0 0 12px rgba(0,229,208,.35);text-shadow:0 0 12px rgba(0,229,208,.9);}
+  .cmp-r{right:18px;border-color:#ff5ab0;box-shadow:0 0 0 1px rgba(255,46,147,.5),0 0 16px 2px rgba(255,46,147,.9),0 0 34px 6px rgba(255,154,31,.45),inset 0 0 12px rgba(255,46,147,.4);text-shadow:0 0 12px rgba(255,120,190,.95);}
+  .cmp-hint{font-weight:600;font-size:13px;border:2px solid rgba(255,255,255,.85);box-shadow:0 0 14px rgba(255,255,255,.35);}
+  @media (max-width:640px){ .cmp-lab{font-size:14px;padding:7px 14px;bottom:14px;} .cmp-l{left:12px;} .cmp-r{right:12px;} }
 </style>
 </head>
 <body>
