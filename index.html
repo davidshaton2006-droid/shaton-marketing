@@ -446,18 +446,25 @@
   <div class="panel">
     <div class="panel-label">5 направлений · 1 человек</div>
     <svg class="orbit" viewBox="-180 -180 360 360">
-      <defs><linearGradient id="gEmber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7d01"/><stop offset="1" stop-color="#ef5603"/></linearGradient><radialGradient id="gGlow"><stop offset="0" stop-color="#ff7d01" stop-opacity=".95"/><stop offset=".5" stop-color="#ef5603" stop-opacity=".55"/><stop offset="1" stop-color="#ef5603" stop-opacity="0"/></radialGradient></defs>
+      <defs><linearGradient id="gEmber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7d01"/><stop offset="1" stop-color="#ef5603"/></linearGradient><radialGradient id="gGlow"><stop offset="0" stop-color="#ff7d01" stop-opacity=".95"/><stop offset=".5" stop-color="#ef5603" stop-opacity=".55"/><stop offset="1" stop-color="#ef5603" stop-opacity="0"/></radialGradient><filter id="figFx" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="1.8" result="d1"/>
+          <feFlood flood-color="#ff8a1f"/><feComposite in2="d1" operator="in" result="outline"/>
+          <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d2"/>
+          <feGaussianBlur id="figBlur" in="d2" stdDeviation="9" result="bl"/>
+          <feFlood flood-color="#ff5a00"/><feComposite in2="bl" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="glow"/><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="figFade" gradientUnits="userSpaceOnUse" x1="0" y1="-130" x2="0" y2="130"><stop offset="0" stop-color="#fff"/><stop offset=".64" stop-color="#fff"/><stop offset=".81" stop-color="#000"/><stop offset="1" stop-color="#000"/></linearGradient>
+        <mask id="figMask" maskUnits="userSpaceOnUse" x="-130" y="-130" width="260" height="260"><rect x="-130" y="-130" width="260" height="260" fill="url(#figFade)"/></mask>
+      </defs>
       <circle r="120" fill="none" stroke="rgba(255,255,255,.14)" stroke-dasharray="3 7"/>
       <circle r="70" fill="none" stroke="rgba(255,255,255,.08)"/>
       <circle class="prog" r="165" fill="none" stroke="#ef5603" stroke-width="2" stroke-linecap="round" transform="rotate(-90)"/>
       <g class="particles"></g>
       <g class="spin"></g>
-      <circle class="halo" r="78" fill="url(#gGlow)"/>
-      <circle class="pulse" r="50" fill="none" stroke="#ff7d01" stroke-width="1.5"/>
-      <circle r="53" fill="none" stroke="url(#gEmber)" stroke-width="3"/>
-      <clipPath id="faceClip"><circle r="50"/></clipPath>
-      <circle r="50" fill="#ff8a4a"/>
-      <image href="face-new.webp" x="-56" y="-58" width="112" height="112" clip-path="url(#faceClip)" preserveAspectRatio="xMidYMid slice"/>
+      <g mask="url(#figMask)">
+        <image class="fig" href="bust.webp" x="-67" y="-90" width="134" height="168" filter="url(#figFx)" preserveAspectRatio="xMidYMid meet"/>
+      </g>
     </svg>
     <div class="oc"><h4 class="oc-t">Один человек</h4><p class="oc-p">Все пять направлений — в одной голове, без потери контекста</p></div>
     <div class="dots" data-dots="6"></div>
@@ -975,8 +982,7 @@
     } });
 
     if (!reduce) {
-      gsap.fromTo($('.pulse', orbitPanel), { attr: { r: 50 }, opacity: 0.8 }, { attr: { r: 92 }, opacity: 0, duration: 2.6, repeat: -1, ease: 'power1.out' });
-      gsap.fromTo($('.halo', orbitPanel), { attr: { r: 70 }, opacity: 1 }, { attr: { r: 88 }, opacity: 0.7, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+      gsap.to('#figBlur', { attr: { stdDeviation: 15 }, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
       var pg = $('.particles', orbitPanel);
       for (var k = 0; k < 10; k++) {
         var g = mk('g', {}, pg), r = 92 + Math.random() * 78, a2 = Math.random() * 6.28;
