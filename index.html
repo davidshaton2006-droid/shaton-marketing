@@ -636,6 +636,13 @@
   @media (max-width:1100px){ .chapter-body .founder-grid{grid-template-columns:1fr;} .chapter-body .founder-photo{max-width:340px;} }
   @media (max-width:760px){ .founder-photo{max-width:340px;} }
   .avatar-s img{object-position:50% 25%;}
+
+  /* phone panel: bigger phone, chips moved below it so they never cover the screen */
+  .stick-phone{height:calc(100vh - 96px);max-height:800px;min-height:620px;}
+  .stick-phone .oc{display:none;}
+  .stick-phone .dots{margin-top:auto;}
+  .chips-row2{display:flex;gap:8px;width:100%;margin-top:16px;}
+  .chips-row2 .chip{position:static;flex:1 1 0;max-width:none;text-align:center;font-size:12.5px;padding:9px 10px;left:auto;right:auto;top:auto;bottom:auto;}
 </style>
 </head>
 <body>
@@ -894,10 +901,9 @@
             <div class="stg typing"><i></i><i></i><i></i></div>
           </div>
         </div></div>
-        <span class="chip chip-a">Работаю лично</span>
-        <span class="chip chip-b">Разбор за сутки</span>
       </div>
     </div>
+    <div class="chips-row2"><span class="chip chip-a">Работаю лично</span><span class="chip chip-b">Разбор за сутки</span></div>
     <div class="oc"><h4 class="pc-t">Профиль</h4><p class="pc-p">Один человек ведёт проект лично</p></div>
     <div class="dots" data-dots="6"></div>
   </div>
@@ -1318,7 +1324,7 @@
     });
 
     var fit = function(){
-      var k = Math.min(1, (phonePanel.clientHeight - 170) / 470);
+      var k = Math.min(1.2, (phonePanel.clientHeight - 190) / 470);
       var w = $('.phone-wrap', phonePanel); w.style.setProperty('--k', k); w.style.height = (470 * k) + 'px';
       $('.phone-scale', phonePanel).style.setProperty('--k', k);
     };
