@@ -388,6 +388,20 @@
   .founder-photo img{width:100%;height:100%;object-fit:cover;display:block;}
   .avatar-s{overflow:hidden;font-size:0;}
   .avatar-s img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ===== HERO PORTRAIT FRAME (static) ===== */
+  .hero-photo-wrap{display:block;position:relative;align-self:end;width:min(100%,420px);margin-inline:auto;aspect-ratio:760/950;
+    border-radius:30px;overflow:hidden;isolation:isolate;
+    background:radial-gradient(85% 62% at 50% 34%,#ff8a1f 0%,#ef5603 44%,#2b1206 100%);
+    box-shadow:0 0 0 1.5px rgba(255,138,31,.95),0 0 46px 4px rgba(239,86,3,.5),0 34px 80px -22px rgba(239,86,3,.65);}
+  .hero-photo-wrap::before{content:"";position:absolute;inset:0;z-index:0;
+    background:repeating-radial-gradient(circle at 50% 40%,transparent 0 52px,rgba(255,255,255,.16) 52px 53px);
+    -webkit-mask-image:radial-gradient(circle at 50% 40%,#000 25%,transparent 78%);mask-image:radial-gradient(circle at 50% 40%,#000 25%,transparent 78%);}
+  .hero-photo-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;z-index:2;pointer-events:none;
+    background:linear-gradient(to top,rgba(28,28,28,.55),transparent);}
+  .hero-glow{display:none;}
+  .hero-photo{position:absolute;left:0;bottom:0;width:100%;height:auto;z-index:1;-webkit-mask-image:none;mask-image:none;filter:none;border-radius:0;}
+  @media (max-width:640px){ .hero-photo-wrap{width:min(100%,340px);border-radius:24px;} }
 </style>
 </head>
 <body>
@@ -427,7 +441,7 @@
       <div class="hero-video"><span class="dot">▶</span> Посмотреть, как проходит аудит</div>
     </div>
     <div class="hero-photo-wrap">
-      <div class="hero-glow"></div><img class="hero-photo" src="portrait.webp" alt="Дэвид Шатон" width="760" height="950" fetchpriority="high">
+      <img class="hero-photo" src="portrait.webp" alt="Дэвид Шатон" width="760" height="950" fetchpriority="high">
     </div>
   </div>
   <div class="wrap">
@@ -866,8 +880,7 @@
       .from('.hero-cta-row .btn', { autoAlpha: 0, scale: .85, y: 16, duration: .6, ease: "back.out(1.7)" }, "-=.4")
       .from('.hero-tip', { autoAlpha: 0, x: -16, duration: .5 }, "<.15")
       .from('.hero-video', { autoAlpha: 0, y: 12, duration: .5 }, "-=.2")
-      .from('.hero-glow', { autoAlpha: 0, scale: .5, duration: 1.4, ease: "power2.out" }, .3)
-      .from('.hero-photo', { autoAlpha: 0, y: 70, scale: .94, duration: 1.2, ease: "power3.out" }, .5)
+      .from('.hero-photo-wrap', { autoAlpha: 0, duration: 1, ease: "power2.out" }, .4)
       .from('.stat-row', { borderTopColor: 'rgba(255,255,255,0)', borderBottomColor: 'rgba(255,255,255,0)', duration: .6 }, "-=.6")
       .from('.stat-row .stat', { autoAlpha: 0, y: 24, duration: .6, stagger: .1 }, "<");
 
@@ -884,19 +897,15 @@
 
     // ambient loops after intro
     gsap.to('.hero-arcs', { rotation: "+=360", duration: 90, ease: "none", repeat: -1, delay: 1.7 });
-    gsap.to('.hero-glow', { scale: 1.12, opacity: .75, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.4 });
-    gsap.to('.hero-photo', { y: -10, duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 });
     gsap.to('.hero-cta-row .btn-primary', { boxShadow: '0 14px 34px -8px rgba(239,86,3,.9)', duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 2 });
 
     // subtle pointer parallax
     var hero = document.querySelector('.hero');
-    var qx = gsap.quickTo('.hero-photo-wrap', 'x', { duration: .8, ease: "power3" });
-    var qy = gsap.quickTo('.hero-photo-wrap', 'y', { duration: .8, ease: "power3" });
     var qa = gsap.quickTo('.hero-arcs', 'x', { duration: 1.2, ease: "power3" });
     hero.addEventListener('mousemove', function(e){
       var r = hero.getBoundingClientRect();
       var nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
-      qx(nx * 24); qy(ny * 18); qa(nx * -30);
+      qa(nx * -30);
     });
 
     return function(){ tl.kill(); };
