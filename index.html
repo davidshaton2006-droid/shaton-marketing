@@ -435,6 +435,37 @@
   @media (max-width:640px){ .pp-row{gap:28px;margin-bottom:28px;} .pp-head{padding-block:40px 50px;} }
   .pp.pp-static{height:auto;}
   .pp.pp-static .pp-row{flex-wrap:wrap;flex-direction:row;padding-inline:24px;gap:20px;}
+
+  /* ===== LEAD FORM ===== */
+  .lead{background:var(--paper);}
+  .lead h2{text-align:left;font-size:clamp(22px,3vw,32px);max-width:20ch;}
+  .lead .eyebrow{text-align:left;}
+  .lead-sub{color:var(--text-dim);font-size:15px;line-height:1.6;max-width:52ch;margin:14px 0 30px;}
+  .lead-form{display:flex;flex-direction:column;gap:20px;}
+  .lf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:600px){ .lf-row{grid-template-columns:1fr;} }
+  .fld{border:none;padding:0;margin:0;min-width:0;display:flex;flex-direction:column;gap:8px;}
+  .fld label,.fld legend{font-size:13px;font-weight:700;padding:0;}
+  .fld .opt{font-weight:500;color:var(--text-dim);}
+  .fld input[type=text],.fld textarea{font-family:'Manrope',sans-serif;font-size:15px;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;outline:none;width:100%;resize:vertical;transition:border-color .2s,box-shadow .2s;}
+  .fld input:focus,.fld textarea:focus{border-color:var(--ember);box-shadow:0 0 0 4px rgba(239,86,3,.14);}
+  .fld input.err{border-color:#d93025;}
+  .chips-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .opt-chip{font-family:'Manrope',sans-serif;font-size:13.5px;font-weight:600;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:10px 16px;cursor:pointer;transition:border-color .2s,background .2s,color .2s;}
+  .opt-chip:hover{border-color:var(--ember);}
+  .opt-chip:focus-visible{outline:2px solid var(--ember);outline-offset:2px;}
+  .opt-chip.on{background:linear-gradient(85deg,var(--ember-2),var(--ember));border-color:transparent;color:#fff;}
+  .consent-l{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--text-dim);line-height:1.5;}
+  .consent-l input{margin-top:2px;accent-color:var(--ember);}
+  .lead-form .btn{align-self:flex-start;}
+  .lead-status{font-size:13.5px;line-height:1.55;color:var(--text-dim);}
+  .lead-status.err{color:#d93025;}
+  .lead-status .msg-box{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;white-space:pre-wrap;color:var(--text);font-size:13px;}
+  .lead-status .btn{margin-top:12px;padding:10px 20px;font-size:13px;}
+  .pf{background:#fff;border:1px solid #e6e1d6;border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;}
+  .pf small{color:#8a8578;font-size:9px;text-transform:uppercase;letter-spacing:.08em;}
+  .pf span{font-weight:700;font-size:12px;word-break:break-word;}
+  .pf span.ph{color:#b3ad9f;font-weight:500;}
 </style>
 </head>
 <body>
@@ -444,7 +475,7 @@
     <div class="brand"><span class="brand-mark">ДШ</span> Шатон</div>
     <nav class="nav-links">
       <a href="#experience">Опыт</a>
-      <a href="#cases">Кейсы</a>
+      <a href="#projects">Проекты</a>
       <a href="#pricing">Услуги</a>
       <a href="#faq">Вопросы</a>
     </nav>
@@ -639,10 +670,12 @@
           </div>
 
           <div class="scr">
-            <h5 class="stg">Кейс</h5>
-            <div class="stg bars"><i style="height:22%"></i><i style="height:38%"></i><i style="height:34%"></i><i style="height:58%"></i><i style="height:74%"></i><i style="height:92%"></i></div>
-            <div class="stg metric">Результат <span>[цифры]</span></div>
-            <div class="stg metric">Период <span>[срок]</span></div>
+            <h5 class="stg">Новая заявка</h5>
+            <div class="stg pf"><small>Имя</small><span id="pf-name" class="ph">Как вас зовут</span></div>
+            <div class="stg pf"><small>Контакт</small><span id="pf-contact" class="ph">Telegram или телефон</span></div>
+            <div class="stg pf"><small>Сфера</small><span id="pf-niche" class="ph">Выберите сферу</span></div>
+            <div class="stg pf"><small>Цель</small><span id="pf-goal" class="ph">Что важнее сейчас</span></div>
+            <div class="stg sbtn" id="pf-btn">Отправить</div>
           </div>
 
           <div class="scr">
@@ -708,17 +741,24 @@
   </div>
 </section>
 
-<!-- CASES -->
-<section id="cases" class="cases wrap-section" data-scr="2">
+<!-- LEAD FORM -->
+<section id="lead" class="lead wrap-section" data-scr="2">
   <div class="wrap">
-    <h2>Результаты работы</h2>
-    <div class="case-grid">
-      <div class="case-card c1"><span class="tag">Ведение под ключ</span><h3>«Романтик» — эко-база</h3><p>PWA-бронирование + продвижение на Авито</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
-      <div class="case-card c2"><span class="tag">Ведение под ключ</span><h3>Центр выкупа недвижимости</h3><p>Лидогенерация через Яндекс Директ</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
-      <div class="case-card c3"><span class="tag">Разработка</span><h3>СЕРВО</h3><p>Платформа совместных закупок с нуля</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
-      <div class="case-card c4"><span class="tag">Локальный бизнес</span><h3>Ремонт стиральных машин, Краснодар</h3><p>Продвижение через Авито и Директ</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
-      <div class="case-card c5"><span class="tag">B2B</span><h3>Транспортные технологии</h3><p>Сайт + настройка рекламных каналов</p><a href="#" class="btn btn-ghost-dark">Смотреть кейс</a></div>
-    </div>
+    <div class="eyebrow">заявка</div>
+    <h2>Оставьте заявку — разберу ваш проект</h2>
+    <p class="lead-sub">Отвечу лично в течение суток. Заявка собирается у меня на экране прямо пока вы заполняете форму.</p>
+    <form class="lead-form" id="leadForm" novalidate>
+      <div class="lf-row">
+        <div class="fld"><label for="lf-name">Как к вам обращаться</label><input id="lf-name" name="name" type="text" autocomplete="name" placeholder="Имя"></div>
+        <div class="fld"><label for="lf-contact">Telegram или телефон</label><input id="lf-contact" name="contact" type="text" autocomplete="tel" placeholder="@username или +7"></div>
+      </div>
+      <fieldset class="fld"><legend>Ваша сфера</legend><div class="chips-row" data-key="niche"><button type="button" class="opt-chip">Жильё / аренда</button><button type="button" class="opt-chip">Недвижимость</button><button type="button" class="opt-chip">Услуги</button><button type="button" class="opt-chip">Товары</button><button type="button" class="opt-chip">B2B</button></div></fieldset>
+      <fieldset class="fld"><legend>Что важнее сейчас</legend><div class="chips-row" data-key="goal"><button type="button" class="opt-chip">Больше заявок</button><button type="button" class="opt-chip">Стабильность</button><button type="button" class="opt-chip">Разбор, почему не работает</button></div></fieldset>
+      <div class="fld"><label for="lf-msg">Коротко о задаче <span class="opt">(необязательно)</span></label><textarea id="lf-msg" name="msg" rows="3" placeholder="Что сейчас с Авито, рекламой или сайтом"></textarea></div>
+      <label class="consent-l"><input type="checkbox" id="lf-consent"> Согласен на обработку персональных данных</label>
+      <button class="btn btn-primary" type="submit">Отправить заявку <span aria-hidden="true">→</span></button>
+      <div class="lead-status" id="leadStatus" role="status" aria-live="polite"></div>
+    </form>
   </div>
 </section>
 
@@ -877,7 +917,7 @@
     <div class="footer-top">
       <div class="brand" style="color:#fff;"><span class="brand-mark">ДШ</span> Шатон</div>
       <div class="footer-links">
-        <a href="#experience">Опыт</a><a href="#cases">Кейсы</a><a href="#pricing">Услуги</a><a href="#faq">Вопросы</a>
+        <a href="#experience">Опыт</a><a href="#projects">Проекты</a><a href="#pricing">Услуги</a><a href="#faq">Вопросы</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1054,7 +1094,7 @@
     var SCR = [
       { t: 'Профиль', d: 'Один человек ведёт проект лично', a: 'Работаю лично', b: 'Без менеджеров' },
       { t: 'Отзывы', d: 'Только реальные отзывы клиентов', a: 'Без выдуманных имён', b: 'Реальные истории' },
-      { t: 'Кейс', d: 'Результат по каждому проекту', a: 'Цифры, не слова', b: 'Динамика по месяцам' },
+      { t: 'Заявка', d: 'Вы заполняете форму, заявка собирается здесь', a: 'Ответ в течение суток', b: 'Без менеджеров' },
       { t: 'Отчёт', d: 'Прозрачная отчётность без воды', a: 'Заявки, а не просмотры', b: 'Понятные цифры' },
       { t: 'Формат', d: 'Формат под задачу, не по шаблону', a: 'Базовый · ПРО · Премиум', b: 'Разово или на постоянку' },
       { t: 'Директ', d: 'Пишете «АУДИТ» — разбор за сутки', a: 'Ответ в течение суток', b: 'Живой созвон или видео' }
@@ -1070,7 +1110,6 @@
       gsap.to(prev, { autoAlpha: 0, y: -18, duration: 0.35 * D, overwrite: true });
       gsap.fromTo(next, { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.5 * D, ease: 'power3.out', overwrite: true });
       gsap.fromTo($$('.stg', next), { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5 * D, stagger: 0.08 * D, delay: 0.12 * D, ease: 'power2.out', overwrite: true });
-      if (i === 2) gsap.fromTo($$('.bars i', next), { scaleY: 0 }, { scaleY: 1, duration: 0.7 * D, stagger: 0.07 * D, delay: 0.3 * D, ease: 'power3.out' });
       if (i === 3 && line) gsap.fromTo(line, { strokeDashoffset: ll }, { strokeDashoffset: 0, duration: 1.1 * D, delay: 0.3 * D, ease: 'power2.inOut' });
       pcT.textContent = SCR[i].t; pcP.textContent = SCR[i].d;
       gsap.fromTo([pcT, pcP], { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5 * D, stagger: 0.08 * D, overwrite: 'auto' });
@@ -1245,6 +1284,75 @@
   } });
   apply();
   window.addEventListener('resize', apply);
+})();
+</script>
+<script>
+(function(){
+  var form = document.getElementById('leadForm'); if (!form) return;
+  // To send requests for real, put a form endpoint here (Formspree / Web3Forms / your own API). Empty = compose-and-copy mode.
+  var ENDPOINT = '';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s){ return document.querySelector(s); };
+  var data = { niche: '', goal: '' };
+
+  function mirror(id, val, placeholder){
+    var el = document.getElementById(id); if (!el) return;
+    var v = (val || '').trim();
+    el.textContent = v || placeholder; el.classList.toggle('ph', !v);
+    if (window.gsap && !reduce) gsap.fromTo(el.parentNode, { backgroundColor: '#ffe9d9' }, { backgroundColor: '#ffffff', duration: 0.7, overwrite: true });
+  }
+  $('#lf-name').addEventListener('input', function(e){ mirror('pf-name', e.target.value, 'Как вас зовут'); e.target.classList.remove('err'); });
+  $('#lf-contact').addEventListener('input', function(e){ mirror('pf-contact', e.target.value, 'Telegram или телефон'); e.target.classList.remove('err'); });
+
+  Array.prototype.forEach.call(form.querySelectorAll('.chips-row'), function(row){
+    var key = row.dataset.key;
+    Array.prototype.forEach.call(row.querySelectorAll('.opt-chip'), function(chip){
+      chip.addEventListener('click', function(){
+        Array.prototype.forEach.call(row.children, function(c){ c.classList.remove('on'); });
+        chip.classList.add('on'); data[key] = chip.textContent;
+        mirror(key === 'niche' ? 'pf-niche' : 'pf-goal', chip.textContent, '');
+      });
+    });
+  });
+
+  var status = $('#leadStatus');
+  function fail(msg, input){ status.className = 'lead-status err'; status.textContent = msg; if (input) { input.classList.add('err'); input.focus(); } }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = $('#lf-name'), contact = $('#lf-contact');
+    if (!name.value.trim()) return fail('Укажите, как к вам обращаться.', name);
+    if (!contact.value.trim()) return fail('Оставьте Telegram или телефон, чтобы я мог ответить.', contact);
+    if (!$('#lf-consent').checked) return fail('Нужно согласие на обработку персональных данных.');
+    var text = 'АУДИТ\nИмя: ' + name.value.trim() + '\nКонтакт: ' + contact.value.trim() +
+      '\nСфера: ' + (data.niche || '—') + '\nЦель: ' + (data.goal || '—') +
+      ($('#lf-msg').value.trim() ? '\nЗадача: ' + $('#lf-msg').value.trim() : '');
+    var btn = $('#pf-btn');
+
+    function done(html){
+      status.className = 'lead-status'; status.innerHTML = html;
+      btn.textContent = 'Готово ✓';
+      if (window.gsap && !reduce) gsap.fromTo(btn, { scale: 0.92 }, { scale: 1, duration: 0.6, ease: 'back.out(2.4)' });
+    }
+    if (ENDPOINT) {
+      status.className = 'lead-status'; status.textContent = 'Отправляю…';
+      fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ name: name.value.trim(), contact: contact.value.trim(), niche: data.niche, goal: data.goal, message: $('#lf-msg').value.trim() }) })
+        .then(function(r){ if (!r.ok) throw new Error(r.status); btn.textContent = 'Отправлено ✓'; done('Заявка отправлена. Отвечу лично в течение суток.'); btn.textContent = 'Отправлено ✓'; })
+        .catch(function(){ fail('Не удалось отправить. Напишите мне в директ кодовое слово «АУДИТ».'); });
+      return;
+    }
+    var box = document.createElement('div'); box.className = 'msg-box'; box.textContent = text;
+    done('Заявка собрана. Отправьте её мне в директ — так я увижу её сразу:');
+    status.appendChild(box);
+    var copy = document.createElement('button'); copy.type = 'button'; copy.className = 'btn btn-ghost'; copy.textContent = 'Скопировать текст';
+    copy.addEventListener('click', function(){
+      var ok = function(){ copy.textContent = 'Скопировано ✓'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, function(){ selectBox(); });
+      else selectBox();
+      function selectBox(){ var r = document.createRange(); r.selectNodeContents(box); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); copy.textContent = 'Выделено — нажмите Ctrl+C'; }
+    });
+    status.appendChild(copy);
+  });
 })();
 </script>
 <script>
