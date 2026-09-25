@@ -374,6 +374,20 @@
   .chip{position:absolute;z-index:4;background:rgba(28,28,28,.82);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:11.5px;font-weight:700;padding:8px 12px;border-radius:12px;max-width:140px;line-height:1.3;box-shadow:0 12px 26px -10px rgba(0,0,0,.6);}
   .chip::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ember);margin-right:7px;vertical-align:1px;}
   .chip-a{left:-46px;top:70px;} .chip-b{right:-46px;bottom:90px;}
+
+  /* ===== PHOTO ===== */
+  .hero-photo-wrap{align-self:end;}
+  .hero-photo{width:min(100%,440px);height:auto;border-radius:0;background:none;border:none;display:block;position:relative;z-index:1;
+    -webkit-mask-image:linear-gradient(#000 84%,transparent 100%);mask-image:linear-gradient(#000 84%,transparent 100%);
+    filter:drop-shadow(0 0 36px rgba(255,125,1,.35));}
+  .hero-glow{position:absolute;left:0;right:0;margin-inline:auto;top:10%;width:92%;aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,125,1,.9) 0%,rgba(239,86,3,.5) 38%,rgba(239,86,3,0) 68%);filter:blur(24px);pointer-events:none;}
+  .quote-photo{overflow:hidden;background:radial-gradient(85% 60% at 50% 34%,#ff7d01,#ef5603 52%,#5a1f02);font-size:0;}
+  .quote-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 6%;display:block;}
+  .founder-photo{overflow:hidden;font-size:0;}
+  .founder-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .avatar-s{overflow:hidden;font-size:0;}
+  .avatar-s img{width:100%;height:100%;object-fit:cover;display:block;}
 </style>
 </head>
 <body>
@@ -413,7 +427,7 @@
       <div class="hero-video"><span class="dot">▶</span> Посмотреть, как проходит аудит</div>
     </div>
     <div class="hero-photo-wrap">
-      <div class="hero-photo">ДШ</div>
+      <div class="hero-glow"></div><img class="hero-photo" src="portrait.webp" alt="Дэвид Шатон" width="760" height="950" fetchpriority="high">
     </div>
   </div>
   <div class="wrap">
@@ -432,15 +446,18 @@
   <div class="panel">
     <div class="panel-label">5 направлений · 1 человек</div>
     <svg class="orbit" viewBox="-180 -180 360 360">
-      <defs><linearGradient id="gEmber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7d01"/><stop offset="1" stop-color="#ef5603"/></linearGradient></defs>
+      <defs><linearGradient id="gEmber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7d01"/><stop offset="1" stop-color="#ef5603"/></linearGradient><radialGradient id="gGlow"><stop offset="0" stop-color="#ff7d01" stop-opacity=".95"/><stop offset=".5" stop-color="#ef5603" stop-opacity=".55"/><stop offset="1" stop-color="#ef5603" stop-opacity="0"/></radialGradient></defs>
       <circle r="120" fill="none" stroke="rgba(255,255,255,.14)" stroke-dasharray="3 7"/>
       <circle r="70" fill="none" stroke="rgba(255,255,255,.08)"/>
       <circle class="prog" r="165" fill="none" stroke="#ef5603" stroke-width="2" stroke-linecap="round" transform="rotate(-90)"/>
       <g class="particles"></g>
       <g class="spin"></g>
-      <circle class="pulse" r="44" fill="none" stroke="#ff7d01" stroke-width="1.5"/>
-      <circle r="44" fill="url(#gEmber)"/>
-      <text y="6" text-anchor="middle" fill="#fff" font-family="Montserrat" font-weight="800" font-size="18">ДШ</text>
+      <circle class="halo" r="78" fill="url(#gGlow)"/>
+      <circle class="pulse" r="50" fill="none" stroke="#ff7d01" stroke-width="1.5"/>
+      <circle r="53" fill="none" stroke="url(#gEmber)" stroke-width="3"/>
+      <clipPath id="faceClip"><circle r="50"/></clipPath>
+      <circle r="50" fill="#ff8a4a"/>
+      <image href="face.webp" x="-56" y="-58" width="112" height="112" clip-path="url(#faceClip)" preserveAspectRatio="xMidYMid slice"/>
     </svg>
     <div class="oc"><h4 class="oc-t">Один человек</h4><p class="oc-p">Все пять направлений — в одной голове, без потери контекста</p></div>
     <div class="dots" data-dots="6"></div>
@@ -477,7 +494,7 @@
 <!-- QUOTE -->
 <section class="quote-band" data-node="all">
   <div class="wrap quote-wrap">
-    <div class="quote-photo">ДШ</div>
+    <div class="quote-photo"><img src="portrait.webp" alt="Дэвид Шатон" loading="lazy"></div>
     <div class="quote-card">
       <div class="qmark">“</div>
       <p>Слежу за тем, что приносит реальные заявки, а не за красивыми метриками в кабинете. Один человек, который видит всю воронку целиком, находит узкое место быстрее, чем отдел из агентства.</p>
@@ -553,7 +570,7 @@
           <div class="notch"></div>
 
           <div class="scr first">
-            <div class="stg avatar-s">ДШ</div>
+            <div class="stg avatar-s"><img src="face.webp" alt=""></div>
             <div class="stg sname">Дэвид Шатон</div>
             <div class="stg ssub">маркетолог и разработчик</div>
             <div class="stg tags"><i>Авито</i><i>Директ</i><i>Сайт</i><i>SEO</i><i>SMM</i></div>
@@ -610,7 +627,7 @@
 <!-- FOUNDER -->
 <section class="founder wrap-section" data-scr="0">
   <div class="wrap founder-grid">
-    <div class="founder-photo">ДШ</div>
+    <div class="founder-photo"><img src="face.webp" alt="Дэвид Шатон" loading="lazy"></div>
     <div>
       <div class="eyebrow" style="text-align:left;">обо мне</div>
       <h2>Дэвид Шатон — маркетолог и разработчик</h2>
@@ -842,7 +859,8 @@
       .from('.hero-cta-row .btn', { autoAlpha: 0, scale: .85, y: 16, duration: .6, ease: "back.out(1.7)" }, "-=.4")
       .from('.hero-tip', { autoAlpha: 0, x: -16, duration: .5 }, "<.15")
       .from('.hero-video', { autoAlpha: 0, y: 12, duration: .5 }, "-=.2")
-      .from('.hero-photo', { autoAlpha: 0, scale: .6, rotation: -12, duration: 1, ease: "elastic.out(1, .6)" }, .5)
+      .from('.hero-glow', { autoAlpha: 0, scale: .5, duration: 1.4, ease: "power2.out" }, .3)
+      .from('.hero-photo', { autoAlpha: 0, y: 70, scale: .94, duration: 1.2, ease: "power3.out" }, .5)
       .from('.stat-row', { borderTopColor: 'rgba(255,255,255,0)', borderBottomColor: 'rgba(255,255,255,0)', duration: .6 }, "-=.6")
       .from('.stat-row .stat', { autoAlpha: 0, y: 24, duration: .6, stagger: .1 }, "<");
 
@@ -859,6 +877,7 @@
 
     // ambient loops after intro
     gsap.to('.hero-arcs', { rotation: "+=360", duration: 90, ease: "none", repeat: -1, delay: 1.7 });
+    gsap.to('.hero-glow', { scale: 1.12, opacity: .75, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.4 });
     gsap.to('.hero-photo', { y: -10, duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 });
     gsap.to('.hero-cta-row .btn-primary', { boxShadow: '0 14px 34px -8px rgba(239,86,3,.9)', duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 2 });
 
@@ -911,6 +930,7 @@
     var spin = $('.spin', orbitPanel), R = 120, nodes = [];
     NODES.forEach(function(n, i){
       var a = (-90 + i * 72) * Math.PI / 180, x = R * Math.cos(a), y = R * Math.sin(a), len = R;
+      mk('line', { x1: 0, y1: 0, x2: x, y2: y, stroke: 'rgba(255,138,74,.4)', 'stroke-width': 1.2, 'stroke-dasharray': '2 5' }, spin);
       var line = mk('line', { x1: 0, y1: 0, x2: x, y2: y, stroke: '#ef5603', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-dasharray': len, 'stroke-dashoffset': len }, spin);
       var ni = mk('g', {}, spin);
       var c = mk('circle', { cx: x, cy: y, r: 27, fill: '#2a2724', stroke: 'rgba(255,255,255,.18)' }, ni);
@@ -955,7 +975,8 @@
     } });
 
     if (!reduce) {
-      gsap.fromTo($('.pulse', orbitPanel), { attr: { r: 44 }, opacity: 0.8 }, { attr: { r: 84 }, opacity: 0, duration: 2.6, repeat: -1, ease: 'power1.out' });
+      gsap.fromTo($('.pulse', orbitPanel), { attr: { r: 50 }, opacity: 0.8 }, { attr: { r: 92 }, opacity: 0, duration: 2.6, repeat: -1, ease: 'power1.out' });
+      gsap.fromTo($('.halo', orbitPanel), { attr: { r: 70 }, opacity: 1 }, { attr: { r: 88 }, opacity: 0.7, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
       var pg = $('.particles', orbitPanel);
       for (var k = 0; k < 10; k++) {
         var g = mk('g', {}, pg), r = 92 + Math.random() * 78, a2 = Math.random() * 6.28;
