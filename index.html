@@ -643,6 +643,14 @@
   .stick-phone .dots{margin-top:auto;}
   .chips-row2{display:flex;gap:8px;width:100%;margin-top:16px;}
   .chips-row2 .chip{position:static;flex:1 1 0;max-width:none;text-align:center;font-size:12.5px;padding:9px 10px;left:auto;right:auto;top:auto;bottom:auto;}
+
+  /* orbit panel: bigger installation */
+  .chapter-orbit .chapter-inner{grid-template-columns:440px minmax(0,1fr);}
+  .chapter-orbit .orbit{max-width:min(410px,calc(100vh - 320px));}
+  .chapter-orbit .oc h4{font-size:22px;}
+  .chapter-orbit .oc p{font-size:14px;max-width:34ch;}
+  @media (max-width:1180px){ .chapter-orbit .chapter-inner{grid-template-columns:380px minmax(0,1fr);} }
+  @media (max-width:960px){ .chapter-orbit .chapter-inner{grid-template-columns:minmax(0,1fr);} }
 </style>
 </head>
 <body>
@@ -727,21 +735,29 @@
       <defs><linearGradient id="gEmber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9a1f"/><stop offset="1" stop-color="#ff2e93"/></linearGradient>
         
         
-      <filter id="figGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur id="figBlur" stdDeviation="9"/></filter>
-        <radialGradient id="bfade" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff"/><stop offset=".62" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
-        <linearGradient id="outG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb02e"/><stop offset=".5" stop-color="#ff2e93"/><stop offset="1" stop-color="#ff2e93" stop-opacity="0"/></linearGradient>
+      
+        
+        
         <radialGradient id="gGlow"><stop offset="0" stop-color="#ff9a1f" stop-opacity=".95"/><stop offset=".5" stop-color="#ff2e93" stop-opacity=".55"/><stop offset="1" stop-color="#ff2e93" stop-opacity="0"/></radialGradient>
-        <mask id="bustMask" maskUnits="userSpaceOnUse" x="-80" y="-95" width="160" height="160"><ellipse cx="0" cy="-13" rx="74" ry="80" fill="url(#bfade)"/></mask>
+        
+      <filter id="figFx" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="d"/>
+          <feGaussianBlur id="figBlur" in="d" stdDeviation="10" result="bl"/>
+          <feFlood flood-color="#ff2e93"/><feComposite in2="bl" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="figFade" gradientUnits="userSpaceOnUse" x1="0" y1="-120" x2="0" y2="80"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff"/><stop offset=".82" stop-color="#000"/></linearGradient>
+        <mask id="figMask" maskUnits="userSpaceOnUse" x="-130" y="-130" width="260" height="210"><rect x="-130" y="-130" width="260" height="210" fill="url(#figFade)"/></mask>
       </defs>
-      <circle r="120" fill="none" stroke="rgba(255,255,255,.14)" stroke-dasharray="3 7"/>
-      <circle r="70" fill="none" stroke="rgba(255,255,255,.08)"/>
-      <circle class="prog" r="165" fill="none" stroke="#ff2e93" stroke-width="2" stroke-linecap="round" transform="rotate(-90)"/>
+      <circle r="130" fill="none" stroke="rgba(255,255,255,.14)" stroke-dasharray="3 7"/>
+      <circle r="82" fill="none" stroke="rgba(255,255,255,.08)"/>
+      <circle class="prog" r="176" fill="none" stroke="#ff2e93" stroke-width="2" stroke-linecap="round" transform="rotate(-90)"/>
       <g class="particles"></g>
       <g class="spin"></g>
-      <circle cx="0" cy="-13" r="96" fill="url(#gGlow)"/>
-      <ellipse cx="0" cy="-13" rx="72" ry="78" fill="none" stroke="#ff2e93" stroke-width="9" filter="url(#figGlow)" opacity=".9"/>
-      <image class="fig" href="bust-gta.webp" x="-75" y="-88" width="150" height="150" mask="url(#bustMask)" preserveAspectRatio="xMidYMid slice"/>
-      <ellipse cx="0" cy="-13" rx="72" ry="78" fill="none" stroke="url(#outG)" stroke-width="3"/>
+      <circle cx="0" cy="-22" r="112" fill="url(#gGlow)"/>
+      <g mask="url(#figMask)">
+        <image class="fig" href="bust-cut.webp" x="-92" y="-86" width="185" height="130" filter="url(#figFx)" preserveAspectRatio="xMidYMid meet"/>
+      </g>
     </svg>
     <div class="oc"><h4 class="oc-t">Один человек</h4><p class="oc-p">Все пять направлений — в одной голове, без потери контекста</p></div>
     <div class="dots" data-dots="6"></div>
@@ -1228,14 +1244,14 @@
     var ALL = { t: 'Один человек', d: 'Все пять направлений — в одной голове, без потери контекста' };
     var NS = 'http://www.w3.org/2000/svg';
     var mk = function(n, a, p){ var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
-    var spin = $('.spin', orbitPanel), R = 120, nodes = [];
+    var spin = $('.spin', orbitPanel), R = 130, nodes = [];
     NODES.forEach(function(n, i){
       var a = (-90 + i * 72) * Math.PI / 180, x = R * Math.cos(a), y = R * Math.sin(a), len = R;
       mk('line', { x1: 0, y1: 0, x2: x, y2: y, stroke: 'rgba(255,120,160,.4)', 'stroke-width': 1.2, 'stroke-dasharray': '2 5' }, spin);
       var line = mk('line', { x1: 0, y1: 0, x2: x, y2: y, stroke: '#ff2e93', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-dasharray': len, 'stroke-dashoffset': len }, spin);
       var ni = mk('g', {}, spin);
-      var c = mk('circle', { cx: x, cy: y, r: 27, fill: '#2a2724', stroke: 'rgba(255,255,255,.18)' }, ni);
-      var tx = mk('text', { x: x, y: y, 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: '#fff', 'font-family': 'Montserrat', 'font-weight': 700, 'font-size': 9.5 }, ni);
+      var c = mk('circle', { cx: x, cy: y, r: 35, fill: '#2a2724', stroke: 'rgba(255,255,255,.18)' }, ni);
+      var tx = mk('text', { x: x, y: y, 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: '#fff', 'font-family': 'Montserrat', 'font-weight': 700, 'font-size': 12.5 }, ni);
       tx.textContent = n.t;
       nodes.push({ line: line, ni: ni, c: c, x: x, y: y, len: len });
     });
@@ -1253,7 +1269,7 @@
       var all = v === 'all', info = all ? ALL : NODES[v];
       nodes.forEach(function(n, i){
         var on = all || i === v;
-        gsap.to(n.c, { attr: { r: (on && !all) ? 33 : 27 }, fill: on ? '#ff2e93' : '#2a2724', duration: 0.5 * D, ease: 'back.out(2)', overwrite: 'auto' });
+        gsap.to(n.c, { attr: { r: (on && !all) ? 42 : 35 }, fill: on ? '#ff2e93' : '#2a2724', duration: 0.5 * D, ease: 'back.out(2)', overwrite: 'auto' });
         gsap.to(n.ni, { opacity: on ? 1 : 0.4, duration: 0.4 * D, overwrite: 'auto' });
         gsap.to(n.line, { strokeDashoffset: on ? 0 : n.len, duration: 0.7 * D, ease: 'power2.out', overwrite: 'auto' });
       });
@@ -1268,7 +1284,7 @@
       ScrollTrigger.create({ trigger: sec, start: 'top 55%', end: 'bottom 55%', onToggle: function(s){ if (s.isActive) setNode(v); } });
     });
 
-    var prog = $('.prog', orbitPanel), C = 2 * Math.PI * 165;
+    var prog = $('.prog', orbitPanel), C = 2 * Math.PI * 176;
     prog.setAttribute('stroke-dasharray', C); prog.setAttribute('stroke-dashoffset', C);
     ScrollTrigger.create({ trigger: '.chapter-orbit', start: 'top bottom', end: 'bottom top', onUpdate: function(s){
       setRot(s.progress * 160);
