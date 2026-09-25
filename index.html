@@ -629,6 +629,13 @@
   .cmp-r{right:18px;border-color:#ff5ab0;box-shadow:0 0 0 1px rgba(255,46,147,.5),0 0 16px 2px rgba(255,46,147,.9),0 0 34px 6px rgba(255,154,31,.45),inset 0 0 12px rgba(255,46,147,.4);text-shadow:0 0 12px rgba(255,120,190,.95);}
   .cmp-hint{font-weight:600;font-size:13px;border:2px solid rgba(255,255,255,.85);box-shadow:0 0 14px rgba(255,255,255,.35);}
   @media (max-width:640px){ .cmp-lab{font-size:14px;padding:7px 14px;bottom:14px;} .cmp-l{left:12px;} .cmp-r{right:12px;} }
+
+  /* bigger "about" photo */
+  .chapter-body .founder-grid{grid-template-columns:270px 1fr;}
+  .chapter-body .founder-photo{border-radius:22px;box-shadow:0 0 0 1px rgba(255,46,147,.5),0 20px 50px -20px rgba(255,46,147,.55);}
+  @media (max-width:1100px){ .chapter-body .founder-grid{grid-template-columns:1fr;} .chapter-body .founder-photo{max-width:340px;} }
+  @media (max-width:760px){ .founder-photo{max-width:340px;} }
+  .avatar-s img{object-position:50% 25%;}
 </style>
 </head>
 <body>
@@ -670,8 +677,8 @@
       <div class="hero-video"><span class="dot">▶</span> Посмотреть, как проходит аудит</div>
     </div>
     <div class="hero-photo-wrap cmp" id="cmp">
-      <img class="hero-photo cmp-real" src="portrait-office.webp" alt="Дэвид Шатон" width="760" height="950" fetchpriority="high" draggable="false">
-      <img class="hero-photo cmp-toon" src="portrait-toon.webp" alt="Дэвид Шатон в стиле комикса" width="760" height="950" draggable="false">
+      <img class="hero-photo cmp-real" src="portrait-office.webp" alt="Давид Шатон" width="760" height="950" fetchpriority="high" draggable="false">
+      <img class="hero-photo cmp-toon" src="portrait-toon.webp" alt="Давид Шатон в стиле комикса" width="760" height="950" draggable="false">
       <span class="cmp-hint">← тяни →</span>
       <span class="cmp-lab cmp-l">Я в жизни</span><span class="cmp-lab cmp-r">Я в GTA</span>
       <div class="cmp-handle" role="slider" tabindex="0" aria-label="Сравнение: я в жизни и в стиле комикса" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
@@ -765,11 +772,11 @@
 <!-- QUOTE -->
 <section class="quote-band" data-node="all">
   <div class="wrap quote-wrap">
-    <div class="quote-photo"><img src="quote-gta.webp" alt="Дэвид Шатон в стиле постера Vice City" width="900" height="900" loading="lazy"></div>
+    <div class="quote-photo"><img src="quote-gta.webp" alt="Давид Шатон в стиле постера Vice City" width="900" height="900" loading="lazy"></div>
     <div class="quote-card">
       <div class="qmark">“</div>
       <p>Слежу за тем, что приносит реальные заявки, а не за красивыми метриками в кабинете. Один человек, который видит всю воронку целиком, находит узкое место быстрее, чем отдел из агентства.</p>
-      <cite>Дэвид Шатон, маркетолог и разработчик</cite>
+      <cite>Давид Шатон, маркетолог и разработчик</cite>
     </div>
   </div>
 </section>
@@ -841,8 +848,8 @@
           <div class="notch"></div>
 
           <div class="scr first">
-            <div class="stg avatar-s"><img src="face-new.webp" alt=""></div>
-            <div class="stg sname">Дэвид Шатон</div>
+            <div class="stg avatar-s"><img src="founder-gta.webp" alt=""></div>
+            <div class="stg sname">Давид Шатон</div>
             <div class="stg ssub">маркетолог и разработчик</div>
             <div class="stg tags"><i>Авито</i><i>Директ</i><i>Сайт</i><i>SEO</i><i>SMM</i></div>
             <div class="stg sbtn">Написать «АУДИТ»</div>
@@ -900,10 +907,10 @@
 <!-- FOUNDER -->
 <section class="founder wrap-section" data-scr="0">
   <div class="wrap founder-grid">
-    <div class="founder-photo"><img src="founder-gta.webp" alt="Дэвид Шатон в стиле постера Vice City" width="700" height="700" loading="lazy"></div>
+    <div class="founder-photo"><img src="founder-gta.webp" alt="Давид Шатон в стиле постера Vice City" width="700" height="700" loading="lazy"></div>
     <div>
       <div class="eyebrow" style="text-align:left;">обо мне</div>
-      <h2>Дэвид Шатон — маркетолог и разработчик</h2>
+      <h2>Давид Шатон — маркетолог и разработчик</h2>
       <p><b style="color:var(--text);">Моя задача — сделать ваш маркетинг устойчивым каналом роста</b>, а не набором разрозненных подрядчиков. 9+ лет в диджитале, специализация — алгоритм ранжирования Ranker 3 на Авито: понимаю, почему одни объявления получают заявки, а другие нет. Помимо Авито — сайты и приложения, Яндекс Директ, SEO и SMM. Веду всё лично, без передачи менеджерам.</p>
       <div class="founder-stats">
         <div><b>9+ лет</b><span>в диджитал-маркетинге</span></div>
@@ -1110,7 +1117,7 @@
       <span>[+7 000 000 00 00]</span>
       <span>Точка входа: кодовое слово «АУДИТ» в директ</span>
     </div>
-    <p class="disclaimer">Информация на сайте не является публичной офертой. © Дэвид Шатон — маркетинг и разработка. Оформление — вольная стилизация под эстетику игр серии GTA; сайт не связан с Rockstar Games и Take-Two Interactive.</p>
+    <p class="disclaimer">Информация на сайте не является публичной офертой. © Давид Шатон — маркетинг и разработка. Оформление — вольная стилизация под эстетику игр серии GTA; сайт не связан с Rockstar Games и Take-Two Interactive.</p>
   </div>
 </footer>
 
