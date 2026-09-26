@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Шатон. Маркетинг</title>
 <meta name="description" content="Маркетинг и разработка в одних руках: Авито, Яндекс Директ, сайты, SEO и SMM — без пересадки между подрядчиками.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Unbounded:wght@600;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/unbounded-cyrillic-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="portrait-office.webp" as="image" fetchpriority="high">
+<style>@font-face{font-family:'Manrope';font-style:normal;font-display:swap;font-weight:200 800;src:url(fonts/manrope-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Manrope';font-style:normal;font-display:swap;font-weight:200 800;src:url(fonts/manrope-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Oswald';font-style:normal;font-display:swap;font-weight:200 700;src:url(fonts/oswald-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Oswald';font-style:normal;font-display:swap;font-weight:200 700;src:url(fonts/oswald-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Unbounded';font-style:normal;font-display:swap;font-weight:600 900;src:url(fonts/unbounded-cyrillic-800.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Unbounded';font-style:normal;font-display:swap;font-weight:600 900;src:url(fonts/unbounded-latin-800.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Montserrat';font-style:normal;font-display:swap;font-weight:500 800;src:url(fonts/montserrat-cyrillic-800.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'Montserrat';font-style:normal;font-display:swap;font-weight:500 800;src:url(fonts/montserrat-latin-800.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Space Mono';font-style:normal;font-display:swap;font-weight:400;src:url(fonts/spacemono-latin-400.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Space Mono';font-style:normal;font-display:swap;font-weight:700;src:url(fonts/spacemono-latin-700.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}</style>
 <style>
   :root{
     --ink:#1c1c1c;
@@ -597,7 +599,7 @@
   .wg-card p{margin:0;font-size:14px;line-height:1.6;color:var(--text-dim);}
 
   .mp{margin:6px 0 14px;padding:18px 22px;border-radius:16px;background:linear-gradient(100deg,rgba(255,176,46,.16),rgba(255,46,147,.16));border:1px solid rgba(255,210,63,.5);animation:mp .7s cubic-bezier(.2,1.4,.4,1) both;}
-  .mp b{display:block;font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(20px,3vw,30px);letter-spacing:.02em;text-transform:uppercase;background:linear-gradient(180deg,#fff2a8,#ffb02e 60%,#ff6b4a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 14px rgba(255,140,40,.5));}
+  .mp b{display:block;font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(20px,3vw,30px);letter-spacing:.02em;text-transform:uppercase;background:linear-gradient(180deg,#fff2a8,#ffb02e 60%,#ff6b4a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 14px rgba(255,140,40,.5));}
   .mp span{font-family:'Oswald',sans-serif;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:#ffe36a;}
   @keyframes mp{from{transform:scale(.8);opacity:0;}to{transform:none;opacity:1;}}
   @media (prefers-reduced-motion: reduce){ .mp{animation:none;} }
@@ -651,6 +653,18 @@
   .chapter-orbit .oc p{font-size:14px;max-width:34ch;}
   @media (max-width:1180px){ .chapter-orbit .chapter-inner{grid-template-columns:380px minmax(0,1fr);} }
   @media (max-width:960px){ .chapter-orbit .chapter-inner{grid-template-columns:minmax(0,1fr);} }
+
+  /* ===== PERFORMANCE ===== */
+  body::after{mix-blend-mode:normal;opacity:.035;}
+  header.nav,.stat-row,.wanted,.hero-tip,.cmp-lab,.cmp-hint,.chip,.pp-tag,.btn-ghost,.btn-ghost-dark,.hero-side{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;}
+  header.nav{background:rgba(8,5,15,.95);}
+  .stat-row{background:rgba(8,5,15,.66);}
+  .wanted,.hero-tip,.cmp-lab{background:rgba(8,5,15,.85);}
+  .hero-sun{filter:none;}
+  .pp-row{will-change:transform;contain:layout style;}
+  .pp-card{contain:layout paint style;box-shadow:0 14px 28px -18px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.12);}
+  .pp-card:hover{box-shadow:0 18px 34px -18px rgba(255,46,147,.6),0 0 0 1px rgba(0,229,208,.7);}
+  .pp-thumb img{image-rendering:auto;}
 </style>
 </head>
 <body>
@@ -693,7 +707,7 @@
     </div>
     <div class="hero-photo-wrap cmp" id="cmp">
       <img class="hero-photo cmp-real" src="portrait-office.webp" alt="Давид Шатон" width="760" height="950" fetchpriority="high" draggable="false">
-      <img class="hero-photo cmp-toon" src="portrait-toon.webp" alt="Давид Шатон в стиле комикса" width="760" height="950" draggable="false">
+      <img class="hero-photo cmp-toon" src="portrait-toon.webp" alt="Давид Шатон в стиле комикса" width="760" height="950" draggable="false" decoding="async">
       <span class="cmp-hint">← тяни →</span>
       <span class="cmp-lab cmp-l">Я в жизни</span><span class="cmp-lab cmp-r">Я в GTA</span>
       <div class="cmp-handle" role="slider" tabindex="0" aria-label="Сравнение: я в жизни и в стиле комикса" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
@@ -754,7 +768,7 @@
       <circle class="prog" r="176" fill="none" stroke="#ff2e93" stroke-width="2" stroke-linecap="round" transform="rotate(-90)"/>
       <g class="particles"></g>
       <g class="spin"></g>
-      <circle cx="0" cy="-22" r="112" fill="url(#gGlow)"/>
+      <circle class="halo" cx="0" cy="-22" r="112" fill="url(#gGlow)"/>
       <g mask="url(#figMask)">
         <image class="fig" href="bust-cut.webp" x="-92" y="-86" width="185" height="130" filter="url(#figFx)" preserveAspectRatio="xMidYMid meet"/>
       </g>
@@ -794,7 +808,7 @@
 <!-- QUOTE -->
 <section class="quote-band" data-node="all">
   <div class="wrap quote-wrap">
-    <div class="quote-photo"><img src="quote-gta.webp" alt="Давид Шатон в стиле постера Vice City" width="900" height="900" loading="lazy"></div>
+    <div class="quote-photo"><img src="quote-gta.webp" alt="Давид Шатон в стиле постера Vice City" width="720" height="720" loading="lazy"></div>
     <div class="quote-card">
       <div class="qmark">“</div>
       <p>Слежу за тем, что приносит реальные заявки, а не за красивыми метриками в кабинете. Один человек, который видит всю воронку целиком, находит узкое место быстрее, чем отдел из агентства.</p>
@@ -928,7 +942,7 @@
 <!-- FOUNDER -->
 <section class="founder wrap-section" data-scr="0">
   <div class="wrap founder-grid">
-    <div class="founder-photo"><img src="founder-gta.webp" alt="Давид Шатон в стиле постера Vice City" width="700" height="700" loading="lazy"></div>
+    <div class="founder-photo"><img src="founder-gta.webp" alt="Давид Шатон в стиле постера Vice City" width="560" height="560" loading="lazy"></div>
     <div>
       <div class="eyebrow" style="text-align:left;">обо мне</div>
       <h2>Давид Шатон — маркетолог и разработчик</h2>
@@ -1142,7 +1156,7 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="vendor/gsap.min.js"></script>
 <script>
 (function(){
   if (!window.gsap) return;
@@ -1213,7 +1227,7 @@
   });
 })();
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
 <script>
 (function(){
   if (!window.gsap || !window.ScrollTrigger) return;
@@ -1292,9 +1306,9 @@
     } });
 
     if (!reduce) {
-      gsap.to('#figBlur', { attr: { stdDeviation: 15 }, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+      gsap.to($('.halo', orbitPanel), { opacity: 0.55, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
       var pg = $('.particles', orbitPanel);
-      for (var k = 0; k < 10; k++) {
+      for (var k = 0; k < 6; k++) {
         var g = mk('g', {}, pg), r = 92 + Math.random() * 78, a2 = Math.random() * 6.28;
         mk('circle', { cx: r * Math.cos(a2), cy: r * Math.sin(a2), r: 1.5 + Math.random() * 1.8, fill: k % 3 ? '#ff6b9d' : '#fff', opacity: 0.55 }, g);
         gsap.to(g, { rotation: (Math.random() > 0.5 ? 360 : -360), svgOrigin: '0 0', duration: 24 + Math.random() * 40, repeat: -1, ease: 'none' });
@@ -1483,21 +1497,30 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { section.classList.add('pp-static'); return; }
 
   var stage = section.querySelector('.pp-stage');
-  var st = { p: 0, i: 0 };
+  var cur = { p: 0, i: 0 }, tgt = { p: 0, i: 0 }, live = false, dirty = true, k = 1, travel = 1000;
+  function measure(){ k = Math.min(1, window.innerWidth / 1200); travel = 1000 * k; dirty = true; }
   function apply(){
-    var k = Math.min(1, window.innerWidth / 1200), travel = 1000 * k;
-    gsap.set(stage, { rotationX: 15 * (1 - st.i), rotationZ: 20 * k * (1 - st.i), y: -160 * k * (1 - st.i), opacity: 0.2 + 0.8 * st.i });
-    gsap.set(rows[0], { x: st.p * travel });
-    gsap.set(rows[1], { x: -st.p * travel });
-    gsap.set(rows[2], { x: st.p * travel });
+    var i = cur.i;
+    stage.style.transform = i > 0.998 ? 'translate3d(0,0,0)' :
+      'translate3d(0,' + (-160 * k * (1 - i)).toFixed(1) + 'px,0) rotateX(' + (15 * (1 - i)).toFixed(2) + 'deg) rotateZ(' + (20 * k * (1 - i)).toFixed(2) + 'deg)';
+    stage.style.opacity = (0.2 + 0.8 * i).toFixed(3);
+    var x = (cur.p * travel).toFixed(1);
+    rows[0].style.transform = 'translate3d(' + x + 'px,0,0)';
+    rows[1].style.transform = 'translate3d(' + (-x) + 'px,0,0)';
+    rows[2].style.transform = 'translate3d(' + x + 'px,0,0)';
   }
-  var qp = gsap.quickTo(st, 'p', { duration: 0.6, ease: 'power3', onUpdate: apply });
-  var qi = gsap.quickTo(st, 'i', { duration: 0.6, ease: 'power3', onUpdate: apply });
-  ScrollTrigger.create({ trigger: section, start: 'top bottom', end: 'bottom top', onUpdate: function(s){
-    qp(s.progress); qi(Math.min(1, s.progress / 0.3));
-  } });
-  apply();
-  window.addEventListener('resize', apply);
+  function tick(){
+    var dp = tgt.p - cur.p, di = tgt.i - cur.i;
+    if (!live && !dirty) return;
+    if (Math.abs(dp) < 0.0004 && Math.abs(di) < 0.0004) { if (dirty || dp || di) { cur.p = tgt.p; cur.i = tgt.i; dirty = false; apply(); } return; }
+    cur.p += dp * 0.14; cur.i += di * 0.14; dirty = false; apply();
+  }
+  gsap.ticker.add(tick);
+  ScrollTrigger.create({ trigger: section, start: 'top bottom', end: 'bottom top',
+    onToggle: function(s){ live = s.isActive; },
+    onUpdate: function(s){ tgt.p = s.progress; tgt.i = Math.min(1, s.progress / 0.3); } });
+  measure(); apply();
+  window.addEventListener('resize', measure);
 })();
 </script>
 <script>
@@ -1658,6 +1681,9 @@
     }
   });
 })();
+</script>
+<script>
+if ('serviceWorker' in navigator) { window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
 </script>
 </body>
 </html>
