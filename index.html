@@ -761,6 +761,10 @@
   .chapter-orbit .orbit{max-width:min(410px,calc(100vh - 400px));}
   .brief{padding-block:60px 0;}
   .brief + .wg{padding-top:44px;}
+  .legal-links{margin:14px 0 0;font-size:13px;color:var(--on-dark-dim);}
+  .legal-links a{color:var(--on-dark-dim);text-decoration:underline;text-underline-offset:3px;}
+  .legal-links a:hover{color:var(--teal);}
+  .consent-l a{color:var(--teal);}
 </style>
 </head>
 <body>
@@ -1114,7 +1118,7 @@
       <fieldset class="fld"><legend>Ваша сфера</legend><div class="chips-row" data-key="niche"><button type="button" class="opt-chip">Жильё / аренда</button><button type="button" class="opt-chip">Недвижимость</button><button type="button" class="opt-chip">Услуги</button><button type="button" class="opt-chip">Товары</button><button type="button" class="opt-chip">B2B</button></div></fieldset>
       <fieldset class="fld"><legend>Что важнее сейчас</legend><div class="chips-row" data-key="goal"><button type="button" class="opt-chip">Больше заявок</button><button type="button" class="opt-chip">Стабильность</button><button type="button" class="opt-chip">Разбор, почему не работает</button></div></fieldset>
       <div class="fld"><label for="lf-msg">Коротко о задаче <span class="opt">(необязательно)</span></label><textarea id="lf-msg" name="msg" rows="3" placeholder="Что сейчас с Авито, рекламой или сайтом"></textarea></div>
-      <label class="consent-l"><input type="checkbox" id="lf-consent"> Согласен на обработку персональных данных</label>
+      <label class="consent-l"><input type="checkbox" id="lf-consent"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a></span></label>
       <button class="btn btn-primary" type="submit">Отправить заявку <span aria-hidden="true">→</span></button>
       <div class="lead-status" id="leadStatus" role="status" aria-live="polite"></div>
     </form>
@@ -1282,6 +1286,7 @@
       <span>[+7 000 000 00 00]</span>
       <span>Бесплатный аудит и PDF-материалы в Telegram</span>
     </div>
+    <p class="legal-links"><a href="privacy.html">Политика конфиденциальности</a> · <a href="consent.html">Согласие на обработку персональных данных</a> · <a href="contacts.html">Реквизиты и контакты</a></p>
     <p class="disclaimer">Информация на сайте не является публичной офертой. © Давид Шатон — маркетинг и разработка. Оформление — вольная стилизация под эстетику игр серии GTA; сайт не связан с Rockstar Games и Take-Two Interactive.</p>
   </div>
 </footer>
