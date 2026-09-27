@@ -698,6 +698,15 @@
   /* row 2: square covers */
   .pp-row[data-row="1"]{--h:var(--w);}
   .pp-row[data-row="1"] .pp-thumb img{object-position:50% 50%;}
+
+  /* ===== draggable rows ===== */
+  .pp-row{cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none;}
+  .pp-row.dragging,.pp-row.dragging .pp-card{cursor:grabbing;}
+  .pp-row.dragging .pp-card{pointer-events:none;}
+  .pp-card{cursor:inherit;-webkit-user-drag:none;}
+  .pp-card img{-webkit-user-drag:none;pointer-events:none;}
+  .pp-rl::after{content:"\2190  тяни  \2192";margin-left:16px;font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.45);}
+  .lb-scroll{touch-action:pan-y pinch-zoom;}
 </style>
 </head>
 <body>
@@ -1494,7 +1503,7 @@
       var el = document.createElement('button'); el.type = 'button'; el.className = 'pp-card has-img';
       el.setAttribute('aria-label', p.t + ' — открыть крупно');
       el.innerHTML = '<span class="pp-thumb"><img width="640" height="480" loading="lazy" decoding="async"></span><span class="pp-tag"></span><span class="pp-ov"></span><span class="pp-name"></span>';
-      var im = el.querySelector('img'); im.src = p.img; im.alt = p.t;
+      var im = el.querySelector('img'); im.src = p.img; im.alt = p.t; im.draggable = false;
       el.querySelector('.pp-tag').textContent = p.tag; el.querySelector('.pp-name').textContent = p.t;
       var n = all.push(p) - 1;
       el.addEventListener('click', function(){ openLb(n, el); });
@@ -1522,6 +1531,16 @@
   lb.querySelector('.lb-prev').addEventListener('click', function(){ show(cur - 1); });
   lb.querySelector('.lb-next').addEventListener('click', function(){ show(cur + 1); });
   lb.addEventListener('click', function(e){ if (e.target === lb || e.target === lbScroll) closeLb(); });
+  (function(){
+    var sx = 0, sy = 0, sid = null;
+    lbScroll.addEventListener('pointerdown', function(e){ sid = e.pointerId; sx = e.clientX; sy = e.clientY; });
+    lbScroll.addEventListener('pointerup', function(e){
+      if (e.pointerId !== sid) return; sid = null;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) show(cur + (dx < 0 ? 1 : -1));
+    });
+    lbScroll.addEventListener('pointercancel', function(){ sid = null; });
+  })();
   document.addEventListener('keydown', function(e){
     if (lb.hidden) return;
     if (e.key === 'Escape') closeLb(); else if (e.key === 'ArrowLeft') show(cur - 1); else if (e.key === 'ArrowRight') show(cur + 1);
@@ -1533,6 +1552,14 @@
 
   var stage = section.querySelector('.pp-stage');
   var cur2 = { p: 0, i: 0 }, tgt = { p: 0, i: 0 }, live = false, dirty = true, k = 1, travel = [0, 0, 0];
+  var drag = [0, 0, 0], vel = [0, 0, 0], press = [false, false, false];
+  function bounds(i){ return i === 1 ? [-travel[i], 0] : [0, travel[i]]; }
+  function baseX(i){ return (i === 1 ? -1 : 1) * cur2.p * travel[i]; }
+  function clampDrag(i){
+    var b = bounds(i), base = baseX(i), tot = Math.max(b[0], Math.min(b[1], base + drag[i]));
+    if (tot !== base + drag[i]) vel[i] = 0;
+    drag[i] = tot - base;
+  }
   function measure(){
     var vw = window.innerWidth; k = Math.min(1, vw / 1200);
     rows.forEach(function(r, i){
@@ -1547,11 +1574,13 @@
     stage.style.transform = i > 0.998 ? 'translate3d(0,0,0)' :
       'translate3d(0,' + (-160 * k * (1 - i)).toFixed(1) + 'px,0) rotateX(' + (15 * (1 - i)).toFixed(2) + 'deg) rotateZ(' + (20 * k * (1 - i)).toFixed(2) + 'deg)';
     stage.style.opacity = (0.2 + 0.8 * i).toFixed(3);
-    rows[0].style.transform = 'translate3d(' + (cur2.p * travel[0]).toFixed(1) + 'px,0,0)';
-    rows[1].style.transform = 'translate3d(' + (-cur2.p * travel[1]).toFixed(1) + 'px,0,0)';
-    rows[2].style.transform = 'translate3d(' + (cur2.p * travel[2]).toFixed(1) + 'px,0,0)';
+    for (var r = 0; r < 3; r++) rows[r].style.transform = 'translate3d(' + (baseX(r) + drag[r]).toFixed(1) + 'px,0,0)';
   }
   function tick(){
+    for (var r = 0; r < 3; r++) {
+      if (!press[r] && Math.abs(vel[r]) > 0.02) { drag[r] += vel[r] * 16; vel[r] *= 0.94; dirty = true; }
+      if (dirty) clampDrag(r);
+    }
     var dp = tgt.p - cur2.p, di = tgt.i - cur2.i;
     if (!live && !dirty) return;
     if (Math.abs(dp) < 0.0004 && Math.abs(di) < 0.0004) { if (dirty || dp || di) { cur2.p = tgt.p; cur2.i = tgt.i; dirty = false; apply(); } return; }
@@ -1562,6 +1591,36 @@
     onToggle: function(s){ live = s.isActive; },
     onUpdate: function(s){ tgt.p = s.progress; tgt.i = Math.min(1, s.progress / 0.3); } });
   measure(); apply();
+  rows.forEach(function(row, i){
+    var id = null, sx = 0, sd = 0, moved = false, samples = [];
+    row.addEventListener('pointerdown', function(e){
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      id = e.pointerId; sx = e.clientX; sd = drag[i]; moved = false; row._moved = false; vel[i] = 0; press[i] = true;
+      samples = [[e.clientX, performance.now()]];
+    });
+    row.addEventListener('pointermove', function(e){
+      if (e.pointerId !== id || !press[i]) return;
+      var dx = e.clientX - sx;
+      if (!moved && Math.abs(dx) > 6) { moved = true; row.classList.add('dragging'); try { row.setPointerCapture(id); } catch (err) {} }
+      if (moved) {
+        drag[i] = sd + dx; clampDrag(i); dirty = true;
+        samples.push([e.clientX, performance.now()]); if (samples.length > 6) samples.shift();
+      }
+    });
+    function end(e){
+      if (e.pointerId !== id) return;
+      press[i] = false; id = null; row.classList.remove('dragging');
+      if (moved) {
+        row._moved = true;
+        var a = samples[0], b = samples[samples.length - 1], dt = b[1] - a[1];
+        vel[i] = dt > 0 ? Math.max(-3, Math.min(3, (b[0] - a[0]) / dt)) : 0;
+        if (performance.now() - b[1] > 90) vel[i] = 0;
+        dirty = true;
+      }
+    }
+    row.addEventListener('pointerup', end); row.addEventListener('pointercancel', end);
+    row.addEventListener('click', function(e){ if (row._moved) { e.stopPropagation(); e.preventDefault(); row._moved = false; } }, true);
+  });
   window.addEventListener('resize', measure); window.addEventListener('load', measure);
 })();
 </script>
