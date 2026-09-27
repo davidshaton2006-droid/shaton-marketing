@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://davidshaton2006-droid.github.io/shaton-marketing/sitemap.xml
