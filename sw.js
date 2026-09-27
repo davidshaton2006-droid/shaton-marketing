@@ -1,5 +1,5 @@
 // Offline-friendly cache: HTML is network-first (always fresh when online), everything else is stale-while-revalidate.
-const CACHE = 'shaton-v21';
+const CACHE = 'shaton-v22';
 const CORE = [
   './', 'index.html', 'portfolio.html',
   'vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js',
