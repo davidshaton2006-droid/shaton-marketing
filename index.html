@@ -734,6 +734,12 @@
   .cta-actions{display:flex;flex-direction:column;gap:12px;align-items:stretch;}
   .cta-actions p{margin:0 0 4px;color:var(--on-dark-dim);font-size:14px;}
   .cta-actions .btn{justify-content:center;}
+
+  /* orbit caption: larger, easier to read */
+  .chapter-orbit .oc{min-height:150px;}
+  .chapter-orbit .oc h4{font-size:28px;margin-bottom:8px;}
+  .chapter-orbit .oc p{font-size:17px;line-height:1.5;max-width:34ch;color:#d9cff7;}
+  .chapter-orbit .orbit{max-width:min(410px,calc(100vh - 400px));}
 </style>
 </head>
 <body>
@@ -742,7 +748,6 @@
   <div class="nav-inner">
     <div class="brand"><span class="brand-mark">ДШ</span> Шатон</div>
     <nav class="nav-links">
-      <a href="#experience">Опыт</a>
       <a href="#projects">Проекты</a>
       <a href="#pricing">Услуги</a>
       <a href="#faq">Вопросы</a>
@@ -937,14 +942,15 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience" class="experience wrap-section" data-node="3">
+<section id="seo" class="experience wrap-section" data-node="3">
   <div class="wrap">
-    <h2>Наш опыт</h2>
+    <div class="eyebrow">трафик без рекламы</div>
+    <h2>SEO: клиенты находят вас сами</h2>
     <div class="exp-grid">
-      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Гостеприимство</div><h3>«Романтик» — эко-база отдыха</h3><p>PWA-приложение с онлайн-бронированием, продвижение на Авито, ведение рекламы.</p></div>
-      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Недвижимость</div><h3>Центр выкупа недвижимости</h3><p>Лидогенерация через Яндекс Директ, текущее сопровождение кампаний.</p></div>
-      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Платформы</div><h3>СЕРВО — совместные закупки</h3><p>Разработка продукта с нуля: от архитектуры до интерфейса.</p></div>
-      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>B2B</div><h3>Транспортные технологии</h3><p>Сайт и настройка рекламных каналов для транспортной компании.</p></div>
+      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Основа</div><h3>Техническая база</h3><p>Скорость, мобильная версия и индексация: сайт, который поисковики читают без ошибок.</p></div>
+      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Запросы</div><h3>Структура под спрос</h3><p>Собираю запросы ваших клиентов и строю страницы под них, а не под догадки.</p></div>
+      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Выдача</div><h3>Микроразметка</h3><p>Расширенные сниппеты с ценой, рейтингом и вопросами: вас заметно в поиске.</p></div>
+      <div class="exp-card"><div class="exp-tag"><span class="dot"></span>Результат</div><h3>Заявки без рекламы</h3><p>Когда реклама на паузе, клиенты продолжают приходить из поиска.</p></div>
     </div>
   </div>
 </section>
@@ -1238,7 +1244,7 @@
     <div class="footer-top">
       <div class="brand" style="color:#fff;"><span class="brand-mark">ДШ</span> Шатон</div>
       <div class="footer-links">
-        <a href="#experience">Опыт</a><a href="#projects">Проекты</a><a href="#pricing">Услуги</a><a href="#faq">Вопросы</a>
+        <a href="#lead">Заявка</a><a href="#projects">Проекты</a><a href="#pricing">Услуги</a><a href="#faq">Вопросы</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1342,11 +1348,11 @@
   var orbitPanel = $('.stick-orbit .panel');
   if (orbitPanel) {
     var NODES = [
-      { t: 'Авито',  d: 'Алгоритм Авито, рейтинг профиля и воронка обращений' },
-      { t: 'Директ', d: 'Кампании, семантика, ставки и связка с Метрикой' },
-      { t: 'Сайт',   d: 'От лендинга под рекламу до приложения с бронированием' },
-      { t: 'SEO',    d: 'Техбаза, структура и микроразметка — трафик без рекламы' },
-      { t: 'SMM',    d: 'Контент и Reels, которые приводят клиентов' }
+      { t: 'Авито',  d: 'Оформляю профиль и объявления и слежу за алгоритмом, чтобы вас находили выше конкурентов и клиенты писали сами' },
+      { t: 'Директ', d: 'Настраиваю рекламу в Яндексе на тех, кто уже ищет вашу услугу, и слежу, чтобы бюджет не сливался' },
+      { t: 'Сайт',   d: 'Делаю сайты и приложения, которые превращают посетителей в заявки, а не просто выглядят красиво' },
+      { t: 'SEO',    d: 'Чтобы клиенты находили вас в поиске сами, даже когда реклама выключена' },
+      { t: 'SMM',    d: 'Веду контент и Reels, которые приводят клиентов, а не просто собирают лайки' }
     ];
     var ALL = { t: 'Один человек', d: 'Все пять направлений — в одной голове, без потери контекста' };
     var NS = 'http://www.w3.org/2000/svg';
