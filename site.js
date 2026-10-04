@@ -581,7 +581,7 @@
 ;
 (function(){
   // Put the Telegram channel URL here (e.g. 'https://t.me/yourchannel'); every "PDF в Telegram" button will start working and the "ссылка появится" notes disappear.
-  var TG_URL = 'https://t.me/avitolog_123';
+  var TG_URL = 'https://t.me/shatonlab/20';
   Array.prototype.forEach.call(document.querySelectorAll('[data-tg]'), function(a){
     if (TG_URL) { a.href = TG_URL; a.target = '_blank'; a.rel = 'noopener'; }
     else a.addEventListener('click', function(e){ e.preventDefault(); });
