@@ -6,75 +6,258 @@
 <title>Каталог материалов — Давид Шатон</title>
 <meta name="description" content="Бесплатные практические руководства по Авито, Яндекс Директу, сайтам, SEO и SMM и платные материалы Давида Шатона. Работает и как Telegram-мини-приложение.">
 <link rel="canonical" href="https://davidshaton2006-droid.github.io/shaton-marketing/catalog.html">
-<meta name="theme-color" content="#08050f">
+<meta name="theme-color" content="#eaf0ff">
 <link rel="preload" href="fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:'Manrope';font-display:swap;font-weight:200 800;src:url(fonts/manrope-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 @font-face{font-family:'Manrope';font-display:swap;font-weight:200 800;src:url(fonts/manrope-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+2000-206F,U+20AC,U+2122,U+2190-2193,U+2212}
-@font-face{font-family:'Unbounded';font-display:swap;font-weight:600 900;src:url(fonts/unbounded-cyrillic-800.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:'Unbounded';font-display:swap;font-weight:600 900;src:url(fonts/unbounded-latin-800.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
-:root{--ink:#08050f;--paper:#100b22;--surface:#1a1436;--line:#352b63;--text:#f6f2ff;--dim:#aaa2cc;--teal:#00e5d0;--sun:linear-gradient(90deg,#ff9a1f,#ff2e93)}
+
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+
+:root{
+  --ink:#0a0f24;--dim:#5a6485;--blue:#2f5bff;--blue2:#6a5cff;--sky:#8fb0ff;
+  --navy:#0a1230;
+  --glass:linear-gradient(150deg,rgba(255,255,255,.82),rgba(255,255,255,.36) 46%,rgba(214,228,255,.5));
+  --glass-edge:inset 0 1.5px 0 #fff,inset 0 -1.5px 2px rgba(110,140,255,.28),inset 1.5px 0 0 rgba(255,255,255,.7),inset -1px 0 0 rgba(255,255,255,.35),0 26px 50px -26px rgba(50,80,220,.5),0 2px 6px rgba(80,110,230,.1);
+  --dglass:linear-gradient(150deg,rgba(255,255,255,.2),rgba(255,255,255,.05) 50%,rgba(120,150,255,.14));
+  --dglass-edge:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -1.5px 2px rgba(80,110,255,.4),inset 1px 0 0 rgba(255,255,255,.22),0 30px 60px -26px rgba(0,0,0,.7),0 0 50px -14px rgba(80,120,255,.5);
+  --rim:conic-gradient(from var(--ang),rgba(255,255,255,.95),rgba(150,185,255,.95) 18%,rgba(205,170,255,.9) 36%,rgba(255,255,255,.95) 52%,rgba(140,230,255,.85) 70%,rgba(190,170,255,.9) 86%,rgba(255,255,255,.95));
+}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:radial-gradient(70% 40% at 100% 0%,rgba(255,46,147,.22),transparent 60%),radial-gradient(60% 40% at 0% 30%,rgba(0,229,208,.1),transparent 62%),var(--ink);color:var(--text);font-family:'Manrope',system-ui,sans-serif;min-height:100vh;padding-bottom:env(safe-area-inset-bottom,0)}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:'Manrope',system-ui,sans-serif;min-height:100vh;overflow-x:hidden;
+  background:linear-gradient(180deg,#f4f8ff,#e6edff 55%,#eef2ff);padding-bottom:env(safe-area-inset-bottom,0)}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
-header{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:12px}
-.brand{display:flex;align-items:center;gap:10px;font:800 14px 'Unbounded',sans-serif;text-transform:uppercase}
-.mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#ffb02e,#ff2e93);display:grid;place-items:center;font:800 12px 'Manrope';box-shadow:0 0 18px rgba(255,46,147,.55)}
-.back{font-size:13px;font-weight:700;color:var(--dim);border:1px solid var(--line);padding:8px 14px;border-radius:99px}
-.back:hover{color:#fff;border-color:var(--teal)}
-.hero{padding:26px 0 8px}
-.eyebrow{font:700 12px 'Manrope';letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin:0 0 10px}
-h1{font:800 clamp(26px,5.6vw,46px)/1.08 'Unbounded',sans-serif;text-transform:uppercase;margin:0 0 14px;letter-spacing:-.01em}
-h1 em{font-style:normal;background:var(--sun);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lede{color:var(--dim);font-size:16px;line-height:1.6;max-width:56ch;margin:0}
-.tabs{display:flex;gap:8px;margin:26px 0 18px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.tab{flex:none;font:700 14px 'Manrope';color:#fff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.22);padding:10px 18px;border-radius:99px;cursor:pointer}
-.tab[aria-pressed="true"]{background:var(--sun);border-color:transparent;box-shadow:0 10px 28px -10px rgba(255,46,147,.8)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
-.card{position:relative;display:flex;flex-direction:column;border:1px solid transparent;border-radius:20px;overflow:hidden;
- background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,rgba(255,46,147,.7),rgba(255,154,31,.45) 50%,rgba(0,229,208,.45)) border-box}
-.card.paid{background:linear-gradient(#1b1038,#12082a) padding-box,linear-gradient(135deg,#ffb02e,#ff2e93,#b0179e) border-box;border-width:2px}
-.cover{position:relative;height:120px;display:flex;align-items:flex-end;padding:14px 16px;background:radial-gradient(90% 120% at 90% 0%,var(--c1,#ff2e93),transparent 60%),linear-gradient(160deg,#2a0f5c,#12082a)}
-.cover b{font:800 44px/1 'Unbounded',sans-serif;opacity:.22}
-.cover i{position:absolute;top:12px;left:14px;font-style:normal;font:700 11px 'Manrope';letter-spacing:.08em;text-transform:uppercase;background:rgba(8,5,15,.7);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 11px}
-.card.paid .cover i{background:linear-gradient(90deg,#ff9a1f,#ff2e93);border-color:transparent}
-.body{display:flex;flex-direction:column;gap:10px;padding:16px 16px 18px;flex:1}
-h2{font:800 17px/1.25 'Manrope',sans-serif;margin:0;letter-spacing:-.01em}
+button{font:inherit}
+
+/* ---------- living background ---------- */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bg i{position:absolute;border-radius:50%;filter:blur(64px);opacity:.75;will-change:transform}
+.bg .b1{width:52vmax;height:52vmax;left:-14vmax;top:-16vmax;background:radial-gradient(circle,#6f9cff,transparent 68%);animation:drift1 22s ease-in-out infinite alternate}
+.bg .b2{width:44vmax;height:44vmax;right:-14vmax;top:12vmax;background:radial-gradient(circle,#c3a8ff,transparent 68%);animation:drift2 26s ease-in-out infinite alternate}
+.bg .b3{width:46vmax;height:46vmax;left:8vmax;bottom:-22vmax;background:radial-gradient(circle,#6fd6ff,transparent 68%);animation:drift3 30s ease-in-out infinite alternate}
+.bg::after{content:"";position:absolute;inset:-20%;background:repeating-linear-gradient(112deg,rgba(255,255,255,.6) 0 2px,transparent 2px 150px);opacity:.55;animation:streaks 40s linear infinite;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 92%);mask-image:linear-gradient(180deg,#000,transparent 92%)}
+@keyframes drift1{to{transform:translate(9vmax,7vmax) scale(1.12)}}
+@keyframes drift2{to{transform:translate(-8vmax,10vmax) scale(.92)}}
+@keyframes drift3{to{transform:translate(10vmax,-8vmax) scale(1.1)}}
+@keyframes streaks{to{transform:translateX(150px)}}
+
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 18px}
+
+/* ---------- the glass material ---------- */
+.glass,.dglass{position:relative;isolation:isolate;border:1px solid rgba(255,255,255,.92);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6)}
+.glass{background:var(--glass);box-shadow:var(--glass-edge)}
+.dglass{background:var(--dglass),linear-gradient(160deg,rgba(14,26,80,.88),rgba(8,14,44,.94));border-color:rgba(255,255,255,.28);box-shadow:var(--dglass-edge);color:#fff}
+/* iridescent rim that slowly rotates */
+.glass::before,.dglass::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:var(--rim);pointer-events:none;z-index:2;opacity:.9;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:rim 9s linear infinite}
+.dglass::before{opacity:.75}
+@keyframes rim{to{--ang:360deg}}
+/* travelling sheen + pointer specular */
+.glass::after,.dglass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,-30%),rgba(255,255,255,.75),transparent 62%),
+             linear-gradient(115deg,transparent 38%,rgba(255,255,255,.62) 50%,transparent 62%);
+  background-size:100% 100%,260% 100%;background-repeat:no-repeat;background-position:0 0,160% 0;
+  mix-blend-mode:soft-light;opacity:.9;animation:sheen 7s ease-in-out infinite;animation-delay:var(--d,0s)}
+.dglass::after{mix-blend-mode:screen;opacity:.5}
+@keyframes sheen{0%,55%{background-position:0 0,160% 0}100%{background-position:0 0,-60% 0}}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:max(10px,env(safe-area-inset-top,0px));z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0 0;padding:9px 10px 9px 12px;border-radius:99px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;letter-spacing:-.02em;position:relative;z-index:3}
+.tile{position:relative;display:grid;place-items:center;flex:none;color:#fff;border-radius:28%;
+  background:radial-gradient(120% 90% at 30% 10%,#a9c3ff,#4d7bff 45%,#2f46e0);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.85),inset 0 -3px 6px rgba(20,35,170,.45),0 10px 22px -8px rgba(47,91,255,.8),0 0 0 1px rgba(255,255,255,.35)}
+.tile::after{content:"";position:absolute;left:12%;right:12%;top:6%;height:38%;border-radius:50% 50% 60% 60%;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0))}
+.tile svg{position:relative;z-index:1;width:56%;height:56%;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 2px rgba(10,20,120,.4))}
+.brand .tile{width:36px;height:36px;font-size:12px;font-weight:800}
+.back{position:relative;z-index:3;font-weight:700;font-size:13.5px;padding:10px 18px;border-radius:99px;background:rgba(255,255,255,.55);border:1px solid #fff;box-shadow:inset 0 1px 0 #fff,0 8px 18px -12px rgba(50,80,220,.6);transition:transform .25s,box-shadow .25s,color .25s}
+.back:hover{transform:translateY(-1px);color:var(--blue);box-shadow:inset 0 1px 0 #fff,0 12px 22px -12px rgba(50,80,220,.8)}
+
+/* ---------- hero ---------- */
+.hero{padding:46px 0 10px;text-align:left}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 18px 7px 7px;border-radius:99px;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.pill .tile{width:34px;height:34px}
+h1{margin:22px 0 14px;font-weight:800;font-size:clamp(40px,9.6vw,92px);line-height:.98;letter-spacing:-.045em}
+h1 .grad,.grad{background:linear-gradient(95deg,#2a5bff,#6a5cff 70%,#8f6bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin:0;font-size:clamp(16px,2.4vw,24px);font-weight:500;color:var(--dim);letter-spacing:-.01em}
+.sub b{color:#9aa6c9;margin:0 .35em;font-weight:800}
+.lede{margin:16px 0 0;color:var(--dim);font-size:16px;line-height:1.6;max-width:58ch}
+
+/* fan of five glass cards inside a glass tray */
+.tray{container-type:inline-size;position:relative;margin:34px 0 0;aspect-ratio:2/1.02;border-radius:clamp(26px,6cqw,52px);padding:0}
+.tray .fan{position:absolute;inset:0}
+.fc{position:absolute;width:21.5%;height:72%;border-radius:clamp(14px,4.2cqw,34px);padding:8% 7%;display:flex;flex-direction:column;align-items:flex-start;
+  transform-origin:50% 100%;transform:translateY(var(--y,0)) rotate(var(--r,0deg));animation:float 6s ease-in-out infinite;animation-delay:var(--fd,0s);
+  top:14%;left:calc(4% + var(--i)*18.8%);z-index:var(--z)}
+.fc.glass{--d:0s}
+.fc .t{font-weight:800;font-size:clamp(9px,2.3cqw,20px);letter-spacing:-.02em;position:relative;z-index:3}
+.fc .tile{width:50%;aspect-ratio:1;margin:auto;position:relative;z-index:3}
+.fc .ln{position:relative;z-index:3;display:grid;gap:7%;width:100%;margin-top:auto}
+.fc .ln i{display:block;height:clamp(3px,.9cqw,8px);border-radius:9px;background:rgba(120,150,235,.4)}
+.fc .ln i:nth-child(2){width:80%}.fc .ln i:nth-child(3){width:58%}
+@keyframes float{0%,100%{transform:translateY(var(--y,0)) rotate(var(--r,0deg))}50%{transform:translateY(calc(var(--y,0px) - 2.2%)) rotate(calc(var(--r,0deg) + .8deg))}}
+
+/* ---------- segmented filter ---------- */
+.seg{position:relative;display:inline-flex;gap:0;margin:34px 0 20px;padding:5px;border-radius:99px;max-width:100%}
+.seg .thumb{position:absolute;top:5px;bottom:5px;left:5px;width:60px;border-radius:99px;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 120% at 30% 0%,#8fb0ff,#3d68ff 55%,#4a3fe0);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.8),inset 0 -2px 5px rgba(20,35,170,.45),0 10px 24px -8px rgba(47,91,255,.8);
+  transition:transform .5s cubic-bezier(.3,1.35,.5,1),width .5s cubic-bezier(.3,1.35,.5,1)}
+.tab{position:relative;z-index:3;border:0;background:none;cursor:pointer;font-weight:800;font-size:14.5px;letter-spacing:-.01em;color:var(--ink);padding:12px 22px;border-radius:99px;transition:color .3s}
+.tab[aria-pressed="true"]{color:#fff}
+
+/* ---------- catalog cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{display:flex;flex-direction:column;border-radius:30px;padding:14px;transition:transform .45s cubic-bezier(.2,.9,.3,1.2),box-shadow .45s;
+  transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));opacity:0;translate:0 26px}
+.card.in{opacity:1;translate:0 0;transition:opacity .7s ease,translate .8s cubic-bezier(.2,.9,.3,1),transform .45s cubic-bezier(.2,.9,.3,1.2)}
+.card.hide{display:none}
+.cover{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:12px;height:132px;padding:16px;border-radius:22px;overflow:hidden;
+  background:radial-gradient(90% 130% at 88% 0%,var(--c1,#8fb0ff),transparent 62%),linear-gradient(160deg,rgba(255,255,255,.65),rgba(190,208,255,.5));
+  box-shadow:inset 0 1px 0 #fff,inset 0 -1px 2px rgba(90,120,230,.25)}
+.card.paid .cover{background:radial-gradient(90% 130% at 88% 0%,var(--c1,#8fb0ff),transparent 62%),linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 2px rgba(80,110,255,.35)}
+.cover .num{position:absolute;right:16px;bottom:-12px;font-weight:800;font-size:92px;letter-spacing:-.06em;line-height:1;color:rgba(255,255,255,.55);-webkit-text-stroke:1px rgba(255,255,255,.7);color:rgba(255,255,255,.25)}
+.cover .tile{width:68px;height:68px;position:relative;z-index:2}
+.badge{position:relative;z-index:2;font-weight:800;font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:7px 13px;border-radius:99px;background:rgba(255,255,255,.7);border:1px solid #fff;box-shadow:inset 0 1px 0 #fff}
+.card.paid .badge{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.body{position:relative;z-index:3;display:flex;flex-direction:column;gap:11px;padding:16px 8px 6px;flex:1}
+h2{margin:0;font-weight:800;font-size:19px;line-height:1.2;letter-spacing:-.03em}
 .desc{margin:0;color:var(--dim);font-size:14px;line-height:1.55}
-.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.meta span{font:600 11.5px 'Manrope';color:#d9cff7;background:rgba(255,255,255,.07);border-radius:99px;padding:4px 10px}
-.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:6px}
-.price{font:800 20px 'Unbounded',sans-serif}
-.price small{display:block;font:600 11px 'Manrope';color:var(--dim);margin-top:2px}
-.btn{display:inline-flex;align-items:center;justify-content:center;font:800 14px 'Manrope';padding:12px 20px;border-radius:99px;border:1px solid transparent;cursor:pointer;white-space:nowrap}
-.btn-pri{background:var(--sun);color:#fff;box-shadow:0 10px 28px -10px rgba(255,46,147,.8)}
-.btn-ghost{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.3);color:#fff}
-.btn:hover{filter:brightness(1.1)}
-.free-tag{font:800 16px 'Unbounded',sans-serif;color:var(--teal)}
-.note{margin:26px 0 8px;padding:16px 18px;border:1px solid var(--line);border-radius:16px;color:var(--dim);font-size:13.5px;line-height:1.6;background:rgba(255,255,255,.03)}
-.note a{color:var(--teal);text-decoration:underline;text-underline-offset:3px}
-footer{padding:26px 0 38px;color:var(--dim);font-size:12.5px;line-height:1.7}
+.card.paid .desc{color:#b9c5ea}
+.meta{display:flex;flex-wrap:wrap;gap:7px}
+.meta span{font-weight:700;font-size:12px;padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.7);border:1px solid #fff;box-shadow:inset 0 1px 0 #fff;color:#46527a}
+.card.paid .meta span{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);color:#d8e0fb;box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:8px}
+.price{font-weight:800;font-size:23px;letter-spacing:-.04em}
+.price small{display:block;font-weight:600;font-size:11.5px;letter-spacing:0;color:#9fb0e0;margin-top:3px}
+.free-tag{font-weight:800;font-size:22px;letter-spacing:-.04em}
+
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:14.5px;letter-spacing:-.01em;padding:14px 24px;border-radius:99px;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s,filter .25s}
+.btn:active{transform:scale(.96)}
+.btn-pri{color:#fff;background:radial-gradient(130% 160% at 28% 0%,#9bb8ff,#3f6bff 50%,#5a45ea);border-color:rgba(255,255,255,.4);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.85),inset 0 -3px 7px rgba(20,35,170,.45),0 14px 28px -10px rgba(47,91,255,.85)}
+.btn-pri::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-130%);transition:transform .9s}
+.btn-pri:hover{transform:translateY(-2px);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.9),inset 0 -3px 7px rgba(20,35,170,.45),0 18px 34px -10px rgba(47,91,255,1)}
+.btn-pri:hover::after{transform:translateX(130%)}
+.btn-ghost{color:#fff;background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 22px -12px rgba(0,0,0,.6)}
+.btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.22)}
+
+/* ---------- how it works: stacked glass pills like the reference ---------- */
+.how{margin:64px 0 0}
+.how h2.big{font-size:clamp(30px,6vw,56px);line-height:1.02;letter-spacing:-.045em;margin:0 0 8px}
+.how .sub{margin-bottom:26px}
+.steps{display:grid;gap:0;max-width:640px}
+.step{display:flex;align-items:center;gap:18px;padding:14px 26px 14px 14px;border-radius:99px;margin:0}
+.step .tile{width:64px;height:64px;border-radius:24%}
+.step b{font-weight:800;font-size:clamp(17px,3vw,24px);letter-spacing:-.02em;text-transform:uppercase;position:relative;z-index:3}
+.step span{display:block;font-weight:500;font-size:13.5px;color:var(--dim);text-transform:none;letter-spacing:0;margin-top:3px}
+.link{position:relative;z-index:2;width:3px;height:26px;margin:-2px 0 -2px 46px;background:linear-gradient(#fff,rgba(150,175,255,.9));border-radius:3px}
+.link::before{content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;border:2.5px solid #5f84ff;box-shadow:0 0 12px rgba(80,120,255,.7)}
+
+.note{margin:44px 0 0;padding:20px 24px;border-radius:26px;font-size:14px;line-height:1.65;color:var(--dim)}
+.note a{color:var(--blue);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+footer{position:relative;z-index:1;padding:28px 0 44px;color:var(--dim);font-size:12.5px;line-height:1.75}
 footer a{text-decoration:underline;text-underline-offset:3px}
-.hide{display:none!important}
-@media (max-width:520px){.foot{flex-direction:column;align-items:stretch}.foot .btn{width:100%}}
+
+/* ---------- entrance ---------- */
+.rise{opacity:0;translate:0 22px;filter:blur(8px);transition:opacity .9s ease,translate 1s cubic-bezier(.2,.9,.3,1),filter .9s ease;transition-delay:var(--rd,0s)}
+.rise.in{opacity:1;translate:0 0;filter:none}
+
+@media (max-width:560px){
+  .tab{padding:11px 16px;font-size:14px}
+  .foot{flex-direction:column;align-items:stretch}
+  .foot .btn{width:100%}
+  .cover{height:118px}
+  .step{padding-right:16px}
+  .link{margin-left:42px}
+}
+
+/* ---------- liquid light & depth ---------- */
+.light{position:fixed;left:0;top:0;width:60vmax;height:60vmax;margin:-30vmax 0 0 -30vmax;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,255,255,.75),rgba(150,185,255,.25) 35%,transparent 62%);mix-blend-mode:soft-light;transform:translate(var(--lx,50vw),var(--ly,30vh));transition:transform .5s cubic-bezier(.2,.8,.3,1)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:34px}}
+.stage{position:relative;display:grid;place-items:center;min-height:520px;perspective:1100px}
+.liquid{position:absolute;z-index:0;background:radial-gradient(120% 120% at 28% 18%,#a9c4ff,#4a78ff 48%,#5a3fe6);filter:blur(1px);
+  box-shadow:inset 0 10px 30px rgba(255,255,255,.55),inset 0 -24px 50px rgba(30,40,190,.55),0 40px 80px -30px rgba(47,91,255,.8);animation:morph 11s ease-in-out infinite}
+.liquid.l1{width:78%;aspect-ratio:1;left:4%;top:8%;border-radius:62% 38% 55% 45%/48% 58% 42% 52%}
+.liquid.l2{width:34%;aspect-ratio:1;right:2%;bottom:6%;border-radius:50%;animation-duration:8s;animation-direction:reverse;background:radial-gradient(120% 120% at 30% 20%,#c8b6ff,#7a62ff 55%,#4a38d8)}
+@keyframes morph{0%,100%{border-radius:62% 38% 55% 45%/48% 58% 42% 52%;transform:rotate(0deg) scale(1)}
+  33%{border-radius:42% 58% 38% 62%/60% 42% 58% 40%;transform:rotate(18deg) scale(1.05)}
+  66%{border-radius:55% 45% 62% 38%/40% 56% 44% 60%;transform:rotate(-12deg) scale(.96)}}
+.phone{position:relative;z-index:2;width:min(300px,78%);padding:16px 14px 18px;border-radius:44px;transform:rotateY(-9deg) rotateX(4deg);animation:phoneFloat 7s ease-in-out infinite}
+@keyframes phoneFloat{0%,100%{transform:rotateY(-9deg) rotateX(4deg) translateY(0)}50%{transform:rotateY(-5deg) rotateX(2deg) translateY(-12px)}}
+.ph-top{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:4px 8px 14px;font-weight:800;font-size:15px;letter-spacing:-.02em;color:#fff}
+.ph-dot{width:9px;height:9px;border-radius:50%;background:#8fb0ff;box-shadow:0 0 12px #8fb0ff}
+.ph-sig{width:26px;height:9px;border-radius:9px;background:rgba(255,255,255,.35)}
+.ph-list{position:relative;z-index:3;display:grid;gap:0;padding:6px 4px}
+.ph-item{display:flex;align-items:center;gap:12px;padding:9px 18px 9px 9px;border-radius:99px;color:var(--ink);animation:lit 6s ease-in-out infinite;animation-delay:calc(var(--k)*1.6s)}
+.ph-item .tile{width:44px;height:44px;border-radius:26%}
+.ph-item b{font-weight:800;font-size:16px;letter-spacing:-.02em;text-transform:uppercase;position:relative;z-index:3}
+@keyframes lit{0%,24%,100%{transform:scale(1);filter:none}8%,16%{transform:scale(1.045);filter:drop-shadow(0 0 14px rgba(120,160,255,.95))}}
+.ph-link{display:block;position:relative;z-index:2;width:3px;height:18px;margin:-1px 0 -1px 30px;background:linear-gradient(rgba(255,255,255,.9),rgba(140,170,255,.9));border-radius:3px}
+.ph-link::before{content:"";position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:#fff;border:2.5px solid #6a8dff;box-shadow:0 0 10px rgba(110,150,255,.9);animation:dotp 6s ease-in-out infinite;animation-delay:calc(var(--k)*1.6s + .8s)}
+@keyframes dotp{0%,22%,100%{transform:scale(1)}10%{transform:scale(1.5)}}
+.ph-cta{position:relative;z-index:3;margin:16px 4px 0;padding:13px 16px;border-radius:99px;text-align:center;font-weight:700;font-size:12.5px;color:#fff;
+  background:radial-gradient(130% 160% at 28% 0%,#9bb8ff,#3f6bff 50%,#5a45ea);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.85),inset 0 -3px 7px rgba(20,35,170,.45),0 12px 26px -10px rgba(47,91,255,.9)}
+.chip{position:absolute;z-index:4;display:flex;align-items:center;gap:9px;padding:11px 18px 11px 14px;border-radius:99px;font-weight:800;font-size:13.5px;letter-spacing:-.01em;color:var(--ink);animation:chipF 6.5s ease-in-out infinite}
+.chip.c1{left:-6%;top:5%}
+.chip.c2{right:-4%;bottom:4%;animation-delay:-3s}
+.chip svg{width:18px;height:18px;fill:none;stroke:#2f5bff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.pulse{position:relative;width:11px;height:11px;border-radius:50%;background:#2f5bff;box-shadow:0 0 0 0 rgba(47,91,255,.6);animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{to{box-shadow:0 0 0 14px rgba(47,91,255,0)}}
+@keyframes chipF{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@media (max-width:860px){.stage{min-height:480px}.chip.c1{left:2%}.chip.c2{right:2%}}
+.fc .tile{width:58%}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .rise,.card{opacity:1;translate:0 0;filter:none}
+}
 </style>
 </head>
 <body>
+<div class="light" id="light" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+
 <div class="wrap">
-  <header>
-    <a class="brand" href="index.html"><span class="mark">ДШ</span> Шатон</a>
+  <header class="nav glass">
+    <a class="brand" href="index.html"><span class="tile">ДШ</span> Шатон</a>
     <a class="back" href="index.html">← На сайт</a>
   </header>
 
   <section class="hero">
-    <p class="eyebrow">каталог материалов</p>
-    <h1>Практика без воды: <em>бесплатно</em> и&nbsp;глубже</h1>
-    <p class="lede">Пять бесплатных руководств по Авито, Яндекс Директу, сайтам, SEO и SMM — забирайте и применяйте. И несколько платных материалов для тех, кто хочет разобраться глубже.</p>
+    <div class="hero-grid">
+      <div class="hero-txt">
+        <span class="pill glass rise"><span class="tile"><svg viewBox="0 0 24 24"><path d="M2 5.5c3-1.6 6-1.6 10 .8 4-2.4 7-2.4 10-.8v13c-3-1.6-6-1.6-10 .8-4-2.4-7-2.4-10-.8z"/><path d="M12 6.3v13"/></svg></span>Материалы</span>
+        <h1 class="rise" style="--rd:.08s">5 практических <span class="grad">руководств</span></h1>
+        <p class="sub rise" style="--rd:.16s">Авито<b>·</b>Директ<b>·</b>Сайты<b>·</b>SEO<b>·</b>SMM</p>
+        <p class="lede rise" style="--rd:.22s">Маркетинг — не кнопка «Запустить». Забирайте бесплатно и применяйте, а ниже — платные материалы для тех, кто хочет разобраться глубже.</p>
+      </div>
+      <div class="stage rise" style="--rd:.28s" aria-hidden="true">
+        <i class="liquid l1"></i><i class="liquid l2"></i>
+        <div class="phone dglass">
+          <div class="ph-top"><span class="ph-dot"></span><b>Путь клиента</b><span class="ph-sig"></span></div>
+          <div class="ph-list">
+            <div class="ph-item glass" style="--k:0"><span class="tile"><svg viewBox="0 0 24 24"><path d="M5 20V13M12 20V5M19 20v-9"/></svg></span><b>Реклама</b></div>
+            <i class="ph-link" style="--k:0"></i>
+            <div class="ph-item glass" style="--k:1"><span class="tile"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="3"/><path d="M9 9.5h6M9 14h6"/></svg></span><b>Заявка</b></div>
+            <i class="ph-link" style="--k:1"></i>
+            <div class="ph-item glass" style="--k:2"><span class="tile"><svg viewBox="0 0 24 24"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H11l-5 4v-4H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg></span><b>Ответ</b></div>
+          </div>
+          <div class="ph-cta"><span>Клиент проходит всю систему целиком</span></div>
+        </div>
+        <div class="chip c1 glass"><i class="pulse"></i>Новая заявка</div>
+        <div class="chip c2 glass"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Ответил лично</div>
+      </div>
+    </div>
+    <div class="tray glass rise" style="--rd:.34s" id="tray" aria-hidden="true"><div class="fan" id="fan"></div></div>
   </section>
 
-  <div class="tabs" role="group" aria-label="Фильтр">
+  <div class="seg glass rise" id="seg" role="group" aria-label="Фильтр" style="--rd:.1s">
+    <span class="thumb" id="thumb"></span>
     <button class="tab" data-f="all" aria-pressed="true">Все</button>
     <button class="tab" data-f="free" aria-pressed="false">Бесплатно</button>
     <button class="tab" data-f="paid" aria-pressed="false">Платные</button>
@@ -82,8 +265,19 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 
   <main class="grid" id="grid"></main>
 
-  <div class="note" id="note">
-    Бесплатные руководства лежат одним постом в Telegram-канале: откройте пост и сохраните нужные файлы.
+  <section class="how">
+    <h2 class="big rise">Как это <span class="grad">работает</span></h2>
+    <p class="sub rise" style="--rd:.08s">Три шага, без регистраций</p>
+    <div class="steps">
+      <div class="step glass rise"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></span><div><b>Выберите</b><span>Бесплатное руководство или платный материал</span></div></div>
+      <div class="link"></div>
+      <div class="step glass rise" style="--rd:.08s"><span class="tile"><svg viewBox="0 0 24 24"><path d="M21 3 3 10.5l6 2.3L11.3 20l3.2-4.5 4.5 3.3z"/><path d="m9 12.8 11-8.6"/></svg></span><div><b>Заберите в Telegram</b><span>Файлы лежат одним постом в канале</span></div></div>
+      <div class="link"></div>
+      <div class="step glass rise" style="--rd:.16s"><span class="tile"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><div><b>Применяйте</b><span>Чек-листы, шаблоны и план на 30 дней внутри</span></div></div>
+    </div>
+  </section>
+
+  <div class="note glass rise" id="note">
     Платные материалы пока готовятся. Нажмите «Сообщить о выходе» — напишу вам, когда материал будет готов.
     Вопросы — в Telegram <a href="https://t.me/avitolog_23">@avitolog_23</a>.
   </div>
@@ -99,49 +293,128 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 var FREE_URL = 'https://t.me/shatonlab/20';       // пост с PDF-файлами
 var ASK_URL  = 'https://t.me/avitolog_23';         // личный Telegram для вопросов и «сообщить о выходе»
 var PRODUCTS = [
-  /* бесплатные — готовые PDF */
-  { id:'avito',  free:true, tag:'Авито', n:'01', c:'#ff9a1f', title:'Продвижение на Авито без воды', desc:'Как устроена выдача, карточка, обложка, цена, платное продвижение, аналитика и план на 30 дней.', meta:['PDF','54 стр.','16 глав'] },
-  { id:'direct', free:true, tag:'Яндекс Директ', n:'02', c:'#ff2e93', title:'Яндекс Директ без слива бюджета', desc:'Метрика и цели, семантика и минус-слова, стратегии ставок, ретаргетинг и допустимая цена заявки.', meta:['PDF','51 стр.','16 глав'] },
-  { id:'sites',  free:true, tag:'Сайты', n:'03', c:'#00e5d0', title:'Сайты и приложения, которые продают', desc:'Платформа, бриф, структура страницы, тексты, скорость, формы, SEO-основы и запуск сайта.', meta:['PDF','46 стр.','17 глав'] },
-  { id:'seo',    free:true, tag:'SEO', n:'04', c:'#b0179e', title:'SEO-продвижение без магии', desc:'Индексация, семантика, структура, метатеги, контент, локальный поиск, ссылки и самостоятельный аудит.', meta:['PDF','55 стр.','17 глав'] },
-  { id:'smm',    free:true, tag:'SMM', n:'05', c:'#ffb02e', title:'SMM, который приводит заявки', desc:'Стратегия, контент-план, видео, ВКонтакте и Telegram, вовлечение, негатив и платное продвижение.', meta:['PDF','51 стр.','17 глав'] },
-  /* платные — в разработке */
-  { id:'site-weekend', paid:true, tag:'Сайты', n:'06', c:'#00e5d0', title:'Сайт за выходные', desc:'Готовые шаблоны сайта-визитки, портфолио и лендинга и пошаговая инструкция, как выложить их бесплатно без программиста.', meta:['Шаблоны + инструкция'], price:'490–990 ₽' },
-  { id:'manipulation', paid:true, tag:'Маркетинг', n:'07', c:'#ff2e93', title:'Как тебя заставляют покупать', desc:'Приёмы, которыми магазины и реклама подталкивают к покупке, и как им не поддаваться. Маркетинг изнутри простым языком.', meta:['PDF'], price:'199–399 ₽' },
-  { id:'avito-sell', paid:true, tag:'Авито', n:'08', c:'#ff9a1f', title:'Продай вещь на Авито быстро и дороже', desc:'Фото, заголовок, цена, торг и защита от мошенников: как продать ненужные вещи без лишних нервов.', meta:['PDF + чек-листы'], price:'199–299 ₽' },
-  { id:'avito-flip', paid:true, tag:'Авито', n:'09', c:'#ffb02e', title:'Перепродажа на Авито с нуля', desc:'Как искать товар, оценивать, покупать и продавать, считать прибыль и риски. Без обещаний «лёгких денег».', meta:['PDF + таблица расчёта'], price:'790–990 ₽' },
-  { id:'brand', paid:true, tag:'SMM', n:'10', c:'#b0179e', title:'Личный бренд для обычного человека', desc:'Как вести Instagram и Telegram, чтобы вас замечали: профиль, темы, форматы и шаблоны постов.', meta:['PDF + шаблоны'], price:'490–990 ₽' }
+  { id:'avito',  free:true, ic:'bars',   tag:'Авито', n:'01', c:'#9db8ff', title:'Продвижение на Авито без воды', desc:'Как устроена выдача, карточка, обложка, цена, платное продвижение, аналитика и план на 30 дней.', meta:['PDF','54 стр.','16 глав'] },
+  { id:'direct', free:true, ic:'cursor', tag:'Директ', n:'02', c:'#b9a6ff', title:'Яндекс Директ без слива бюджета', desc:'Метрика и цели, семантика и минус-слова, стратегии ставок, ретаргетинг и допустимая цена заявки.', meta:['PDF','51 стр.','16 глав'] },
+  { id:'sites',  free:true, ic:'globe',  tag:'Сайты', n:'03', c:'#8fdcff', title:'Сайты и приложения, которые продают', desc:'Платформа, бриф, структура страницы, тексты, скорость, формы, SEO-основы и запуск сайта.', meta:['PDF','46 стр.','17 глав'] },
+  { id:'seo',    free:true, ic:'search', tag:'SEO', n:'04', c:'#a7b4ff', title:'SEO-продвижение без магии', desc:'Индексация, семантика, структура, метатеги, контент, локальный поиск, ссылки и самостоятельный аудит.', meta:['PDF','55 стр.','17 глав'] },
+  { id:'smm',    free:true, ic:'send',   tag:'SMM', n:'05', c:'#c9b2ff', title:'SMM, который приводит заявки', desc:'Стратегия, контент-план, видео, ВКонтакте и Telegram, вовлечение, негатив и платное продвижение.', meta:['PDF','51 стр.','17 глав'] },
+
+  { id:'site-weekend', paid:true, ic:'globe',  tag:'Сайты', n:'06', c:'#6f95ff', title:'Сайт за выходные', desc:'Готовые шаблоны сайта-визитки, портфолио и лендинга и пошаговая инструкция, как выложить их бесплатно без программиста.', meta:['Шаблоны + инструкция'], price:'490–990 ₽' },
+  { id:'manipulation', paid:true, ic:'eye',    tag:'Маркетинг', n:'07', c:'#8a7bff', title:'Как тебя заставляют покупать', desc:'Приёмы, которыми магазины и реклама подталкивают к покупке, и как им не поддаваться. Маркетинг изнутри простым языком.', meta:['PDF'], price:'199–399 ₽' },
+  { id:'avito-sell', paid:true, ic:'tag',    tag:'Авито', n:'08', c:'#5fa8ff', title:'Продай вещь на Авито быстро и дороже', desc:'Фото, заголовок, цена, торг и защита от мошенников: как продать ненужные вещи без лишних нервов.', meta:['PDF + чек-листы'], price:'199–299 ₽' },
+  { id:'avito-flip', paid:true, ic:'loop',   tag:'Авито', n:'09', c:'#7a8cff', title:'Перепродажа на Авито с нуля', desc:'Как искать товар, оценивать, покупать и продавать, считать прибыль и риски. Без обещаний «лёгких денег».', meta:['PDF + таблица расчёта'], price:'790–990 ₽' },
+  { id:'brand', paid:true, ic:'user',    tag:'SMM', n:'10', c:'#a58bff', title:'Личный бренд для обычного человека', desc:'Как вести Instagram и Telegram, чтобы вас замечали: профиль, темы, форматы и шаблоны постов.', meta:['PDF + шаблоны'], price:'490–990 ₽' }
 ];
 
-var grid = document.getElementById('grid');
+var ICONS = {
+  bars:'<svg viewBox="0 0 24 24"><path d="M5 20V13M12 20V5M19 20v-9"/></svg>',
+  cursor:'<svg viewBox="0 0 24 24"><path d="M6 3.5 18.5 10l-5.6 1.8L10.8 17.5z"/><path d="m13 12 4.5 5.5"/></svg>',
+  globe:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c3 3.3 3 13.7 0 17M12 3.5c-3 3.3-3 13.7 0 17"/></svg>',
+  search:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>',
+  send:'<svg viewBox="0 0 24 24"><path d="M21 3 3 10.5l6 2.3L11.3 20l3.2-4.5 4.5 3.3z"/><path d="m9 12.8 11-8.6"/></svg>',
+  eye:'<svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>',
+  tag:'<svg viewBox="0 0 24 24"><path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1.4 1.4 0 0 1 0 2l-6.2 6.2a1.4 1.4 0 0 1-2 0z"/><circle cx="8.3" cy="8.3" r="1.4"/></svg>',
+  loop:'<svg viewBox="0 0 24 24"><path d="M4 11a8 8 0 0 1 13.7-5.3L20 8M20 4v4h-4M20 13a8 8 0 0 1-13.7 5.3L4 16M4 20v-4h4"/></svg>',
+  user:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.8-4 3.6-6 7.5-6s6.7 2 7.5 6"/></svg>'
+};
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-function card(p){
+
+/* hero fan */
+(function(){
+  var items = [['Авито','bars'],['Директ','cursor'],['Сайты','globe'],['SEO','search'],['SMM','send']];
+  var rot = [-7,-3.5,0,3.5,7], y = ['5%','1%','-2%','1%','5%'], z = [5,4,3,2,1];
+  document.getElementById('fan').innerHTML = items.map(function(it,i){
+    return '<div class="fc glass" style="--i:'+i+';--r:'+rot[i]+'deg;--y:'+y[i]+';--z:'+z[4-i]+';--fd:'+(i*.45)+'s;--d:'+(i*.6)+'s">'
+      +'<span class="t">'+it[0]+'</span><span class="tile">'+ICONS[it[1]]+'</span><span class="ln"><i></i><i></i><i></i></span></div>';
+  }).join('');
+})();
+
+var grid = document.getElementById('grid');
+function card(p, idx){
   var meta = p.meta.map(function(m){ return '<span>'+esc(m)+'</span>'; }).join('');
   var foot;
   if (p.free) {
-    foot = '<div class="foot"><span class="free-tag">Бесплатно</span><a class="btn btn-pri" href="'+FREE_URL+'" target="_blank" rel="noopener">Забрать в Telegram</a></div>';
+    foot = '<div class="foot"><span class="free-tag grad">Бесплатно</span><a class="btn btn-pri" href="'+FREE_URL+'" target="_blank" rel="noopener">Забрать</a></div>';
   } else if (p.buy) {
     foot = '<div class="foot"><div class="price">'+esc(p.price)+'</div><a class="btn btn-pri" href="'+esc(p.buy)+'" target="_blank" rel="noopener">Купить</a></div>';
   } else {
     var msg = encodeURIComponent('Здравствуйте! Сообщите, пожалуйста, когда выйдет материал «'+p.title+'».');
     foot = '<div class="foot"><div class="price">'+esc(p.price)+'<small>готовится, цена ориентировочная</small></div><a class="btn btn-ghost" href="'+ASK_URL+'?text='+msg+'" target="_blank" rel="noopener">Сообщить о выходе</a></div>';
   }
-  return '<article class="card '+(p.free?'free':'paid')+'" data-k="'+(p.free?'free':'paid')+'">'
-    +'<div class="cover" style="--c1:'+p.c+'"><i>'+(p.free?'Бесплатно':'Скоро')+' · '+esc(p.tag)+'</i><b>'+p.n+'</b></div>'
+  return '<article class="card '+(p.free?'free glass':'paid dglass')+'" data-k="'+(p.free?'free':'paid')+'" style="--d:'+((idx%5)*1.1)+'s">'
+    +'<div class="cover" style="--c1:'+p.c+'"><span class="tile">'+ICONS[p.ic]+'</span><span class="badge">'+(p.free?'Бесплатно':'Скоро')+' · '+esc(p.tag)+'</span><span class="num">'+p.n+'</span></div>'
     +'<div class="body"><h2>'+esc(p.title)+'</h2><p class="desc">'+esc(p.desc)+'</p><div class="meta">'+meta+'</div>'+foot+'</div></article>';
 }
 grid.innerHTML = PRODUCTS.map(card).join('');
 
-var tabs = document.querySelectorAll('.tab');
+/* reveal on scroll */
+var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){
+  es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.12,rootMargin:'0px 0px -6% 0px'}) : null;
+function observe(){
+  var els = document.querySelectorAll('.rise:not(.in),.card:not(.in):not(.hide)');
+  Array.prototype.forEach.call(els, function(el,i){
+    if (!io) { el.classList.add('in'); return; }
+    if (el.classList.contains('card')) el.style.transitionDelay = ((i%6)*70)+'ms';
+    io.observe(el);
+  });
+}
+observe();
+/* fallback: reveal anything already above the fold line if the observer lags */
+function sweep(){ Array.prototype.forEach.call(document.querySelectorAll('.rise:not(.in),.card:not(.in):not(.hide)'), function(el){ if (el.getBoundingClientRect().top < innerHeight * 1.02) el.classList.add('in'); }); }
+window.addEventListener('scroll', sweep, {passive:true}); window.addEventListener('resize', sweep); setTimeout(sweep, 1200);
+
+/* segmented filter with sliding glass thumb */
+var tabs = document.querySelectorAll('.tab'), thumb = document.getElementById('thumb');
+function moveThumb(){
+  var on = document.querySelector('.tab[aria-pressed="true"]');
+  if (!on) return;
+  thumb.style.width = on.offsetWidth + 'px';
+  thumb.style.transform = 'translateX(' + (on.offsetLeft - 5) + 'px)';
+}
 Array.prototype.forEach.call(tabs, function(t){
   t.addEventListener('click', function(){
     var f = t.getAttribute('data-f');
     Array.prototype.forEach.call(tabs, function(x){ x.setAttribute('aria-pressed', x===t ? 'true' : 'false'); });
+    moveThumb();
     Array.prototype.forEach.call(grid.children, function(c){
-      c.classList.toggle('hide', f !== 'all' && c.getAttribute('data-k') !== f);
+      var hide = f !== 'all' && c.getAttribute('data-k') !== f;
+      c.classList.toggle('hide', hide);
+      if (!hide){ c.classList.remove('in'); void c.offsetWidth; }
     });
+    observe();
   });
 });
+window.addEventListener('resize', moveThumb);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveThumb);
+moveThumb();
+
+/* pointer-follow specular highlight + gentle 3D tilt */
+var canHover = window.matchMedia && window.matchMedia('(hover:hover)').matches;
+if (canHover) {
+  document.addEventListener('pointermove', function(e){
+    var el = e.target.closest && e.target.closest('.glass,.dglass'); if (!el) return;
+    var r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    el.style.setProperty('--mx', x + 'px'); el.style.setProperty('--my', y + 'px');
+    if (el.classList.contains('card')) {
+      el.style.setProperty('--ry', ((x / r.width - .5) * 7).toFixed(2) + 'deg');
+      el.style.setProperty('--rx', ((.5 - y / r.height) * 6).toFixed(2) + 'deg');
+    }
+  }, {passive:true});
+  document.addEventListener('pointerout', function(e){
+    var el = e.target.closest && e.target.closest('.card'); if (!el) return;
+    if (!el.contains(e.relatedTarget)) { el.style.setProperty('--rx','0deg'); el.style.setProperty('--ry','0deg'); }
+  });
+}
+
+/* dynamic lighting: soft light follows the pointer (or scroll on touch) */
+(function(){
+  var L = document.getElementById('light'); if (!L) return;
+  function set(x, y){ L.style.setProperty('--lx', x + 'px'); L.style.setProperty('--ly', y + 'px'); }
+  set(innerWidth * .6, innerHeight * .25);
+  if (canHover) document.addEventListener('pointermove', function(e){ set(e.clientX, e.clientY); }, {passive:true});
+  else window.addEventListener('scroll', function(){ set(innerWidth * .6, innerHeight * .35 + Math.sin(scrollY / 260) * 80); }, {passive:true});
+})();
 
 /* Telegram Mini App: expand, theme colours, open t.me links inside Telegram */
 (function(){
@@ -149,7 +422,7 @@ Array.prototype.forEach.call(tabs, function(t){
   s.src = 'https://telegram.org/js/telegram-web-app.js'; s.async = true;
   s.onload = function(){
     var tg = window.Telegram && window.Telegram.WebApp; if (!tg) return;
-    try { tg.ready(); tg.expand(); tg.setHeaderColor('#08050f'); tg.setBackgroundColor('#08050f'); } catch(e){}
+    try { tg.ready(); tg.expand(); tg.setHeaderColor('#eaf0ff'); tg.setBackgroundColor('#eaf0ff'); } catch(e){}
     document.addEventListener('click', function(e){
       var a = e.target.closest && e.target.closest('a[href^="https://t.me/"]');
       if (a && tg.initData) { e.preventDefault(); try { tg.openTelegramLink(a.href); } catch(err){ window.open(a.href, '_blank'); } }
