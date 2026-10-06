@@ -2,6 +2,24 @@
  "cats": [],
  "mats": [
   {
+   "id": "sites",
+   "cat": "sites",
+   "free": true,
+   "ic": "globe",
+   "c1": "var(--cyan)",
+   "c2": "var(--color-5)",
+   "title": "Сайты и приложения, которые продают",
+   "desc": "Платформа и бриф, структура страницы, тексты, скорость, формы и запуск. Как сделать сайт, который приводит заявки, а не просто существует.",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-04-05--4kc.webp",
+   "fx": "",
+   "hidden": false,
+   "buy": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true,
+   "price": ""
+  },
+  {
    "id": "direct",
    "cat": "direct",
    "free": true,
