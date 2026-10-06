@@ -2,6 +2,24 @@
  "cats": [],
  "mats": [
   {
+   "id": "brand",
+   "cat": "brand",
+   "free": false,
+   "ic": "user",
+   "c1": "var(--rose)",
+   "c2": "var(--color-6)",
+   "title": "Личный бренд для обычного человека",
+   "desc": "Как вести Instagram и Telegram, чтобы вас замечали: профиль, темы, форматы, шаблоны.",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-04-06--l5g.webp",
+   "fx": "",
+   "hidden": false,
+   "buy": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true,
+   "price": "490–990 ₽"
+  },
+  {
    "id": "avito-flip",
    "cat": "avito",
    "free": false,
