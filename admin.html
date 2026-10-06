@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Панель управления — Шатон Learn</title>
+<style>
+:root{--bg:#eef1fb;--card:rgba(255,255,255,.78);--ink:#161a33;--dim:#5d6482;--line:rgba(60,70,140,.14);--acc:#5468ff;--acc2:#8b5cf6;--ok:#12a36b;--bad:#e5484d;--r:20px}
+*{box-sizing:border-box;margin:0}
+body{font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--bg);background-image:radial-gradient(60% 40% at 90% 0%,rgba(139,92,246,.18),transparent 70%),radial-gradient(50% 40% at 0% 30%,rgba(84,104,255,.16),transparent 70%);min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--acc)}
+.hide{display:none!important}
+.glass{background:var(--card);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.9);box-shadow:0 10px 30px -14px rgba(60,70,160,.35);border-radius:var(--r)}
+.btn{border:0;cursor:pointer;padding:10px 16px;border-radius:14px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-weight:700;box-shadow:0 8px 18px -8px rgba(84,104,255,.7)}
+.btn.s{background:rgba(255,255,255,.9);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.d{background:rgba(229,72,77,.1);color:var(--bad);box-shadow:inset 0 0 0 1px rgba(229,72,77,.3)}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:11px}
+.btn:disabled{opacity:.5;cursor:default}
+input[type=text],input[type=password],input[type=url],select,textarea{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.9);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(84,104,255,.15)}
+textarea{resize:vertical;min-height:90px}
+label.f{display:block;margin:0 0 12px}label.f>span{display:block;font-size:12px;font-weight:700;color:var(--dim);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+h1{font-size:22px}h2{font-size:18px;margin-bottom:12px}h3{font-size:15px;margin-bottom:8px}
+.muted{color:var(--dim);font-size:13px}
+/* login */
+#login{max-width:440px;margin:12vh auto;padding:28px}
+#login h1{margin-bottom:6px}
+#login ol{margin:12px 0 16px 18px;color:var(--dim);font-size:13.5px}
+/* layout */
+#app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside.side{padding:18px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--line);background:rgba(255,255,255,.5);backdrop-filter:blur(14px)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:800;font-size:16px;margin:2px 6px 14px}
+.brand i{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--acc),var(--acc2));box-shadow:0 8px 16px -6px rgba(84,104,255,.7);display:block}
+.nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border:0;border-radius:13px;background:none;cursor:pointer;font-weight:600;color:var(--dim)}
+.nav button.on{background:#fff;color:var(--ink);box-shadow:0 6px 16px -10px rgba(60,70,160,.6)}
+.nav button b{margin-left:auto;font-size:12px;background:var(--acc);color:#fff;border-radius:99px;padding:1px 8px}
+main{padding:24px;max-width:1280px;width:100%}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}.top h1{flex:1}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.kpi{padding:18px}.kpi b{display:block;font-size:30px;letter-spacing:-.02em}.kpi span{color:var(--dim);font-size:13px}
+.panel{padding:18px;margin-bottom:16px}
+.list{display:grid;gap:8px}
+.item{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.65);border:1px solid var(--line)}
+.item .th{width:54px;height:40px;border-radius:10px;flex:none;background:linear-gradient(135deg,var(--acc),var(--acc2)) center/cover}
+.item .tt{flex:1;min-width:0}.item .tt b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:99px;padding:2px 8px;background:rgba(84,104,255,.12);color:var(--acc);margin-right:4px}
+.tag.p{background:rgba(229,72,77,.12);color:var(--bad)}.tag.g{background:rgba(18,163,107,.14);color:var(--ok)}.tag.n{background:rgba(139,92,246,.14);color:var(--acc2)}
+/* editor */
+.ed{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;align-items:start}
+.pv{position:sticky;top:16px}
+.phone{width:375px;max-width:100%;height:720px;border-radius:38px;border:9px solid #1a1d33;overflow:hidden;background:#fff;box-shadow:0 20px 40px -18px rgba(20,25,70,.6);margin:0 auto}
+.phone iframe{width:100%;height:100%;border:0}
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.sw{display:flex;gap:6px;flex-wrap:wrap}.sw i{width:26px;height:26px;border-radius:9px;cursor:pointer;border:2px solid transparent}.sw i.on{border-color:var(--ink)}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.thumbs figure{border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line)}
+.thumbs img{width:100%;height:90px;object-fit:cover;display:block}.thumbs figcaption{padding:6px 8px;font-size:11px;word-break:break-all}
+.thumbs .a{display:flex;gap:4px;padding:0 6px 6px}
+.slide{padding:12px;border-radius:16px;background:rgba(255,255,255,.65);border:1px solid var(--line);margin-bottom:10px}
+#msg{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);padding:12px 18px;border-radius:14px;background:#161a33;color:#fff;font-weight:600;z-index:50;max-width:90vw}
+#msg.err{background:var(--bad)}
+.drop{border:2px dashed var(--line);border-radius:16px;padding:22px;text-align:center;color:var(--dim);cursor:pointer}
+.drop.over{border-color:var(--acc);background:rgba(84,104,255,.07)}
+@media(max-width:1000px){.ed{grid-template-columns:1fr}.pv{position:static}#app{grid-template-columns:1fr}aside.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;border-right:0}.brand{width:100%}.nav{display:flex;flex-wrap:wrap;gap:4px}.nav button{width:auto}}
+</style>
+</head>
+<body>
+
+<div id="login" class="glass">
+  <h1>Панель управления</h1>
+  <p class="muted">Шатон Learn: посты, сторисы, разделы, фото и эффекты.</p>
+  <ol>
+    <li>Откройте <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Settings → Fine-grained tokens</a>.</li>
+    <li>Repository access: только <b>shaton-marketing</b>. Permissions → <b>Contents: Read and write</b>.</li>
+    <li>Скопируйте токен и вставьте ниже. Он хранится только в этом браузере.</li>
+  </ol>
+  <label class="f"><span>Токен доступа</span><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"></label>
+  <button class="btn" id="go" style="width:100%">Войти</button>
+  <p class="muted" style="margin-top:10px">Без токена панель ничего не может изменить: любой, кто откроет эту страницу, увидит только форму входа.</p>
+</div>
+
+<div id="app" class="hide">
+  <aside class="side">
+    <div class="brand"><i></i>Шатон Learn</div>
+    <nav class="nav" id="nav">
+      <button data-t="dash" class="on">Дашборд</button>
+      <button data-t="posts">Посты <b id="nP">0</b></button>
+      <button data-t="stories">Сторис <b id="nS">0</b></button>
+      <button data-t="cats">Разделы</button>
+      <button data-t="media">Медиа</button>
+      <button data-t="fx">Эффекты</button>
+    </nav>
+    <div style="margin-top:auto" class="muted">
+      <a href="catalog.html" target="_blank">Открыть приложение</a><br>
+      <a href="#" id="out">Выйти</a>
+    </div>
+  </aside>
+  <main id="main"></main>
+</div>
+<div id="msg" class="hide"></div>
+
+<script src="md.js"></script>
+<script>
+(function(){
+'use strict';
+var REPO = 'davidshaton2006-droid/shaton-marketing', API = 'https://api.github.com/repos/' + REPO, BR = 'main';
+var $ = function(s, r){ return (r || document).querySelector(s); }, $$ = function(s, r){ return [].slice.call((r || document).querySelectorAll(s)); };
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function ld(k, d){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
+function sv(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+var TOKEN = ld('shaton.admin.token', '');
+var msgT; function msg(t, err){ var m = $('#msg'); m.textContent = t; m.className = err ? 'err' : ''; clearTimeout(msgT); msgT = setTimeout(function(){ m.className = 'hide'; }, err ? 6000 : 2600); }
+
+/* ---------- GitHub ---------- */
+function gh(path, opt){
+  opt = opt || {};
+  return fetch(API + path, {method:opt.method || 'GET', headers:{'Authorization':'Bearer ' + TOKEN, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json'}, body:opt.body ? JSON.stringify(opt.body) : undefined, cache:'no-store'})
+    .then(function(r){ if (r.status === 404 && opt.soft) return null; if (!r.ok) return r.json().catch(function(){ return {}; }).then(function(j){ throw new Error((j && j.message) || ('HTTP ' + r.status)); }); return r.status === 204 ? {} : r.json(); });
+}
+function b64(str){ var b = new TextEncoder().encode(str), s = ''; for (var i = 0; i < b.length; i += 8192) s += String.fromCharCode.apply(null, b.subarray(i, i + 8192)); return btoa(s); }
+function unb64(s){ var bin = atob(s.replace(/\n/g, '')), a = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return new TextDecoder().decode(a); }
+function getFile(path){ return gh('/contents/' + path + '?ref=' + BR, {soft:true}).then(function(j){ return j ? {sha:j.sha, text:unb64(j.content)} : null; }); }
+function putFile(path, content64, message){
+  return gh('/contents/' + path + '?ref=' + BR, {soft:true}).then(function(cur){
+    return gh('/contents/' + path, {method:'PUT', body:{message:message, content:content64, branch:BR, sha:cur && cur.sha ? cur.sha : undefined}});
+  });
+}
+function delFile(path, message){ return gh('/contents/' + path + '?ref=' + BR, {soft:true}).then(function(cur){ if (!cur) return; return gh('/contents/' + path, {method:'DELETE', body:{message:message, branch:BR, sha:cur.sha}}); }); }
+
+/* ---------- state ---------- */
+var D = {cats:[], mats:[], stories:[]}, REQ = [], BASE = {mats:[], stories:[], cats:[]}, MEDIA = [], COMMITS = [];
+var ICONS = 'bars cursor globe search send eye tag loop user spark trend chart play mega tool chat doc bag book check'.split(' ');
+var COLORS = {'color-3':'oklch(0.73 0.17 266)','color-4':'oklch(0.60 0.21 266)','color-5':'oklch(0.48 0.2 266)','color-6':'oklch(0.35 0.14 266)','violet':'oklch(0.66 0.2 300)','cyan':'oklch(0.7 0.14 212)','rose':'oklch(0.7 0.2 346)','mint':'oklch(0.76 0.14 166)','deep':'oklch(0.5 0.2 270)'};
+var FX = [['', 'Без эффекта'], ['aurora', 'Северное сияние'], ['sparkle', 'Мерцание'], ['shine', 'Блик'], ['pulse', 'Пульс иконки']];
+var tab = 'dash', draft = null, sdraft = null;
+
+function loadBase(){
+  return fetch('catalog.html?t=' + Date.now(), {cache:'no-store'}).then(function(r){ return r.text(); }).then(function(t){
+    function grab(name){ var m = t.match(new RegExp('var ' + name + ' = (\\[[\\s\\S]*?\\n\\]);')); try { return m ? (new Function('return ' + m[1]))() : []; } catch(e){ return []; } }
+    BASE.mats = grab('MATS'); BASE.stories = grab('STORIES'); BASE.cats = grab('CATS');
+  });
+}
+function loadAll(){
+  return Promise.all([
+    getFile('content/data.json').then(function(f){ if (f) { try { D = JSON.parse(f.text); } catch(e){} } D.cats = D.cats || []; D.mats = D.mats || []; D.stories = D.stories || []; }),
+    getFile('content/requests.json').then(function(f){ REQ = f ? (JSON.parse(f.text) || []) : []; }),
+    loadBase(),
+    gh('/contents/posts/img?ref=' + BR, {soft:true}).then(function(l){ MEDIA = Array.isArray(l) ? l.filter(function(x){ return x.type === 'file'; }) : []; }),
+    gh('/commits?sha=' + BR + '&per_page=8', {soft:true}).then(function(c){ COMMITS = c || []; })
+  ]);
+}
+function saveData(m){ return putFile('content/data.json', b64(JSON.stringify(D, null, 1)), m || 'Admin: update content'); }
+function saveReq(){ return putFile('content/requests.json', b64(JSON.stringify(REQ, null, 1)), 'Admin: effect requests'); }
+
+/* merged views */
+function allCats(){ var o = BASE.cats.map(function(c){ return Object.assign({}, c); }); D.cats.forEach(function(c){ var i = o.map(function(x){ return x.id; }).indexOf(c.id); if (c.deleted) { if (i >= 0) o.splice(i, 1); } else if (i >= 0) o[i] = Object.assign(o[i], c); else o.push(c); }); return o; }
+function allMats(){ var o = BASE.mats.map(function(m){ return Object.assign({}, m, {_base:true}); }); D.mats.forEach(function(m){ var i = o.map(function(x){ return x.id; }).indexOf(m.id); if (m.deleted) { if (i >= 0) o.splice(i, 1); } else if (i >= 0) o[i] = Object.assign(o[i], m); else o.unshift(Object.assign({}, m)); }); return o; }
+function allStories(){ var o = BASE.stories.map(function(s){ return Object.assign({}, s, {_base:true}); }); D.stories.forEach(function(s){ var i = o.map(function(x){ return x.id; }).indexOf(s.id); if (s.deleted) { if (i >= 0) o.splice(i, 1); } else if (i >= 0) o[i] = Object.assign(o[i], s); else o.unshift(Object.assign({}, s)); }); return o; }
+function imgUrl(n){ return !n ? '' : (/^(https?:|data:)/.test(n) ? n : 'posts/img/' + n); }
+function slug(t){ var tr = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'c',ч:'ch',ш:'sh',щ:'sch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya'}; return t.toLowerCase().split('').map(function(c){ return tr[c] != null ? tr[c] : c; }).join('').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'post-' + Date.now().toString(36); }
+
+/* ---------- UI shell ---------- */
+function setTab(t){ tab = t; $$('#nav button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-t') === t); }); draft = null; sdraft = null; render(); }
+$('#nav').addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) setTab(b.getAttribute('data-t')); });
+$('#out').addEventListener('click', function(e){ e.preventDefault(); sv('shaton.admin.token', ''); location.reload(); });
+function render(){
+  $('#nP').textContent = allMats().length; $('#nS').textContent = allStories().length;
+  var m = $('#main'); ({dash:rDash, posts:rPosts, stories:rStories, cats:rCats, media:rMedia, fx:rFx}[tab])(m);
+}
+function top(t, extra){ return '<div class="top"><h1>' + t + '</h1>' + (extra || '') + '</div>'; }
+
+/* ---------- Dashboard ---------- */
+function rDash(m){
+  var M = allMats(), pend = REQ.filter(function(r){ return r.status !== 'done'; });
+  m.innerHTML = top('Дашборд', '<button class="btn s" id="reload">Обновить</button>')
+    + '<div class="grid">'
+    + kpi(M.length, 'материалов в ленте') + kpi(M.filter(function(x){ return x.free; }).length, 'бесплатных') + kpi(M.filter(function(x){ return !x.free; }).length, 'платных')
+    + kpi(allStories().length, 'сторис') + kpi(allCats().length, 'разделов') + kpi(MEDIA.length, 'изображений') + kpi(pend.length, 'заявок на эффекты') + '</div>'
+    + '<div class="row" style="margin-top:16px;align-items:flex-start"><div class="panel glass"><h2>Быстрые действия</h2><div class="row" style="gap:8px"><button class="btn" data-q="newpost">+ Новый пост</button><button class="btn s" data-q="newstory">+ Новая сторис</button><button class="btn s" data-q="upload">Загрузить фото</button><button class="btn s" data-q="fx">Попросить эффекты</button></div>'
+    + '<p class="muted" style="margin-top:12px">Изменения публикуются на сайт за 1–2 минуты после сохранения (GitHub Pages пересобирается).</p></div>'
+    + '<div class="panel glass"><h2>Последние изменения</h2><div class="list">' + (COMMITS.map(function(c){ return '<div class="item"><div class="tt"><b>' + esc((c.commit.message || '').split('\n')[0]) + '</b><span class="muted">' + new Date(c.commit.author.date).toLocaleString('ru-RU') + '</span></div></div>'; }).join('') || '<span class="muted">Нет данных</span>') + '</div></div></div>'
+    + '<div class="panel glass"><h2>Статистика посещений</h2><p class="muted">Здесь пока нет данных: приложение не отправляет аналитику. Чтобы видеть просмотры, подключите Яндекс Метрику к catalog.html (счётчик нужно создать в кабинете Метрики, номер счётчика пришлите мне, и я его вставлю).</p></div>';
+  $('#reload').onclick = function(){ loadAll().then(function(){ render(); msg('Обновлено'); }, function(e){ msg(e.message, 1); }); };
+  m.onclick = function(e){ var q = e.target.getAttribute('data-q'); if (!q) return; if (q === 'newpost') { setTab('posts'); newPost(); } else if (q === 'newstory') { setTab('stories'); newStory(); } else if (q === 'upload') setTab('media'); else if (q === 'fx') setTab('fx'); };
+}
+function kpi(n, l){ return '<div class="kpi glass"><b>' + n + '</b><span>' + l + '</span></div>'; }
+
+/* ---------- Posts ---------- */
+function rPosts(m){
+  if (draft) return rPostEd(m);
+  var M = allMats(), cats = allCats();
+  m.innerHTML = top('Посты', '<button class="btn" id="np">+ Новый пост</button>')
+    + '<div class="list">' + M.map(function(x){ var c = cats.filter(function(k){ return k.id === x.cat; })[0];
+      return '<div class="item"><div class="th" style="' + (x.img ? 'background-image:url(' + esc(imgUrl(x.img)) + ')' : '') + '"></div><div class="tt"><b>' + esc(x.title) + '</b><span class="tag' + (x.free ? ' g' : ' p') + '">' + (x.free ? 'Бесплатно' : 'Платный') + '</span><span class="tag">' + esc(c ? c.name : x.cat) + '</span>' + (x.md ? '<span class="tag n">из панели</span>' : '') + (x.hidden ? '<span class="tag p">скрыт</span>' : '') + (x.fx ? '<span class="tag n">' + esc(x.fx) + '</span>' : '') + '</div><button class="btn s sm" data-e="' + esc(x.id) + '">Править</button><button class="btn d sm" data-x="' + esc(x.id) + '">Удалить</button></div>'; }).join('') + '</div>';
+  $('#np').onclick = newPost;
+  m.onclick = function(e){ var id = e.target.getAttribute('data-e'), x = e.target.getAttribute('data-x');
+    if (id) editPost(id);
+    if (x && confirm('Удалить пост «' + (M.filter(function(k){ return k.id === x; })[0] || {}).title + '»? Это опубликуется на сайте.')) removePost(x); };
+}
+function newPost(){ draft = {id:'', cat:allCats()[0] ? allCats()[0].id : 'tools', free:true, ic:'spark', c1:'color-3', c2:'deep', title:'', desc:'', price:'', img:'', fx:'', hidden:false, md:true, _new:true, src:'# Первая глава\nlead: Короткое вступление главы.\n\nТекст поста. Можно использовать **жирный** и `код`.\n'}; render(); }
+function colorKey(v){ v = String(v || ''); var k = v.replace('var(--', '').replace(')', ''); return COLORS[k] ? k : 'color-3'; }
+function editPost(id){
+  var x = allMats().filter(function(k){ return k.id === id; })[0]; if (!x) return;
+  draft = Object.assign({}, x, {c1:colorKey(x.c1), c2:colorKey(x.c2), src:'', _loading:!!x.md});
+  if (x.md) { var full = ld('shaton.admin.full.' + id, null); getFile('posts/src/' + id + '.txt').then(function(f){ draft.src = full || (f ? f.text : ''); draft._loading = false; if (tab === 'posts') render(); }); }
+  render();
+}
+function opt(list, cur){ return list.map(function(o){ var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + esc(v) + '"' + (String(v) === String(cur) ? ' selected' : '') + '>' + esc(l) + '</option>'; }).join(''); }
+function swatches(name, cur){ return '<div class="sw" data-sw="' + name + '">' + Object.keys(COLORS).map(function(k){ return '<i data-v="' + k + '" class="' + (k === cur ? 'on' : '') + '" style="background:' + COLORS[k] + '"></i>'; }).join('') + '</div>'; }
+var SNIP = {
+  'Глава':'\n# Название главы\nlead: Короткое вступление.\n', 'Подзаголовок':'\n## Подзаголовок\n', 'Список':'\n- пункт\n- пункт\n- пункт\n', 'Нумерация':'\n1. шаг\n2. шаг\n3. шаг\n',
+  'Чек-лист':'\n[ ] первый пункт\n[ ] второй пункт\n', 'Таблица':'\n| Колонка 1 | Колонка 2 |\n|---|---|\n| значение | значение |\n| значение | значение |\n',
+  'Важно':'\n:::imp Важно\nТекст блока.\n:::\n', 'Практика':'\n:::pr Практика\nТекст блока.\n:::\n', 'Ошибка':'\n:::err Типичная ошибка\nТекст блока.\n:::\n', 'Пример':'\n:::ex Пример\nТекст примера.\n:::\n',
+  'Схема-шаги':'\n:::flow Название схемы | Подпись\nШаг 1 | Пояснение\nШаг 2 | Пояснение\nШаг 3 | Пояснение\n:::\n', 'Графики':'\n:::bars Название графика | Подпись\nПервый = 40 | 40%\nВторой = 25 | 25%\nТретий = 15 | 15%\n:::\n',
+  'Карточки':'\n:::cells\nЗаголовок | Описание\nЗаголовок | Описание\n:::\n', 'Пирамида':'\n:::pyr Название\nВерхний уровень\nСредний уровень\nНижний уровень\n:::\n',
+  'Цифры':'\n:::stats\n92% | подпись\n1500 | подпись\n3x | подпись\n:::\n', 'Цитата':'\n:::quote Автор\nТекст цитаты.\n:::\n', 'Код':'\n```\nкод здесь\n```\n'
+};
+function rPostEd(m){
+  var d = draft, cats = allCats();
+  m.innerHTML = top(d._new ? 'Новый пост' : 'Редактирование', '<button class="btn s" id="back">← К списку</button><button class="btn" id="save">Опубликовать</button>')
+    + '<div class="ed"><div>'
+    + '<div class="panel glass"><h2>Карточка в ленте</h2>'
+    + '<label class="f"><span>Заголовок</span><input type="text" id="f_title" value="' + esc(d.title) + '"></label>'
+    + '<label class="f"><span>Описание (видно в ленте)</span><textarea id="f_desc" style="min-height:70px">' + esc(d.desc) + '</textarea></label>'
+    + '<div class="row"><label class="f"><span>Раздел</span><select id="f_cat">' + opt(cats.map(function(c){ return [c.id, c.name]; }), d.cat) + '</select></label>'
+    + '<label class="f"><span>Доступ</span><select id="f_free">' + opt([['1', 'Бесплатный'], ['0', 'Платный']], d.free ? '1' : '0') + '</select></label>'
+    + '<label class="f"><span>Цена (для платного)</span><input type="text" id="f_price" value="' + esc(d.price || '') + '" placeholder="490 ₽"></label></div>'
+    + '<div class="row"><label class="f"><span>Иконка</span><select id="f_ic">' + opt(ICONS, d.ic) + '</select></label>'
+    + '<label class="f"><span>Эффект обложки</span><select id="f_fx">' + opt(FX, d.fx || '') + '</select></label>'
+    + '<label class="f"><span>Ссылка «Купить» (необязательно)</span><input type="url" id="f_buy" value="' + esc(d.buy || '') + '" placeholder="https://"></label></div>'
+    + '<div class="row"><label class="f"><span>Цвет 1</span>' + swatches('c1', d.c1) + '</label><label class="f"><span>Цвет 2</span>' + swatches('c2', d.c2) + '</label></div>'
+    + '<label class="f"><span>Обложка-фото</span><div class="row" style="align-items:center;gap:8px"><input type="text" id="f_img" value="' + esc(d.img || '') + '" placeholder="имя файла или ссылка" style="flex:3"><button class="btn s sm" id="pickimg" style="flex:none">Загрузить…</button><button class="btn s sm" id="clrimg" style="flex:none">Убрать</button></div></label>'
+    + '<label class="f"><span><input type="checkbox" id="f_hidden"' + (d.hidden ? ' checked' : '') + '> Скрыть пост из ленты</span></label></div>'
+    + (d.md || d._new ? '<div class="panel glass"><h2>Текст поста</h2><div class="tb">' + Object.keys(SNIP).map(function(k){ return '<button class="btn s sm" data-sn="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '<button class="btn s sm" data-sn="__img">Фото в тексте…</button></div>'
+      + (d._loading ? '<p class="muted">Загружаю текст…</p>' : '<textarea id="f_src" style="min-height:460px;font:13.5px/1.5 ui-monospace,Consolas,monospace">' + esc(d.src) + '</textarea>')
+      + '<p class="muted" style="margin-top:8px">Глава: <code># Название</code>, подзаголовок: <code>## …</code>. Для платного поста всё <b>после</b> строки <code>=== платная часть ===</code> не публикуется на сайт (остаётся у вас в браузере, кнопка «Скачать полный текст»).</p>'
+      + (!d.free ? '<div style="margin-top:8px"><button class="btn s sm" id="dlfull">Скачать полный текст</button></div>' : '') + '</div>'
+    : '<div class="panel glass"><h2>Текст</h2><p class="muted">Этот пост создан раньше как готовый HTML-файл. Через панель можно менять карточку (заголовок, описание, фото, цвета, эффект), но не его длинный текст. Попросите меня, и я изменю текст.</p></div>')
+    + '<div class="panel glass"><h2>Эффекты и анимации</h2><p class="muted" style="margin-bottom:8px">Опишите, что добавить. Это уйдёт в список заявок, и я сделаю по вашей команде.</p><textarea id="f_req" placeholder="Например: сделать появление схем с задержкой, добавить конфетти в конце, подсветить цифры"></textarea><button class="btn s sm" id="sendreq" style="margin-top:8px">Отправить заявку</button></div>'
+    + (d._new ? '' : '') + '</div>'
+    + '<div class="pv"><h3>Предпросмотр как в приложении</h3><div class="phone"><iframe id="pvf" src="catalog.html?pv=1#home"></iframe></div></div></div>';
+  bindPostEd();
+}
+var pvT;
+function previewNow(keep){
+  var f = $('#pvf'); if (!f || !f.contentWindow || !draft) return; readPost();
+  var d = draft, src = (d.src || '').split('=== платная часть ===')[0], r = ShatonMD.render(src, d.id || 'preview');
+  var mat = {id:d.id || 'preview', cat:d.cat, free:d.free, ic:d.ic, c1:'var(--' + d.c1 + ')', c2:'var(--' + d.c2 + ')', title:d.title || 'Без названия', desc:d.desc, price:d.price, img:d.img, fx:d.fx, md:true, buy:d.buy};
+  f.contentWindow.postMessage({type:'shaton-preview', mat:mat, src:src, keep:keep}, location.origin);
+}
+function readPost(){
+  var d = draft, g = function(i){ var e = $('#' + i); return e ? e.value : null; };
+  if (g('f_title') != null) { d.title = g('f_title'); d.desc = g('f_desc'); d.cat = g('f_cat'); d.free = g('f_free') === '1'; d.price = g('f_price'); d.ic = g('f_ic'); d.fx = g('f_fx'); d.buy = g('f_buy'); d.img = g('f_img'); d.hidden = $('#f_hidden').checked; }
+  if (g('f_src') != null) d.src = g('f_src');
+}
+function bindPostEd(){
+  var d = draft, m = $('#main');
+  $('#back').onclick = function(){ draft = null; render(); };
+  m.oninput = function(e){ if (e.target.id === 'f_src' || e.target.id === 'f_title' || e.target.id === 'f_desc') { clearTimeout(pvT); pvT = setTimeout(function(){ previewNow(true); }, 450); } };
+  m.onchange = function(e){ if (e.target.tagName === 'SELECT' || e.target.id === 'f_img' || e.target.id === 'f_hidden') previewNow(true); };
+  $$('.sw', m).forEach(function(s){ s.onclick = function(e){ var v = e.target.getAttribute('data-v'); if (!v) return; readPost(); draft[s.getAttribute('data-sw')] = v; $$('i', s).forEach(function(i){ i.classList.toggle('on', i === e.target); }); previewNow(true); }; });
+  $('#f_ic').onchange = $('#f_fx').onchange = function(){ previewNow(true); };
+  var f = $('#pvf'); f.onload = function(){ setTimeout(function(){ previewNow(false); }, 400); };
+  $('#pickimg').onclick = function(){ pickImages(false, function(names){ if (names[0]) { $('#f_img').value = names[0]; previewNow(true); } }); };
+  $('#clrimg').onclick = function(){ $('#f_img').value = ''; previewNow(true); };
+  $$('[data-sn]', m).forEach(function(b){ b.onclick = function(){
+    var k = b.getAttribute('data-sn'), ta = $('#f_src'); if (!ta) return;
+    function ins(t){ var p = ta.selectionStart; ta.value = ta.value.slice(0, p) + t + ta.value.slice(ta.selectionEnd); ta.focus(); ta.selectionStart = ta.selectionEnd = p + t.length; previewNow(true); }
+    if (k === '__img') pickImages(false, function(n){ if (n[0]) ins('\n:::img ' + n[0] + ' | Подпись к фото\n:::\n'); }); else ins(SNIP[k]);
+  }; });
+  var dl = $('#dlfull'); if (dl) dl.onclick = function(){ readPost(); var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([draft.src], {type:'text/plain;charset=utf-8'})); a.download = (draft.id || 'post') + '-full.txt'; a.click(); };
+  $('#sendreq').onclick = function(){ var t = $('#f_req').value.trim(); if (!t) return msg('Опишите, что добавить', 1); readPost(); REQ.unshift({id:'r' + Date.now().toString(36), post:draft.id || draft.title, text:t, status:'new', date:new Date().toISOString()}); saveReq().then(function(){ $('#f_req').value = ''; msg('Заявка отправлена'); }, function(e){ msg(e.message, 1); }); };
+  $('#save').onclick = savePost;
+}
+function savePost(){
+  readPost(); var d = draft;
+  if (!d.title.trim()) return msg('Нужен заголовок', 1);
+  if (d._new) { d.id = d.id || slug(d.title); if (allMats().some(function(x){ return x.id === d.id; })) d.id += '-' + Date.now().toString(36).slice(-3); }
+  var btn = $('#save'); btn.disabled = true; btn.textContent = 'Публикую…';
+  var entry = {id:d.id, cat:d.cat, free:d.free, ic:d.ic, c1:'var(--' + d.c1 + ')', c2:'var(--' + d.c2 + ')', title:d.title.trim(), desc:d.desc.trim(), img:d.img || '', fx:d.fx || '', hidden:!!d.hidden, buy:d.buy || '', price:d.free ? '' : d.price};
+  var chain = Promise.resolve();
+  if (d.md) {
+    var full = d.src, pub = full.split('=== платная часть ===')[0].trim() + '\n', r = ShatonMD.render(pub, d.id);
+    entry.md = true; entry.v = Date.now().toString(36); entry.meta = {min:r.min, chapters:r.chapters, words:r.words};
+    if (!d.free) sv('shaton.admin.full.' + d.id, full); else try { localStorage.removeItem('shaton.admin.full.' + d.id); } catch(e){}
+    chain = putFile('posts/src/' + d.id + '.txt', b64(pub), 'Admin: post ' + d.id);
+  }
+  chain.then(function(){
+    var i = D.mats.map(function(x){ return x.id; }).indexOf(d.id); if (i >= 0) D.mats[i] = Object.assign(D.mats[i], entry); else D.mats.unshift(entry);
+    return saveData('Admin: ' + (d._new ? 'new post ' : 'update post ') + d.id);
+  }).then(function(){ msg('Опубликовано. На сайте появится через 1–2 минуты'); draft = null; render(); },
+    function(e){ msg('Ошибка: ' + e.message, 1); btn.disabled = false; btn.textContent = 'Опубликовать'; });
+}
+function removePost(id){
+  var base = BASE.mats.some(function(x){ return x.id === id; }), cur = D.mats.filter(function(x){ return x.id === id; })[0];
+  D.mats = D.mats.filter(function(x){ return x.id !== id; });
+  if (base) D.mats.push({id:id, deleted:true});
+  var p = cur && cur.md ? delFile('posts/src/' + id + '.txt', 'Admin: delete post ' + id) : Promise.resolve();
+  p.then(function(){ return saveData('Admin: delete post ' + id); }).then(function(){ msg('Удалено'); render(); }, function(e){ msg(e.message, 1); });
+}
+
+/* ---------- Stories ---------- */
+function rStories(m){
+  if (sdraft) return rStoryEd(m);
+  m.innerHTML = top('Сторис', '<button class="btn" id="ns">+ Новая сторис</button>')
+    + '<div class="list">' + allStories().map(function(s){ return '<div class="item"><div class="th" style="background:linear-gradient(135deg,' + (COLORS[colorKey(s.a)] || '#58f') + ',' + (COLORS[colorKey(s.b)] || '#a5f') + ')"></div><div class="tt"><b>' + esc(s.name) + '</b><span class="muted">' + s.slides.length + ' слайд(ов)</span></div><button class="btn s sm" data-e="' + esc(s.id) + '">Править</button><button class="btn d sm" data-x="' + esc(s.id) + '">Удалить</button></div>'; }).join('') + '</div>';
+  $('#ns').onclick = newStory;
+  m.onclick = function(e){ var id = e.target.getAttribute('data-e'), x = e.target.getAttribute('data-x');
+    if (id) { var s = allStories().filter(function(k){ return k.id === id; })[0]; sdraft = JSON.parse(JSON.stringify(s)); sdraft.a = colorKey(s.a); sdraft.b = colorKey(s.b); render(); }
+    if (x && confirm('Удалить сторис?')) { var base = BASE.stories.some(function(k){ return k.id === x; }); D.stories = D.stories.filter(function(k){ return k.id !== x; }); if (base) D.stories.push({id:x, deleted:true}); saveData('Admin: delete story ' + x).then(function(){ msg('Удалено'); render(); }, function(er){ msg(er.message, 1); }); } };
+}
+function newStory(){ sdraft = {id:'', name:'Новая', ic:'spark', a:'color-4', b:'violet', slides:[{t:'Заголовок', p:'Текст слайда'}], open:null, _new:true}; render(); }
+function rStoryEd(m){
+  var s = sdraft, M = allMats(), cats = allCats();
+  m.innerHTML = top(s._new ? 'Новая сторис' : 'Сторис: ' + esc(s.name), '<button class="btn s" id="back">← К списку</button><button class="btn s" id="spv">Предпросмотр</button><button class="btn" id="save">Опубликовать</button>')
+    + '<div class="ed"><div><div class="panel glass"><div class="row"><label class="f"><span>Название под кружком</span><input type="text" id="s_name" value="' + esc(s.name) + '"></label><label class="f"><span>Иконка</span><select id="s_ic">' + opt(ICONS, s.ic) + '</select></label></div>'
+    + '<div class="row"><label class="f"><span>Цвет 1</span>' + swatches('a', s.a) + '</label><label class="f"><span>Цвет 2</span>' + swatches('b', s.b) + '</label></div>'
+    + '<div class="row"><label class="f"><span>По окончании открыть пост</span><select id="s_open">' + opt([['', '— ничего —']].concat(M.map(function(x){ return [x.id, x.title]; })), s.open || '') + '</select></label><label class="f"><span>или раздел</span><select id="s_cat">' + opt([['', '— нет —']].concat(cats.map(function(c){ return [c.id, c.name]; })), s.goCat || '') + '</select></label></div></div>'
+    + '<div class="panel glass"><h2>Слайды</h2>' + s.slides.map(function(sl, i){ return '<div class="slide" data-i="' + i + '"><label class="f"><span>Заголовок</span><input type="text" data-k="t" value="' + esc(sl.t) + '"></label><label class="f"><span>Текст</span><textarea data-k="p" style="min-height:64px">' + esc(sl.p) + '</textarea></label><div class="row" style="align-items:center;gap:8px"><input type="text" data-k="img" value="' + esc(sl.img || '') + '" placeholder="картинка (необязательно)" style="flex:3"><button class="btn s sm" data-pk="' + i + '" style="flex:none">Загрузить…</button><button class="btn d sm" data-rm="' + i + '" style="flex:none">Убрать слайд</button></div></div>'; }).join('')
+    + '<button class="btn s" id="addsl">+ Слайд</button></div></div>'
+    + '<div class="pv"><h3>Предпросмотр</h3><div class="phone"><iframe id="pvf" src="catalog.html?pv=1#home"></iframe></div></div></div>';
+  $('#back').onclick = function(){ sdraft = null; render(); };
+  $('#addsl').onclick = function(){ readStory(); s.slides.push({t:'Заголовок', p:'Текст слайда'}); render(); };
+  $('#spv').onclick = function(){ readStory(); sendStory(); };
+  $('#save').onclick = saveStory;
+  $$('.sw', m).forEach(function(w){ w.onclick = function(e){ var v = e.target.getAttribute('data-v'); if (!v) return; readStory(); s[w.getAttribute('data-sw')] = v; $$('i', w).forEach(function(i){ i.classList.toggle('on', i === e.target); }); }; });
+  m.onclick = function(e){ var rm = e.target.getAttribute('data-rm'), pk = e.target.getAttribute('data-pk');
+    if (rm != null) { readStory(); if (s.slides.length > 1) { s.slides.splice(+rm, 1); render(); } }
+    if (pk != null) pickImages(false, function(n){ if (n[0]) { readStory(); s.slides[+pk].img = n[0]; render(); } }); };
+}
+function readStory(){ var s = sdraft; if (!$('#s_name')) return; s.name = $('#s_name').value; s.ic = $('#s_ic').value; s.open = $('#s_open').value || null; s.goCat = $('#s_cat').value || undefined; $$('.slide').forEach(function(el){ var i = +el.getAttribute('data-i'); s.slides[i] = {t:$('[data-k=t]', el).value, p:$('[data-k=p]', el).value, img:$('[data-k=img]', el).value || undefined}; }); }
+function storyOut(){ var s = sdraft; return {id:s.id || 's-' + slug(s.name), name:s.name, ic:s.ic, a:'var(--' + s.a + ')', b:'var(--' + s.b + ')', slides:s.slides, open:s.open || null, goCat:s.goCat}; }
+function sendStory(){ var f = $('#pvf'); if (f && f.contentWindow) f.contentWindow.postMessage({type:'shaton-story', story:storyOut()}, location.origin); }
+function saveStory(){
+  readStory(); var s = sdraft; if (!s.name.trim()) return msg('Нужно название', 1);
+  var out = storyOut(); if (s._new && allStories().some(function(x){ return x.id === out.id; })) out.id += '-' + Date.now().toString(36).slice(-3);
+  var i = D.stories.map(function(x){ return x.id; }).indexOf(out.id); if (i >= 0) D.stories[i] = out; else D.stories.unshift(out);
+  saveData('Admin: story ' + out.id).then(function(){ msg('Опубликовано'); sdraft = null; render(); }, function(e){ msg(e.message, 1); });
+}
+
+/* ---------- Categories ---------- */
+function rCats(m){
+  var cats = allCats();
+  m.innerHTML = top('Разделы') + '<div class="panel glass"><h2>Добавить раздел</h2><div class="row"><label class="f"><span>Название</span><input type="text" id="c_name"></label><label class="f"><span>Иконка</span><select id="c_ic">' + opt(ICONS, 'spark') + '</select></label><label class="f"><span>Цвет</span>' + swatches('c', 'color-4') + '</label></div><button class="btn" id="c_add">Добавить</button></div>'
+    + '<div class="list">' + cats.map(function(c){ return '<div class="item"><div class="th" style="background:' + (COLORS[colorKey(c.c)] || '#58f') + '"></div><div class="tt"><b>' + esc(c.name) + '</b><span class="muted">' + allMats().filter(function(x){ return x.cat === c.id; }).length + ' пост(ов) · ' + esc(c.id) + '</span></div><button class="btn d sm" data-x="' + esc(c.id) + '">Удалить</button></div>'; }).join('') + '</div>';
+  var color = 'color-4'; $('.sw', m).onclick = function(e){ var v = e.target.getAttribute('data-v'); if (!v) return; color = v; $$('.sw i', m).forEach(function(i){ i.classList.toggle('on', i === e.target); }); };
+  $('#c_add').onclick = function(){ var n = $('#c_name').value.trim(); if (!n) return msg('Введите название', 1); var id = slug(n); if (cats.some(function(c){ return c.id === id; })) id += '-2'; D.cats.push({id:id, name:n, ic:$('#c_ic').value, c:'var(--' + color + ')'}); saveData('Admin: category ' + id).then(function(){ msg('Раздел добавлен'); render(); }, function(e){ msg(e.message, 1); }); };
+  m.onclick = function(e){ var x = e.target.getAttribute('data-x'); if (!x) return; if (!confirm('Удалить раздел? Посты в нём останутся, но будут без раздела.')) return; var base = BASE.cats.some(function(c){ return c.id === x; }); D.cats = D.cats.filter(function(c){ return c.id !== x; }); if (base) D.cats.push({id:x, deleted:true}); saveData('Admin: remove category ' + x).then(function(){ msg('Удалено'); render(); }, function(er){ msg(er.message, 1); }); };
+}
+
+/* ---------- Media ---------- */
+function toWebp(file){
+  return new Promise(function(res, rej){
+    if (!/^image\//.test(file.type) || /svg|gif/.test(file.type)) { var fr = new FileReader(); fr.onload = function(){ res({name:file.name, data:fr.result.split(',')[1]}); }; fr.readAsDataURL(file); return; }
+    var img = new Image(), u = URL.createObjectURL(file);
+    img.onload = function(){ var k = Math.min(1, 1600 / Math.max(img.width, img.height)), c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      var url = c.toDataURL('image/webp', .86); URL.revokeObjectURL(u); res({name:file.name.replace(/\.[^.]+$/, '') + '.webp', data:url.split(',')[1]}); };
+    img.onerror = rej; img.src = u;
+  });
+}
+function uploadFiles(files, cb){
+  var names = [], list = [].slice.call(files); msg('Загружаю ' + list.length + '…');
+  list.reduce(function(p, f){ return p.then(function(){ return toWebp(f).then(function(o){ var nm = slug(o.name.replace(/\.[^.]+$/, '')) + '-' + Date.now().toString(36).slice(-3) + '.' + o.name.split('.').pop().toLowerCase(); return putFile('posts/img/' + nm, o.data, 'Admin: image ' + nm).then(function(){ names.push(nm); MEDIA.push({name:nm, type:'file'}); }); }); }); }, Promise.resolve())
+    .then(function(){ msg('Загружено: ' + names.length); cb && cb(names); }, function(e){ msg('Ошибка загрузки: ' + e.message, 1); });
+}
+function pickImages(multi, cb){ var i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*'; i.multiple = !!multi; i.onchange = function(){ if (i.files.length) uploadFiles(i.files, cb); }; i.click(); }
+function rMedia(m){
+  m.innerHTML = top('Медиа', '<button class="btn" id="up">Загрузить фото</button>')
+    + '<div class="drop" id="drop">Перетащите изображения сюда (они сжимаются в WebP до 1600 px)</div><br>'
+    + '<div class="thumbs">' + MEDIA.map(function(f){ return '<figure><img loading="lazy" src="posts/img/' + esc(f.name) + '?t=' + Date.now() + '" alt=""><figcaption>' + esc(f.name) + '</figcaption><div class="a"><button class="btn s sm" data-cp="' + esc(f.name) + '">Копировать</button><button class="btn d sm" data-x="' + esc(f.name) + '">✕</button></div></figure>'; }).join('') + '</div>';
+  $('#up').onclick = function(){ pickImages(true, render); };
+  var dr = $('#drop'); dr.ondragover = function(e){ e.preventDefault(); dr.classList.add('over'); }; dr.ondragleave = function(){ dr.classList.remove('over'); }; dr.ondrop = function(e){ e.preventDefault(); dr.classList.remove('over'); uploadFiles(e.dataTransfer.files, render); }; dr.onclick = function(){ pickImages(true, render); };
+  m.onclick = function(e){ var c = e.target.getAttribute('data-cp'), x = e.target.getAttribute('data-x');
+    if (c) { navigator.clipboard.writeText(c).then(function(){ msg('Имя файла скопировано: ' + c); }); }
+    if (x && confirm('Удалить файл ' + x + '? Если он используется в постах, картинка пропадёт.')) delFile('posts/img/' + x, 'Admin: delete image').then(function(){ MEDIA = MEDIA.filter(function(f){ return f.name !== x; }); msg('Удалено'); render(); }, function(er){ msg(er.message, 1); }); };
+}
+
+/* ---------- Effects requests ---------- */
+function rFx(m){
+  m.innerHTML = top('Эффекты и анимации')
+    + '<div class="panel glass"><h2>Новая заявка</h2><p class="muted" style="margin-bottom:8px">Опишите, что нужно сделать с постом, сторис или страницей. Когда напишете мне «сделай заявки», я выполню их и отмечу готовыми.</p>'
+    + '<div class="row"><label class="f"><span>К чему</span><select id="r_post">' + opt([['', 'Всё приложение']].concat(allMats().map(function(x){ return [x.id, x.title]; })), '') + '</select></label></div><label class="f"><span>Что добавить</span><textarea id="r_text" placeholder="Например: анимация появления цифр, свечение на карточках, конфетти при открытии"></textarea></label><button class="btn" id="r_add">Отправить заявку</button></div>'
+    + '<div class="panel glass"><h2>Готовые эффекты (можно выбрать в карточке поста)</h2><p class="muted">Северное сияние, мерцание, блик, пульс иконки. Блоки в тексте: схемы-шаги, графики, карточки, пирамида, анимированные цифры, цитата.</p></div>'
+    + '<div class="list">' + (REQ.map(function(r){ return '<div class="item"><div class="tt"><b>' + esc(r.text) + '</b><span class="tag ' + (r.status === 'done' ? 'g' : 'p') + '">' + (r.status === 'done' ? 'Готово' : 'В работе') + '</span><span class="muted">' + esc(r.post || 'всё приложение') + ' · ' + new Date(r.date).toLocaleDateString('ru-RU') + '</span></div><button class="btn s sm" data-t="' + esc(r.id) + '">' + (r.status === 'done' ? 'Вернуть' : 'Отметить готовым') + '</button><button class="btn d sm" data-x="' + esc(r.id) + '">✕</button></div>'; }).join('') || '<span class="muted">Заявок нет</span>') + '</div>';
+  $('#r_add').onclick = function(){ var t = $('#r_text').value.trim(); if (!t) return msg('Опишите, что добавить', 1); REQ.unshift({id:'r' + Date.now().toString(36), post:$('#r_post').value, text:t, status:'new', date:new Date().toISOString()}); saveReq().then(function(){ msg('Заявка отправлена'); render(); }, function(e){ msg(e.message, 1); }); };
+  m.onclick = function(e){ var t = e.target.getAttribute('data-t'), x = e.target.getAttribute('data-x');
+    if (t) { REQ.forEach(function(r){ if (r.id === t) r.status = r.status === 'done' ? 'new' : 'done'; }); saveReq().then(render); }
+    if (x) { REQ = REQ.filter(function(r){ return r.id !== x; }); saveReq().then(render); } };
+}
+
+/* ---------- boot ---------- */
+function enter(){
+  $('#login').classList.add('hide'); $('#app').classList.remove('hide');
+  $('#main').innerHTML = '<p class="muted">Загрузка…</p>';
+  loadAll().then(function(){ render(); }, function(e){ msg('Не удалось загрузить: ' + e.message, 1); render(); });
+}
+function login(){
+  var t = $('#tok').value.trim() || TOKEN; if (!t) return msg('Вставьте токен', 1);
+  TOKEN = t; $('#go').disabled = true;
+  gh('').then(function(r){ if (!r.permissions || !r.permissions.push) throw new Error('У токена нет права записи (Contents: Read and write)'); sv('shaton.admin.token', TOKEN); enter(); },
+    function(e){ TOKEN = ''; msg('Не удалось войти: ' + e.message, 1); }).then(function(){ $('#go').disabled = false; });
+}
+$('#go').onclick = login; $('#tok').onkeydown = function(e){ if (e.key === 'Enter') login(); };
+if (TOKEN) login();
+})();
+</script>
+</body>
+</html>

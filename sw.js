@@ -1,5 +1,5 @@
 // Offline-friendly cache: HTML is network-first (always fresh when online), everything else is stale-while-revalidate.
-const CACHE = 'shaton-v38';
+const CACHE = 'shaton-v40';
 const CORE = [
   './', 'index.html', 'portfolio.html',
   'vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js',
@@ -26,6 +26,7 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
+  if (url.pathname.indexOf('/content/') >= 0 || url.pathname.indexOf('/posts/src/') >= 0) return; // admin-managed content is always live
 
   if (req.mode === 'navigate') {
     e.respondWith(

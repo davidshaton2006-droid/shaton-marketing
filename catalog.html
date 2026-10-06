@@ -324,6 +324,31 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 .pbody pre.code{margin:14px 0;padding:14px 16px;border-radius:18px;overflow:auto;font:12.5px/1.55 ui-monospace,Consolas,monospace;color:var(--color-1);background:oklch(from var(--color-7) l c h / .92);border:1px solid oklch(1 0 0 / .18);-webkit-overflow-scrolling:touch}
 .pbody pre.code code{background:none;padding:0;color:inherit}
 .pbody{overflow-wrap:anywhere}.pbody>*{max-width:100%}.pbody img{max-width:100%}.hbars .br b{white-space:nowrap}
+
+/* admin-added content */
+.cov .cimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.cov.has::after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,transparent 35%,oklch(0 0 0 / .55))}
+.cov.has .o,.cov.has .gi{display:none}.cov.has .ct{z-index:1}
+.svb .simg{width:min(78%,300px);aspect-ratio:1;object-fit:cover;border-radius:28px;box-shadow:0 18px 40px -16px oklch(0 0 0 / .5);margin:0 auto 18px;display:block}
+.shot.plain::before{display:none}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:18px 0}
+.st{padding:16px 14px;border-radius:22px;background:var(--glass);box-shadow:var(--edge),var(--soft);text-align:center}
+.st b{display:block;font-size:clamp(24px,7vw,32px);font-weight:800;letter-spacing:-.03em;background:linear-gradient(120deg,var(--color-5),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.st span{display:block;margin-top:4px;font-size:13px;color:var(--dim);line-height:1.35}
+.qt{position:relative;margin:20px 0;padding:18px 18px 16px 22px;border-radius:24px;background:var(--glass);box-shadow:var(--edge),var(--soft);overflow:hidden}
+.qt::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(var(--violet),var(--color-4))}
+.qt p{margin:0!important;font-size:18px;font-weight:700;line-height:1.4;color:var(--ink)}.qt cite{display:block;margin-top:8px;font-style:normal;font-size:13px;color:var(--dim)}
+/* effects chosen in the admin panel */
+.fxl{position:absolute;inset:0;pointer-events:none;z-index:0;display:none}
+.fx-aurora .fxl{display:block;background:radial-gradient(60% 80% at 20% 30%,oklch(1 0 0 / .45),transparent 60%),radial-gradient(50% 70% at 80% 70%,oklch(from var(--cyan) l c h / .55),transparent 60%);background-size:140% 140%;animation:aur 7s ease-in-out infinite alternate;mix-blend-mode:soft-light}
+@keyframes aur{to{background-position:100% 100%;transform:scale(1.15)}}
+.fx-sparkle .fxl{display:block;background-image:radial-gradient(2px 2px at 12% 22%,#fff,transparent),radial-gradient(2px 2px at 38% 70%,#fff,transparent),radial-gradient(3px 3px at 64% 30%,#fff,transparent),radial-gradient(2px 2px at 82% 62%,#fff,transparent),radial-gradient(2px 2px at 92% 18%,#fff,transparent),radial-gradient(3px 3px at 26% 44%,#fff,transparent);animation:tw 2.4s ease-in-out infinite alternate}
+@keyframes tw{from{opacity:.2}to{opacity:1}}
+.fx-shine .fxl{display:block;background:linear-gradient(105deg,transparent 35%,oklch(1 0 0 / .55) 50%,transparent 65%);background-size:250% 100%;animation:shn 3.6s ease-in-out infinite}
+@keyframes shn{from{background-position:130% 0}to{background-position:-130% 0}}
+.fx-pulse .gi{animation:pls 2.2s ease-in-out infinite!important}
+@keyframes pls{50%{transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.fxl,.fx-pulse .gi{animation:none!important}}
 </style>
 </head>
 <body>
@@ -349,6 +374,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   <filter id="rf-wide" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feImage id="rfi-wide" x="0" y="0" width="340" height="52" result="m"/><feDisplacementMap in="SourceGraphic" in2="m" scale="20" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1" result="b"/><feColorMatrix in="b" type="saturate" values="1.6"/></filter>
 </defs></svg>
 
+<script src="md.js"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
 var FREE_URL = 'https://t.me/shatonlab/20';   // пост с PDF (запасной вариант)
@@ -435,7 +461,24 @@ function matsIn(cid){ return MATS.filter(function(m){ return m.cat === cid; }); 
 function plural(n, a, b, c){ var m = n % 10, h = n % 100; return n + ' ' + (m === 1 && h !== 11 ? a : (m >= 2 && m <= 4 && (h < 10 || h > 20) ? b : c)); }
 function ld(k, d){ try { var v = localStorage.getItem('shaton.' + k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
 function save(k, v){ try { localStorage.setItem('shaton.' + k, JSON.stringify(v)); } catch(e){} }
-var tg = null, MET = {};
+var tg = null, MET = {}, PREVSRC = {};
+/* ADMIN-DATA: content/data.json (written by admin.html) adds / overrides / removes categories, materials and stories */
+function applyData(d){
+  if (!d) return;
+  (d.cats || []).forEach(function(c){ var i = CATS.map(function(x){ return x.id; }).indexOf(c.id); if (c.deleted) { if (i >= 0) CATS.splice(i, 1); } else if (i >= 0) CATS[i] = Object.assign(CATS[i], c); else CATS.push(c); });
+  (d.mats || []).slice().reverse().forEach(function(m){
+    var i = MATS.map(function(x){ return x.id; }).indexOf(m.id);
+    if (m.meta) MET[m.id] = m.meta;
+    if (m.deleted) { if (i >= 0) MATS.splice(i, 1); return; }
+    if (i >= 0) MATS[i] = Object.assign(MATS[i], m); else MATS.unshift(m);
+  });
+  MATS = MATS.filter(function(m){ return !m.hidden; });
+  (d.stories || []).slice().reverse().forEach(function(st){
+    var i = STORIES.map(function(x){ return x.id; }).indexOf(st.id);
+    if (st.deleted) { if (i >= 0) STORIES.splice(i, 1); return; }
+    if (i >= 0) STORIES[i] = Object.assign(STORIES[i], st); else STORIES.unshift(st);
+  });
+}
 var P = ld('profile', null), FAV = ld('fav', []), RECENT = ld('recent', []), SEEN = ld('seen', {}), CK = ld('ck', {});
 function tgUser(){ return tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user : null; }
 function myName(){ var u = tgUser(); return (P && P.name) || (u && u.first_name) || ''; }
@@ -447,7 +490,8 @@ var view = $('#view');
 function avaHtml(){ var u = tgUser(), n = myName(); if (u && u.photo_url) return '<img src="'+esc(u.photo_url)+'" alt="">'; return esc((n || 'Г').charAt(0).toUpperCase()); }
 function cover(m, big){
   var c = cat(m.cat);
-  return '<div class="cov" style="--a:'+m.c1+';--b:'+m.c2+'"><i class="o o1"></i><i class="o o2"></i><i class="o o3"></i>'+gi(m.ic, 96, m.c1)+'<span class="ct"><small>'+esc(c ? c.name : '')+'</small>'+esc(m.title)+'</span></div>';
+  var im = m.img ? '<img class="cimg" src="'+esc(/^(https?:|data:)/.test(m.img) ? m.img : (m.img.indexOf('/') < 0 ? 'posts/img/' + m.img : m.img))+'" alt="" loading="lazy" decoding="async">' : '';
+  return '<div class="cov'+(m.img ? ' has' : '')+(m.fx ? ' fx-'+esc(m.fx) : '')+'" style="--a:'+m.c1+';--b:'+m.c2+'">'+im+'<i class="fxl"></i><i class="o o1"></i><i class="o o2"></i><i class="o o3"></i>'+gi(m.ic, 96, m.c1)+'<span class="ct"><small>'+esc(c ? c.name : '')+'</small>'+esc(m.title)+'</span></div>';
 }
 function post(m){
   var c = cat(m.cat), x = MET[m.id], min = x ? x.min : 0;
@@ -456,7 +500,7 @@ function post(m){
     +'<div class="pb"><div class="ph"><b>'+esc(AUTHOR)+'</b><svg class="i v" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="currentColor" stroke="none"/><path d="m8 12.4 2.6 2.6L16 9.6" stroke="#fff"/></svg><span class="pm">· '+esc(c.name)+'</span><span class="bd'+(m.free ? '' : ' paid')+'">'+(m.free ? 'Бесплатно' : 'Платный')+'</span></div>'
     +'<h3>'+esc(m.title)+'</h3><p class="pe">'+esc(m.desc)+'</p>'+cover(m)
     +'<div class="act"><button class="fav'+(FAV.indexOf(m.id) >= 0 ? ' on' : '')+'" data-fav="'+m.id+'" aria-label="В избранное">'+svg('heart')+'</button>'
-    +(min ? '<span class="m">'+svg('clock')+min+' мин</span><span class="m">'+svg('book')+(x.chapters.length)+' глав</span>' : '')
+    +(min ? '<span class="m">'+svg('clock')+min+' мин</span><span class="m">'+svg('book')+plural(x.chapters.length,'глава','главы','глав')+'</span>' : '')
     +'<button class="sh sp" data-share="'+m.id+'" aria-label="Поделиться">'+svg('share')+'</button></div></div></article>';
 }
 function feedHtml(arr, et, etx, eic){
@@ -530,15 +574,17 @@ function renderPost(id){
   view.innerHTML =
     '<div class="rd-cov">'+cover(m, true)+'</div>'
    +'<h1 class="rd-t">'+esc(m.title)+'</h1>'
-   +'<div class="rd-m"><span class="by">'+gi(c.ic, 30, c.c)+esc(AUTHOR)+'</span>'+(min ? '<span>'+min+' мин чтения</span><span>'+x.chapters.length+' глав</span>' : '')+'<span class="bd'+(m.free ? '' : ' paid')+'" style="margin-left:0">'+(m.free ? 'Бесплатно' : 'Платный')+'</span></div>'
+   +'<div class="rd-m"><span class="by">'+gi(c.ic, 30, c.c)+esc(AUTHOR)+'</span>'+(min ? '<span>'+min+' мин чтения</span><span>'+plural(x.chapters.length,'глава','главы','глав')+'</span>' : '')+'<span class="bd'+(m.free ? '' : ' paid')+'" style="margin-left:0">'+(m.free ? 'Бесплатно' : 'Платный')+'</span></div>'
    +'<p class="rd-d">'+esc(m.desc)+'</p>'
    +'<nav class="toc" id="toc">'+(x ? x.chapters.map(function(h){ return '<a href="#'+id+'_c'+h.n+'" data-j="'+id+'_c'+h.n+'"><b>'+h.n+'</b>'+esc(h.t.length > 26 ? h.t.slice(0, 25) + '…' : h.t)+'</a>'; }).join('') : '')+'</nav>'
    +'<div class="pbody" id="pbody"><div class="loading"><i></i>Загружаю материал…</div></div>';
-  var url = 'posts/' + id + (m.free ? '' : '.preview') + '.html';
-  fetch(url).then(function(r){ if (!r.ok) throw 0; return r.text(); }).then(function(h){
+  var url = m.md ? 'posts/src/' + id + '.txt?v=' + (m.v || '') : 'posts/' + id + (m.free ? '' : '.preview') + '.html';
+  (PREVSRC[id] != null ? Promise.resolve(PREVSRC[id]) : fetch(url, m.md ? {cache:'no-cache'} : undefined).then(function(r){ if (!r.ok) throw 0; return r.text(); })).then(function(h){
+    if (m.md) { var rr = ShatonMD.render(h, id); h = rr.html; if (!MET[id]) { MET[id] = {min:rr.min, chapters:rr.chapters, words:rr.words}; } x = MET[id]; }
     var b = $('#pbody'); if (!b) return;
     b.innerHTML = h + tail(m, x);
-    arm(b); if (rdScroll) rdScroll();
+    var tc = $('#toc'); if (tc && !tc.children.length && MET[id]) tc.innerHTML = MET[id].chapters.map(function(hh){ return '<a href="#'+id+'_c'+hh.n+'" data-j="'+id+'_c'+hh.n+'"><b>'+hh.n+'</b>'+esc(hh.t.length > 26 ? hh.t.slice(0, 25) + '…' : hh.t)+'</a>'; }).join('');
+    arm(b); if (rdScroll) rdScroll(); counters(b);
   }).catch(function(){ var b = $('#pbody'); if (b) b.innerHTML = (m.free ? '<div class="empty"><b>Не удалось загрузить</b>Проверьте соединение и откройте материал ещё раз.</div>' : '') + tail(m, x); });
   hookReading();
 }
@@ -551,6 +597,13 @@ function tail(m, x){
 function arm(root){
   $$('[data-r]', root).forEach(function(el){ if (rdObs) rdObs.observe(el); else el.classList.add('in'); });
   $$('input[data-ck]', root).forEach(function(i){ var k = i.getAttribute('data-ck'); i.checked = !!CK[k]; i.addEventListener('change', function(){ if (i.checked) CK[k] = 1; else delete CK[k]; save('ck', CK); }); });
+}
+function counters(root){
+  $$('.stats b[data-n]', root).forEach(function(b){
+    var to = parseFloat(b.getAttribute('data-n')), pre = b.getAttribute('data-pre') || '', suf = b.getAttribute('data-suf') || '', dec = (String(to).split('.')[1] || '').length, done = false;
+    function run(){ if (done) return; done = true; var t0 = performance.now(); (function step(t){ var k = Math.min(1, (t - t0) / 1100), e = 1 - Math.pow(1 - k, 3); b.textContent = pre + (to * e).toFixed(dec).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + suf; if (k < 1) requestAnimationFrame(step); })(t0); }
+    if ('IntersectionObserver' in window) { var o = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { o.disconnect(); run(); } }); o.observe(b); } else run();
+  });
 }
 function hookReading(){
   var bar = $('#prog'); bar.hidden = false;
@@ -631,7 +684,7 @@ function showSlide(){
   var last = S.j === s.slides.length - 1;
   var cta = last && (s.open || s.goCat) ? '<div class="svcta"><button class="gb" id="sc">'+(s.open ? 'Открыть материал' : 'Открыть раздел')+'</button></div>' : '';
   svc.innerHTML = '<div class="bars">'+bars+'</div><div class="svh"><span class="ava">'+esc(s.name.charAt(0))+'</span><b>'+esc(s.name)+'</b><button class="xx" id="sx" aria-label="Закрыть">✕</button></div>'
-    +'<div class="svb">'+gi(s.ic, 96, s.a)+'<h2>'+esc(sl.t)+'</h2><p>'+esc(sl.p)+'</p></div>'+cta
+    +'<div class="svb">'+(sl.img ? '<img class="simg" src="'+esc(/^(https?:|data:)/.test(sl.img) ? sl.img : 'posts/img/' + sl.img)+'" alt="">' : gi(s.ic, 96, s.a))+'<h2>'+esc(sl.t)+'</h2><p>'+esc(sl.p)+'</p></div>'+cta
     +'<div class="tapl" id="tl"></div><div class="tapr" id="tr"></div>';
   var cb = $('.bars .cur b', svc); if (cb) cb.addEventListener('animationend', next);
   $('#sx').addEventListener('click', function(e){ e.stopPropagation(); closeStory(); });
@@ -713,7 +766,20 @@ if (/tgWebAppData|tgWebAppVersion/.test(location.hash) || /Telegram/i.test(UA)) 
   };
   document.head.appendChild(scr);
 }
-fetch('posts/meta.json').then(function(r){ return r.json(); }).then(function(j){ MET = j; if (cur.name === 'home' || cur.name === 'cat' || cur.name === 'fav') refresh(); }).catch(function(){});
+Promise.all([
+  fetch('posts/meta.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }),
+  fetch('content/data.json?t=' + Date.now(), {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+]).then(function(a){ MET = Object.assign(a[0] || {}, MET); applyData(a[1]); var hp = location.hash.match(/^#post=([\w-]+)/); if (hp && cur.name !== 'post' && mat(hp[1])) return go('post', hp[1], false); if (cur.name === 'home' || cur.name === 'cat' || cur.name === 'fav' || cur.name === 'cats') refresh(); else if (cur.name === 'post' && !mat(cur.arg)) go('home', null, false); });
+/* live preview from admin.html (same origin) */
+window.addEventListener('message', function(e){
+  if (e.origin !== location.origin || !e.data) return; var d = e.data;
+  if (d.type === 'shaton-preview') {
+    var m = d.mat, i = MATS.map(function(x){ return x.id; }).indexOf(m.id); m.md = true; if (i >= 0) MATS[i] = m; else MATS.unshift(m);
+    PREVSRC[m.id] = d.src; delete MET[m.id]; var y = scrollY; go('post', m.id, false); if (d.keep) scrollTo(0, y);
+  } else if (d.type === 'shaton-story') {
+    var j = STORIES.map(function(x){ return x.id; }).indexOf(d.story.id); if (j >= 0) STORIES.splice(j, 1); STORIES.unshift(d.story); go('home', null, false); openStory(0);
+  }
+});
 history.replaceState({name:'home'}, '');
 go('home', null, false);
 var _h = location.hash.match(/^#post=([\w-]+)/); if (_h && mat(_h[1])) go('post', _h[1], false);
