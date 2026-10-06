@@ -80,7 +80,8 @@ main{padding:24px;max-width:1280px;width:100%}
   </ol>
   <label class="f"><span>Токен доступа</span><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"></label>
   <button class="btn" id="go" style="width:100%">Войти</button>
-  <p class="muted" style="margin-top:10px">Без токена панель ничего не может изменить: любой, кто откроет эту страницу, увидит только форму входа.</p>
+  <p id="lerr" class="hide" style="color:var(--bad);margin-top:10px;font-size:13.5px"></p>
+  <p class="muted" style="margin-top:10px">Токен запоминается в вашем аккаунте Telegram (в облаке Telegram) и в этом браузере: на другом аккаунте его придётся ввести заново. Без токена панель ничего не может изменить: любой, кто откроет эту страницу, увидит только форму входа.</p>
 </div>
 
 <div id="app" class="hide">
@@ -105,7 +106,14 @@ main{padding:24px;max-width:1280px;width:100%}
 
 <script>
 /* opened from the admin bot (Telegram mini app): fit the window, follow the Telegram theme */
-if (/Telegram|tgWebApp/i.test(navigator.userAgent + location.hash)) { var tsc = document.createElement('script'); tsc.src = 'https://telegram.org/js/telegram-web-app.js'; tsc.onload = function(){ try { var w = Telegram.WebApp; w.ready(); w.expand(); if (w.disableVerticalSwipes) w.disableVerticalSwipes(); w.setHeaderColor('#eef1fb'); w.setBackgroundColor('#eef1fb'); document.documentElement.classList.add('tgm'); } catch(e){} }; document.head.appendChild(tsc); }
+window.__tgp = null;
+if (/Telegram|tgWebApp/i.test(navigator.userAgent + location.hash)) {
+  window.__tgp = new Promise(function(res){
+    var tsc = document.createElement('script'); tsc.src = 'https://telegram.org/js/telegram-web-app.js';
+    tsc.onload = function(){ try { var w = Telegram.WebApp; w.ready(); w.expand(); if (w.disableVerticalSwipes) w.disableVerticalSwipes(); w.setHeaderColor('#eef1fb'); w.setBackgroundColor('#eef1fb'); document.documentElement.classList.add('tgm'); } catch(e){} res(); };
+    tsc.onerror = function(){ res(); }; document.head.appendChild(tsc); setTimeout(res, 3500);
+  });
+}
 </script>
 <script src="md.js"></script>
 <script>
@@ -117,6 +125,11 @@ function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c
 function ld(k, d){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
 function sv(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 var TOKEN = ld('shaton.admin.token', '');
+function tgw(){ try { return window.Telegram && Telegram.WebApp && Telegram.WebApp.initData && Telegram.WebApp.CloudStorage ? Telegram.WebApp : null; } catch(e){ return null; } }
+function cloudGet(cb){ var w = tgw(), done = false; if (!w) return cb(''); setTimeout(function(){ if (!done) { done = true; cb(''); } }, 2500);
+  try { w.CloudStorage.getItem('shaton_admin_tok', function(err, v){ if (done) return; done = true; cb(err ? '' : (v || '')); }); } catch(e){ if (!done) { done = true; cb(''); } } }
+function cloudSet(v){ var w = tgw(); if (w) try { w.CloudStorage.setItem('shaton_admin_tok', v, function(){}); } catch(e){} }
+function loginErr(t){ var e = $('#lerr'); if (e) { e.textContent = t || ''; e.classList.toggle('hide', !t); } }
 var msgT; function msg(t, err){ var m = $('#msg'); m.textContent = t; m.className = err ? 'err' : ''; clearTimeout(msgT); msgT = setTimeout(function(){ m.className = 'hide'; }, err ? 6000 : 2600); }
 
 /* ---------- GitHub ---------- */
@@ -170,7 +183,7 @@ function slug(t){ var tr = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:
 /* ---------- UI shell ---------- */
 function setTab(t){ tab = t; $$('#nav button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-t') === t); }); draft = null; sdraft = null; render(); }
 $('#nav').addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) setTab(b.getAttribute('data-t')); });
-$('#out').addEventListener('click', function(e){ e.preventDefault(); sv('shaton.admin.token', ''); location.reload(); });
+$('#out').addEventListener('click', function(e){ e.preventDefault(); sv('shaton.admin.token', ''); cloudSet(''); setTimeout(function(){ location.reload(); }, 250); });
 function render(){
   $('#nP').textContent = allMats().length; $('#nS').textContent = allStories().length;
   var m = $('#main'); ({dash:rDash, posts:rPosts, stories:rStories, cats:rCats, media:rMedia, fx:rFx}[tab])(m);
@@ -221,10 +234,7 @@ var SNIP = {
   'Важно':'\n:::imp Важно\nТекст блока.\n:::\n', 'Практика':'\n:::pr Практика\nТекст блока.\n:::\n', 'Ошибка':'\n:::err Типичная ошибка\nТекст блока.\n:::\n', 'Пример':'\n:::ex Пример\nТекст примера.\n:::\n',
   'Схема-шаги':'\n:::flow Название схемы | Подпись\nШаг 1 | Пояснение\nШаг 2 | Пояснение\nШаг 3 | Пояснение\n:::\n', 'Графики':'\n:::bars Название графика | Подпись\nПервый = 40 | 40%\nВторой = 25 | 25%\nТретий = 15 | 15%\n:::\n',
   'Карточки':'\n:::cells\nЗаголовок | Описание\nЗаголовок | Описание\n:::\n', 'Пирамида':'\n:::pyr Название\nВерхний уровень\nСредний уровень\nНижний уровень\n:::\n',
-  'Цифры':'\n:::stats\n92% | подпись\n1500 | подпись\n3x | подпись\n:::\n', 'Видео по ссылке':'
-:::video https://www.youtube.com/watch?v=… | Подпись
-:::
-', 'Цитата':'\n:::quote Автор\nТекст цитаты.\n:::\n', 'Код':'\n```\nкод здесь\n```\n'
+  'Цифры':'\n:::stats\n92% | подпись\n1500 | подпись\n3x | подпись\n:::\n', 'Видео по ссылке':'\n:::video https://www.youtube.com/watch?v=… | Подпись\n:::\n', 'Цитата':'\n:::quote Автор\nТекст цитаты.\n:::\n', 'Код':'\n```\nкод здесь\n```\n'
 };
 function rPostEd(m){
   var d = draft, cats = allCats();
@@ -281,10 +291,7 @@ function bindPostEd(){
   $$('[data-sn]', m).forEach(function(b){ b.onclick = function(){
     var k = b.getAttribute('data-sn'), ta = $('#f_src'); if (!ta) return;
     function ins(t){ var p = ta.selectionStart; ta.value = ta.value.slice(0, p) + t + ta.value.slice(ta.selectionEnd); ta.focus(); ta.selectionStart = ta.selectionEnd = p + t.length; previewNow(true); }
-    if (k === '__vid') pickVideo(function(n){ ins('
-:::video ' + n + ' | Подпись к видео
-:::
-'); }); else if (k === '__img') pickImages(false, function(n){ if (n[0]) ins('\n:::img ' + n[0] + ' | Подпись к фото\n:::\n'); }); else ins(SNIP[k]);
+    if (k === '__vid') pickVideo(function(n){ ins('\n:::video ' + n + ' | Подпись к видео\n:::\n'); }); else if (k === '__img') pickImages(false, function(n){ if (n[0]) ins('\n:::img ' + n[0] + ' | Подпись к фото\n:::\n'); }); else ins(SNIP[k]);
   }; });
   var dl = $('#dlfull'); if (dl) dl.onclick = function(){ readPost(); var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([draft.src], {type:'text/plain;charset=utf-8'})); a.download = (draft.id || 'post') + '-full.txt'; a.click(); };
   $('#sendreq').onclick = function(){ var t = $('#f_req').value.trim(); if (!t) return msg('Опишите, что добавить', 1); readPost(); REQ.unshift({id:'r' + Date.now().toString(36), post:draft.id || draft.title, text:t, status:'new', date:new Date().toISOString()}); saveReq().then(function(){ $('#f_req').value = ''; msg('Заявка отправлена'); }, function(e){ msg(e.message, 1); }); };
@@ -431,11 +438,17 @@ function enter(){
 function login(){
   var t = $('#tok').value.trim() || TOKEN; if (!t) return msg('Вставьте токен', 1);
   TOKEN = t; $('#go').disabled = true;
-  gh('').then(function(r){ if (!r.permissions || !r.permissions.push) throw new Error('У токена нет права записи (Contents: Read and write)'); sv('shaton.admin.token', TOKEN); enter(); },
-    function(e){ TOKEN = ''; msg('Не удалось войти: ' + e.message, 1); }).then(function(){ $('#go').disabled = false; });
+  gh('').then(function(r){ if (!r.permissions || !r.permissions.push) throw new Error('У токена нет права записи (Contents: Read and write)'); sv('shaton.admin.token', TOKEN); cloudSet(TOKEN); loginErr(''); enter(); },
+    function(e){ TOKEN = ''; sv('shaton.admin.token', ''); $('#login').classList.remove('hide'); loginErr('Не удалось войти: ' + e.message + '. Вставьте токен заново.'); msg('Не удалось войти: ' + e.message, 1); }).then(function(){ $('#go').disabled = false; });
 }
 $('#go').onclick = login; $('#tok').onkeydown = function(e){ if (e.key === 'Enter') login(); };
-if (TOKEN) login();
+/* the login form is hidden while a saved token is being checked */
+$('#login').classList.add('hide');
+function boot(){
+  if (TOKEN) return login();
+  cloudGet(function(t){ if (t) { TOKEN = t; login(); } else { $('#login').classList.remove('hide'); } });
+}
+(window.__tgp || Promise.resolve()).then(boot);
 })();
 </script>
 </body>
