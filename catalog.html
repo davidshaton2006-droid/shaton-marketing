@@ -491,7 +491,7 @@ function avaHtml(){ var u = tgUser(), n = myName(); if (u && u.photo_url) return
 function cover(m, big){
   var c = cat(m.cat);
   var im = m.img ? '<img class="cimg" src="'+esc(/^(https?:|data:)/.test(m.img) ? m.img : (m.img.indexOf('/') < 0 ? 'posts/img/' + m.img : m.img))+'" alt="" loading="lazy" decoding="async">' : '';
-  return '<div class="cov'+(m.img ? ' has' : '')+(m.fx ? ' fx-'+esc(m.fx) : '')+'" style="--a:'+m.c1+';--b:'+m.c2+'">'+im+'<i class="fxl"></i><i class="o o1"></i><i class="o o2"></i><i class="o o3"></i>'+gi(m.ic, 96, m.c1)+'<span class="ct"><small>'+esc(c ? c.name : '')+'</small>'+esc(m.title)+'</span></div>';
+  return '<div class="cov'+(m.img ? ' has' : '')+(m.fx ? ' fx-'+esc(m.fx) : '')+'" style="--a:'+m.c1+';--b:'+m.c2+'">'+im+'<i class="fxl"></i><i class="o o1"></i><i class="o o2"></i><i class="o o3"></i>'+gi(m.ic, 96, m.c1)+''+(m.nocap ? '' : '<span class="ct">'+(m.label === '-' ? '' : '<small>'+esc(m.label != null && m.label !== '' ? m.label : (c ? c.name : ''))+'</small>')+(m.nottl ? '' : esc(m.title))+'</span>')+'</div>';
 }
 function post(m){
   var c = cat(m.cat), x = MET[m.id], min = x ? x.min : 0;

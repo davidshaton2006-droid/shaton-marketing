@@ -238,6 +238,10 @@ function rPostEd(m){
     + '<label class="f"><span>Ссылка «Купить» (необязательно)</span><input type="url" id="f_buy" value="' + esc(d.buy || '') + '" placeholder="https://"></label></div>'
     + '<div class="row"><label class="f"><span>Цвет 1</span>' + swatches('c1', d.c1) + '</label><label class="f"><span>Цвет 2</span>' + swatches('c2', d.c2) + '</label></div>'
     + '<label class="f"><span>Обложка-фото</span><div class="row" style="align-items:center;gap:8px"><input type="text" id="f_img" value="' + esc(d.img || '') + '" placeholder="имя файла или ссылка" style="flex:3"><button class="btn s sm" id="pickimg" style="flex:none">Загрузить…</button><button class="btn s sm" id="clrimg" style="flex:none">Убрать</button></div></label>'
+    + '<div class="row"><label class="f"><span>Надпись над заголовком на обложке</span><input type="text" id="f_label" value="' + esc(d.label === '-' ? '' : (d.label || '')) + '" placeholder="по умолчанию: название раздела"></label></div>'
+    + '<label class="f"><span><input type="checkbox" id="f_nolabel"' + (d.label === '-' ? ' checked' : '') + '> Убрать эту надпись</span></label>'
+    + '<label class="f"><span><input type="checkbox" id="f_nottl"' + (d.nottl ? ' checked' : '') + '> Убрать заголовок с обложки</span></label>'
+    + '<label class="f"><span><input type="checkbox" id="f_nocap"' + (d.nocap ? ' checked' : '') + '> Убрать всю подпись с обложки</span></label>'
     + '<label class="f"><span><input type="checkbox" id="f_hidden"' + (d.hidden ? ' checked' : '') + '> Скрыть пост из ленты</span></label></div>'
     + (d.md || d._new ? '<div class="panel glass"><h2>Текст поста</h2><div class="tb">' + Object.keys(SNIP).map(function(k){ return '<button class="btn s sm" data-sn="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '<button class="btn s sm" data-sn="__img">Фото в тексте…</button></div>'
       + (d._loading ? '<p class="muted">Загружаю текст…</p>' : '<textarea id="f_src" style="min-height:460px;font:13.5px/1.5 ui-monospace,Consolas,monospace">' + esc(d.src) + '</textarea>')
@@ -253,19 +257,19 @@ var pvT;
 function previewNow(keep){
   var f = $('#pvf'); if (!f || !f.contentWindow || !draft) return; readPost();
   var d = draft, src = (d.src || '').split('=== платная часть ===')[0], r = ShatonMD.render(src, d.id || 'preview');
-  var mat = {id:d.id || 'preview', cat:d.cat, free:d.free, ic:d.ic, c1:'var(--' + d.c1 + ')', c2:'var(--' + d.c2 + ')', title:d.title || 'Без названия', desc:d.desc, price:d.price, img:d.img, fx:d.fx, md:true, buy:d.buy};
+  var mat = {id:d.id || 'preview', cat:d.cat, free:d.free, ic:d.ic, c1:'var(--' + d.c1 + ')', c2:'var(--' + d.c2 + ')', title:d.title || 'Без названия', desc:d.desc, price:d.price, img:d.img, fx:d.fx, md:true, buy:d.buy, label:d.label, nottl:d.nottl, nocap:d.nocap};
   f.contentWindow.postMessage({type:'shaton-preview', mat:mat, src:src, keep:keep}, location.origin);
 }
 function readPost(){
   var d = draft, g = function(i){ var e = $('#' + i); return e ? e.value : null; };
-  if (g('f_title') != null) { d.title = g('f_title'); d.desc = g('f_desc'); d.cat = g('f_cat'); d.free = g('f_free') === '1'; d.price = g('f_price'); d.ic = g('f_ic'); d.fx = g('f_fx'); d.buy = g('f_buy'); d.img = g('f_img'); d.hidden = $('#f_hidden').checked; }
+  if (g('f_title') != null) { d.title = g('f_title'); d.desc = g('f_desc'); d.cat = g('f_cat'); d.free = g('f_free') === '1'; d.price = g('f_price'); d.ic = g('f_ic'); d.fx = g('f_fx'); d.buy = g('f_buy'); d.img = g('f_img'); d.hidden = $('#f_hidden').checked; d.label = $('#f_nolabel').checked ? '-' : $('#f_label').value.trim(); d.nottl = $('#f_nottl').checked; d.nocap = $('#f_nocap').checked; }
   if (g('f_src') != null) d.src = g('f_src');
 }
 function bindPostEd(){
   var d = draft, m = $('#main');
   $('#back').onclick = function(){ draft = null; render(); };
-  m.oninput = function(e){ if (e.target.id === 'f_src' || e.target.id === 'f_title' || e.target.id === 'f_desc') { clearTimeout(pvT); pvT = setTimeout(function(){ previewNow(true); }, 450); } };
-  m.onchange = function(e){ if (e.target.tagName === 'SELECT' || e.target.id === 'f_img' || e.target.id === 'f_hidden') previewNow(true); };
+  m.oninput = function(e){ if (e.target.id === 'f_src' || e.target.id === 'f_title' || e.target.id === 'f_desc' || e.target.id === 'f_label') { clearTimeout(pvT); pvT = setTimeout(function(){ previewNow(true); }, 450); } };
+  m.onchange = function(e){ if (e.target.tagName === 'SELECT' || e.target.id === 'f_img' || e.target.type === 'checkbox') previewNow(true); };
   $$('.sw', m).forEach(function(s){ s.onclick = function(e){ var v = e.target.getAttribute('data-v'); if (!v) return; readPost(); draft[s.getAttribute('data-sw')] = v; $$('i', s).forEach(function(i){ i.classList.toggle('on', i === e.target); }); previewNow(true); }; });
   $('#f_ic').onchange = $('#f_fx').onchange = function(){ previewNow(true); };
   var f = $('#pvf'); f.onload = function(){ setTimeout(function(){ previewNow(false); }, 400); };
@@ -285,7 +289,7 @@ function savePost(){
   if (!d.title.trim()) return msg('Нужен заголовок', 1);
   if (d._new) { d.id = d.id || slug(d.title); if (allMats().some(function(x){ return x.id === d.id; })) d.id += '-' + Date.now().toString(36).slice(-3); }
   var btn = $('#save'); btn.disabled = true; btn.textContent = 'Публикую…';
-  var entry = {id:d.id, cat:d.cat, free:d.free, ic:d.ic, c1:'var(--' + d.c1 + ')', c2:'var(--' + d.c2 + ')', title:d.title.trim(), desc:d.desc.trim(), img:d.img || '', fx:d.fx || '', hidden:!!d.hidden, buy:d.buy || '', price:d.free ? '' : d.price};
+  var entry = {id:d.id, cat:d.cat, free:d.free, ic:d.ic, c1:'var(--' + d.c1 + ')', c2:'var(--' + d.c2 + ')', title:d.title.trim(), desc:d.desc.trim(), img:d.img || '', fx:d.fx || '', hidden:!!d.hidden, buy:d.buy || '', label:d.label || '', nottl:!!d.nottl, nocap:!!d.nocap, price:d.free ? '' : d.price};
   var chain = Promise.resolve();
   if (d.md) {
     var full = d.src, pub = full.split('=== платная часть ===')[0].trim() + '\n', r = ShatonMD.render(pub, d.id);
