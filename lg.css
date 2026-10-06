@@ -221,3 +221,14 @@ footer a{color:var(--blue)}
 .cov{transition:transform 240ms cubic-bezier(.2,.8,.2,1),box-shadow 240ms ease}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 #theme .t-sun{display:none}[data-theme="dark"] #theme .t-sun{display:block}[data-theme="dark"] #theme .t-moon{display:none}
+
+/* Shaton SVG Icon System v1: linear marks */
+.gi.tile.ln{color:var(--text-2);background:linear-gradient(145deg,rgba(255,255,255,.62),rgba(225,238,255,.30));border:1px solid var(--g-border);box-shadow:var(--g-inset);border-radius:30%;display:grid;place-items:center}
+[data-theme="dark"] .gi.tile.ln{background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.05))}
+.gi.tile.ln svg{width:54%;height:54%;padding:0;color:var(--blue)}
+.pa .gi.tile.ln{border-radius:50%}
+.tab .i,.search .i,.act .i{stroke-width:2}
+.cov .rub{padding-left:1.4cqw}
+.cov .rub .rb{display:inline-grid;place-items:center;width:4.6cqw;height:4.6cqw;min-width:18px;min-height:18px;margin-right:2cqw;border-radius:50%;background:linear-gradient(145deg,#3976ff,#234bff);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.cov .rub .rb svg{width:62%;height:62%;color:#fff}
+.cov .ctt{font-size:clamp(20px,8.6cqw,50px);max-width:58cqw;-webkit-line-clamp:4;bottom:5.6cqw}

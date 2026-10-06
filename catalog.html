@@ -380,8 +380,8 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 .ring::before{inset:-9px;background:conic-gradient(from 200deg,var(--color-4),var(--violet),var(--color-4));filter:blur(20px);opacity:.5}
 @keyframes glw{from{opacity:.3;transform:scale(.98)}to{opacity:.6;transform:scale(1.05)}}
 </style>
-<link rel="stylesheet" href="tokens.css?v=45">
-<link rel="stylesheet" href="lg.css?v=45">
+<link rel="stylesheet" href="tokens.css?v=47">
+<link rel="stylesheet" href="lg.css?v=47">
 </head>
 <body>
 <div id="prog" hidden></div>
@@ -392,10 +392,10 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 </div>
 
 <nav class="nav" id="nav" aria-label="Разделы приложения">
-  <button class="tab" data-go="home"><svg class="i" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>Лента</button>
-  <button class="tab" data-go="cats"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>Разделы</button>
-  <button class="tab" data-go="fav"><svg class="i" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Избранное</button>
-  <button class="tab" data-go="me"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.8-4 3.6-6 7.5-6s6.7 2 7.5 6"/></svg>Профиль</button>
+  <button class="tab" data-go="home"><svg class="i" viewBox="0 0 24 24"><path d="m3.2 10.7 8.8-7.2 8.8 7.2"/><path d="M5.3 9.5v10.7h13.4V9.5"/><path d="M9.4 20.2v-6.1h5.2v6.1"/></svg>Лента</button>
+  <button class="tab" data-go="cats"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="2"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="2"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="2"/><rect x="14" y="14" width="6.5" height="6.5" rx="2"/></svg>Разделы</button>
+  <button class="tab" data-go="fav"><svg class="i" viewBox="0 0 24 24"><path d="M12 20.2 4.85 13.5A5.45 5.45 0 0 1 3.3 9.65 4.75 4.75 0 0 1 8.1 4.8c1.62 0 3.02.76 3.9 1.95.88-1.19 2.28-1.95 3.9-1.95a4.75 4.75 0 0 1 4.8 4.85 5.45 5.45 0 0 1-1.55 3.85L12 20.2Z"/></svg>Избранное</button>
+  <button class="tab" data-go="me"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.7 20c.62-4.1 3.25-6.35 7.3-6.35S18.68 15.9 19.3 20"/></svg>Профиль</button>
 </nav>
 
 <div id="story" hidden><div class="svc" id="svc"></div></div>
@@ -406,8 +406,8 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   <filter id="rf-wide" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feImage id="rfi-wide" x="0" y="0" width="340" height="52" result="m"/><feDisplacementMap in="SourceGraphic" in2="m" scale="20" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1" result="b"/><feColorMatrix in="b" type="saturate" values="1.6"/></filter>
 </defs></svg>
 
-<script src="art.js?v=45"></script>
-<script src="md.js?v=45"></script>
+<script src="art.js?v=47"></script>
+<script src="md.js?v=47"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
 var FREE_URL = 'https://t.me/shatonlab/20';   // пост с PDF (запасной вариант)
@@ -486,14 +486,21 @@ var IC = {
   lock:'<rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>', share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>',
   book:'<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>', check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>'
 };
+/* Shaton SVG Icon System v1 */
+(function(){ var I = ShatonArt.icons; IC.search = I.search; IC.heart = I.favorites; IC.share = I.share; IC.user = I.profile; IC.home = I.home; IC.menu = I.menu; })();
 function svg(n, cls){ return '<svg class="i '+(cls||'')+'" viewBox="0 0 24 24" aria-hidden="true">'+(IC[n]||'')+'</svg>'; }
 function seenKey(s){ return s.id + '|' + s.slides.length + '|' + (s.slides[0] && s.slides[0].t || '').length; }
 function mediaUrl(v, kind){ v = String(v || ''); return /^(https?:|data:|posts\/)/.test(v) ? v : 'posts/' + (kind === 'vid' ? 'vid' : 'img') + '/' + v; }
 function gi(n, size, tone){
   var sz = typeof size === 'string' ? size : (size || 44) + 'px', px = typeof size === 'number' ? size : 0;
-  if (window.ShatonArt && ShatonArt.has(n)) return '<span class="gi' + (size === '100%' || (px && px <= 64) ? ' tile' : '') + '" style="--s:' + sz + '">' + ShatonArt.svg(n) + '</span>';
+  if (px && px <= 64) {
+    var sec = ShatonArt.sec[n], inner = sec ? ShatonArt.icons[sec] : IC[n];
+    return '<span class="gi tile ln" style="--s:' + sz + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (inner || '') + '</svg></span>';
+  }
+  if (window.ShatonArt && ShatonArt.has(n)) return '<span class="gi' + (size === '100%' ? ' tile' : '') + '" style="--s:' + sz + '">' + ShatonArt.svg(n) + '</span>';
   return '<span class="gi fb" style="--s:' + sz + '">' + svg(n) + '</span>';
 }
+
 function cat(id){ return CATS.filter(function(c){ return c.id === id; })[0]; }
 function mat(id){ return MATS.filter(function(m){ return m.id === id; })[0]; }
 function matsIn(cid){ return MATS.filter(function(m){ return m.cat === cid; }); }
@@ -535,7 +542,7 @@ function hlTitle(t){
 function cover(m, big){
   var c = cat(m.cat), fx = m.fx ? ' fx-' + esc(m.fx) : '';
   if (m.img) return '<div class="cov has' + fx + '"><img class="cimg" src="' + esc(mediaUrl(m.img, 'img')) + '" alt="' + esc(m.title) + '" loading="lazy" decoding="async"><i class="fxl"></i></div>';
-  var rub = m.label === '-' ? '' : '<span class="rub">' + esc(m.label != null && m.label !== '' ? m.label : (c ? c.name : '')) + '</span>';
+  var rub = m.label === '-' ? '' : '<span class="rub"><i class="rb">' + gi(m.ic, 28).replace(/^<span[^>]*>|<\/span>$/g, '') + '</i>' + esc(m.label != null && m.label !== '' ? m.label : (c ? c.name : '')) + '</span>';
   return '<div class="cov ed' + fx + '"><i class="rays"></i><i class="fxl"></i>'
     + (m.nocap ? '' : rub + (m.nottl ? '' : '<h4 class="ctt">' + hlTitle(m.title) + '</h4>'))
     + '<span class="obj">' + ShatonArt.svg(m.ic) + '</span></div>';
