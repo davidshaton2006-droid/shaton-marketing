@@ -2,6 +2,24 @@
  "cats": [],
  "mats": [
   {
+   "id": "avito-sell",
+   "cat": "avito",
+   "free": false,
+   "ic": "tag",
+   "c1": "var(--cyan)",
+   "c2": "var(--color-5)",
+   "title": "Продай вещь на Авито быстро и дороже",
+   "desc": "Фото, заголовок, цена, торг и защита от мошенников: как продать ненужные вещи без лишних нервов.",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-04-06--jrw.webp",
+   "fx": "",
+   "hidden": false,
+   "buy": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true,
+   "price": "199–299 ₽"
+  },
+  {
    "id": "manipulation",
    "cat": "market",
    "free": false,
