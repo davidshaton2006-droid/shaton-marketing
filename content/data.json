@@ -2,6 +2,24 @@
  "cats": [],
  "mats": [
   {
+   "id": "smm",
+   "cat": "smm",
+   "free": true,
+   "ic": "send",
+   "c1": "var(--rose)",
+   "c2": "var(--color-5)",
+   "title": "SMM, который приводит заявки",
+   "desc": "Стратегия, контент-план, тексты и видео, ВКонтакте и Telegram, вовлечение и платная реклама. Система вместо хаотичных постов.",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-04-06--5ki.webp",
+   "fx": "",
+   "hidden": false,
+   "buy": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true,
+   "price": ""
+  },
+  {
    "id": "seo",
    "cat": "seo",
    "free": true,
