@@ -2,6 +2,24 @@
  "cats": [],
  "mats": [
   {
+   "id": "avito-flip",
+   "cat": "avito",
+   "free": false,
+   "ic": "loop",
+   "c1": "var(--color-3)",
+   "c2": "var(--color-6)",
+   "title": "Перепродажа на Авито с нуля",
+   "desc": "Поиск, оценка, покупка и продажа, расчёт прибыли и рисков. Без обещаний «лёгких денег».",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-04-06--1fh.webp",
+   "fx": "",
+   "hidden": false,
+   "buy": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true,
+   "price": "790–990 ₽"
+  },
+  {
    "id": "avito-sell",
    "cat": "avito",
    "free": false,
