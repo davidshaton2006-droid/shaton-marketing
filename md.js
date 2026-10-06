@@ -15,6 +15,14 @@
   var LAB = {imp:'Важно', pr:'Практика', err:'Типичная ошибка', ex:'Пример', num:'Цифры и ориентиры'};
   var IMGBASE = 'posts/img/';
 
+  function embedUrl(u){
+    var r;
+    if ((r = u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{6,})/))) return 'https://www.youtube-nocookie.com/embed/' + r[1];
+    if ((r = u.match(/rutube\.ru\/(?:video|play\/embed)\/([\w]+)/))) return 'https://rutube.ru/play/embed/' + r[1];
+    if ((r = u.match(/vk\.com\/(?:video|clip)(-?\d+)_(\d+)/))) return 'https://vk.com/video_ext.php?oid=' + r[1] + '&id=' + r[2] + '&hd=2';
+    if ((r = u.match(/vimeo\.com\/(?:video\/)?(\d+)/))) return 'https://player.vimeo.com/video/' + r[1];
+    return '';
+  }
   function ulist(items, pid){
     if (items[0].indexOf('[ ] ') === 0)
       return '<ul class="cl" data-r>' + items.map(function(x){ return '<li><label><input type="checkbox" data-ck="' + pid + ':' + hash(x) + '"><span class="bx"></span><span>' + inline(x.slice(4)) + '</span></label></li>'; }).join('') + '</ul>';
@@ -66,6 +74,12 @@
     if (kind === 'shot' || kind === 'img'){
       var p2 = title.split('|'), f = p2[0].trim(), cap = p2.slice(1).join('|').trim(), src = /^(https?:|data:|posts\/)/.test(f) ? f : IMGBASE + f;
       return {h:'<figure class="' + (kind === 'shot' ? 'shot' : 'shot plain') + '" data-r><img loading="lazy" decoding="async" src="' + E(src) + '" alt="' + E(cap) + '">' + (cap ? '<figcaption>' + E(cap) + '</figcaption>' : '') + '</figure>', w:5};
+    }
+    if (kind === 'video'){   // :::video  file.mp4 | caption   or a YouTube / RuTube / VK / Vimeo link
+      var vp = title.split('|'), v = vp[0].trim(), vc = vp.slice(1).join('|').trim(), emb = embedUrl(v), box;
+      if (emb) box = '<iframe src="' + E(emb) + '" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+      else box = '<video src="' + E(/^(https?:|posts\/)/.test(v) ? v : 'posts/vid/' + v) + '" controls playsinline preload="metadata"></video>';
+      return {h:'<div class="vid" data-r>' + box + '</div>' + (vc ? '<p class="vidcap">' + inline(vc) + '</p>' : ''), w:10};
     }
     if (kind === 'stats'){   // :::stats  then lines  "92% | подпись"
       h = '<div class="stats" data-r>';

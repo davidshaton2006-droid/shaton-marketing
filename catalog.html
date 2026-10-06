@@ -349,6 +349,14 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 .fx-pulse .gi{animation:pls 2.2s ease-in-out infinite!important}
 @keyframes pls{50%{transform:scale(1.08)}}
 @media (prefers-reduced-motion:reduce){.fxl,.fx-pulse .gi{animation:none!important}}
+
+.sav{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.svid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.svshade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,oklch(0 0 0 / .45),transparent 30%,transparent 55%,oklch(0 0 0 / .65));pointer-events:none}
+.svc .svb,.svc .svh,.svc .bars,.svc .svcta{z-index:4}.svc .svb{position:relative}
+.vid{position:relative;margin:20px 0;border-radius:22px;overflow:hidden;background:oklch(0.2 0.03 266);box-shadow:var(--edge),var(--soft);aspect-ratio:16/9}
+.vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#000}
+.vidcap{margin:-10px 4px 18px;font-size:13px;color:var(--dim);font-weight:600}
 </style>
 </head>
 <body>
@@ -454,6 +462,7 @@ var IC = {
   book:'<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>', check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>'
 };
 function svg(n, cls){ return '<svg class="i '+(cls||'')+'" viewBox="0 0 24 24" aria-hidden="true">'+(IC[n]||'')+'</svg>'; }
+function mediaUrl(v, kind){ v = String(v || ''); return /^(https?:|data:|posts\/)/.test(v) ? v : 'posts/' + (kind === 'vid' ? 'vid' : 'img') + '/' + v; }
 function gi(n, size, tone){ var sz = typeof size === 'string' ? size : (size || 44) + 'px'; return '<span class="gi" style="--s:'+sz+';--t:'+(tone||'var(--color-4)')+'">'+svg(n)+'</span>'; }
 function cat(id){ return CATS.filter(function(c){ return c.id === id; })[0]; }
 function mat(id){ return MATS.filter(function(m){ return m.id === id; })[0]; }
@@ -517,7 +526,7 @@ function filterMats(){
 }
 function renderHome(){
   var stories = STORIES.map(function(s,i){
-    return '<button class="st'+(SEEN[s.id] ? ' seen' : '')+'" data-s="'+i+'"><span class="ring"><span>'+gi(s.ic, '100%', s.a)+'</span></span><small>'+esc(s.name)+'</small></button>';
+    return '<button class="st'+(SEEN[s.id] ? ' seen' : '')+'" data-s="'+i+'"><span class="ring"><span>'+(s.avatar ? '<img class="sav" src="'+esc(mediaUrl(s.avatar, 'img'))+'" alt="" loading="lazy">' : gi(s.ic, '100%', s.a))+'</span></span><small>'+esc(s.name)+'</small></button>';
   }).join('');
   var fl = [['all','Все'],['free','Бесплатно'],['paid','Платные']].concat(CATS.filter(function(c){ return matsIn(c.id).length; }).map(function(c){ return [c.id, c.name]; }));
   view.innerHTML =
@@ -683,10 +692,12 @@ function showSlide(){
   var bars = s.slides.map(function(_, k){ return '<i class="'+(k < S.j ? 'done' : k === S.j ? 'cur' : '')+'"><b></b></i>'; }).join('');
   var last = S.j === s.slides.length - 1;
   var cta = last && (s.open || s.goCat) ? '<div class="svcta"><button class="gb" id="sc">'+(s.open ? 'Открыть материал' : 'Открыть раздел')+'</button></div>' : '';
-  svc.innerHTML = '<div class="bars">'+bars+'</div><div class="svh"><span class="ava">'+esc(s.name.charAt(0))+'</span><b>'+esc(s.name)+'</b><button class="xx" id="sx" aria-label="Закрыть">✕</button></div>'
-    +'<div class="svb">'+(sl.img ? '<img class="simg" src="'+esc(/^(https?:|data:)/.test(sl.img) ? sl.img : 'posts/img/' + sl.img)+'" alt="">' : gi(s.ic, 96, s.a))+'<h2>'+esc(sl.t)+'</h2><p>'+esc(sl.p)+'</p></div>'+cta
+  svc.innerHTML = '<div class="bars">'+bars+'</div><div class="svh"><span class="ava">'+(s.avatar ? '<img class="sav" src="'+esc(mediaUrl(s.avatar, 'img'))+'" alt="">' : esc(s.name.charAt(0)))+'</span><b>'+esc(s.name)+'</b><button class="xx" id="sx" aria-label="Закрыть">✕</button></div>'
+    +(sl.video ? '<video class="svid" src="'+esc(mediaUrl(sl.video, 'vid'))+'" autoplay muted loop playsinline preload="auto"></video><i class="svshade"></i>' : '')+'<div class="svb">'+(sl.img ? '<img class="simg" src="'+esc(/^(https?:|data:)/.test(sl.img) ? sl.img : 'posts/img/' + sl.img)+'" alt="">' : (sl.video ? '' : gi(s.ic, 96, s.a)))+'<h2>'+esc(sl.t)+'</h2><p>'+esc(sl.p)+'</p></div>'+cta
     +'<div class="tapl" id="tl"></div><div class="tapr" id="tr"></div>';
   var cb = $('.bars .cur b', svc); if (cb) cb.addEventListener('animationend', next);
+  var sv = $('.svid', svc);
+  if (sv && cb) { cb.style.animationPlayState = 'paused'; var go_ = function(){ if (sv.duration && isFinite(sv.duration)) cb.style.animationDuration = Math.min(30, Math.max(3, sv.duration)) + 's'; cb.style.animationPlayState = 'running'; }; if (sv.readyState > 0) go_(); else { sv.addEventListener('loadedmetadata', go_, {once:true}); setTimeout(function(){ cb.style.animationPlayState = 'running'; }, 2500); } var pl = sv.play(); if (pl && pl.catch) pl.catch(function(){}); }
   $('#sx').addEventListener('click', function(e){ e.stopPropagation(); closeStory(); });
   $('#tl').addEventListener('click', prev); $('#tr').addEventListener('click', next);
   var sc = $('#sc'); if (sc) sc.addEventListener('click', function(e){ e.stopPropagation(); var o = s.open, c = s.goCat; closeStory(); if (o) go('post', o); else go('cat', c); });

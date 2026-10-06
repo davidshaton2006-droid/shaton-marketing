@@ -221,7 +221,10 @@ var SNIP = {
   'Важно':'\n:::imp Важно\nТекст блока.\n:::\n', 'Практика':'\n:::pr Практика\nТекст блока.\n:::\n', 'Ошибка':'\n:::err Типичная ошибка\nТекст блока.\n:::\n', 'Пример':'\n:::ex Пример\nТекст примера.\n:::\n',
   'Схема-шаги':'\n:::flow Название схемы | Подпись\nШаг 1 | Пояснение\nШаг 2 | Пояснение\nШаг 3 | Пояснение\n:::\n', 'Графики':'\n:::bars Название графика | Подпись\nПервый = 40 | 40%\nВторой = 25 | 25%\nТретий = 15 | 15%\n:::\n',
   'Карточки':'\n:::cells\nЗаголовок | Описание\nЗаголовок | Описание\n:::\n', 'Пирамида':'\n:::pyr Название\nВерхний уровень\nСредний уровень\nНижний уровень\n:::\n',
-  'Цифры':'\n:::stats\n92% | подпись\n1500 | подпись\n3x | подпись\n:::\n', 'Цитата':'\n:::quote Автор\nТекст цитаты.\n:::\n', 'Код':'\n```\nкод здесь\n```\n'
+  'Цифры':'\n:::stats\n92% | подпись\n1500 | подпись\n3x | подпись\n:::\n', 'Видео по ссылке':'
+:::video https://www.youtube.com/watch?v=… | Подпись
+:::
+', 'Цитата':'\n:::quote Автор\nТекст цитаты.\n:::\n', 'Код':'\n```\nкод здесь\n```\n'
 };
 function rPostEd(m){
   var d = draft, cats = allCats();
@@ -243,7 +246,7 @@ function rPostEd(m){
     + '<label class="f"><span><input type="checkbox" id="f_nottl"' + (d.nottl ? ' checked' : '') + '> Убрать заголовок с обложки</span></label>'
     + '<label class="f"><span><input type="checkbox" id="f_nocap"' + (d.nocap ? ' checked' : '') + '> Убрать всю подпись с обложки</span></label>'
     + '<label class="f"><span><input type="checkbox" id="f_hidden"' + (d.hidden ? ' checked' : '') + '> Скрыть пост из ленты</span></label></div>'
-    + (d.md || d._new ? '<div class="panel glass"><h2>Текст поста</h2><div class="tb">' + Object.keys(SNIP).map(function(k){ return '<button class="btn s sm" data-sn="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '<button class="btn s sm" data-sn="__img">Фото в тексте…</button></div>'
+    + (d.md || d._new ? '<div class="panel glass"><h2>Текст поста</h2><div class="tb">' + Object.keys(SNIP).map(function(k){ return '<button class="btn s sm" data-sn="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '<button class="btn s sm" data-sn="__img">Фото в тексте…</button><button class="btn s sm" data-sn="__vid">Видео-файл…</button></div>'
       + (d._loading ? '<p class="muted">Загружаю текст…</p>' : '<textarea id="f_src" style="min-height:460px;font:13.5px/1.5 ui-monospace,Consolas,monospace">' + esc(d.src) + '</textarea>')
       + '<p class="muted" style="margin-top:8px">Глава: <code># Название</code>, подзаголовок: <code>## …</code>. Для платного поста всё <b>после</b> строки <code>=== платная часть ===</code> не публикуется на сайт (остаётся у вас в браузере, кнопка «Скачать полный текст»).</p>'
       + (!d.free ? '<div style="margin-top:8px"><button class="btn s sm" id="dlfull">Скачать полный текст</button></div>' : '') + '</div>'
@@ -278,7 +281,10 @@ function bindPostEd(){
   $$('[data-sn]', m).forEach(function(b){ b.onclick = function(){
     var k = b.getAttribute('data-sn'), ta = $('#f_src'); if (!ta) return;
     function ins(t){ var p = ta.selectionStart; ta.value = ta.value.slice(0, p) + t + ta.value.slice(ta.selectionEnd); ta.focus(); ta.selectionStart = ta.selectionEnd = p + t.length; previewNow(true); }
-    if (k === '__img') pickImages(false, function(n){ if (n[0]) ins('\n:::img ' + n[0] + ' | Подпись к фото\n:::\n'); }); else ins(SNIP[k]);
+    if (k === '__vid') pickVideo(function(n){ ins('
+:::video ' + n + ' | Подпись к видео
+:::
+'); }); else if (k === '__img') pickImages(false, function(n){ if (n[0]) ins('\n:::img ' + n[0] + ' | Подпись к фото\n:::\n'); }); else ins(SNIP[k]);
   }; });
   var dl = $('#dlfull'); if (dl) dl.onclick = function(){ readPost(); var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([draft.src], {type:'text/plain;charset=utf-8'})); a.download = (draft.id || 'post') + '-full.txt'; a.click(); };
   $('#sendreq').onclick = function(){ var t = $('#f_req').value.trim(); if (!t) return msg('Опишите, что добавить', 1); readPost(); REQ.unshift({id:'r' + Date.now().toString(36), post:draft.id || draft.title, text:t, status:'new', date:new Date().toISOString()}); saveReq().then(function(){ $('#f_req').value = ''; msg('Заявка отправлена'); }, function(e){ msg(e.message, 1); }); };
@@ -326,22 +332,26 @@ function rStoryEd(m){
   var s = sdraft, M = allMats(), cats = allCats();
   m.innerHTML = top(s._new ? 'Новая сторис' : 'Сторис: ' + esc(s.name), '<button class="btn s" id="back">← К списку</button><button class="btn s" id="spv">Предпросмотр</button><button class="btn" id="save">Опубликовать</button>')
     + '<div class="ed"><div><div class="panel glass"><div class="row"><label class="f"><span>Название под кружком</span><input type="text" id="s_name" value="' + esc(s.name) + '"></label><label class="f"><span>Иконка</span><select id="s_ic">' + opt(ICONS, s.ic) + '</select></label></div>'
+    + '<label class="f"><span>Аватарка сториса (своё фото вместо иконки)</span><div class="row" style="align-items:center;gap:8px"><input type="text" id="s_av" value="' + esc(s.avatar || '') + '" placeholder="имя файла или ссылка" style="flex:3"><button class="btn s sm" id="avpick" style="flex:none">Загрузить…</button><button class="btn s sm" id="avclr" style="flex:none">Убрать</button></div></label>'
     + '<div class="row"><label class="f"><span>Цвет 1</span>' + swatches('a', s.a) + '</label><label class="f"><span>Цвет 2</span>' + swatches('b', s.b) + '</label></div>'
     + '<div class="row"><label class="f"><span>По окончании открыть пост</span><select id="s_open">' + opt([['', '— ничего —']].concat(M.map(function(x){ return [x.id, x.title]; })), s.open || '') + '</select></label><label class="f"><span>или раздел</span><select id="s_cat">' + opt([['', '— нет —']].concat(cats.map(function(c){ return [c.id, c.name]; })), s.goCat || '') + '</select></label></div></div>'
-    + '<div class="panel glass"><h2>Слайды</h2>' + s.slides.map(function(sl, i){ return '<div class="slide" data-i="' + i + '"><label class="f"><span>Заголовок</span><input type="text" data-k="t" value="' + esc(sl.t) + '"></label><label class="f"><span>Текст</span><textarea data-k="p" style="min-height:64px">' + esc(sl.p) + '</textarea></label><div class="row" style="align-items:center;gap:8px"><input type="text" data-k="img" value="' + esc(sl.img || '') + '" placeholder="картинка (необязательно)" style="flex:3"><button class="btn s sm" data-pk="' + i + '" style="flex:none">Загрузить…</button><button class="btn d sm" data-rm="' + i + '" style="flex:none">Убрать слайд</button></div></div>'; }).join('')
+    + '<div class="panel glass"><h2>Слайды</h2>' + s.slides.map(function(sl, i){ return '<div class="slide" data-i="' + i + '"><label class="f"><span>Заголовок</span><input type="text" data-k="t" value="' + esc(sl.t) + '"></label><label class="f"><span>Текст</span><textarea data-k="p" style="min-height:64px">' + esc(sl.p) + '</textarea></label><div class="row" style="align-items:center;gap:8px"><input type="text" data-k="img" value="' + esc(sl.img || '') + '" placeholder="картинка (необязательно)" style="flex:3"><button class="btn s sm" data-pk="' + i + '" style="flex:none">Загрузить…</button></div><div class="row" style="align-items:center;gap:8px;margin-top:8px"><input type="text" data-k="video" value="' + esc(sl.video || '') + '" placeholder="видео (mp4, до 25 МБ; фоном на весь слайд)" style="flex:3"><button class="btn s sm" data-vk="' + i + '" style="flex:none">Загрузить видео…</button><button class="btn d sm" data-rm="' + i + '" style="flex:none">Убрать слайд</button></div></div>'; }).join('')
     + '<button class="btn s" id="addsl">+ Слайд</button></div></div>'
     + '<div class="pv"><h3>Предпросмотр</h3><div class="phone"><iframe id="pvf" src="catalog.html?pv=1#home"></iframe></div></div></div>';
   $('#back').onclick = function(){ sdraft = null; render(); };
   $('#addsl').onclick = function(){ readStory(); s.slides.push({t:'Заголовок', p:'Текст слайда'}); render(); };
   $('#spv').onclick = function(){ readStory(); sendStory(); };
+  $('#avpick').onclick = function(){ pickImages(false, function(n){ if (n[0]) { $('#s_av').value = n[0]; readStory(); sendStory(); } }); };
+  $('#avclr').onclick = function(){ $('#s_av').value = ''; readStory(); sendStory(); };
   $('#save').onclick = saveStory;
   $$('.sw', m).forEach(function(w){ w.onclick = function(e){ var v = e.target.getAttribute('data-v'); if (!v) return; readStory(); s[w.getAttribute('data-sw')] = v; $$('i', w).forEach(function(i){ i.classList.toggle('on', i === e.target); }); }; });
   m.onclick = function(e){ var rm = e.target.getAttribute('data-rm'), pk = e.target.getAttribute('data-pk');
     if (rm != null) { readStory(); if (s.slides.length > 1) { s.slides.splice(+rm, 1); render(); } }
+    var vk = e.target.getAttribute('data-vk'); if (vk != null) pickVideo(function(n){ readStory(); s.slides[+vk].video = n; render(); });
     if (pk != null) pickImages(false, function(n){ if (n[0]) { readStory(); s.slides[+pk].img = n[0]; render(); } }); };
 }
-function readStory(){ var s = sdraft; if (!$('#s_name')) return; s.name = $('#s_name').value; s.ic = $('#s_ic').value; s.open = $('#s_open').value || null; s.goCat = $('#s_cat').value || undefined; $$('.slide').forEach(function(el){ var i = +el.getAttribute('data-i'); s.slides[i] = {t:$('[data-k=t]', el).value, p:$('[data-k=p]', el).value, img:$('[data-k=img]', el).value || undefined}; }); }
-function storyOut(){ var s = sdraft; return {id:s.id || 's-' + slug(s.name), name:s.name, ic:s.ic, a:'var(--' + s.a + ')', b:'var(--' + s.b + ')', slides:s.slides, open:s.open || null, goCat:s.goCat}; }
+function readStory(){ var s = sdraft; if (!$('#s_name')) return; s.name = $('#s_name').value; s.ic = $('#s_ic').value; s.open = $('#s_open').value || null; s.avatar = $('#s_av').value.trim() || undefined; s.goCat = $('#s_cat').value || undefined; $$('.slide').forEach(function(el){ var i = +el.getAttribute('data-i'); s.slides[i] = {t:$('[data-k=t]', el).value, p:$('[data-k=p]', el).value, img:$('[data-k=img]', el).value || undefined, video:$('[data-k=video]', el).value.trim() || undefined}; }); }
+function storyOut(){ var s = sdraft; return {id:s.id || 's-' + slug(s.name), name:s.name, ic:s.ic, a:'var(--' + s.a + ')', b:'var(--' + s.b + ')', slides:s.slides, open:s.open || null, goCat:s.goCat, avatar:s.avatar || ''}; }
 function sendStory(){ var f = $('#pvf'); if (f && f.contentWindow) f.contentWindow.postMessage({type:'shaton-story', story:storyOut()}, location.origin); }
 function saveStory(){
   readStory(); var s = sdraft; if (!s.name.trim()) return msg('Нужно название', 1);
@@ -374,6 +384,18 @@ function uploadFiles(files, cb){
   var names = [], list = [].slice.call(files); msg('Загружаю ' + list.length + '…');
   list.reduce(function(p, f){ return p.then(function(){ return toWebp(f).then(function(o){ var nm = slug(o.name.replace(/\.[^.]+$/, '')) + '-' + Date.now().toString(36).slice(-3) + '.' + o.name.split('.').pop().toLowerCase(); return putFile('posts/img/' + nm, o.data, 'Admin: image ' + nm).then(function(){ names.push(nm); MEDIA.push({name:nm, type:'file'}); }); }); }); }, Promise.resolve())
     .then(function(){ msg('Загружено: ' + names.length); cb && cb(names); }, function(e){ msg('Ошибка загрузки: ' + e.message, 1); });
+}
+function pickVideo(cb){
+  var i = document.createElement('input'); i.type = 'file'; i.accept = 'video/mp4,video/webm,video/quicktime';
+  i.onchange = function(){
+    var f = i.files[0]; if (!f) return;
+    if (f.size > 25 * 1024 * 1024) return msg('Файл больше 25 МБ: GitHub не принимает такие через панель. Сожмите видео или вставьте ссылку на YouTube/RuTube/VK.', 1);
+    msg('Загружаю видео…'); var fr = new FileReader();
+    fr.onload = function(){ var ext = (f.name.split('.').pop() || 'mp4').toLowerCase(), nm = slug(f.name.replace(/\.[^.]+$/, '')) + '-' + Date.now().toString(36).slice(-3) + '.' + ext;
+      putFile('posts/vid/' + nm, fr.result.split(',')[1], 'Admin: video ' + nm).then(function(){ msg('Видео загружено'); cb(nm); }, function(e){ msg('Ошибка: ' + e.message, 1); }); };
+    fr.readAsDataURL(f);
+  };
+  i.click();
 }
 function pickImages(multi, cb){ var i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*'; i.multiple = !!multi; i.onchange = function(){ if (i.files.length) uploadFiles(i.files, cb); }; i.click(); }
 function rMedia(m){
