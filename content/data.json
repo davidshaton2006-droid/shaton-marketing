@@ -14,7 +14,10 @@
    "fx": "aurora",
    "hidden": false,
    "buy": "",
-   "price": ""
+   "price": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true
   }
  ],
  "stories": []
