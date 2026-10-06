@@ -1,1 +1,21 @@
-{"cats":[],"mats":[],"stories":[]}
+{
+ "cats": [],
+ "mats": [
+  {
+   "id": "avito",
+   "cat": "avito",
+   "free": true,
+   "ic": "bars",
+   "c1": "var(--color-3)",
+   "c2": "var(--color-5)",
+   "title": "Продвижение на Авито без воды",
+   "desc": "Как устроена выдача, из чего собрать карточку, обложку и цену, когда платное продвижение окупается и что считать. С чек-листами и планом на 30 дней.",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-03-53--9dc.webp",
+   "fx": "aurora",
+   "hidden": false,
+   "buy": "",
+   "price": ""
+  }
+ ],
+ "stories": []
+}
