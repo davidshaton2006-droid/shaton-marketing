@@ -84,7 +84,7 @@
     if (kind === 'stats'){   // :::stats  then lines  "92% | подпись"
       h = '<div class="stats" data-r>';
       lines.forEach(function(b, k){ var p = b.split('|'), v = p[0].trim(), m = v.match(/^([^\d-]*)(-?[\d\s.,]+)(.*)$/); var num = m ? parseFloat(m[2].replace(/\s/g, '').replace(',', '.')) : NaN;
-        h += '<div class="st" style="--i:' + k + '"><b' + (isNaN(num) ? '' : ' data-n="' + num + '" data-pre="' + E(m[1]) + '" data-suf="' + E(m[3]) + '"') + '>' + E(v) + '</b><span>' + inline(p.slice(1).join('|').trim()) + '</span></div>'; });
+        h += '<div class="stt" style="--i:' + k + '"><b' + (isNaN(num) ? '' : ' data-n="' + num + '" data-pre="' + E(m[1]) + '" data-suf="' + E(m[3]) + '"') + '>' + E(v) + '</b><span>' + inline(p.slice(1).join('|').trim()) + '</span></div>'; });
       return {h:h + '</div>', w:15};
     }
     if (kind === 'quote'){
