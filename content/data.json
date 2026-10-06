@@ -2,6 +2,24 @@
  "cats": [],
  "mats": [
   {
+   "id": "direct",
+   "cat": "direct",
+   "free": true,
+   "ic": "cursor",
+   "c1": "var(--violet)",
+   "c2": "var(--deep)",
+   "title": "Яндекс Директ без слива бюджета",
+   "desc": "Метрика и цели до запуска, семантика и минус-слова, стратегии ставок, ретаргетинг и допустимая цена заявки. Разбор типичных потерь бюджета.",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-04-05--oqg.webp",
+   "fx": "",
+   "hidden": false,
+   "buy": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true,
+   "price": ""
+  },
+  {
    "id": "avito",
    "cat": "avito",
    "free": true,
