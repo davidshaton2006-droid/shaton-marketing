@@ -2,6 +2,24 @@
  "cats": [],
  "mats": [
   {
+   "id": "seo",
+   "cat": "seo",
+   "free": true,
+   "ic": "search",
+   "c1": "var(--color-3)",
+   "c2": "var(--deep)",
+   "title": "SEO-продвижение без магии",
+   "desc": "Индексация, семантика, структура сайта, метатеги, контент, локальный поиск и самостоятельный аудит. Что работает и чего ждать по срокам.",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-04-06--nas.webp",
+   "fx": "",
+   "hidden": false,
+   "buy": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true,
+   "price": ""
+  },
+  {
    "id": "sites",
    "cat": "sites",
    "free": true,
