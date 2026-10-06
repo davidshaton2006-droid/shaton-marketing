@@ -1,0 +1,70 @@
+/* SHATON LIQUID GLASS: design tokens (Shaton_Liquid_Glass_Web_Design_System.md, sections 3, 5, 16).
+   Pearl = light theme (default), Graphite = [data-theme="dark"]. Legacy variable names are aliased so older rules pick up the new palette. */
+:root{
+  color-scheme:light;
+  /* --- spec tokens --- */
+  --pearl-0:#ffffff;--pearl-50:#f8fbff;--pearl-100:#eef5ff;--pearl-200:#ddebff;
+  --ink-950:#050914;--ink-800:#202b43;--ink-600:#596984;
+  --blue-600:#234bff;--blue-500:#3976ff;--violet-500:#6a45ff;--cyan-400:#16d9e3;
+  --bg:#f8fbff;--bg-soft:#eef5ff;
+  --text:#050914;--text-2:#202b43;--text-3:#596984;
+  --blue:#234bff;--blue-2:#3976ff;--violet:#6a45ff;--cyan:#16d9e3;
+  --glass-fill:rgba(255,255,255,.44);--glass-edge:rgba(255,255,255,.92);--glass-edge-cold:rgba(90,145,255,.34);--glass-shadow:rgba(28,55,110,.16);
+  --r-card:28px;--r-panel:36px;--r-control:20px;--r-pill:999px;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;
+  --blur-control:16px;--blur-panel:20px;
+  --shadow-card:0 20px 50px rgba(28,55,110,.14);
+  --focus:0 0 0 4px rgba(35,75,255,.11);
+  --glow-spectrum:linear-gradient(135deg,#234bff 0%,#3976ff 32%,#16d9e3 64%,#6a45ff 100%);
+  /* surfaces */
+  --page-bg:radial-gradient(circle at 18% 8%,rgba(255,255,255,.98),transparent 34%),radial-gradient(circle at 84% 22%,rgba(69,115,255,.15),transparent 36%),radial-gradient(circle at 52% 86%,rgba(24,217,227,.10),transparent 38%),linear-gradient(145deg,#ffffff 0%,#f5f9ff 44%,#e8f1ff 100%);
+  --g-surface:linear-gradient(145deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.25) 42%,rgba(209,228,255,.20) 100%);
+  --g-border:rgba(255,255,255,.74);
+  --g-inset:inset 0 1px 0 rgba(255,255,255,.88),inset 0 -1px 0 rgba(91,139,216,.22);
+  --g-drop:0 20px 50px rgba(28,55,110,.14),0 2px 6px rgba(28,55,110,.08);
+  --g-drop-soft:0 10px 30px rgba(28,55,110,.10),0 1px 4px rgba(28,55,110,.06);
+  --nav-bg:rgba(255,255,255,.72);--nav-border:rgba(255,255,255,.84);--nav-shadow:0 -12px 36px rgba(35,55,95,.10);
+  --stuck-bg:rgba(248,251,255,.72);--stuck-line:rgba(126,157,210,.16);
+  --search-bg:rgba(255,255,255,.46);--search-border:rgba(255,255,255,.78);
+  --badge-fg:#234bff;--badge-bg:rgba(35,75,255,.08);--badge-bd:rgba(35,75,255,.12);
+  --avatar-bg:radial-gradient(circle at 28% 18%,#ffffff 0%,#eef5ff 55%,#dbe9ff 100%);
+  --cov-bg:radial-gradient(circle at 16% 6%,rgba(255,255,255,.98),transparent 36%),radial-gradient(circle at 86% 30%,rgba(69,115,255,.28),transparent 42%),radial-gradient(circle at 60% 100%,rgba(22,217,227,.18),transparent 44%),linear-gradient(145deg,#ffffff 0%,#eef5ff 52%,#d9e8ff 100%);
+  --cov-ink:#050914;--cov-hl:#234bff;--cov-rub-fg:#234bff;
+  --scrim:rgba(5,9,20,.34);
+  --line:rgba(126,157,210,.22);
+  /* --- legacy aliases (older rules) --- */
+  --color-1:#eef5ff;--color-2:#ddebff;--color-3:#3976ff;--color-4:#234bff;--color-5:#1b38c7;--color-6:#122266;--color-7:#050914;
+  --deep:#234bff;--rose:#6a45ff;--mint:#16d9e3;
+  --ink:var(--text);--dim:var(--text-3);--mute:#62728d;
+  --panel:rgba(255,255,255,.62);
+  --glass:var(--g-surface);--edge:inset 0 0 0 1px var(--g-border),inset 0 1px 0 rgba(255,255,255,.88);--soft:var(--g-drop-soft);
+}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --graphite-950:#050a12;--graphite-900:#09111d;--graphite-800:#121c2b;
+  --bg:#050a12;--bg-soft:#09111d;
+  --text:#f7faff;--text-2:#c6d2e5;--text-3:#91a5be;
+  --blue:#4ba3ff;--blue-2:#3976ff;--violet:#7757ff;--cyan:#22e0e6;
+  --glass-fill:rgba(255,255,255,.075);--glass-edge:rgba(225,239,255,.40);--glass-edge-cold:rgba(76,145,255,.42);--glass-shadow:rgba(0,0,0,.48);
+  --shadow-card:0 22px 56px rgba(0,0,0,.42);
+  --focus:0 0 0 4px rgba(75,163,255,.14);
+  --page-bg:radial-gradient(circle at 15% 4%,rgba(90,155,255,.18),transparent 32%),radial-gradient(circle at 84% 74%,rgba(106,69,255,.14),transparent 36%),linear-gradient(145deg,#121c2b 0%,#09111d 48%,#050a12 100%);
+  --g-surface:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.055) 50%,rgba(76,145,255,.07));
+  --g-border:rgba(225,239,255,.30);
+  --g-inset:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(76,145,255,.24);
+  --g-drop:0 22px 56px rgba(0,0,0,.42),0 0 32px rgba(57,118,255,.10);
+  --g-drop-soft:0 12px 30px rgba(0,0,0,.34);
+  --nav-bg:rgba(9,17,29,.74);--nav-border:rgba(225,239,255,.16);--nav-shadow:0 -12px 36px rgba(0,0,0,.40);
+  --stuck-bg:rgba(5,10,18,.72);--stuck-line:rgba(225,239,255,.10);
+  --search-bg:rgba(255,255,255,.07);--search-border:rgba(225,239,255,.22);
+  --badge-fg:#8fc4ff;--badge-bg:rgba(75,163,255,.12);--badge-bd:rgba(75,163,255,.22);
+  --avatar-bg:radial-gradient(circle at 28% 18%,#2a3d5c 0%,#121c2b 60%,#09111d 100%);
+  --cov-bg:radial-gradient(circle at 15% 4%,rgba(90,155,255,.26),transparent 36%),radial-gradient(circle at 86% 78%,rgba(106,69,255,.24),transparent 42%),linear-gradient(145deg,#121c2b 0%,#09111d 48%,#050a12 100%);
+  --cov-ink:#f7faff;--cov-hl:#7db8ff;--cov-rub-fg:#bcd9ff;
+  --scrim:rgba(0,0,0,.5);
+  --line:rgba(225,239,255,.12);
+  --color-1:#121c2b;--color-2:#1b2a40;--color-3:#4ba3ff;--color-4:#4ba3ff;--color-5:#8fc4ff;--color-6:#c6d2e5;--color-7:#f7faff;
+  --deep:#3976ff;
+  --ink:var(--text);--dim:var(--text-2);--mute:#91a5be;
+  --panel:rgba(255,255,255,.07);
+}
