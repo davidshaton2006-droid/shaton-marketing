@@ -65,6 +65,7 @@ main{padding:24px;max-width:1280px;width:100%}
 .drop{border:2px dashed var(--line);border-radius:16px;padding:22px;text-align:center;color:var(--dim);cursor:pointer}
 .drop.over{border-color:var(--acc);background:rgba(84,104,255,.07)}
 @media(max-width:1000px){.ed{grid-template-columns:1fr}.pv{position:static}#app{grid-template-columns:1fr}aside.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;border-right:0}.brand{width:100%}.nav{display:flex;flex-wrap:wrap;gap:4px}.nav button{width:auto}}
+.tgm main{padding:14px}.tgm .phone{height:560px}@media(max-width:700px){main{padding:14px}.top h1{font-size:19px}.item{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -102,6 +103,10 @@ main{padding:24px;max-width:1280px;width:100%}
 </div>
 <div id="msg" class="hide"></div>
 
+<script>
+/* opened from the admin bot (Telegram mini app): fit the window, follow the Telegram theme */
+if (/Telegram|tgWebApp/i.test(navigator.userAgent + location.hash)) { var tsc = document.createElement('script'); tsc.src = 'https://telegram.org/js/telegram-web-app.js'; tsc.onload = function(){ try { var w = Telegram.WebApp; w.ready(); w.expand(); if (w.disableVerticalSwipes) w.disableVerticalSwipes(); w.setHeaderColor('#eef1fb'); w.setBackgroundColor('#eef1fb'); document.documentElement.classList.add('tgm'); } catch(e){} }; document.head.appendChild(tsc); }
+</script>
 <script src="md.js"></script>
 <script>
 (function(){
