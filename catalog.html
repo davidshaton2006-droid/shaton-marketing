@@ -362,6 +362,22 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 .vid{position:relative;margin:20px 0;border-radius:22px;overflow:hidden;background:oklch(0.2 0.03 266);box-shadow:var(--edge),var(--soft);aspect-ratio:16/9}
 .vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#000}
 .vidcap{margin:-10px 4px 18px;font-size:13px;color:var(--dim);font-weight:600}
+
+/* FLAT: liquid glass without bulges (no gloss, inner highlights or drop shadows) */
+:root{--edge:inset 0 0 0 1px oklch(1 0 0 / .75);--soft:0 0 0 0 transparent}
+.gi{background:oklch(from var(--t,var(--color-4)) l c h);box-shadow:none}
+.gi::after{display:none}
+.gi .i{filter:none}
+.cov .o{background:oklch(1 0 0 / .12);box-shadow:none}
+.nav{box-shadow:inset 0 0 0 1px oklch(1 0 0 / .8)}
+.gb{background:oklch(1 0 0 / .18);box-shadow:inset 0 0 0 1px oklch(1 0 0 / .4)}
+.chn,.flow .no{background:var(--color-4);box-shadow:none}
+.hbars .tr,.hbars .tr i,.pyr div,.btn,.btn.p,.svb .simg{box-shadow:none}
+.co::after{display:none}
+/* story rings: only blue + violet, wide soft glow */
+.ring{background:conic-gradient(from 200deg,var(--color-4),var(--violet),var(--color-4))}
+.ring::before{inset:-9px;background:conic-gradient(from 200deg,var(--color-4),var(--violet),var(--color-4));filter:blur(20px);opacity:.5}
+@keyframes glw{from{opacity:.3;transform:scale(.98)}to{opacity:.6;transform:scale(1.05)}}
 </style>
 </head>
 <body>
