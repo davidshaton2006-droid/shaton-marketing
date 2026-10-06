@@ -2,6 +2,24 @@
  "cats": [],
  "mats": [
   {
+   "id": "site-weekend",
+   "cat": "sites",
+   "free": false,
+   "ic": "globe",
+   "c1": "var(--color-3)",
+   "c2": "var(--deep)",
+   "title": "Сайт за выходные",
+   "desc": "Шаблоны сайта-визитки, портфолио и лендинга и пошаговая инструкция, как выложить их бесплатно без программиста.",
+   "img": "izobrazhenie-chatgpt-6-okt-2026-g-04-06--kji.webp",
+   "fx": "",
+   "hidden": false,
+   "buy": "",
+   "label": "",
+   "nottl": false,
+   "nocap": true,
+   "price": "490–990 ₽"
+  },
+  {
    "id": "smm",
    "cat": "smm",
    "free": true,
