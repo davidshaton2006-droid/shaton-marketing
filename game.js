@@ -1,7 +1,7 @@
 /* Shaton Learn: practicum mechanics inside materials (quiz, audit, case, poll, guess, hw, result) + XP, ranks and a share card.
    Blocks are emitted by md.js as <div class="gm" data-g data-id data-xp data-cfg>. State lives in localStorage "shaton.g". */
 (function(g){
-  var KEY = 'shaton.g', ASK = 'https://t.me/avitolog_23';
+  var KEY = 'shaton.g', ASK = 'https://t.me/shaton_lid';
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function inl(s){ return esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`(.+?)`/g, '<code>$1</code>'); }
   var G; try { G = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ G = {}; }

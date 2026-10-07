@@ -2,7 +2,7 @@
    Everything runs in the browser. AI text help is optional: set ShatonBuilder.ai.endpoint to a protected proxy (see workers/ai-proxy.js);
    without it the builder uses rule-based suggestions. window.SiteBuilder.mount(el) */
 (function(g){
-  var KEY = 'shaton.site', ASK = 'https://t.me/avitolog_23';
+  var KEY = 'shaton.site', ASK = 'https://t.me/shaton_lid';
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function ld(){ try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e){ return null; } }
   function sv(o){ try { var c = JSON.parse(JSON.stringify(o)); delete c.photo; delete c.works; localStorage.setItem(KEY, JSON.stringify(c)); } catch(e){} }
