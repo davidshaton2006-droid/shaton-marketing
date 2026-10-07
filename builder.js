@@ -164,7 +164,7 @@
   var STEPS = ['Тип сайта', 'О вас', 'Услуги', 'Доверие', 'Контакты', 'Реквизиты', 'Шаблон', 'Результат'];
   function mount(root){
     var d = ld() || blank(); ensure(d); d.photo = null; d.works = [];
-    var el = root.querySelector('[data-sb]') || root; if (el.getAttribute('data-sb-ready')) return; el.setAttribute('data-sb-ready', '1');
+    var el = root.querySelector('[data-sb]'); if (!el || el.getAttribute('data-sb-ready')) return; el.setAttribute('data-sb-ready', '1');
     function save(){ sv(d); }
     function inp(label, key, opt){ opt = opt || {}; return '<label class="sb-f"><span>' + label + (opt.req ? ' *' : '') + '</span>' + (opt.area ? '<textarea data-k="' + key + '" rows="' + (opt.rows || 3) + '" placeholder="' + esc(opt.ph || '') + '">' + esc(d[key]) + '</textarea>' : '<input type="' + (opt.type || 'text') + '" data-k="' + key + '" value="' + esc(d[key]) + '" placeholder="' + esc(opt.ph || '') + '">') + (opt.hint ? '<small>' + opt.hint + '</small>' : '') + '</label>'; }
     function step0(){

@@ -380,9 +380,9 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 .ring::before{inset:-9px;background:conic-gradient(from 200deg,var(--color-4),var(--violet),var(--color-4));filter:blur(20px);opacity:.5}
 @keyframes glw{from{opacity:.3;transform:scale(.98)}to{opacity:.6;transform:scale(1.05)}}
 </style>
-<link rel="stylesheet" href="tokens.css?v=52">
-<link rel="stylesheet" href="lg.css?v=52">
-<link rel="stylesheet" href="reader.css?v=52">
+<link rel="stylesheet" href="tokens.css?v=53">
+<link rel="stylesheet" href="lg.css?v=53">
+<link rel="stylesheet" href="reader.css?v=53">
 </head>
 <body>
 <div id="prog" hidden></div>
@@ -407,10 +407,10 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   <filter id="rf-wide" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feImage id="rfi-wide" x="0" y="0" width="340" height="52" result="m"/><feDisplacementMap in="SourceGraphic" in2="m" scale="20" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1" result="b"/><feColorMatrix in="b" type="saturate" values="1.6"/></filter>
 </defs></svg>
 
-<script src="art.js?v=52"></script>
-<script src="game.js?v=52"></script>
-<script src="builder.js?v=52"></script>
-<script src="md.js?v=52"></script>
+<script src="art.js?v=53"></script>
+<script src="game.js?v=53"></script>
+<script src="builder.js?v=53"></script>
+<script src="md.js?v=53"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
 var FREE_URL = 'https://t.me/shatonlab/20';   // пост с PDF (запасной вариант)
@@ -653,7 +653,7 @@ function renderPost(id){
     var b = $('#pbody'); if (!b) return;
     b.innerHTML = h + tail(m, x);
     var tc = $('#toc'); if (tc && !tc.children.length && MET[id]) tc.innerHTML = MET[id].chapters.map(function(hh){ return '<a href="#'+id+'_c'+hh.n+'" data-h="'+ShatonMD.hue(id,hh.n)+'" data-j="'+id+'_c'+hh.n+'"><b>'+hh.n+'</b>'+esc(hh.t.length > 26 ? hh.t.slice(0, 25) + '…' : hh.t)+'</a>'; }).join('');
-    arm(b); if (rdScroll) rdScroll(); counters(b); if (window.Game) Game.mount(b, id, m.title); if (window.SiteBuilder) SiteBuilder.mount(b);
+    arm(b); if (rdScroll) rdScroll(); counters(b); if (window.Game) Game.mount(b, id, m.title); if (window.SiteBuilder && id === 'site-weekend') SiteBuilder.mount(b);
   }).catch(function(){ var b = $('#pbody'); if (b) b.innerHTML = (m.free ? '<div class="empty"><b>Не удалось загрузить</b>Проверьте соединение и откройте материал ещё раз.</div>' : '') + tail(m, x); });
   hookReading();
 }
