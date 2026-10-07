@@ -172,3 +172,8 @@ pre.code{border-left:3px solid var(--c1)}
 .sb-b{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:18px;font-weight:750;font-size:15px;color:#fff;background:var(--cg);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 12px 28px -12px var(--c1)}.sb-b.alt{color:var(--text);background:var(--g-surface);border:1px solid var(--g-border);box-shadow:var(--g-inset)}
 .sb-nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
 .sb-ol{padding-left:20px;display:grid;gap:8px;font-size:14.5px;color:var(--text-2)}
+
+/* story viewer: content must not swallow taps (left third = back, rest = next) */
+.svc .svb,.svc .svid,.svc .svshade{pointer-events:none}
+.svc .tapl,.svc .tapr{z-index:3}
+.svc .svh,.svc .svcta,.svc .bars{pointer-events:none}.svc .svh .xx,.svc .svcta button,.svc .svcta a{pointer-events:auto}
