@@ -37,8 +37,44 @@
     return h + '</ul>';
   }
 
+  var GAME = {quiz:1, audit:1, case:1, poll:1, guess:1, hw:1, result:1}, SEQ = {};
   function block(kind, title, body, pid){
     var w = 0, h, t, note, i;
+    /* GAME-BLOCKS */
+    if (GAME[kind]){
+      SEQ[kind] = (SEQ[kind] || 0) + 1;
+      var gid = pid + ':' + kind + SEQ[kind], cfg, xp = 0, ln = body.map(function(b){ return b.replace(/\s+$/, ''); }).filter(function(b){ return b.trim(); });
+      if (kind === 'quiz'){
+        var o = [], ex = [];
+        ln.forEach(function(b){ if (b.charAt(0) === '+') o.push({t:b.slice(1).trim(), c:1}); else if (b.charAt(0) === '-') o.push({t:b.slice(1).trim()}); else if (b.charAt(0) === '=') ex.push(b.slice(1).trim()); });
+        cfg = {q:title, o:o, e:ex.join(' ')}; xp = 10;
+      } else if (kind === 'audit'){
+        var items = ln.map(function(b){ var bad = b.charAt(0) === '!', t = b.slice(1).trim(), a = t.indexOf('=>'); return {t:(a < 0 ? t : t.slice(0, a)).trim(), x:(a < 0 ? '' : t.slice(a + 2)).trim(), b:bad ? 1 : 0}; });
+        cfg = {t:title, l:items}; xp = 10 * items.filter(function(x){ return x.b; }).length;
+      } else if (kind === 'case'){
+        var tp = title.split('|'), ms = (tp[1] || 'Результат:100').split(',').map(function(x){ var q = x.split(':'); return {n:q[0].trim(), v:parseFloat(q[1]) || 100}; }), sc = [];
+        ln.forEach(function(b){
+          if (b.charAt(0) === '#') sc.push({t:b.slice(1).trim(), o:[]});
+          else if (b.charAt(0) === '>' && sc.length){ var q = b.slice(1).split('|'), d = {}; (q[1] || '').split(',').forEach(function(z){ var w = z.split(':'); if (w[1] != null) d[w[0].trim()] = parseFloat(w[1]) || 0; }); sc[sc.length - 1].o.push({t:q[0].trim(), d:d, r:(q.slice(2).join('|')).trim()}); }
+        });
+        cfg = {t:tp[0].trim(), m:ms, s:sc}; xp = 20;
+      } else if (kind === 'poll'){
+        cfg = {q:title, o:ln.map(function(b){ var t = b.replace(/^-\s*/, ''), a = t.indexOf('=>'); return {t:(a < 0 ? t : t.slice(0, a)).trim(), n:(a < 0 ? '' : t.slice(a + 2)).trim()}; })}; xp = 5;
+      } else if (kind === 'guess'){
+        var gp = title.split('|').map(function(x){ return x.trim(); }), rg = (gp[1] || '0-100').split('-');
+        cfg = {q:gp[0], min:parseFloat(rg[0]), max:parseFloat(rg[1]), u:gp[2] || '', a:parseFloat(gp[3]), n:gp.slice(4).join(' | ') + (ln.length ? ' ' + ln.join(' ') : '')}; xp = 15;
+      } else if (kind === 'hw'){
+        var hp = title.split('|'), cr = [], ds = [], vd = [];
+        ln.forEach(function(b){ var m = b.match(/^\[(\d+)\]\s*(.+)$/); if (m) cr.push({p:parseInt(m[1], 10), t:m[2]}); else if (b.charAt(0) === '=') b.slice(1).split('|').forEach(function(z){ var w = z.split(':'); vd.push({f:parseFloat(w[0]), t:w.slice(1).join(':').trim()}); }); else ds.push(b); });
+        xp = parseInt(hp[1], 10) || 40;
+        cfg = {t:hp[0].trim(), d:ds, c:cr, v:vd};
+      } else if (kind === 'result'){
+        var rp = title.split('|').map(function(x){ return x.trim(); }).filter(Boolean);
+        cfg = {names:rp.length >= 4 ? rp.slice(0, 4) : ['Новичок', 'Практик', 'Стратег', 'Мастер'], note:ln.join(' ')};
+      }
+      return {h:'<div class="gm" data-r data-g="' + kind + '" data-id="' + E(gid) + '" data-xp="' + xp + '" data-cfg="' + E(JSON.stringify(cfg)).replace(/'/g, '&#39;') + '"></div>', w:20};
+    }
+
     if (LAB[kind]){
       var inner = parse(body.join('\n'), pid, 1); w = inner.words;
       inner = inner.html.replace(/<section[\s\S]*?<\/section>/g, '');
@@ -146,5 +182,5 @@
     return {html:out.join('\n'), chapters:chapters, words:words};
   }
 
-  g.ShatonMD = {render:function(src, pid){ var r = parse(src, pid || 'p', 1); r.min = Math.max(1, Math.round(r.words / 190)); return r; }};
+  g.ShatonMD = {render:function(src, pid){ SEQ = {}; var r = parse(src, pid || 'p', 1); r.min = Math.max(1, Math.round(r.words / 190)); return r; }};
 })(window);

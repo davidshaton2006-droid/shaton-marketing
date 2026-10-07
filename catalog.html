@@ -380,8 +380,8 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 .ring::before{inset:-9px;background:conic-gradient(from 200deg,var(--color-4),var(--violet),var(--color-4));filter:blur(20px);opacity:.5}
 @keyframes glw{from{opacity:.3;transform:scale(.98)}to{opacity:.6;transform:scale(1.05)}}
 </style>
-<link rel="stylesheet" href="tokens.css?v=47">
-<link rel="stylesheet" href="lg.css?v=47">
+<link rel="stylesheet" href="tokens.css?v=48">
+<link rel="stylesheet" href="lg.css?v=48">
 </head>
 <body>
 <div id="prog" hidden></div>
@@ -406,8 +406,9 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   <filter id="rf-wide" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feImage id="rfi-wide" x="0" y="0" width="340" height="52" result="m"/><feDisplacementMap in="SourceGraphic" in2="m" scale="20" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1" result="b"/><feColorMatrix in="b" type="saturate" values="1.6"/></filter>
 </defs></svg>
 
-<script src="art.js?v=47"></script>
-<script src="md.js?v=47"></script>
+<script src="art.js?v=48"></script>
+<script src="game.js?v=48"></script>
+<script src="md.js?v=48"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
 var FREE_URL = 'https://t.me/shatonlab/20';   // пост с PDF (запасной вариант)
@@ -613,6 +614,7 @@ function renderMe(){
    +'<div class="grp">'
    +'<a class="row2" href="'+ASK_URL+'" target="_blank" rel="noopener">'+gi('chat',40,'var(--cyan)')+'<span><b>Поддержка</b><small>отвечаю сам в Telegram</small></span><span class="go">›</span></a>'
    +'<button class="row2" data-go="docs">'+gi('doc',40,'var(--violet)')+'<span><b>Документы</b><small>политика, согласие, контакты</small></span><span class="go">›</span></button></div>'
+   +'<div class="grp"><form class="chk" id="ownerF" style="display:flex;flex-wrap:wrap;gap:8px"><span style="flex:1 1 100%"><b>Режим владельца</b><small>'+(OWNER ? 'Включён: платные материалы открыты полностью' : 'Ключ из переписки откроет полные платные материалы')+'</small></span>'+(OWNER ? '<button class="tg" type="button" id="ownerOff">Выключить</button>' : '<input type="password" id="ownerK" placeholder="Ключ владельца" autocomplete="off" style="flex:1;min-width:0;height:44px;border-radius:14px;border:1px solid var(--search-border);background:var(--search-bg);padding:0 14px;color:var(--text)"><button class="btn p" type="submit" style="height:44px">Включить</button>')+'</form></div>'
    +'<div class="grp"><label class="chk"><input type="checkbox" id="ntf"'+(P && P.notify ? ' checked' : '')+'><span>Сообщения о новых материалах<small>Можно включить и выключить в любой момент.</small></span></label></div>'
    +(has ? '<div class="grp"><button class="row2" data-reg>'+gi('user',40,'var(--color-6)')+'<span><b>Изменить профиль</b><small>имя, контакт, интересы</small></span><span class="go">›</span></button>'
      +'<button class="row2" data-logout>'+gi('tag',40,'var(--rose)')+'<span><b>Удалить мои данные</b><small>с этого устройства</small></span><span class="go">›</span></button></div>' : '')
@@ -621,6 +623,17 @@ function renderMe(){
 
 /* ============================ post reader ============================ */
 var rdObs = null, rdScroll = null;
+/* OWNER-MODE */
+var OWNER = ld('owner', '');
+function b64bytes(t){ var b = atob(t.replace(/\s/g, '')), a = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return a; }
+function decryptText(b64, pass){
+  var raw = b64bytes(b64), salt = raw.slice(0, 16), iv = raw.slice(16, 28), ct = raw.slice(28), enc = new TextEncoder();
+  return crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveKey']).then(function(k){
+    return crypto.subtle.deriveKey({name:'PBKDF2', salt:salt, iterations:150000, hash:'SHA-256'}, k, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  }).then(function(k){ return crypto.subtle.decrypt({name:'AES-GCM', iv:iv}, k, ct); }).then(function(b){ return new TextDecoder().decode(b); });
+}
+function setOwner(k){ OWNER = k; save('owner', k); try { if (tg && tg.CloudStorage) tg.CloudStorage.setItem('shaton_owner', k, function(){}); } catch(e){} }
+function ownerFull(m){ return !m.free && m.enc && OWNER; }
 function renderPost(id){
   var m = mat(id); if (!m) return renderHome();
   RECENT = [id].concat(RECENT.filter(function(x){ return x !== id; })).slice(0, 12); save('recent', RECENT);
@@ -632,17 +645,18 @@ function renderPost(id){
    +'<p class="rd-d">'+esc(m.desc)+'</p>'
    +'<nav class="toc" id="toc">'+(x ? x.chapters.map(function(h){ return '<a href="#'+id+'_c'+h.n+'" data-j="'+id+'_c'+h.n+'"><b>'+h.n+'</b>'+esc(h.t.length > 26 ? h.t.slice(0, 25) + '…' : h.t)+'</a>'; }).join('') : '')+'</nav>'
    +'<div class="pbody" id="pbody"><div class="loading"><i></i>Загружаю материал…</div></div>';
-  var url = m.md ? 'posts/src/' + id + '.txt?v=' + (m.v || '') : 'posts/' + id + (m.free ? '' : '.preview') + '.html';
-  (PREVSRC[id] != null ? Promise.resolve(PREVSRC[id]) : fetch(url, m.md ? {cache:'no-cache'} : undefined).then(function(r){ if (!r.ok) throw 0; return r.text(); })).then(function(h){
+  var full = ownerFull(m), url = full ? 'posts/enc/' + id + '.enc?v=' + (m.v || '') : (m.md ? 'posts/src/' + id + '.txt?v=' + (m.v || '') : 'posts/' + id + (m.free ? '' : '.preview') + '.html');
+  (PREVSRC[id] != null ? Promise.resolve(PREVSRC[id]) : fetch(url, m.md ? {cache:'no-cache'} : undefined).then(function(r){ if (!r.ok) throw 0; return r.text(); }).then(function(t){ return full ? decryptText(t, OWNER) : t; })).then(function(h){
     if (m.md) { var rr = ShatonMD.render(h, id); h = rr.html; if (!MET[id]) { MET[id] = {min:rr.min, chapters:rr.chapters, words:rr.words}; } x = MET[id]; }
     var b = $('#pbody'); if (!b) return;
     b.innerHTML = h + tail(m, x);
     var tc = $('#toc'); if (tc && !tc.children.length && MET[id]) tc.innerHTML = MET[id].chapters.map(function(hh){ return '<a href="#'+id+'_c'+hh.n+'" data-j="'+id+'_c'+hh.n+'"><b>'+hh.n+'</b>'+esc(hh.t.length > 26 ? hh.t.slice(0, 25) + '…' : hh.t)+'</a>'; }).join('');
-    arm(b); if (rdScroll) rdScroll(); counters(b);
+    arm(b); if (rdScroll) rdScroll(); counters(b); if (window.Game) Game.mount(b, id, m.title);
   }).catch(function(){ var b = $('#pbody'); if (b) b.innerHTML = (m.free ? '<div class="empty"><b>Не удалось загрузить</b>Проверьте соединение и откройте материал ещё раз.</div>' : '') + tail(m, x); });
   hookReading();
 }
 function tail(m, x){
+  if (ownerFull(m)) return '<div class="endcard" data-r><h3>Режим владельца</h3><p>Вы видите полный текст. Покупатели увидят первую главу, а дальше экран покупки.</p></div>';
   if (m.free) return '<div class="endcard" data-r><h3>Понравилось?</h3><p>Другие материалы лежат в ленте. Если нужен разбор вашего проекта, напишите: первый разбор бесплатный.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="'+ASK_URL+'" target="_blank" rel="noopener">Написать мне</a><button class="btn g" data-go="home">В ленту</button></div></div>';
   var left = x ? x.chapters.length - 1 : 0;
   var buy = m.buy ? '<a class="btn" href="'+esc(m.buy)+'" target="_blank" rel="noopener">Купить</a>' : '<a class="btn" href="'+ASK_URL+'?text='+encodeURIComponent('Здравствуйте! Хочу получить материал «'+m.title+'».')+'" target="_blank" rel="noopener">Сообщить о выходе</a>';
@@ -671,7 +685,7 @@ function hookReading(){
   };
   window.addEventListener('scroll', rdScroll, {passive:true});
 }
-function unhookReading(){ if (rdScroll) window.removeEventListener('scroll', rdScroll); rdScroll = null; if (rdObs) rdObs.disconnect(); rdObs = null; var b = $('#prog'); b.hidden = true; b.style.transform = 'scaleX(0)'; }
+function unhookReading(){ if (window.Game) Game.unmount(); if (rdScroll) window.removeEventListener('scroll', rdScroll); rdScroll = null; if (rdObs) rdObs.disconnect(); rdObs = null; var b = $('#prog'); b.hidden = true; b.style.transform = 'scaleX(0)'; }
 document.addEventListener('click', function(e){
   var a = e.target.closest('#toc a'); if (!a) return; e.preventDefault();
   var s = document.getElementById(a.getAttribute('data-j')); if (s) window.scrollTo({top:s.getBoundingClientRect().top + scrollY - 92, behavior:'smooth'});
@@ -818,6 +832,7 @@ if (/tgWebAppData|tgWebAppVersion/.test(location.hash) || /Telegram/i.test(UA)) 
   scr.onload = function(){
     tg = window.Telegram && window.Telegram.WebApp; if (!tg || !tg.initData) { tg = null; return; }
     try { tg.ready(); tg.expand(); if (tg.disableVerticalSwipes) tg.disableVerticalSwipes(); if (tg.isVersionAtLeast && tg.isVersionAtLeast('6.1')) { var bgc = document.documentElement.getAttribute('data-theme') === 'dark' ? '#050a12' : '#f8fbff'; tg.setHeaderColor(bgc); tg.setBackgroundColor(bgc); } } catch(e){}
+    try { if (!OWNER && tg.CloudStorage) tg.CloudStorage.getItem('shaton_owner', function(er, v){ if (!er && v) { OWNER = v; save('owner', v); if (cur.name === 'me') renderMe(); } }); } catch(e){}
     hi(); if (cur.name === 'home' || cur.name === 'me') refresh();
   };
   document.head.appendChild(scr);
@@ -825,7 +840,7 @@ if (/tgWebAppData|tgWebAppVersion/.test(location.hash) || /Telegram/i.test(UA)) 
 Promise.all([
   fetch('posts/meta.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }),
   fetch('content/data.json?t=' + Date.now(), {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
-]).then(function(a){ MET = Object.assign(a[0] || {}, MET); applyData(a[1]); var hp = location.hash.match(/^#post=([\w-]+)/); if (hp && cur.name !== 'post' && mat(hp[1])) return go('post', hp[1], false); if (cur.name === 'home' || cur.name === 'cat' || cur.name === 'fav' || cur.name === 'cats') refresh(); else if (cur.name === 'post' && !mat(cur.arg)) go('home', null, false); });
+]).then(function(a){ MET = Object.assign(a[0] || {}, MET); applyData(a[1]); if (cur.name === 'post' && mat(cur.arg) && !PREVSRC[cur.arg]) return go('post', cur.arg, false); var hp = location.hash.match(/^#post=([\w-]+)/); if (hp && cur.name !== 'post' && mat(hp[1])) return go('post', hp[1], false); if (cur.name === 'home' || cur.name === 'cat' || cur.name === 'fav' || cur.name === 'cats') refresh(); else if (cur.name === 'post' && !mat(cur.arg)) go('home', null, false); });
 /* live preview from admin.html (same origin) */
 window.addEventListener('message', function(e){
   if (e.origin !== location.origin || !e.data) return; var d = e.data;
@@ -844,6 +859,14 @@ function applyTheme(t){
 }
 $('#theme').addEventListener('click', function(){ applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); });
 (function(){ var top = $('.top'), on = false; window.addEventListener('scroll', function(){ var v = scrollY > 8; if (v !== on) { on = v; top.classList.toggle('is-stuck', v); } }, {passive:true}); })();
+document.addEventListener('submit', function(e){
+  if (!e.target || e.target.id !== 'ownerF') return; e.preventDefault();
+  var k = ($('#ownerK').value || '').trim(); if (!k) return;
+  var first = MATS.filter(function(m){ return !m.free && m.enc; })[0]; if (!first) return toast('Нет материалов для проверки ключа');
+  fetch('posts/enc/' + first.id + '.enc?v=' + (first.v || ''), {cache:'no-cache'}).then(function(r){ return r.text(); }).then(function(t){ return decryptText(t, k); })
+    .then(function(){ setOwner(k); toast('Режим владельца включён'); renderMe(); }, function(){ toast('Ключ не подошёл'); });
+});
+document.addEventListener('click', function(e){ if (e.target && e.target.id === 'ownerOff') { setOwner(''); toast('Режим владельца выключен'); renderMe(); } });
 history.replaceState({name:'home'}, '');
 go('home', null, false);
 var _h = location.hash.match(/^#post=([\w-]+)/); if (_h && mat(_h[1])) go('post', _h[1], false);
