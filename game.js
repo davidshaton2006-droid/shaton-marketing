@@ -1,4 +1,4 @@
-/* Shaton Learn: practicum mechanics inside materials (quiz, audit, case, poll, guess, hw, result) + XP, ranks and a share card.
+/* Shaton Prime: practicum mechanics inside materials (quiz, audit, case, poll, guess, hw, result) + XP, ranks and a share card.
    Blocks are emitted by md.js as <div class="gm" data-g data-id data-xp data-cfg>. State lives in localStorage "shaton.g". */
 (function(g){
   var KEY = 'shaton.g', ASK = 'https://t.me/shaton_lid';
@@ -151,7 +151,7 @@
     var g2 = x.createRadialGradient(200, 1180, 0, 200, 1180, 480); g2.addColorStop(0, 'rgba(22,217,227,.25)'); g2.addColorStop(1, 'rgba(22,217,227,0)'); x.fillStyle = g2; x.fillRect(0, 0, 1080, 1350);
     function rr(a, b, w, h, r){ x.beginPath(); x.moveTo(a + r, b); x.arcTo(a + w, b, a + w, b + h, r); x.arcTo(a + w, b + h, a, b + h, r); x.arcTo(a, b + h, a, b, r); x.arcTo(a, b, a + w, b, r); x.closePath(); }
     x.fillStyle = 'rgba(255,255,255,.62)'; rr(80, 360, 920, 700, 56); x.fill(); x.strokeStyle = 'rgba(255,255,255,.95)'; x.lineWidth = 3; x.stroke();
-    x.fillStyle = '#234bff'; x.font = '700 34px ' + F; x.fillText('ШАТОН LEARN · ПРАКТИКУМ', 80, 130);
+    x.fillStyle = '#234bff'; x.font = '700 34px ' + F; x.fillText('SHATON PRIME · ПРАКТИКУМ', 80, 130);
     x.fillStyle = '#050914'; x.font = '800 72px ' + F; wrap(cur.title, 80, 240, 920, 82);
     x.fillStyle = '#596984'; x.font = '600 34px ' + F; x.fillText(name() ? name() : 'Участник практикума', 130, 440);
     x.fillStyle = '#234bff'; x.font = '800 150px ' + F; x.fillText(rank, 130, 640);

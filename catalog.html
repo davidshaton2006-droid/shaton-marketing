@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Шатон Learn — материалы по маркетингу</title>
+<title>Shaton Prime — материалы по маркетингу</title>
 <meta name="description" content="Лента практических материалов по Авито, Яндекс Директу, сайтам, SEO и SMM: посты с таблицами и схемами, сторис, разделы и личный кабинет. Работает и как Telegram-мини-приложение.">
 <link rel="canonical" href="https://davidshaton2006-droid.github.io/shaton-marketing/catalog.html">
 <meta name="theme-color" content="#f6f7fb">
@@ -380,9 +380,9 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 .ring::before{inset:-9px;background:conic-gradient(from 200deg,var(--color-4),var(--violet),var(--color-4));filter:blur(20px);opacity:.5}
 @keyframes glw{from{opacity:.3;transform:scale(.98)}to{opacity:.6;transform:scale(1.05)}}
 </style>
-<link rel="stylesheet" href="tokens.css?v=59">
-<link rel="stylesheet" href="lg.css?v=59">
-<link rel="stylesheet" href="reader.css?v=59">
+<link rel="stylesheet" href="tokens.css?v=60">
+<link rel="stylesheet" href="lg.css?v=60">
+<link rel="stylesheet" href="reader.css?v=60">
 <!--PLATCHEK--><meta name="plat-check" content="plat chek"><!--/PLATCHEK-->
 </head>
 <body>
@@ -391,8 +391,8 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   <header class="top"><button class="back" id="back" hidden aria-label="Назад"><svg class="i" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><div class="hi" id="hi"></div><button class="ico-btn" id="theme" aria-label="Тема: светлая или тёмная"><svg class="i t-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="i t-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button><button class="ava" id="topAva" aria-label="Профиль"></button></header>
   <main id="view"></main>
   <footer><!-- APP-DOCS -->
-    <nav class="docbtns" aria-label="Документы"><a href="privacy.html">Политика конфиденциальности</a><a href="terms.html">Пользовательское соглашение</a><a href="tariffs.html">Тарифы и цены</a><a href="contacts.html">Поддержка и контакты</a><a href="consent.html">Согласие на обработку данных</a></nav>
-    <p>Шатон Learn · поддержка <a href="https://t.me/shaton_lid" rel="noopener">@shaton_lid</a> · <a href="index.html">на сайт</a></p>
+    <nav class="docbtns" aria-label="Документы"><a href="learn-privacy.html">Политика конфиденциальности</a><a href="learn-terms.html">Пользовательское соглашение</a><a href="learn-tariffs.html">Тарифы и цены</a><a href="learn-contacts.html">Поддержка и контакты</a><a href="learn-consent.html">Согласие на обработку данных</a></nav>
+    <p>Shaton Prime · поддержка <a href="https://t.me/shaton_lid" rel="noopener">@shaton_lid</a> · <a href="index.html">на сайт</a></p>
     <p>Цифры и условия площадок в материалах — ориентиры из открытых источников и практики; перед решениями сверяйте их в кабинетах сервисов. Материалы носят информационный характер и не гарантируют результат.</p>
     <!--PLATCHEK--><p class="plat-chek">plat chek</p><!--/PLATCHEK-->
   </footer>
@@ -413,10 +413,10 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   <filter id="rf-wide" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feImage id="rfi-wide" x="0" y="0" width="340" height="52" result="m"/><feDisplacementMap in="SourceGraphic" in2="m" scale="20" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1" result="b"/><feColorMatrix in="b" type="saturate" values="1.6"/></filter>
 </defs></svg>
 
-<script src="art.js?v=59"></script>
-<script src="game.js?v=59"></script>
-<script src="builder.js?v=59"></script>
-<script src="md.js?v=59"></script>
+<script src="art.js?v=60"></script>
+<script src="game.js?v=60"></script>
+<script src="builder.js?v=60"></script>
+<script src="md.js?v=60"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
 var FREE_URL = 'https://t.me/shatonlab/20';   // пост с PDF (запасной вариант)
@@ -637,11 +637,11 @@ function renderPurchases(){ view.innerHTML = '<div class="sec" style="margin-top
 function renderDocs(){
   function row(h, t, d, c){ return '<a class="row2" href="'+h+'">'+gi('doc',40,c)+'<span><b>'+t+'</b><small>'+d+'</small></span><span class="go">›</span></a>'; }
   view.innerHTML = '<div class="sec" style="margin-top:6px"><h2>Документы</h2></div><div class="grp">'
-   + row('privacy.html', 'Политика конфиденциальности', 'Какие данные обрабатываем и как храним', 'var(--color-5)')
-   + row('terms.html', 'Пользовательское соглашение', 'Доступ, оплата, подписка, возврат', 'var(--violet)')
-   + row('tariffs.html', 'Тарифы и цены', 'Подписка и платные материалы', 'var(--cyan)')
-   + row('contacts.html', 'Поддержка и контакты', 'Telegram @shaton_lid, срок ответа', 'var(--color-4)')
-   + row('consent.html', 'Согласие на обработку данных', 'Текст согласия', 'var(--color-3)') + '</div>';
+   + row('learn-privacy.html', 'Политика конфиденциальности', 'Какие данные обрабатываем и как храним', 'var(--color-5)')
+   + row('learn-terms.html', 'Пользовательское соглашение', 'Доступ, оплата, подписка, возврат', 'var(--violet)')
+   + row('learn-tariffs.html', 'Тарифы и цены', 'Подписка и платные материалы', 'var(--cyan)')
+   + row('learn-contacts.html', 'Поддержка и контакты', 'Telegram @shaton_lid, срок ответа', 'var(--color-4)')
+   + row('learn-consent.html', 'Согласие на обработку данных', 'Текст согласия', 'var(--color-3)') + '</div>';
 }
 function renderMe(){
   var n = myName(), has = !!P;
@@ -751,7 +751,7 @@ function go(name, arg, push){
 }
 function hi(){
   var n = myName(), m = cur.name === 'post' ? mat(cur.arg) : null;
-  $('#hi').innerHTML = cur.name === 'home' ? 'Привет, <b>'+esc(n || 'друг')+'</b>' : (m ? '<b>'+esc(cat(m.cat).name)+'</b>' : '<b>Шатон Learn</b>');
+  $('#hi').innerHTML = cur.name === 'home' ? 'Привет, <b>'+esc(n || 'друг')+'</b>' : (m ? '<b>'+esc(cat(m.cat).name)+'</b>' : '<b>Shaton Prime</b>');
   $('#topAva').innerHTML = avaHtml();
 }
 window.addEventListener('popstate', function(e){ var s = e.state; if (s && s.name) go(s.name, s.arg, false); else go('home', null, false); });
@@ -768,7 +768,7 @@ function openReg(){
     +'<div class="f"><label for="rn">Как к вам обращаться</label><input id="rn" type="text" value="'+esc(p.name)+'" autocomplete="given-name" placeholder="Имя"></div>'
     +'<div class="f"><label for="rc">Telegram или e-mail (по желанию)</label><input id="rc" type="text" value="'+esc(p.contact)+'" placeholder="@username или почта"></div>'
     +'<div class="f"><label>Что интересно</label><div class="tags" id="rt">'+CATS.map(function(c){ return '<button class="tg" data-t="'+c.id+'" aria-pressed="'+(sel.indexOf(c.id) >= 0)+'">'+esc(c.name)+'</button>'; }).join('')+'</div></div>'
-    +'<label class="chk" style="padding:4px 0"><input type="checkbox" id="rk"'+(P ? ' checked' : '')+'><span>Согласен на обработку персональных данных<small>См. <a href="consent.html" style="text-decoration:underline">согласие</a> и <a href="privacy.html" style="text-decoration:underline">политику</a>.</small></span></label>'
+    +'<label class="chk" style="padding:4px 0"><input type="checkbox" id="rk"'+(P ? ' checked' : '')+'><span>Согласен на обработку персональных данных<small>См. <a href="learn-consent.html" style="text-decoration:underline">согласие</a> и <a href="learn-privacy.html" style="text-decoration:underline">политику</a>.</small></span></label>'
     +'<button class="btn p w" id="rs">'+(P ? 'Сохранить' : 'Создать профиль')+'</button><button class="btn g w" id="rl">Позже</button></div>';
   $('#rt').addEventListener('click', function(e){ var b = e.target.closest('.tg'); if (!b) return; var id = b.getAttribute('data-t'), i = sel.indexOf(id); if (i >= 0) sel.splice(i,1); else sel.push(id); b.setAttribute('aria-pressed', i < 0); });
   $('#rl').addEventListener('click', function(){ regD.close(); });
