@@ -1,0 +1,121 @@
+/* SHATON PRIME: liquid glass skin, modelled on the Telegram post visuals (pearl/silver light, diagonal streaks, thick refractive glass plates,
+   cobalt + violet + cyan iridescence). Techniques adapted from public liquid-glass / Aceternity-style patterns:
+   aurora orbs, drifting light streaks, glare that follows the pointer, glowing edges, stacked glass slabs, floating nav that hides on scroll.
+   Loaded after lg.css and reader.css. Animation is transform/opacity only. */
+
+:root{
+  --pr-edge:inset 0 0 0 1px rgba(255,255,255,.88),inset 0 2px 0 rgba(255,255,255,1),inset 0 -3px 4px rgba(70,110,255,.28),inset 3px 0 6px rgba(255,255,255,.4),inset -3px 0 8px rgba(130,100,255,.22);
+  --pr-glow:0 0 0 1px rgba(160,190,255,.38),0 22px 46px -18px rgba(40,70,170,.5),0 0 34px -10px rgba(100,120,255,.4);
+  --pr-fill:linear-gradient(140deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.28) 42%,rgba(190,210,255,.34) 100%);
+  --pr-spec:radial-gradient(circle at var(--mx,28%) var(--my,0%),rgba(255,255,255,.7),rgba(255,255,255,0) 46%);
+}
+[data-theme="dark"]{
+  --pr-edge:inset 0 0 0 1px rgba(225,235,255,.34),inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 5px rgba(70,110,255,.4),inset 3px 0 7px rgba(255,255,255,.12),inset -3px 0 9px rgba(120,90,255,.3);
+  --pr-glow:0 0 0 1px rgba(110,150,255,.4),0 26px 52px -20px rgba(0,0,0,.75),0 0 40px -12px rgba(90,100,255,.5);
+  --pr-fill:linear-gradient(140deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.05) 45%,rgba(90,120,255,.14) 100%);
+  --pr-spec:radial-gradient(circle at var(--mx,28%) var(--my,0%),rgba(190,210,255,.32),rgba(190,210,255,0) 46%);
+}
+
+/* ---------- living background: pearl light with drifting streaks and iridescent orbs ---------- */
+body::before{display:none}
+.prbg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:linear-gradient(150deg,#ffffff 0%,#eef3ff 42%,#dfe9ff 100%)}
+[data-theme="dark"] .prbg{background:linear-gradient(150deg,#141922 0%,#0b0e16 50%,#05070c 100%)}
+.prbg i{position:absolute;display:block;will-change:transform}
+.prbg .o{border-radius:50%;width:70vmax;height:70vmax}
+.prbg .o1{left:-28vmax;top:-30vmax;background:radial-gradient(circle,rgba(59,107,255,.34),transparent 62%);animation:pbA 26s ease-in-out infinite alternate}
+.prbg .o2{right:-34vmax;top:12vh;background:radial-gradient(circle,rgba(122,92,255,.30),transparent 62%);animation:pbB 32s ease-in-out infinite alternate}
+.prbg .o3{left:-10vmax;bottom:-40vmax;background:radial-gradient(circle,rgba(25,211,230,.22),transparent 62%);animation:pbC 38s ease-in-out infinite alternate}
+.prbg .s{width:46vmax;height:160vmax;left:10vw;top:-30vmax;transform:rotate(28deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.82),transparent);opacity:.7;animation:pbS 30s ease-in-out infinite alternate}
+.prbg .s2{left:52vw;width:22vmax;opacity:.5;animation-duration:42s;animation-direction:alternate-reverse}
+.prbg .s3{left:78vw;width:12vmax;opacity:.4;animation-duration:36s}
+[data-theme="dark"] .prbg .o1{background:radial-gradient(circle,rgba(50,100,255,.5),transparent 62%)}
+[data-theme="dark"] .prbg .o2{background:radial-gradient(circle,rgba(120,70,255,.42),transparent 62%)}
+[data-theme="dark"] .prbg .o3{background:radial-gradient(circle,rgba(20,190,225,.28),transparent 62%)}
+[data-theme="dark"] .prbg .s{background:linear-gradient(90deg,transparent,rgba(150,180,255,.2),transparent);opacity:.8}
+@keyframes pbA{to{transform:translate(16vmax,12vmax) scale(1.15)}}
+@keyframes pbB{to{transform:translate(-18vmax,-8vmax) scale(.9)}}
+@keyframes pbC{to{transform:translate(20vmax,-10vmax) scale(1.2)}}
+@keyframes pbS{from{transform:translateX(-12vw) rotate(28deg)}to{transform:translateX(22vw) rotate(24deg)}}
+
+/* ---------- glass plates (shared recipe) ---------- */
+.post,.pr-m,.co,.tbl,.fig,.cell,.stt,.qt,.cat,.grp,.cl,.endcard,.shot,.gm,.sb,.vz,.lock,.sheet,.docbtns a,.search,.toc a,.tab,.back,.ico-btn,.btn,.chip,.mk-dev{position:relative}
+.post{margin:0 0 14px;padding:16px 16px 12px;border:0;border-radius:30px;background:var(--pr-spec),var(--pr-fill);box-shadow:var(--pr-edge),var(--pr-glow);-webkit-backdrop-filter:blur(14px) saturate(1.5);backdrop-filter:blur(14px) saturate(1.5);content-visibility:auto;contain-intrinsic-size:auto 560px}
+.post:last-child{border-bottom:0}
+.pa i.th{display:none}
+.co,.tbl,.fig,.cell,.stt,.qt,.cat,.grp,.cl,.endcard,.shot,.gm,.sb,.vz,.search,.pr-m,.sheet{background:var(--pr-spec),var(--pr-fill);border:0;box-shadow:var(--pr-edge),var(--pr-glow)}
+.co,.tbl,.fig,.gm,.sb,.vz,.shot,.endcard,.cl,.qt{border-radius:28px}
+.cell,.stt,.cat,.grp{border-radius:24px}
+.toc a,.chip,.docbtns a{background:var(--pr-fill);border:0;box-shadow:var(--pr-edge),0 8px 18px -10px rgba(40,70,170,.4)}
+.chip[aria-pressed="true"]{background:linear-gradient(135deg,#234bff,#5b7bff 55%,#8a5cff);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 12px 26px -10px rgba(35,75,255,.75)}
+.btn,.btn.p{border:0;color:#fff;background:linear-gradient(135deg,#1f44ff,#4d7dff 52%,#8a5cff);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -3px 5px rgba(20,30,160,.35),0 16px 30px -12px rgba(35,75,255,.8)}
+.btn.g{background:var(--pr-fill);color:var(--text);box-shadow:var(--pr-edge)}
+.search{border-radius:22px;-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6)}
+.back,.ico-btn{background:var(--pr-fill);box-shadow:var(--pr-edge);border:0;border-radius:50%}
+.ava{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 0 0 2px rgba(255,255,255,.7),0 10px 20px -8px rgba(40,70,255,.6)}
+
+/* covers: refractive frame + slow light sweep */
+.cov{border:0;border-radius:24px;box-shadow:var(--pr-edge),0 14px 30px -14px rgba(40,70,170,.55)}
+.cov::before{content:"";position:absolute;inset:0;z-index:5;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.55) 50%,transparent 62%);background-size:260% 100%;animation:sweep 7s ease-in-out infinite}
+@keyframes sweep{0%,45%{background-position:130% 0}100%{background-position:-130% 0}}
+.cov.has{background:#0a1226}
+.pr-m .cov{border-radius:0;box-shadow:none}
+
+/* ---------- header: glass pills, hides on scroll down ---------- */
+.top{background:transparent!important;border-bottom:0;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.top.is-stuck{background:var(--stuck-bg)!important}
+.top.pr-hide{transform:translateY(-110%);opacity:0}
+.hi{font-weight:700;letter-spacing:-.01em}
+
+/* ---------- floating glass tab bar ---------- */
+.nav{left:50%;right:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(calc(100% - 28px),420px);height:68px;padding:6px;border-radius:34px;transform:translateX(-50%);gap:2px;border:0;
+  background:var(--pr-fill);box-shadow:var(--pr-edge),0 24px 44px -16px rgba(30,50,150,.6),0 0 34px -8px rgba(100,120,255,.5);-webkit-backdrop-filter:blur(22px) saturate(1.8);backdrop-filter:blur(22px) saturate(1.8)}
+.tab{border-radius:28px;min-height:0;transition:background .3s,color .3s,box-shadow .3s}
+.tab[aria-current="page"]{color:#fff;background:linear-gradient(135deg,#1f44ff,#4d7dff 55%,#8a5cff);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),0 10px 22px -8px rgba(35,75,255,.8)}
+.tab[aria-current="page"]::before{display:none}
+[data-theme="dark"] .tab[aria-current="page"]{color:#fff}
+#app{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+
+/* ---------- hero with stacked glass slabs ---------- */
+.hero-p{position:relative;margin:2px 0 6px;padding:6px 2px 0}
+.hero-p .pill{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px 0 6px;border-radius:99px;background:var(--pr-fill);box-shadow:var(--pr-edge),0 10px 22px -12px rgba(40,70,170,.5);font-weight:750;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2)}
+.hero-p .pill i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#1f44ff,#6a8bff);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+.hero-p .pill i svg{width:18px;height:18px}
+.hero-p h1{margin:16px 0 8px;font-size:clamp(34px,10.6vw,76px);line-height:.95;letter-spacing:-.045em;font-weight:800;overflow-wrap:normal;word-break:keep-all;color:var(--text);text-wrap:balance}
+.hero-p h1 em{display:block;font-style:normal;background:linear-gradient(95deg,#1c3dff,#4d7dff 50%,#8a5cff);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em}
+.hero-p p{margin:0 0 4px;font-size:clamp(17px,4.6vw,22px);line-height:1.3;color:var(--text-2);max-width:26ch;font-weight:500}
+.slabs{position:relative;height:290px;margin:58px 0 0;perspective:1100px}
+.slabs .st3{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(52deg) rotateZ(-20deg) translate(4%,-6%)}
+.slab{position:absolute;left:12%;right:2%;height:84px;border-radius:30px;background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(255,255,255,.3) 48%,rgba(160,190,255,.5));box-shadow:var(--pr-edge),0 0 0 1px rgba(150,180,255,.55),0 0 36px -6px rgba(90,110,255,.65);display:flex;align-items:center;gap:14px;padding:0 20px 0 12px;
+  top:calc(var(--i)*52px);transform:translateZ(calc((5 - var(--i))*20px));animation:slabF 7s ease-in-out infinite;animation-delay:calc(var(--i)*-.9s)}
+[data-theme="dark"] .slab{background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.06) 48%,rgba(90,120,255,.3))}
+.slab b{flex:none;width:52px;height:52px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,#1f44ff,#6a8bff);color:#fff;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),0 8px 16px -6px rgba(35,75,255,.8)}
+.slab b svg{width:26px;height:26px}
+.slab span{font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#13265c}
+[data-theme="dark"] .slab span{color:#dbe6ff}
+@keyframes slabF{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@media (prefers-reduced-motion:reduce){.prbg i,.slab,.cov::before{animation:none!important}}
+
+/* ---------- stories: iridescent rotating ring for unseen ---------- */
+.ring{background:conic-gradient(from 0deg,#2a52ff,#7a5cff,#19d3e6,#2a52ff);animation:ringSpin 6s linear infinite}
+.st.seen .ring{animation:none;background:rgba(150,165,200,.55)}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+.ring>span{transform:none}
+.ring>span,.ring .gi{animation:none}
+.ring::before{display:none}
+
+/* ---------- promo cards ---------- */
+.pr-sub{background:linear-gradient(140deg,#1f44ff 0%,#3f78ff 36%,#7a5cff 76%,#19d3e6 135%);box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 0 0 1px rgba(255,255,255,.35),0 26px 50px -22px rgba(35,75,255,.8),0 0 40px -10px rgba(122,92,255,.6)}
+.pr-sub::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.4) 50%,transparent 62%);background-size:260% 100%;animation:sweep 6s ease-in-out infinite}
+
+/* ---------- reader & misc refinements ---------- */
+.rd-t{font-size:clamp(38px,11vw,64px);line-height:.96;letter-spacing:-.04em;font-weight:800}
+.sec h2{font-size:clamp(28px,7.4vw,40px);letter-spacing:-.04em}
+.chh{border:0;box-shadow:var(--pr-edge),var(--pr-glow);background:var(--pr-spec),linear-gradient(135deg,var(--ct),rgba(255,255,255,.25) 70%)}
+.gm,.sb{border:0}
+dialog::backdrop{background:rgba(10,20,60,.35);-webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4)}
+.sheet{border-radius:34px 34px 0 0}
+footer{margin-top:34px}
+.docbtns a{color:var(--text)}
+
+/* reduced transparency / old browsers */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.post,.nav,.search{background:var(--bg-soft)}}
