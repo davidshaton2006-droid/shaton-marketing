@@ -203,3 +203,8 @@ pre.code{border-left:3px solid var(--c1)}
 .pr-b.alt{justify-self:start;color:#fff;background:linear-gradient(135deg,#234bff,#3976ff 58%,#6a45ff);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 12px 26px -12px rgba(35,75,255,.6);min-height:42px}
 .pr-dots{display:flex;justify-content:center;gap:6px;margin-top:2px}.pr-dots i{width:7px;height:7px;border-radius:99px;background:var(--line);transition:width .25s,background .25s;cursor:pointer}.pr-dots i.on{width:22px;background:var(--blue)}
 @media (prefers-reduced-motion:reduce){.pr-bg i{animation:none}}
+
+.docbtns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.docbtns a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--g-border);background:var(--g-surface);box-shadow:var(--g-inset);color:var(--text-2);font-size:13px;font-weight:650;text-decoration:none}
+.docbtns a:hover{border-color:rgba(35,75,255,.45);color:var(--blue)}
+footer p{margin:0 0 6px}.plat-chek{font-size:11px;color:var(--text-3);letter-spacing:.04em;opacity:.8}
