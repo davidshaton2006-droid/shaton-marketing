@@ -383,7 +383,6 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <link rel="stylesheet" href="tokens.css?v=60">
 <link rel="stylesheet" href="lg.css?v=60">
 <link rel="stylesheet" href="reader.css?v=60">
-<link rel="stylesheet" href="prime.css?v=63">
 <!--PLATCHEK--><meta name="plat-check" content="plat chek"><!--/PLATCHEK-->
 </head>
 <body>
@@ -418,7 +417,6 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <script src="game.js?v=60"></script>
 <script src="builder.js?v=60"></script>
 <script src="md.js?v=60"></script>
-<script src="prime.js?v=62"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
 var FREE_URL = 'https://t.me/shatonlab/20';   // пост с PDF (запасной вариант)
@@ -551,15 +549,12 @@ function hlTitle(t){
   var k = n <= 2 ? 1 : Math.ceil(n / 3), first = w.slice(0, n - k).join(' '), last = w.slice(n - k).join(' ');
   return (first ? esc(first) + ' ' : '') + '<em>' + esc(last) + '</em>';
 }
-/* uploaded cover pictures carry the material title baked in, which repeats the card heading; live glass covers differ from it */
-var USE_IMG_COVERS = false;
-function coverCap(m){ return ''; }
 function cover(m, big){
   var c = cat(m.cat), fx = m.fx ? ' fx-' + esc(m.fx) : '';
-  if (m.img && USE_IMG_COVERS) return '<div class="cov has' + fx + '"><img class="cimg" src="' + esc(mediaUrl(m.img, 'img')) + '" alt="' + esc(m.title) + '" loading="lazy" decoding="async"><i class="fxl"></i></div>';
+  if (m.img) return '<div class="cov has' + fx + '"><img class="cimg" src="' + esc(mediaUrl(m.img, 'img')) + '" alt="' + esc(m.title) + '" loading="lazy" decoding="async"><i class="fxl"></i></div>';
   var rub = m.label === '-' ? '' : '<span class="rub"><i class="rb">' + gi(m.ic, 28).replace(/^<span[^>]*>|<\/span>$/g, '') + '</i>' + esc(m.label != null && m.label !== '' ? m.label : (c ? c.name : '')) + '</span>';
   return '<div class="cov ed' + fx + '"><i class="rays"></i><i class="fxl"></i>'
-    + rub + coverCap(m)
+    + (m.nocap ? '' : rub + (m.nottl ? '' : '<h4 class="ctt">' + hlTitle(m.title) + '</h4>'))
     + '<span class="obj">' + ShatonArt.svg(m.ic) + '</span></div>';
 }
 function post(m){
