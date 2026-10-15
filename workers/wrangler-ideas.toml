@@ -1,0 +1,8 @@
+name = "shaton-ideas"
+main = "ideas.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "IDEAS"
+id = "a318b14174b144a799ecb1c0cee2ae8b"

@@ -149,6 +149,14 @@ svg{display:block}
 .idea-c.on{background:var(--color-4);border-color:transparent;color:#fff}
 .idea textarea{width:100%;min-height:84px;resize:vertical;border-radius:16px;border:1px solid var(--search-border);background:var(--search-bg);color:var(--text);padding:12px 14px;font:inherit;font-size:15px;line-height:1.4}
 .idea-n{color:var(--mute);font-size:12.5px;font-weight:600}
+.idea-l{display:grid;gap:8px}.idea-t{font-size:14px;margin-top:2px}
+.idea-i{border-radius:14px;border:1px solid var(--search-border);background:var(--search-bg);padding:10px 12px}
+.idea-i p{margin:6px 0 0;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+.idea-r{display:flex;gap:8px;align-items:center}.idea-r small{color:var(--mute);font-weight:600}
+.idea-b{font-size:12px;font-weight:800;padding:3px 9px;border-radius:99px;background:var(--panel);color:var(--dim)}
+.idea-b.review{background:rgba(255,184,0,.18);color:#e0a100}.idea-b.ok{background:rgba(40,200,120,.18);color:#1fb871}.idea-b.no{background:rgba(255,80,100,.16);color:#e5485f}
+.idea-why{display:block;margin-top:6px;color:var(--mute);font-weight:600;font-size:12.5px}
+
 
 
 /* ---------- floating liquid-glass tab bar ---------- */
@@ -653,8 +661,26 @@ function renderDocs(){
 }
 /* IDEA-BLOCK: any user can propose a topic for a full breakdown (video or article); it goes to the author in Telegram */
 var IDEA_KIND = 'video';
+var IDEAS_API = 'https://shaton-ideas.romantik-baza.workers.dev';
+var IDEA_ST = {new:['Отправлена','new'], review:['Рассматривается','review'], accepted:['Принята','ok'], declined:['Отклонена','no']};
+function deviceId(){ var d = ld('device', ''); if (!d) { d = 'd' + Math.random().toString(36).slice(2) + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); save('device', d); } return d; }
+function ideaRows(list){
+  if (!list || !list.length) return '';
+  return '<b class="idea-t">Мои идеи</b>' + list.map(function(i){
+    var st = IDEA_ST[i.status] || IDEA_ST.new;
+    return '<div class="idea-i"><div class="idea-r"><span class="idea-b '+st[1]+'">'+st[0]+'</span><small>'+(i.kind === 'video' ? 'видео' : 'статья')+'</small></div><p>'+esc(i.text)+'</p>'
+      +(i.status === 'declined' ? '<small class="idea-why">'+(i.reason ? 'Причина: '+esc(i.reason) : 'Причина не указана')+'</small>' : '')
+      +(i.status === 'accepted' ? '<small class="idea-why">Тема в работе: следите за новыми материалами.</small>' : '')+'</div>';
+  }).join('');
+}
+function ideasLoad(){
+  var u = IDEAS_API + '/my?device=' + encodeURIComponent(deviceId()) + (tg && tg.initData ? '&initData=' + encodeURIComponent(tg.initData) : '');
+  fetch(u, {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(l){
+    if (!Array.isArray(l)) return; save('ideasCache', l);
+    var e = document.getElementById('ideaL'); if (e) e.innerHTML = ideaRows(l);
+  }).catch(function(){});
+}
 function ideaHtml(){
-  var n = (ld('ideas', []) || []).length;
   return '<form class="idea" id="ideaF" autocomplete="off">'
     +'<div class="idea-h">'+gi('spark',40,'var(--color-4)')+'<span><b>Предложите тему для разбора</b><small>Видео или статья: выберу самые частые и разберу полностью в приложении</small></span></div>'
     +'<div class="idea-k" role="radiogroup" aria-label="Формат">'
@@ -662,7 +688,8 @@ function ideaHtml(){
       +'<button type="button" class="idea-c'+(IDEA_KIND === 'article' ? ' on' : '')+'" data-ideakind="article" role="radio" aria-checked="'+(IDEA_KIND === 'article')+'">Идея для статьи</button></div>'
     +'<textarea id="ideaT" rows="3" maxlength="600" placeholder="О чём рассказать? Например: как снизить цену клика в Директе"></textarea>'
     +'<button class="btn p w" type="submit">Отправить идею</button>'
-    +'<small class="idea-n">'+(n ? 'Вы уже предложили: '+n+'. Спасибо!' : 'Откроется чат с автором в Telegram, останется нажать «Отправить».')+'</small></form>';
+    +'<small class="idea-n">Идея придёт автору прямо в приложении. Здесь вы увидите, принята она или нет.</small>'
+    +'<div class="idea-l" id="ideaL">'+ideaRows(ld('ideasCache', []))+'</div></form>';
 }
 function renderMe(){
   var n = myName(), has = !!P;
@@ -682,6 +709,7 @@ function renderMe(){
    +(has ? '<div class="grp"><button class="row2" data-reg>'+gi('user',40,'var(--color-6)')+'<span><b>Изменить профиль</b><small>имя, контакт, интересы</small></span><span class="go">›</span></button>'
      +'<button class="row2" data-logout>'+gi('tag',40,'var(--rose)')+'<span><b>Удалить мои данные</b><small>с этого устройства</small></span><span class="go">›</span></button></div>' : '')
    +'<p class="note">Профиль, избранное и история хранятся только на вашем устройстве. Оплата и вход с других устройств появятся позже.</p>';
+  ideasLoad();
 }
 
 /* ============================ post reader ============================ */
@@ -940,11 +968,14 @@ document.addEventListener('click', function(e){
 document.addEventListener('submit', function(e){
   if (!e.target || e.target.id !== 'ideaF') return; e.preventDefault();
   var t = ($('#ideaT').value || '').trim(); if (t.length < 5) { toast('Опишите тему в одном-двух предложениях'); return; }
-  var kind = IDEA_KIND === 'video' ? 'видео' : 'статью';
-  var list = ld('ideas', []) || []; list.push({k:IDEA_KIND, t:t, ts:Date.now()}); save('ideas', list.slice(-30));
-  var url = ASK_URL + '?text=' + encodeURIComponent('Идея для ' + (IDEA_KIND === 'video' ? 'видео' : 'статьи') + ' (Shaton Prime):\n' + t);
-  try { if (tg && tg.openTelegramLink) tg.openTelegramLink(url); else window.open(url, '_blank', 'noopener'); } catch(x){ window.open(url, '_blank', 'noopener'); }
-  toast('Идея для ' + kind + ' готова к отправке'); renderMe();
+  var btn = e.target.querySelector('button[type=submit]'); if (btn) btn.disabled = true;
+  fetch(IDEAS_API + '/idea', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({kind:IDEA_KIND, text:t, device:deviceId(), initData:(tg && tg.initData) || ''})})
+    .then(function(r){ return r.json().then(function(j){ return {st:r.status, j:j}; }); })
+    .then(function(x){
+      if (btn) btn.disabled = false;
+      if (x.j && x.j.ok) { var cl = ld('ideasCache', []); cl.unshift({id:x.j.id, kind:IDEA_KIND, text:t, ts:Date.now(), status:'new', reason:''}); save('ideasCache', cl.slice(0, 30)); $('#ideaT').value = ''; var el = document.getElementById('ideaL'); if (el) el.innerHTML = ideaRows(cl); toast('Идея отправлена автору'); }
+      else toast(x.st === 429 ? 'Сегодня уже много идей, попробуйте завтра' : 'Не удалось отправить, попробуйте позже');
+    }, function(){ if (btn) btn.disabled = false; toast('Нет связи, попробуйте позже'); });
 });
 history.replaceState({name:'home'}, '');
 go('home', null, false);
