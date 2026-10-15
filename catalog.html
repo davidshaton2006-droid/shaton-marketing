@@ -153,12 +153,12 @@ svg{display:block}
 /* picture covers fill the whole frame: no border/background strip around the image */
 .cov.has{border:0!important;background:transparent!important}
 .cov.has .cimg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.cov.has .cimg.cl{display:none}
-[data-theme="light"] .cov.has .cimg.cd{display:none}
-[data-theme="light"] .cov.has .cimg.cl{display:block}
-.cimg.cl{display:none}
-[data-theme="light"] .cimg.cd{display:none}
-[data-theme="light"] .cimg.cl{display:block}
+.cov.has .cimg.cim-l{display:none}
+[data-theme="light"] .cov.has .cimg.cim-d{display:none}
+[data-theme="light"] .cov.has .cimg.cim-l{display:block}
+.cimg.cim-l{display:none}
+[data-theme="light"] .cimg.cim-d{display:none}
+[data-theme="light"] .cimg.cim-l{display:block}
 
 .pcost{margin:10px 0 0;font-size:13.5px;color:var(--mute);font-weight:600}.pcost b{color:var(--text);font-weight:800}
 .intro3{display:grid;gap:10px;margin:18px 0}
@@ -490,7 +490,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <script src="pts.js?v=72"></script>
 <script src="game.js?v=60"></script>
 <script src="builder.js?v=60"></script>
-<script src="md.js?v=82"></script>
+<script src="md.js?v=83"></script>
 <script src="guide.js?v=72"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
@@ -626,7 +626,7 @@ function hlTitle(t){
 }
 function cover(m, big){
   var c = cat(m.cat), fx = m.fx ? ' fx-' + esc(m.fx) : '';
-  if (m.img && m.imgLight) return '<div class="cov has' + fx + '"><img class="cimg cd" src="' + esc(mediaUrl(m.img, 'img')) + '" alt="' + esc(m.title) + '" loading="lazy" decoding="async"><img class="cimg cl" src="' + esc(mediaUrl(m.imgLight, 'img')) + '" alt="" loading="lazy" decoding="async"><i class="fxl"></i></div>';   // dark and light cover: shown by theme
+  if (m.img && m.imgLight) return '<div class="cov has' + fx + '"><img class="cimg cim-d" src="' + esc(mediaUrl(m.img, 'img')) + '" alt="' + esc(m.title) + '" loading="lazy" decoding="async"><img class="cimg cim-l" src="' + esc(mediaUrl(m.imgLight, 'img')) + '" alt="" loading="lazy" decoding="async"><i class="fxl"></i></div>';   // dark and light cover: shown by theme
   if (m.img) return '<div class="cov has' + fx + '"><img class="cimg" src="' + esc(mediaUrl(m.img, 'img')) + '" alt="' + esc(m.title) + '" loading="lazy" decoding="async"><i class="fxl"></i></div>';
   var rub = m.label === '-' ? '' : '<span class="rub"><i class="rb">' + gi(m.ic, 28).replace(/^<span[^>]*>|<\/span>$/g, '') + '</i>' + esc(m.label != null && m.label !== '' ? m.label : (c ? c.name : '')) + '</span>';
   return '<div class="cov ed' + fx + '"><i class="rays"></i><i class="fxl"></i>'
