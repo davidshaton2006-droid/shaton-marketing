@@ -1,4 +1,4 @@
-/* Shaton Prime: user ideas (video / article topics).
+/* Shaton Prime: user ideas (video / article topics) + referral bonuses.
    Cloudflare Worker + KV namespace IDEAS. Secrets: ADMIN_SECRET (panel), BOT_TOKEN (verifies Telegram initData),
    optional NOTIFY_TOKEN + NOTIFY_CHAT (admin bot token and chat id: pings the author about a new idea).
    Routes:
@@ -6,7 +6,14 @@
      GET  /my?initData=..&device=..                             -> [{id, kind, text, ts, status, reason}]
      GET  /admin/list      (X-Admin: secret)                    -> all ideas
      POST /admin/set       (X-Admin: secret) {key, status, reason}
-   Status values: new | review | accepted | declined. */
+   Status values: new | review | accepted | declined.
+   Referrals (Telegram identity only, verified by initData):
+     POST /ref/claim   {initData, ref:'ref_<tgid>'}   invitee opened the app from a referral link
+     GET  /ref/me?initData=..                          -> {invited:[{name, ok}], counted, per, available, spent, meSub, verifiable, unlocked:[ids]}
+     POST /ref/redeem  {initData, id}                  spend one reward on a paid material (read access, no tools)
+     POST /mat/text    {initData, id}                  plaintext of an unlocked material (secret MAT_KEYS: {id: hex AES key})
+   A referral counts when the invitee opened the app AND is subscribed to the channel (needs the bot to be channel admin). */
+const CHANNEL = '@shatonlab', PER = 3, PAGES = 'https://davidshaton2006-droid.github.io/shaton-marketing/';
 const ORIGINS = ['https://davidshaton2006-droid.github.io', 'http://localhost:8765'];
 const KINDS = { video: 1, article: 1 }, STATUSES = { new: 1, review: 1, accepted: 1, declined: 1 };
 
@@ -39,6 +46,38 @@ async function who(req, env, initData, device) {
   if (u && u.id) return { uid: 'tg' + u.id, name: [u.first_name, u.last_name].filter(Boolean).join(' '), username: u.username || '' };
   const d = String(device || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 40);
   return d.length >= 12 ? { uid: 'dv' + d, name: '', username: '' } : null;
+}
+
+/* ---- referrals ---- */
+async function subscribed(env, tgid) {
+  if (!env.BOT_TOKEN) return null;
+  try {
+    const r = await fetch('https://api.telegram.org/bot' + env.BOT_TOKEN + '/getChatMember', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: CHANNEL, user_id: tgid }) });
+    const j = await r.json();
+    if (!j.ok) return null; // bot cannot see the member list: not verifiable
+    return ['creator', 'administrator', 'member', 'restricted'].includes(j.result.status) && (j.result.status !== 'restricted' || j.result.is_member);
+  } catch (e) { return null; }
+}
+async function refState(env, me) {
+  const invitedRaw = (await env.IDEAS.get('rr:' + me.uid, 'json')) || [];
+  const rewards = (await env.IDEAS.get('rw:' + me.uid, 'json')) || [];
+  const meSub = await subscribed(env, Number(me.uid.slice(2)));
+  let counted = 0, verifiable = meSub !== null;
+  const invited = [];
+  for (const i of invitedRaw.slice(0, 60)) {
+    const ok = await subscribed(env, i.id);
+    if (ok === null) verifiable = false;
+    if (ok) counted++;
+    invited.push({ name: i.name || 'Гость', ok: !!ok });
+  }
+  const earned = Math.floor(counted / PER), available = meSub ? Math.max(0, earned - rewards.length) : 0;
+  return { invited, counted, per: PER, available, spent: rewards.length, meSub: !!meSub, verifiable, unlocked: rewards };
+}
+async function aesText(raw64, hexKey) {
+  const bin = Uint8Array.from(atob(raw64.replace(/\s/g, '')), (c) => c.charCodeAt(0));
+  const iv = bin.slice(16, 28), ct = bin.slice(28);
+  const key = await crypto.subtle.importKey('raw', Uint8Array.from(hexKey.match(/../g).map((h) => parseInt(h, 16))), 'AES-GCM', false, ['decrypt']);
+  return new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct));
 }
 const isAdmin = (req, env) => env.ADMIN_SECRET && req.headers.get('X-Admin') === env.ADMIN_SECRET;
 
@@ -94,6 +133,42 @@ export default {
         cur.status = b.status; cur.reason = String(b.reason || '').slice(0, 300); cur.upd = Date.now();
         await env.IDEAS.put(b.key, JSON.stringify(cur));
         return json(req, { ok: true });
+      }
+      if (path === '/ref/claim' && req.method === 'POST') {
+        const b = await req.json(), u = await tgUser(b.initData, env.BOT_TOKEN);
+        if (!u || !u.id) return json(req, { ok: false, error: 'no-identity' }, 400);
+        const m = /^ref_(\d{3,15})$/.exec(String(b.ref || '')); if (!m || Number(m[1]) === u.id) return json(req, { ok: false, error: 'bad-ref' });
+        const had = await env.IDEAS.get('ri:' + u.id);
+        if (had) return json(req, { ok: true, already: true });
+        await env.IDEAS.put('ri:' + u.id, JSON.stringify({ ref: m[1], ts: Date.now() }));
+        const key = 'rr:tg' + m[1], list = (await env.IDEAS.get(key, 'json')) || [];
+        if (!list.some((x) => x.id === u.id) && list.length < 500) { list.push({ id: u.id, name: u.first_name || '', ts: Date.now() }); await env.IDEAS.put(key, JSON.stringify(list)); }
+        return json(req, { ok: true });
+      }
+      if (path === '/ref/me' && req.method === 'GET') {
+        const u = await tgUser(url.searchParams.get('initData'), env.BOT_TOKEN);
+        if (!u || !u.id) return json(req, { ok: false, error: 'no-identity' }, 400);
+        return json(req, Object.assign({ ok: true }, await refState(env, { uid: 'tg' + u.id })));
+      }
+      if (path === '/ref/redeem' && req.method === 'POST') {
+        const b = await req.json(), u = await tgUser(b.initData, env.BOT_TOKEN);
+        if (!u || !u.id) return json(req, { ok: false, error: 'no-identity' }, 400);
+        const keys = JSON.parse(env.MAT_KEYS || '{}'), id = String(b.id || '');
+        if (!keys[id]) return json(req, { ok: false, error: 'bad-material' }, 400);
+        const me = { uid: 'tg' + u.id }, st = await refState(env, me);
+        if (st.unlocked.includes(id)) return json(req, { ok: true, unlocked: st.unlocked });
+        if (st.available < 1) return json(req, { ok: false, error: st.meSub ? 'no-reward' : 'not-subscribed' }, 403);
+        const rw = st.unlocked.concat([id]); await env.IDEAS.put('rw:' + me.uid, JSON.stringify(rw));
+        return json(req, { ok: true, unlocked: rw });
+      }
+      if (path === '/mat/text' && req.method === 'POST') {
+        const b = await req.json(), u = await tgUser(b.initData, env.BOT_TOKEN);
+        if (!u || !u.id) return json(req, { ok: false, error: 'no-identity' }, 400);
+        const rw = (await env.IDEAS.get('rw:tg' + u.id, 'json')) || [], id = String(b.id || '');
+        const keys = JSON.parse(env.MAT_KEYS || '{}');
+        if (!rw.includes(id) || !keys[id]) return json(req, { ok: false, error: 'locked' }, 403);
+        const enc = await (await fetch(PAGES + 'posts/enc/' + encodeURIComponent(id) + '.enc?t=' + Date.now())).text();
+        return json(req, { ok: true, text: await aesText(enc, keys[id]) });
       }
       return json(req, { error: 'not-found' }, 404);
     } catch (e) { return json(req, { ok: false, error: 'server' }, 500); }
