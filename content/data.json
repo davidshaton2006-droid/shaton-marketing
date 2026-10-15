@@ -17,7 +17,7 @@
    "nottl": false,
    "nocap": true,
    "md": true,
-   "v": "mv9l8htq",
+   "v": "mv9l8htq1",
    "meta": {
     "min": 43,
     "chapters": [
@@ -108,7 +108,9 @@
      }
     ],
     "words": 8082
-   }
+   },
+   "img": "vybor-marketologa-dark.webp",
+   "imgLight": "vybor-marketologa-light.webp"
   },
   {
    "id": "brand",

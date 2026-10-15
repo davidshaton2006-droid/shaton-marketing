@@ -149,6 +149,11 @@ svg{display:block}
 .idea-c.on{background:var(--color-4);border-color:transparent;color:#fff}
 .idea textarea{width:100%;min-height:84px;resize:vertical;border-radius:16px;border:1px solid var(--search-border);background:var(--search-bg);color:var(--text);padding:12px 14px;font:inherit;font-size:15px;line-height:1.4}
 .idea-n{color:var(--mute);font-size:12.5px;font-weight:600}
+/* two covers per material: dark theme shows .cd, light theme shows .cl */
+.cimg.cl{display:none}
+[data-theme="light"] .cimg.cd{display:none}
+[data-theme="light"] .cimg.cl{display:block}
+
 .pcost{margin:10px 0 0;font-size:13.5px;color:var(--mute);font-weight:600}.pcost b{color:var(--text);font-weight:800}
 .intro3{display:grid;gap:10px;margin:18px 0}
 .in3{padding:14px 16px;border-radius:18px;border:1px solid var(--search-border);background:var(--panel)}
@@ -479,7 +484,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 <script src="pts.js?v=72"></script>
 <script src="game.js?v=60"></script>
 <script src="builder.js?v=60"></script>
-<script src="md.js?v=80"></script>
+<script src="md.js?v=81"></script>
 <script src="guide.js?v=72"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
@@ -615,6 +620,7 @@ function hlTitle(t){
 }
 function cover(m, big){
   var c = cat(m.cat), fx = m.fx ? ' fx-' + esc(m.fx) : '';
+  if (m.img && m.imgLight) return '<div class="cov has' + fx + '"><img class="cimg cd" src="' + esc(mediaUrl(m.img, 'img')) + '" alt="' + esc(m.title) + '" loading="lazy" decoding="async"><img class="cimg cl" src="' + esc(mediaUrl(m.imgLight, 'img')) + '" alt="" loading="lazy" decoding="async"><i class="fxl"></i></div>';   // dark and light cover: shown by theme
   if (m.img) return '<div class="cov has' + fx + '"><img class="cimg" src="' + esc(mediaUrl(m.img, 'img')) + '" alt="' + esc(m.title) + '" loading="lazy" decoding="async"><i class="fxl"></i></div>';
   var rub = m.label === '-' ? '' : '<span class="rub"><i class="rb">' + gi(m.ic, 28).replace(/^<span[^>]*>|<\/span>$/g, '') + '</i>' + esc(m.label != null && m.label !== '' ? m.label : (c ? c.name : '')) + '</span>';
   return '<div class="cov ed' + fx + '"><i class="rays"></i><i class="fxl"></i>'
