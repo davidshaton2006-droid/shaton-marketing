@@ -12,6 +12,10 @@
      GET  /ref/me?initData=..                          -> {invited:[{name, ok}], counted, per, available, spent, meSub, verifiable, unlocked:[ids]}
      POST /ref/redeem  {initData, id}                  spend one reward on a paid material (read access, no tools)
      POST /mat/text    {initData, id}                  plaintext of an unlocked material (secret MAT_KEYS: {id: hex AES key})
+   Points ("баллы"), one map per Telegram user (key pt:<uid>), idempotent event keys:
+     POST /pts/sync    {initData, events:{key:pts}}     client events are validated by key pattern and clamped -> {ok, total, events}
+     GET  /admin/users (X-Admin)                        -> [{uid, name, username, total, guide, friends, ts}]
+     POST /admin/grant (X-Admin) {uid, key, pts}        key must start with buy: | sub: | grant:
    A referral counts when the invitee opened the app AND is subscribed to the channel (needs the bot to be channel admin). */
 const CHANNEL = '@shatonlab', PER = 3, PAGES = 'https://davidshaton2006-droid.github.io/shaton-marketing/';
 const ORIGINS = ['https://davidshaton2006-droid.github.io', 'http://localhost:8765'];
@@ -48,6 +52,25 @@ async function who(req, env, initData, device) {
   return d.length >= 12 ? { uid: 'dv' + d, name: '', username: '' } : null;
 }
 
+
+/* ---- points ---- */
+const PT_RULES = [
+  [/^story:[\w|%.\-]{1,90}$/, () => 2],
+  [/^read:[a-z0-9\-]{1,40}$/, (v) => Math.min(20, Math.max(0, v))],
+  [/^guide$/, () => 20],
+  [/^idea:[a-z0-9]{1,16}$/, () => 5],
+  [/^game:[a-z0-9\-]{1,40}:[\w\-]{1,40}$/, (v) => Math.min(50, Math.max(0, v))],
+];
+const ptTotal = (m) => Object.keys(m).reduce((t, k) => t + (k[0] === '_' ? 0 : (Number(m[k]) || 0)), 0);
+async function ptGet(env, uid) { return (await env.IDEAS.get('pt:' + uid, 'json')) || {}; }
+async function tgSend(env, chat, text, button) {
+  if (!env.BOT_TOKEN) return;
+  const body = { chat_id: chat, text, disable_web_page_preview: true };
+  if (button) body.reply_markup = { inline_keyboard: [[button]] };
+  try { await fetch('https://api.telegram.org/bot' + env.BOT_TOKEN + '/sendMessage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }); } catch (e) {}
+}
+const APP = PAGES + 'catalog.html', CHANNEL_URL = 'https://t.me/shatonlab';
+
 /* ---- referrals ---- */
 async function subscribed(env, tgid) {
   if (!env.BOT_TOKEN) return null;
@@ -67,8 +90,13 @@ async function refState(env, me) {
   for (const i of invitedRaw.slice(0, 60)) {
     const ok = await subscribed(env, i.id);
     if (ok === null) verifiable = false;
-    if (ok) counted++;
+    if (ok) { counted++; i.ok_ = true; }
     invited.push({ name: i.name || 'Гость', ok: !!ok });
+  }
+  if (meSub !== null) {
+    const pm = await ptGet(env, me.uid); let ch = false;
+    for (const i of invitedRaw.slice(0, 60)) { if (i.ok_ && !pm['ref:' + i.id]) { pm['ref:' + i.id] = 50; ch = true; } }
+    if (ch) await env.IDEAS.put('pt:' + me.uid, JSON.stringify(pm));
   }
   const earned = Math.floor(counted / PER), available = meSub ? Math.max(0, earned - rewards.length) : 0;
   return { invited, counted, per: PER, available, spent: rewards.length, meSub: !!meSub, verifiable, unlocked: rewards };
@@ -138,12 +166,64 @@ export default {
         const b = await req.json(), u = await tgUser(b.initData, env.BOT_TOKEN);
         if (!u || !u.id) return json(req, { ok: false, error: 'no-identity' }, 400);
         const m = /^ref_(\d{3,15})$/.exec(String(b.ref || '')); if (!m || Number(m[1]) === u.id) return json(req, { ok: false, error: 'bad-ref' });
-        const had = await env.IDEAS.get('ri:' + u.id);
-        if (had) return json(req, { ok: true, already: true });
-        await env.IDEAS.put('ri:' + u.id, JSON.stringify({ ref: m[1], ts: Date.now() }));
-        const key = 'rr:tg' + m[1], list = (await env.IDEAS.get(key, 'json')) || [];
-        if (!list.some((x) => x.id === u.id) && list.length < 500) { list.push({ id: u.id, name: u.first_name || '', ts: Date.now() }); await env.IDEAS.put(key, JSON.stringify(list)); }
-        return json(req, { ok: true });
+        let rec = await env.IDEAS.get('ri:' + u.id, 'json'); const fresh = !rec;
+        if (!rec) {
+          rec = { ref: m[1], ts: Date.now(), counted: false };
+          const key = 'rr:tg' + m[1], list = (await env.IDEAS.get(key, 'json')) || [];
+          if (!list.some((x) => x.id === u.id) && list.length < 500) { list.push({ id: u.id, name: u.first_name || '', ts: Date.now() }); await env.IDEAS.put(key, JSON.stringify(list)); }
+        }
+        const name = u.first_name || 'Друг', subOk = await subscribed(env, u.id);
+        if (fresh) {
+          await tgSend(env, u.id, 'Спасибо, что зашли по приглашению! 🙌\n\nПодпишитесь на канал: тогда приглашение засчитается вашему другу и он получит бонус.', { text: 'Подписаться на канал', url: CHANNEL_URL });
+          await tgSend(env, Number(m[1]), '👋 ' + name + ' открыл(а) Shaton Prime по вашей ссылке.\n\nОсталось подписаться на канал: после этого приглашение засчитается.');
+        }
+        if (subOk && !rec.counted) {
+          rec.counted = true;
+          const st = await refState(env, { uid: 'tg' + m[1] }), left = Math.max(0, PER - (st.counted % PER || (st.counted ? PER : 0)));
+          const msg = st.available > 0 ? '🎉 Приглашение засчитано, награда готова!\n\nОткройте профиль и выберите платный материал для чтения. Начислено +50 баллов.'
+            : '✅ ' + name + ' засчитан(а): +50 баллов. Приглашено: ' + st.counted + '. До награды: ' + left + '.';
+          await tgSend(env, Number(m[1]), msg, { text: 'Открыть приложение', web_app: { url: APP } });
+        }
+        await env.IDEAS.put('ri:' + u.id, JSON.stringify(rec));
+        return json(req, { ok: true, counted: !!rec.counted });
+      }
+      if (path === '/pts/sync' && req.method === 'POST') {
+        const b = await req.json(), u = await tgUser(b.initData, env.BOT_TOKEN);
+        if (!u || !u.id) return json(req, { ok: false, error: 'no-identity' }, 400);
+        const uid = 'tg' + u.id, map = await ptGet(env, uid), ev = b.events && typeof b.events === 'object' ? b.events : {};
+        let n = 0;
+        for (const k of Object.keys(ev)) {
+          if (n++ > 400 || Object.keys(map).length > 1500) break;
+          const rule = PT_RULES.find((r) => r[0].test(k)); if (!rule) continue;
+          const v = rule[1](Number(ev[k]) || 0);
+          if (k.startsWith('game:')) { map[k] = Math.max(map[k] || 0, v); } else if (map[k] == null) map[k] = v;
+        }
+        map._m = { name: [u.first_name, u.last_name].filter(Boolean).join(' '), username: u.username || '', ts: Date.now() };
+        await env.IDEAS.put('pt:' + uid, JSON.stringify(map));
+        const out = {}; for (const k of Object.keys(map)) if (k[0] !== '_') out[k] = map[k];
+        return json(req, { ok: true, total: ptTotal(map), events: out });
+      }
+      if (path === '/admin/users' && req.method === 'GET') {
+        if (!isAdmin(req, env)) return json(req, { error: 'forbidden' }, 403);
+        const out = []; let cursor;
+        do {
+          const r = await env.IDEAS.list({ prefix: 'pt:', cursor, limit: 1000 });
+          for (const k of r.keys) {
+            const m = await env.IDEAS.get(k.name, 'json'); if (!m) continue;
+            const meta = m._m || {};
+            out.push({ uid: k.name.slice(3), name: meta.name || '', username: meta.username || '', total: ptTotal(m), guide: m.guide != null, friends: Object.keys(m).filter((x) => x.startsWith('ref:')).length, ts: meta.ts || 0 });
+          }
+          cursor = r.list_complete ? null : r.cursor;
+        } while (cursor && out.length < 2000);
+        return json(req, out.sort((a, b) => b.total - a.total));
+      }
+      if (path === '/admin/grant' && req.method === 'POST') {
+        if (!isAdmin(req, env)) return json(req, { error: 'forbidden' }, 403);
+        const b = await req.json(), uid = String(b.uid || ''), key = String(b.key || ''), pts = Math.floor(Number(b.pts) || 0);
+        if (!/^tg\d{3,15}$/.test(uid) || !/^(buy|sub|grant):[\w\-]{1,40}$/.test(key) || pts < 1 || pts > 5000) return json(req, { ok: false, error: 'bad-input' }, 400);
+        const map = await ptGet(env, uid); map[key] = pts; await env.IDEAS.put('pt:' + uid, JSON.stringify(map));
+        await tgSend(env, Number(uid.slice(2)), '⭐ Вам начислено ' + pts + ' баллов в Shaton Prime. Всего: ' + ptTotal(map) + '.');
+        return json(req, { ok: true, total: ptTotal(map) });
       }
       if (path === '/ref/me' && req.method === 'GET') {
         const u = await tgUser(url.searchParams.get('initData'), env.BOT_TOKEN);

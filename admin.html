@@ -95,6 +95,7 @@ main{padding:24px;max-width:1280px;width:100%}
       <button data-t="media">Медиа</button>
       <button data-t="fx">Эффекты</button>
       <button data-t="ideas">Идеи <b id="nI">0</b></button>
+      <button data-t="users">Пользователи</button>
     </nav>
     <div style="margin-top:auto" class="muted">
       <a href="catalog.html" target="_blank">Открыть приложение</a><br>
@@ -187,7 +188,7 @@ $('#nav').addEventListener('click', function(e){ var b = e.target.closest('butto
 $('#out').addEventListener('click', function(e){ e.preventDefault(); sv('shaton.admin.token', ''); cloudSet(''); setTimeout(function(){ location.reload(); }, 250); });
 function render(){
   $('#nP').textContent = allMats().length; $('#nS').textContent = allStories().length;
-  var m = $('#main'); ({dash:rDash, posts:rPosts, stories:rStories, cats:rCats, media:rMedia, fx:rFx, ideas:rIdeas}[tab])(m);
+  var m = $('#main'); ({dash:rDash, posts:rPosts, stories:rStories, cats:rCats, media:rMedia, fx:rFx, ideas:rIdeas, users:rUsers}[tab])(m);
 }
 function top(t, extra){ return '<div class="top"><h1>' + t + '</h1>' + (extra || '') + '</div>'; }
 
@@ -417,6 +418,29 @@ function rMedia(m){
     if (x && confirm('Удалить файл ' + x + '? Если он используется в постах, картинка пропадёт.')) delFile('posts/img/' + x, 'Admin: delete image').then(function(){ MEDIA = MEDIA.filter(function(f){ return f.name !== x; }); msg('Удалено'); render(); }, function(er){ msg(er.message, 1); }); };
 }
 
+/* ---------- Users and points ---------- */
+function rUsers(m){
+  if (!ideasKey()) { m.innerHTML = top('Пользователи') + '<div class="panel glass"><p class="muted">Введите ключ на вкладке «Идеи»: он общий для обоих разделов.</p></div>'; return; }
+  m.innerHTML = top('Пользователи', '<button class="btn s" id="ur">Обновить</button>') + '<p class="muted">Загружаю…</p>';
+  ideasFetch('/admin/users').then(function(l){
+    if (!Array.isArray(l)) { m.innerHTML = top('Пользователи') + '<div class="panel glass"><p>Нет доступа: проверьте ключ.</p></div>'; return; }
+    var tot = l.reduce(function(a, u){ return a + u.total; }, 0), gd = l.filter(function(u){ return u.guide; }).length;
+    m.innerHTML = top('Пользователи', '<button class="btn s" id="ur">Обновить</button>')
+      + '<div class="grid">' + kpi(l.length, 'пользователей с баллами') + kpi(tot, 'баллов начислено') + kpi(gd, 'прошли инструкцию') + '</div>'
+      + '<div class="panel glass"><h2>Начислить баллы</h2><p class="muted" style="margin-bottom:8px">Например за оплату материала (+300) или подписку (+500). Пользователь получит сообщение в боте.</p>'
+      + '<div class="row"><label class="f"><span>Telegram ID</span><input id="gu" inputmode="numeric" placeholder="123456789"></label><label class="f"><span>Причина</span><select id="gk"><option value="buy:">Оплата материала</option><option value="sub:">Подписка</option><option value="grant:">Другое</option></select></label><label class="f"><span>Метка</span><input id="gt" placeholder="brand или 2026-10"></label><label class="f"><span>Баллы</span><input id="gp" inputmode="numeric" value="300"></label></div><button class="btn p" id="gb">Начислить</button></div>'
+      + '<div class="panel glass"><h2>Рейтинг</h2><div class="list">' + (l.length ? l.slice(0, 100).map(function(u, i){
+          return '<div class="item"><div class="tt"><b>' + (i + 1) + '. ' + esc(u.name || 'Без имени') + (u.username ? ' @' + esc(u.username) : '') + '</b><span class="muted">' + esc(u.uid.slice(2)) + ' · друзей: ' + u.friends + (u.guide ? ' · инструкция пройдена' : '') + '</span></div><b>' + u.total + '</b></div>';
+        }).join('') : '<p class="muted">Пока нет данных: баллы появятся после первых заходов из Telegram.</p>') + '</div></div>';
+    $('#ur').onclick = function(){ rUsers(m); };
+    $('#gb').onclick = function(){
+      var uid = ($('#gu').value || '').trim(), key = $('#gk').value + ($('#gt').value || '').trim().replace(/[^\w\-]/g, ''), pts = parseInt($('#gp').value, 10);
+      if (!/^\d{3,15}$/.test(uid) || !pts) { alert('Укажите Telegram ID и число баллов'); return; }
+      if (/:$/.test(key)) { alert('Укажите метку, например brand'); return; }
+      ideasFetch('/admin/grant', {method:'POST', body:JSON.stringify({uid:'tg' + uid, key:key, pts:pts})}).then(function(x){ if (x && x.ok) { alert('Начислено. Всего у пользователя: ' + x.total); rUsers(m); } else alert('Не удалось начислить'); });
+    };
+  }, function(){ m.innerHTML = top('Пользователи') + '<div class="panel glass"><p>Нет связи с сервисом.</p></div>'; });
+}
 /* ---------- User ideas (video / article topics) ---------- */
 var IDEAS_API = 'https://shaton-ideas.romantik-baza.workers.dev', IDEAS = [], IDEA_FILTER = 'open';
 function ideasKey(){ try { return localStorage.getItem('shaton.ideas.admin') || ''; } catch(e){ return ''; } }

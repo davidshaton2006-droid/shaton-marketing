@@ -7,7 +7,7 @@
   var G; try { G = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ G = {}; }
   function save(){ try { localStorage.setItem(KEY, JSON.stringify(G)); } catch(e){} }
   function rec(pid, id){ return (G[pid] || {})[id]; }
-  function put(pid, id, x, s){ (G[pid] = G[pid] || {})[id] = {x:x, s:s}; save(); changed(); }
+  function put(pid, id, x, s){ (G[pid] = G[pid] || {})[id] = {x:x, s:s}; save(); changed(); if (g.Pts) g.Pts.game(pid, id, x); }
   function earned(pid){ var t = 0, o = G[pid] || {}; for (var k in o) t += o[k].x || 0; return t; }
   var cur = {pid:null, title:'', root:null, max:0}, hudEl = null;
   function maxOf(root){ var m = 0; [].forEach.call(root.querySelectorAll('.gm'), function(e){ if (e.getAttribute('data-g') !== 'result') m += parseInt(e.getAttribute('data-xp'), 10) || 0; }); return m; }

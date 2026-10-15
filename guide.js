@@ -12,10 +12,11 @@
       {t:'Привет! Я Прайм', p:'Покажу, как здесь всё устроено. Это займёт минуту, а в конце вас ждёт бесплатный материал.', pose:'wave'},
       {sel:'.stories', t:'Истории', p:'Короткие советы по Авито, Директу, сайтам и SEO. Нажимайте и листайте: за просмотр копятся баллы.', pose:'point'},
       {sel:'#promo', t:'Подписка и материалы', p:'Листайте карточки. Подписка 1 000 ₽ в месяц открывает все платные материалы, а у каждого материала своя цена.', pose:'point'},
-      {sel:'#secBtn', t:'Два раздела', p:'Нажмите сюда и выберите: «Для бизнеса» (сделать здесь и сейчас) или «Обучение» (читать и учиться). Ошиблись? Не страшно: материалы доступны в обоих разделах.', pose:'point'},
+      {sel:'.tab[data-mode]', t:'Режим: бизнес или обучение', p:'Нажмите «Режим» и выберите: «Для бизнеса» (сделать здесь и сейчас) или «Обучение» (читать и учиться). Ошиблись? Не страшно: материалы доступны в обоих режимах и в ленте.', pose:'point'},
+      {sel:'#ptsPill', t:'Ваши баллы', p:'За просмотр историй, чтение, ответы в заданиях и друзей копятся баллы, а за оплату материала их сразу много. Позже их можно будет потратить на материал или на то, чтобы собрать что-то бесплатно.', pose:'point'},
       {sel:'.tab[data-go="fav"]', t:'Избранное', p:'Сердечко на карточке сохраняет материал сюда, чтобы вернуться позже.', pose:'point'},
       {sel:'.tab[data-go="me"]', t:'Профиль, баллы и друзья', p:'В профиле: ваш ранг, инструкция, идеи для разборов и приглашения. Позвали 3 друзей, которые подписались на канал, и я открою для чтения один платный материал.', pose:'point'},
-      {t:'Готово! Начнём?', p:'Откройте бесплатное руководство: в нём задания, кейсы и баллы. Баллы растут от заданий, а ранг виден в профиле.', pose:'cheer', last:true}
+      {t:'Готово! Начнём?', p:'За прохождение инструкции вам +20 баллов. Откройте бесплатное руководство: в нём задания, кейсы и новые баллы.', pose:'cheer', last:true}
     ];
   }
   function bot(pose){
@@ -67,7 +68,7 @@
     if (s && s.last) { close(); try { var f = document.querySelector('.post [data-p], .post'); var id = f && (f.getAttribute('data-p')); var free = (window.MATS || []).filter(function(m){ return m.free; })[0]; if (g.go && (free || id)) g.go('post', (free && free.id) || id); } catch(e){} return; }
     step++; if (step >= steps.length) return close(); show();
   }
-  function close(){ mark(); if (root) { root.remove(); root = null; } document.body.classList.remove('gd-on'); window.removeEventListener('resize', place); }
+  function close(){ var wasLast = steps[step] && steps[step].last; mark(); if (wasLast && window.Pts) Pts.award('guide', Pts.RULES.guide); if (root) { root.remove(); root = null; } document.body.classList.remove('gd-on'); window.removeEventListener('resize', place); }
   function start(force){
     if (root) return;
     if (!force && seen()) return;
