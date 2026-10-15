@@ -149,6 +149,13 @@ svg{display:block}
 .idea-c.on{background:var(--color-4);border-color:transparent;color:#fff}
 .idea textarea{width:100%;min-height:84px;resize:vertical;border-radius:16px;border:1px solid var(--search-border);background:var(--search-bg);color:var(--text);padding:12px 14px;font:inherit;font-size:15px;line-height:1.4}
 .idea-n{color:var(--mute);font-size:12.5px;font-weight:600}
+.pcost{margin:10px 0 0;font-size:13.5px;color:var(--mute);font-weight:600}.pcost b{color:var(--text);font-weight:800}
+.intro3{display:grid;gap:10px;margin:18px 0}
+.in3{padding:14px 16px;border-radius:18px;border:1px solid var(--search-border);background:var(--panel)}
+.in3-k{display:inline-block;margin-bottom:6px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blue,#2a52ff)}
+.in3:nth-child(2) .in3-k{color:#1fb871}.in3:nth-child(3) .in3-k{color:var(--violet,#7a5cff)}
+.in3 p{margin:0;font-size:15px;line-height:1.45}
+
 .ptsb{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 12px;border-radius:99px;border:1px solid var(--search-border);background:var(--panel);color:var(--text);font-weight:800;font-size:14px}
 .ptsb i,.ptsc-n i{font-style:normal;color:#ffb800}
 .st-hint{margin:2px 4px 10px;font-size:12.5px;color:var(--mute);font-weight:600}.st-hint b{color:var(--dim)}
@@ -469,11 +476,11 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 </defs></svg>
 
 <script src="art.js?v=60"></script>
-<script src="pts.js?v=70"></script>
+<script src="pts.js?v=72"></script>
 <script src="game.js?v=60"></script>
 <script src="builder.js?v=60"></script>
-<script src="md.js?v=60"></script>
-<script src="guide.js?v=70"></script>
+<script src="md.js?v=72"></script>
+<script src="guide.js?v=72"></script>
 <script>
 /* ============================ EDIT HERE ============================ */
 var FREE_URL = 'https://t.me/shatonlab/20';   // пост с PDF (запасной вариант)
@@ -505,11 +512,11 @@ var MATS = [
   {id:'seo',    cat:'seo',    free:true, ic:'search', c1:'var(--color-2)',c2:'var(--deep)',    title:'SEO-продвижение без магии', desc:'Индексация, семантика, структура сайта, метатеги, контент, локальный поиск и самостоятельный аудит. Что работает и чего ждать по срокам.'},
   {id:'smm',    cat:'smm',    free:true, ic:'send',   c1:'var(--rose)',   c2:'var(--color-5)', title:'SMM, который приводит заявки', desc:'Стратегия, контент-план, тексты и видео, ВКонтакте и Telegram, вовлечение и платная реклама. Система вместо хаотичных постов.'},
 
-  {id:'site-weekend', cat:'sites',  ic:'globe', c1:'var(--color-3)', c2:'var(--deep)',    title:'Сайт за выходные', desc:'Шаблоны сайта-визитки, портфолио и лендинга и пошаговая инструкция, как выложить их бесплатно без программиста.', price:'490–990 ₽'},
-  {id:'manipulation', cat:'market', ic:'eye',   c1:'var(--violet)',  c2:'var(--color-6)', title:'Как тебя заставляют покупать', desc:'Приёмы магазинов и рекламы и как им не поддаваться. Маркетинг изнутри простым языком.', price:'199–399 ₽'},
-  {id:'avito-sell',   cat:'avito',  ic:'tag',   c1:'var(--cyan)',    c2:'var(--color-5)', title:'Продай вещь на Авито быстро и дороже', desc:'Фото, заголовок, цена, торг и защита от мошенников: как продать ненужные вещи без лишних нервов.', price:'199–299 ₽'},
-  {id:'avito-flip',   cat:'avito',  ic:'loop',  c1:'var(--color-3)', c2:'var(--color-6)', title:'Перепродажа на Авито с нуля', desc:'Поиск, оценка, покупка и продажа, расчёт прибыли и рисков. Без обещаний «лёгких денег».', price:'790–990 ₽'},
-  {id:'brand',        cat:'brand',  ic:'user',  c1:'var(--rose)',    c2:'var(--color-6)', title:'Личный бренд для обычного человека', desc:'Как вести Instagram и Telegram, чтобы вас замечали: профиль, темы, форматы, шаблоны.', price:'490–990 ₽'}
+  {id:'site-weekend', cat:'sites',  ic:'globe', c1:'var(--color-3)', c2:'var(--deep)',    title:'Сайт за выходные', desc:'Шаблоны сайта-визитки, портфолио и лендинга и пошаговая инструкция, как выложить их бесплатно без программиста.', price:'500 ₽'},
+  {id:'manipulation', cat:'market', ic:'eye',   c1:'var(--violet)',  c2:'var(--color-6)', title:'Как тебя заставляют покупать', desc:'Приёмы магазинов и рекламы и как им не поддаваться. Маркетинг изнутри простым языком.', price:'300 ₽'},
+  {id:'avito-sell',   cat:'avito',  ic:'tag',   c1:'var(--cyan)',    c2:'var(--color-5)', title:'Продай вещь на Авито быстро и дороже', desc:'Фото, заголовок, цена, торг и защита от мошенников: как продать ненужные вещи без лишних нервов.', price:'300 ₽'},
+  {id:'avito-flip',   cat:'avito',  ic:'loop',  c1:'var(--color-3)', c2:'var(--color-6)', title:'Перепродажа на Авито с нуля', desc:'Поиск, оценка, покупка и продажа, расчёт прибыли и рисков. Без обещаний «лёгких денег».', price:'300 ₽'},
+  {id:'brand',        cat:'brand',  ic:'user',  c1:'var(--rose)',    c2:'var(--color-6)', title:'Личный бренд для обычного человека', desc:'Как вести Instagram и Telegram, чтобы вас замечали: профиль, темы, форматы, шаблоны.', price:'300 ₽'}
 ];
 
 var STORIES = [
@@ -620,6 +627,7 @@ function post(m){
     +'<div class="pa">'+gi(c.ic, 46)+'<i class="th"></i></div>'
     +'<div class="pb"><div class="ph"><b>'+esc(AUTHOR)+'</b><svg class="i v" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="currentColor" stroke="none"/><path d="m8 12.4 2.6 2.6L16 9.6" stroke="#fff"/></svg><span class="pm">· '+esc(c.name)+'</span><span class="bd'+(m.free ? '' : ' paid')+'">'+(m.free ? 'Бесплатно' : 'Платный')+'</span></div>'
     +'<h3>'+esc(m.title)+'</h3><p class="pe">'+esc(m.desc)+'</p>'+cover(m)
+    +'<div class="pcost">'+(m.free ? 'Стоимость: <b>бесплатно</b>' : 'Стоимость на прочтение: <b>'+esc(m.price || 'по запросу')+'</b> · первая глава бесплатно')+'</div>'
     +'<div class="act"><button class="fav'+(FAV.indexOf(m.id) >= 0 ? ' on' : '')+'" data-fav="'+m.id+'" aria-label="В избранное">'+svg('heart')+'</button>'
     +(min ? '<span class="m">'+svg('clock')+min+' мин</span><span class="m">'+svg('book')+plural(x.chapters.length,'глава','главы','глав')+'</span>' : '')
     +'<button class="sh sp" data-share="'+m.id+'" aria-label="Поделиться">'+svg('share')+'</button></div></div></article>';
@@ -634,15 +642,17 @@ function catTile(c){
 }
 /* REF-BLOCK: audience sections, referral bonuses (3 invited and subscribed -> read one paid material; tools stay locked) */
 var BOT_LINK = 'https://t.me/SHATONLAB_bot';
-var AUDMAP = {'site-weekend':'biz','avito-sell':'biz','brand':'biz','sites':'biz','direct':'biz','avito':'biz','seo':'both','smm':'learn','avito-flip':'learn','manipulation':'learn'};
+var AUDMAP = {};   // every material fits both a business owner and a learner
 function audOf(m){ return m.aud || AUDMAP[m.id] || 'both'; }
 var BIZ_SOON = [
-  ['globe','Сайт по шаблону','Готовая структура и SEO по чёткому шаблону'],
-  ['eye','Фотографии','Шаблоны и инструкции для карточек и сайта'],
-  ['bars','Инфографика','Готовые схемы и макеты под вашу нишу'],
-  ['doc','Описание для Авито','Шаблон объявления, заголовки, ключевые слова'],
-  ['user','Упаковка профиля','ВКонтакте, Instagram и другие площадки'],
-  ['mega','Яндекс Карты, Директ, Бизнес','Пошаговые настройки в одном месте']
+  ['globe','Создание сайта','Сайт под вашу нишу по готовому шаблону'],
+  ['tool','Настройка сайта','SEO, формы, аналитика и скорость по чёткому плану'],
+  ['mega','Яндекс Директ','Обучение и настройка кампаний пошагово'],
+  ['mega','Яндекс Карты','Карточка организации, отзывы, продвижение'],
+  ['mega','Яндекс Бизнес','Профиль компании и работа с обращениями'],
+  ['bars','Авито','Обучение, обложки и описания для объявлений'],
+  ['eye','Обложки и описания','Шаблоны обложек, заголовков и текстов'],
+  ['user','Упаковка соцсетей','ВКонтакте, Instagram и другие площадки для бизнеса']
 ];
 var REF = null, REFU = ld('refUnlocked', []);
 function tgReady(){ return !!(tg && tg.initData); }
@@ -704,10 +714,10 @@ function secSheet(){
 }
 function renderSection(k){
   var biz = k === 'biz', arr = matsAud(k);
-  var soon = biz ? '<div class="sec"><h2>Готовим шаблоны</h2></div><div class="soon">'+BIZ_SOON.map(function(x){ return '<div class="soon-i">'+gi(x[0],44,'var(--color-4)')+'<b>'+esc(x[1])+'</b><small>'+esc(x[2])+'</small><span class="soon-t">Скоро</span></div>'; }).join('')+'</div>'
+  var soon = biz ? '<div class="sec"><h2>Скоро: продукты, которые вы сделаете сами</h2></div><div class="soon">'+BIZ_SOON.map(function(x){ return '<div class="soon-i">'+gi(x[0],44,'var(--color-4)')+'<b>'+esc(x[1])+'</b><small>'+esc(x[2])+'</small><span class="soon-t">Скоро</span></div>'; }).join('')+'</div>'
     +'<a class="btn g w" href="'+ASK_URL+'?text='+encodeURIComponent('Хочу первым узнать о шаблонах для бизнеса (Shaton Prime).')+'" target="_blank" rel="noopener" style="margin:10px 0 4px">Сообщить о выходе</a>' : '';
   view.innerHTML = '<div class="lab" style="margin-top:6px">Раздел</div><div class="sec" style="margin-top:2px"><h2>'+(biz ? 'Для бизнеса' : 'Обучение')+'</h2></div>'
-    +'<p class="note" style="margin:0 4px 12px">'+(biz ? 'Материалы, по которым можно улучшить продвижение прямо сейчас. Шаблоны и инструменты платные.' : 'Читайте, изучайте и пробуйте. Бесплатные руководства открыты всем.')+'</p>'
+    +'<p class="note" style="margin:0 4px 12px">'+(biz ? 'Все материалы подходят бизнесу. Здесь появятся и продукты, которые вы сделаете у нас прямо сейчас: сайты, настройки, обложки и описания, упаковка соцсетей. Они платные.' : 'Здесь все материалы: бесплатные и платные. Каждый платный можно попробовать: первая глава открыта всем.')+'</p>'
     + feedHtml(arr, 'Пока пусто', 'Материалы скоро появятся.') + soon
     +'<button class="btn g w" data-sec="'+(biz ? 'learn' : 'biz')+'" style="margin-top:14px">Показать раздел «'+(biz ? 'Обучение' : 'Для бизнеса')+'»</button>';
 }

@@ -153,6 +153,11 @@
       h += '</ol>'; if (note.trim()) h += '<p class="fn">' + inline(note.trim()) + '</p>';
       return {h:h + '</figure>', w:20};
     }
+    if (kind === 'intro'){   // :::intro  lines "Что разбираем | ...", "Польза для бизнеса | ...", "Польза для обучающегося | ..."
+      h = '<div class="intro3" data-r>';
+      lines.forEach(function(b){ var p = b.split('|'); h += '<div class="in3"><span class="in3-k">' + inline(p[0].trim()) + '</span><p>' + inline(p.slice(1).join('|').trim()) + '</p></div>'; });
+      return {h:h + '</div>', w:30};
+    }
     if (kind === 'cells'){
       h = '<div class="cells" data-r>';
       lines.forEach(function(b, k){ var p = b.split('|'); h += '<div class="cell" style="--i:' + k + '"><b>' + inline(p[0].trim()) + '</b><p>' + inline(p.slice(1).join('|').trim()) + '</p></div>'; });

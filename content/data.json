@@ -17,10 +17,10 @@
    "label": "",
    "nottl": false,
    "nocap": true,
-   "price": "490–990 ₽",
+   "price": "300 ₽",
    "md": true,
    "enc": true,
-   "v": "503824",
+   "v": "0bacc6",
    "meta": {
     "min": 16,
     "chapters": [
@@ -90,7 +90,7 @@
       "t": "Монетизация и 30-дневный запуск"
      }
     ],
-    "words": 2948
+    "words": 2978
    }
   },
   {
@@ -109,10 +109,10 @@
    "label": "",
    "nottl": false,
    "nocap": true,
-   "price": "790–990 ₽",
+   "price": "300 ₽",
    "md": true,
    "enc": true,
-   "v": "da0df5",
+   "v": "a630ec",
    "meta": {
     "min": 15,
     "chapters": [
@@ -172,7 +172,7 @@
       "t": "Учёт и масштабирование: система, а не удача"
      }
     ],
-    "words": 2866
+    "words": 2896
    }
   },
   {
@@ -191,10 +191,10 @@
    "label": "",
    "nottl": false,
    "nocap": true,
-   "price": "199–299 ₽",
+   "price": "300 ₽",
    "md": true,
    "enc": true,
-   "v": "5a1adf",
+   "v": "47de0e",
    "meta": {
     "min": 20,
     "chapters": [
@@ -269,7 +269,7 @@
       "t": "Финал: ваш план продажи на 14 дней"
      }
     ],
-    "words": 3727
+    "words": 3757
    }
   },
   {
@@ -288,10 +288,10 @@
    "label": "",
    "nottl": false,
    "nocap": true,
-   "price": "199–399 ₽",
+   "price": "300 ₽",
    "md": true,
    "enc": true,
-   "v": "2c9e2e",
+   "v": "6b6686",
    "meta": {
     "min": 17,
     "chapters": [
@@ -356,7 +356,7 @@
       "t": "Своя система защиты: правила, которые работают сами"
      }
     ],
-    "words": 3211
+    "words": 3241
    }
   },
   {
@@ -375,10 +375,10 @@
    "label": "",
    "nottl": false,
    "nocap": true,
-   "price": "490–990 ₽",
+   "price": "500 ₽",
    "md": true,
    "enc": true,
-   "v": "bc24cd",
+   "v": "9373e7",
    "meta": {
     "min": 16,
     "chapters": [
@@ -438,7 +438,7 @@
       "t": "Финиш: проверка и итоговое задание"
      }
     ],
-    "words": 2986
+    "words": 3016
    }
   },
   {
