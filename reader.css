@@ -96,7 +96,8 @@ pre.code{border-left:3px solid var(--c1)}
 .funnel:not(.in) .fn-r{width:20%}
 .fn-b{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:16px;color:#fff;background:linear-gradient(135deg,var(--c1),var(--c2));filter:saturate(calc(1 - var(--i)*.08))}
 .fn-r:nth-child(2n) .fn-b{background:linear-gradient(135deg,var(--c2),var(--c1))}
-.fn-b b{font-size:14.5px;font-weight:800}.fn-b em{font-style:normal;font-weight:800;font-size:15px;white-space:nowrap}
+.fn-b b{font-size:14.5px;font-weight:800;min-width:0;overflow-wrap:anywhere}.fn-b em{font-style:normal;font-weight:800;font-size:15px;white-space:nowrap;flex:none}
+.fn-r{min-width:0;max-width:100%}.funnel .fn-b:only-child{justify-content:center;text-align:center}
 .fn-r p{margin:4px 6px 0!important;font-size:13px;color:var(--text-3)!important;text-align:center}
 /* matrix */
 .mx{display:grid;grid-template-columns:22px 1fr;grid-template-rows:1fr 22px;gap:6px}

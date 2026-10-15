@@ -58,7 +58,9 @@
           + cir.map(function(c, i){ return '<li style="--i:' + i + '"><b>' + inline(c.t) + '</b><span>' + inline(c.d) + '</span></li>'; }).join('') + '</ol>'
           + (cq[1] ? '<p class="fn">' + inline(cq.slice(1).join('|').trim()) + '</p>' : '') + '</figure>';
       } else if (kind === 'funnel'){
-        var st = vl.map(function(b){ var q = b.split('|'); return {t:q[0].trim(), v:q[1] ? q[1].trim() : '', n:q.slice(2).join('|').trim()}; });
+        var st = vl.map(function(b){ var q = b.split('|'), v = q[1] ? q[1].trim() : '', n = q.slice(2).join('|').trim();
+          if (v && !n && (v.length > 12 || !/\d/.test(v))) { n = v; v = ''; }   // "Step | explanation" (no number): the text goes under the plate
+          return {t:q[0].trim(), v:v, n:n}; });
         var nums = st.map(function(x){ return parseFloat(String(x.v).replace(/[^\d.,]/g, '').replace(',', '.')); }), mxn = Math.max.apply(null, nums.filter(function(x){ return !isNaN(x); })) || 0;
         vh = '<figure class="vz funnel" data-r><figcaption>' + E(title) + '</figcaption>' + st.map(function(x, i){
           var w = mxn && !isNaN(nums[i]) ? Math.max(56, Math.round(56 + nums[i] / mxn * 44)) : Math.max(56, 100 - i * Math.round(44 / Math.max(1, st.length - 1)));
