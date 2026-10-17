@@ -16,6 +16,9 @@
      POST /pts/sync    {initData, events:{key:pts}}     client events are validated by key pattern and clamped -> {ok, total, events}
      GET  /admin/users (X-Admin)                        -> [{uid, name, username, total, guide, friends, ts}]
      POST /admin/grant (X-Admin) {uid, key, pts}        key must start with buy: | sub: | grant:
+   Public bot @SHATONLAB_bot as a webhook (always on, no PC needed):
+     POST /tg          Telegram updates (header X-Telegram-Bot-Api-Secret-Token = secret TG_SECRET); EVERY message / every /start gets the same welcome
+     GET  /admin/botusers (X-Admin)                    -> [{id, name, username, ts}] subscribers of the bot (for newsletters)
    A referral counts when the invitee opened the app AND is subscribed to the channel (needs the bot to be channel admin). */
 const CHANNEL = '@shatonlab', PER = 3, PAGES = 'https://davidshaton2006-droid.github.io/shaton-marketing/';
 const ORIGINS = ['https://davidshaton2006-droid.github.io', 'http://localhost:8765'];
@@ -70,6 +73,23 @@ async function tgSend(env, chat, text, button) {
   try { await fetch('https://api.telegram.org/bot' + env.BOT_TOKEN + '/sendMessage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }); } catch (e) {}
 }
 const APP = PAGES + 'catalog.html', CHANNEL_URL = 'https://t.me/shatonlab';
+
+/* ---- public bot welcome: one fixed text and keyboard, sent on EVERY /start and any private message ---- */
+const WELCOME = 'Привет, {name}! 👋\n\nЭто Shaton Prime — приложение Давида Шатона с практическими материалами по маркетингу: Авито, Яндекс Директ, сайты, SEO и SMM. Внутри пошаговые разборы, задания, кейсы и истории с советами.\n\n👇 Нажмите «Открыть приложение», чтобы начать — первые руководства бесплатные.\n\n📣 Подпишитесь на канал: там разборы, новости и новые материалы.\n\nВопросы — @shaton_lid';
+const FREE_URL = 'https://t.me/shatonlab/20';
+async function botWelcome(env, m) {
+  const f = m.from || {}, name = f.first_name || 'друг';
+  const parts = String(m.text || '').split(/\s+/), ref = /^ref_\d{3,15}$/.test(parts[1] || '') ? parts[1] : '';
+  const url = APP + (ref ? '?ref=' + ref : '');
+  const kb = { inline_keyboard: [
+    [{ text: 'Открыть приложение', web_app: { url } }],
+    [{ text: 'Подписаться на канал', url: CHANNEL_URL }, { text: 'Бесплатные руководства', url: FREE_URL }],
+  ] };
+  const key = 'bu:' + m.chat.id, had = await env.IDEAS.get(key, 'json');
+  await env.IDEAS.put(key, JSON.stringify({ name: f.first_name || '', username: f.username || '', ts: (had && had.ts) || Date.now(), last: Date.now() }));
+  const r = await fetch('https://api.telegram.org/bot' + env.BOT_TOKEN + '/sendMessage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: m.chat.id, text: WELCOME.replace('{name}', name), reply_markup: kb, disable_web_page_preview: true }) });
+  return r.ok || (r.status >= 400 && r.status < 500 && r.status !== 429);   // blocked bot / bad chat: do not make Telegram retry forever
+}
 
 /* ---- referrals ---- */
 async function subscribed(env, tgid) {
@@ -249,6 +269,26 @@ export default {
         if (!rw.includes(id) || !keys[id]) return json(req, { ok: false, error: 'locked' }, 403);
         const enc = await (await fetch(PAGES + 'posts/enc/' + encodeURIComponent(id) + '.enc?t=' + Date.now())).text();
         return json(req, { ok: true, text: await aesText(enc, keys[id]) });
+      }
+      if (path === '/tg' && req.method === 'POST') {
+        if (!env.TG_SECRET || req.headers.get('X-Telegram-Bot-Api-Secret-Token') !== env.TG_SECRET) return new Response('forbidden', { status: 403 });
+        const upd = await req.json().catch(() => null), m = upd && upd.message;
+        if (m && m.chat && m.chat.type === 'private' && m.from && !m.from.is_bot) {
+          let ok = false;
+          try { ok = await botWelcome(env, m); } catch (e) { ok = false; }
+          if (!ok) return new Response('retry', { status: 500 });   // Telegram will redeliver the update
+        }
+        return new Response('ok');
+      }
+      if (path === '/admin/botusers' && req.method === 'GET') {
+        if (!isAdmin(req, env)) return json(req, { error: 'forbidden' }, 403);
+        const out = []; let cursor;
+        do {
+          const r = await env.IDEAS.list({ prefix: 'bu:', cursor, limit: 1000 });
+          for (const k of r.keys) { const v = await env.IDEAS.get(k.name, 'json'); if (v) out.push({ id: k.name.slice(3), name: v.name, username: v.username, ts: Math.floor((v.ts || 0) / 1000) }); }
+          cursor = r.list_complete ? null : r.cursor;
+        } while (cursor && out.length < 20000);
+        return json(req, out);
       }
       return json(req, { error: 'not-found' }, 404);
     } catch (e) { return json(req, { ok: false, error: 'server' }, 500); }
