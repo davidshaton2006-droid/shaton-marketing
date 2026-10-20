@@ -1,5 +1,5 @@
 /* Shaton Prime · AI-Mentor backend (part of the shaton-ideas Worker).
-   Bindings: DB (D1, schema in mentor.sql), IDEAS (KV, shared with ideas), secrets ANTHROPIC_API_KEY (or OPENAI_API_KEY), optional vars MENTOR_MODEL / OPENAI_MODEL.
+   Bindings: DB (D1, schema in mentor.sql), IDEAS (KV, shared with ideas), secrets ANTHROPIC_API_KEY (or OPENAI_API_KEY), optional vars MENTOR_MODEL (default claude-haiku-4-5), ANTHROPIC_BASE_URL (for an Anthropic-compatible gateway), OPENAI_MODEL.
    Routes (all user routes need Telegram initData, verified by the host Worker):
      GET  /mentor/me?initData=..                 -> {ok, plan, active, expires, free_left, day_left, daily_limit, ai}
      POST /mentor/chat     {initData, message, mode?}   -> {ok, reply, ...}   402 {error:'paywall'} when the free questions are used up and there is no subscription
@@ -90,9 +90,9 @@ async function retrieve(env, query, st) {
 /* ---------------- LLM ---------------- */
 async function callLLM(env, system, messages, maxTokens) {
   if (env.ANTHROPIC_API_KEY) {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
+    const r = await fetch((env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com').replace(/\/+$/, '') + '/v1/messages', {
       method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: env.MENTOR_MODEL || 'claude-sonnet-5-5', max_tokens: maxTokens, system, messages }),
+      body: JSON.stringify({ model: env.MENTOR_MODEL || 'claude-haiku-4-5', max_tokens: maxTokens, system, messages }),
     });
     if (!r.ok) throw new Error('llm ' + r.status + ' ' + (await r.text()).slice(0, 200));
     const j = await r.json(); return (j.content || []).map((c) => c.text || '').join('').trim();
