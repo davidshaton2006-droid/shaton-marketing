@@ -429,10 +429,17 @@ function rUsers(m){
       + '<div class="grid">' + kpi(l.length, 'пользователей с баллами') + kpi(tot, 'баллов начислено') + kpi(gd, 'прошли инструкцию') + '</div>'
       + '<div class="panel glass"><h2>Начислить баллы</h2><p class="muted" style="margin-bottom:8px">Например за оплату материала (+300) или подписку (+500). Пользователь получит сообщение в боте.</p>'
       + '<div class="row"><label class="f"><span>Telegram ID</span><input id="gu" inputmode="numeric" placeholder="123456789"></label><label class="f"><span>Причина</span><select id="gk"><option value="buy:">Оплата материала</option><option value="sub:">Подписка</option><option value="grant:">Другое</option></select></label><label class="f"><span>Метка</span><input id="gt" placeholder="brand или 2026-10"></label><label class="f"><span>Баллы</span><input id="gp" inputmode="numeric" value="300"></label></div><button class="btn p" id="gb">Начислить</button></div>'
+      + '<div class="panel glass"><h2>AI-Ментор: выдать доступ</h2><p class="muted" style="margin-bottom:8px">После подтверждения оплаты (заказ приходит вам в Telegram). Пользователь получит сообщение в боте.</p>'
+      + '<div class="row"><label class="f"><span>Telegram ID</span><input id="mgu" inputmode="numeric" placeholder="123456789"></label><label class="f"><span>Тариф</span><select id="mgp"><option value="pro_month">PRO · месяц (390 ₽)</option><option value="pro_year">PRO · год (1 590 ₽)</option><option value="max_month">MAX · месяц (2 150 ₽)</option><option value="max_year">MAX · год (7 990 ₽)</option></select></label><label class="f"><span>Дней (необязательно)</span><input id="mgd" inputmode="numeric" placeholder="по тарифу"></label></div><button class="btn p" id="mgb">Активировать</button></div>'
       + '<div class="panel glass"><h2>Рейтинг</h2><div class="list">' + (l.length ? l.slice(0, 100).map(function(u, i){
           return '<div class="item"><div class="tt"><b>' + (i + 1) + '. ' + esc(u.name || 'Без имени') + (u.username ? ' @' + esc(u.username) : '') + '</b><span class="muted">' + esc(u.uid.slice(2)) + ' · друзей: ' + u.friends + (u.guide ? ' · инструкция пройдена' : '') + '</span></div><b>' + u.total + '</b></div>';
         }).join('') : '<p class="muted">Пока нет данных: баллы появятся после первых заходов из Telegram.</p>') + '</div></div>';
     $('#ur').onclick = function(){ rUsers(m); };
+    $('#mgb').onclick = function(){ /* mentor-grant */
+      var uid = ($('#mgu').value || '').trim(), days = parseInt($('#mgd').value, 10) || 0;
+      if (!/^\d{3,15}$/.test(uid)) { alert('Укажите Telegram ID'); return; }
+      ideasFetch('/admin/mentor/grant', {method:'POST', body:JSON.stringify({uid:'tg' + uid, plan:$('#mgp').value, days:days || undefined})}).then(function(x){ if (x && x.ok) alert('Доступ активирован до ' + new Date(x.expires).toLocaleDateString('ru-RU')); else alert('Не удалось активировать'); });
+    };
     $('#gb').onclick = function(){
       var uid = ($('#gu').value || '').trim(), key = $('#gk').value + ($('#gt').value || '').trim().replace(/[^\w\-]/g, ''), pts = parseInt($('#gp').value, 10);
       if (!/^\d{3,15}$/.test(uid) || !pts) { alert('Укажите Telegram ID и число баллов'); return; }

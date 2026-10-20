@@ -6,3 +6,8 @@ workers_dev = true
 [[kv_namespaces]]
 binding = "IDEAS"
 id = "a318b14174b144a799ecb1c0cee2ae8b"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "shaton-mentor"
+database_id = "d2dfb675-3410-4f06-bfdd-5dac70ef560b"

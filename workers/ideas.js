@@ -16,11 +16,13 @@
      POST /pts/sync    {initData, events:{key:pts}}     client events are validated by key pattern and clamped -> {ok, total, events}
      GET  /admin/users (X-Admin)                        -> [{uid, name, username, total, guide, friends, ts}]
      POST /admin/grant (X-Admin) {uid, key, pts}        key must start with buy: | sub: | grant:
+   AI-Mentor (D1 + FTS5 retrieval + LLM): see mentor.js / mentor.sql
    Public bot @SHATONLAB_bot as a webhook (always on, no PC needed):
      POST /tg          Telegram updates (header X-Telegram-Bot-Api-Secret-Token = secret TG_SECRET); EVERY message / every /start gets the same welcome
      GET  /admin/botusers (X-Admin)                    -> [{id, name, username, ts}] subscribers of the bot (for newsletters)
    A referral counts when the invitee opened the app AND is subscribed to the channel (needs the bot to be channel admin). */
 const CHANNEL = '@shatonlab', PER = 3, PAGES = 'https://davidshaton2006-droid.github.io/shaton-marketing/';
+import { handleMentor } from './mentor.js';
 const ORIGINS = ['https://davidshaton2006-droid.github.io', 'http://localhost:8765'];
 const KINDS = { video: 1, article: 1 }, STATUSES = { new: 1, review: 1, accepted: 1, declined: 1 };
 
@@ -144,6 +146,7 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(req) });
     const url = new URL(req.url), path = url.pathname;
     try {
+      const mr = await handleMentor(req, env, url, { json, tgUser, isAdmin, tgSend }); if (mr) return mr;
       if (path === '/idea' && req.method === 'POST') {
         const b = await req.json();
         const me = await who(req, env, b.initData, b.device); if (!me) return json(req, { ok: false, error: 'no-identity' }, 400);
