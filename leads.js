@@ -114,6 +114,22 @@
     calc(); window.__calc = function(){ return CALC_LAST; };
   }
 
+  /* ---------- landing video: big play button, hero link ---------- */
+  (function(){
+    var box = document.getElementById('landingVideo'); if (!box) return;
+    var v = box.querySelector('video'), btn = box.querySelector('.vid-play');
+    function play(){ var p = v.play(); if (p && p.catch) p.catch(function(){ v.controls = true; }); }
+    btn.addEventListener('click', play);
+    v.addEventListener('play', function(){ box.classList.add('playing'); });
+    v.addEventListener('pause', function(){ if (!v.ended) box.classList.remove('playing'); });
+    v.addEventListener('ended', function(){ box.classList.remove('playing'); });
+    document.addEventListener('click', function(e){
+      var h = e.target.closest && e.target.closest('.hero-video'); if (!h) return;
+      var y = box.getBoundingClientRect().top + window.scrollY - Math.max(70, (innerHeight - box.offsetHeight) / 2);
+      window.scrollTo({ top: y, behavior: 'smooth' }); setTimeout(play, 650);
+    });
+  })();
+
   /* ---------- floating CTA: text follows the block being read ---------- */
   var MAP = [['.hero,.brief,.paths', 'Бесплатный аудит', '#quiz'], ['.situations', 'Узнать, что мешает заявкам', '#quiz'], ['.fit,.quote-band,.process-sec', 'Начать с аудита', '#quiz'],
     ['#seo', 'Разобрать мой SEO', '#lead'], ['.why,.founder', 'Обсудить мой проект', '#lead'], ['.trust', 'Оставить заявку', '#lead'], ['#pricing', 'Заказать услугу', '#lead'],

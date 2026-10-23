@@ -28,7 +28,7 @@
 <link rel="preload" href="fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="portrait-office.webp" as="image" fetchpriority="high">
-<link rel="stylesheet" href="site.css?v=b56886c4">
+<link rel="stylesheet" href="site.css?v=0b217350">
 </head>
 <body>
 
@@ -63,7 +63,7 @@
         <a href="#paths" class="btn btn-ghost">Бесплатные PDF</a>
         <div class="hero-tip">Аудит бесплатный, даже если мы не будем работать вместе</div>
       </div>
-      <div class="hero-video"><span class="dot">▶</span> Посмотреть, как проходит аудит</div> <div class="by">Автор: Давид Шатон · обновлено <time datetime="2026-09-27">27 сентября 2026 г.</time></div>
+      <div class="hero-video" role="button" tabindex="0" style="cursor:pointer"><span class="dot">▶</span> Смотреть видео, 1 минута</div> <div class="by">Автор: Давид Шатон · обновлено <time datetime="2026-09-27">27 сентября 2026 г.</time></div>
     </div>
     <div class="hero-photo-wrap cmp" id="cmp">
       <img class="hero-photo cmp-real" src="portrait-office.webp" alt="Давид Шатон" width="760" height="950" fetchpriority="high" draggable="false">
@@ -373,7 +373,7 @@
 
 <!-- TRUST -->
 <section class="trust wrap-section" data-scr="3">
-  <div class="wrap trust-grid">
+  <div class="wrap trust-grid vid-grid">
     <div>
       <div class="eyebrow" style="text-align:left;">почему мне доверяют</div>
       <h2>Работаю <span class="accent">открыто</span>, без обещаний вслепую</h2>
@@ -385,10 +385,7 @@
         <span>с контролем результата</span>
       </div>
     </div>
-    <div class="trust-video">
-      <div class="play-btn">▶</div>
-      <div class="lbl">Как проходит аудит — 2 мин</div>
-    </div>
+    <!--cv:video--><div class="vid-wrap"><div class="trust-video vid" id="landingVideo"><video controls playsinline preload="none" poster="video/landing-poster.webp" width="1280" height="720" aria-label="Видео: почему реклама не приносит заявок и как это исправить"><source src="video/landing.mp4" type="video/mp4"></video><button type="button" class="play-btn vid-play" aria-label="Смотреть видео">▶</button></div><div class="vid-cap">Видео 1 минута 10 секунд, субтитры внутри ролика</div><div class="vid-cta"><span>Узнайте, что мешает именно вам</span><a class="btn btn-primary" href="#quiz">Бесплатный аудит за 3 вопроса <span aria-hidden="true">→</span></a></div></div>
   </div>
 </section>
 
@@ -556,6 +553,6 @@
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="site.js?v=5ed44bf6"></script>
 <script src="pricing.js?v=5c431112" defer></script>
-<script src="leads.js?v=d1e331cb" defer></script>
+<script src="leads.js?v=4872caab" defer></script>
 </body>
 </html>
