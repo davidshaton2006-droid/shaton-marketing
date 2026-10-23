@@ -22,7 +22,7 @@
   function ctxData(ctx){
     var o = {};
     if (ctx === 'quiz' && window.__quizAnswers) { var a = window.__quizAnswers; o.niche = a[0] || ''; o.status = a[1] || ''; o.goal = a[2] || ''; }
-    if (ctx === 'calc') { o.check = $('#calcA') && $('#calcA').value; o.margin = $('#calcM') && $('#calcM').value; o.buy = $('#calcB') && $('#calcB').value; o.limit = $('#calcV') && $('#calcV').textContent; }
+    if (ctx === 'calc' && window.__calc) { var c = window.__calc(); if (c) Object.keys(c).forEach(function(k){ o[k] = c[k]; }); }
     return o;
   }
   document.addEventListener('submit', function(e){
@@ -49,19 +49,69 @@
     f.innerHTML = '<div class="qf-ok" role="status"><b>Заявка принята ✓</b><span>Отвечу лично в течение суток. Если удобнее сразу, напишите в Telegram.</span><a class="btn btn-outline-ember" href="' + TG + '" target="_blank" rel="noopener">Написать в Telegram</a></div>';
   }
 
-  /* ---------- calculator ---------- */
-  var A = $('#calcA'), M = $('#calcM'), B = $('#calcB');
-  if (A && M && B) {
-    var money = function(n){ return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); };
-    var lastV = '';
-    var upd = function(){
-      var a = +A.value, m = +M.value, b = +B.value, lim = a * (m / 100) * (b / 100);
-      $('#cvA').textContent = money(a); $('#cvM').textContent = m; $('#cvB').textContent = b;
-      var v = $('#calcV'), txt = money(lim) + ' ₽'; v.textContent = txt;
-      if (lastV !== txt) { v.classList.add('pop'); setTimeout(function(){ v.classList.remove('pop'); }, 220); lastV = txt; }
-      $('#calcT').textContent = 'Заявка дороже ' + money(lim) + ' ₽ уже на первой продаже приносит убыток. Прибыль с продажи: ' + money(a * m / 100) + ' ₽, покупают ' + b + ' из 100 заявок.';
+  /* ---------- calculator: unit economics of ads ---------- */
+  var cCheck = $('#cCheck');
+  var CALC_LAST = null;
+  if (cCheck) {
+    var num = function(id){ var v = parseFloat(String($(id).value).replace(/[^\d.,]/g, '').replace(',', '.')); return isFinite(v) ? v : 0; };
+    var rub = function(n){ var s = Math.round(Math.abs(n)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0'); return (n < 0 ? '\u2212' : '') + s + '\u00a0₽'; };
+    var sgn = function(n){ return (n > 0 ? '+' : n < 0 ? '\u2212' : '') + rub(Math.abs(n)); };
+    var pct = function(n){ return Math.round(n) + '%'; };
+    var set = function(id, txt, cls){ var el = $(id); if (el.textContent !== txt) { el.textContent = txt; if (el.tagName === 'B') { el.classList.add('pop'); setTimeout(function(){ el.classList.remove('pop'); }, 220); } } if (cls !== undefined) el.className = cls; };
+    var fmtInput = function(el){ var d = el.value.replace(/[^\d]/g, ''); el.value = d ? d.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : ''; };
+    var line = function(h, items){ return '<h4>' + h + '</h4>' + items.map(function(t){ return '<p>' + t + '</p>'; }).join(''); };
+
+    var calc = function(){
+      var check = num('#cCheck'), margin = Math.min(100, num('#cMargin')), budget = num('#cBudget'), leads = num('#cLeads'), conv = Math.min(100, num('#cConv')), rep = Math.max(1, num('#cRep') || 1);
+      var ok = check > 0 && margin > 0 && budget > 0 && leads > 0 && conv > 0;
+      var verdict = $('#coVerdict');
+      if (!ok) {
+        verdict.setAttribute('data-s', 'idle'); set('#coV1', 'Заполните все цифры'); set('#coV2', 'Нужны средний чек, маржа, бюджет, заявки и доля покупающих.');
+        ['#coCpl', '#coCac', '#coSales', '#coProfit'].forEach(function(id){ set(id, '—', ''); }); ['#coCplS', '#coCacS', '#coSalesS', '#coProfitS'].forEach(function(id){ set(id, ''); });
+        $('#coTodo').innerHTML = ''; $('#coIf').innerHTML = ''; CALC_LAST = null; return;
+      }
+      var c = conv / 100, ppc = check * (margin / 100) * rep;          // profit per client (before ads)
+      var cpl = budget / leads, sales = leads * c, cac = budget / sales;
+      var profit = sales * ppc - budget, roi = profit / budget;
+      var allowedCpl = ppc * c, allowedCac = ppc;                       // break-even
+      var needConv = Math.min(100, (cpl / ppc) * 100);                   // conversion that breaks even at the current price of a lead
+      var needCplDrop = cpl > allowedCpl ? (1 - allowedCpl / cpl) * 100 : 0;
+      set('#coCpl', rub(cpl)); set('#coCplS', 'допустимо до ' + rub(allowedCpl));
+      set('#coCac', rub(cac)); set('#coCacS', 'клиент приносит ' + rub(ppc) + (rep > 1 ? ' (за ' + rep + ' покупки)' : ''));
+      set('#coSales', (Math.round(sales * 10) / 10).toString().replace('.', ',')); set('#coSalesS', 'из ' + Math.round(leads) + ' заявок');
+      set('#coProfit', sgn(profit), profit >= 0 ? 'pos' : 'neg'); set('#coProfitS', 'окупаемость рекламы (ROI): ' + (roi >= 0 ? '+' : '\u2212') + pct(Math.abs(roi) * 100));
+      var s, h1, h2, todo = [];
+      if (profit < 0) {
+        s = 'loss'; h1 = 'Реклама работает в минус: ' + rub(profit) + ' в месяц';
+        h2 = 'Каждый клиент обходится в ' + rub(cac) + ', а приносит ' + rub(ppc) + '. Продажи есть, но деньги на рекламу не возвращаются.';
+        todo.push('<b>Заявка должна стоить не дороже ' + rub(allowedCpl) + '</b> (сейчас ' + rub(cpl) + '): нужно снизить цену заявки на ' + pct(needCplDrop) + '. Это настройки рекламы: минус-слова, площадки, объявления.');
+        if (needConv < 100) todo.push('<b>Или довести долю покупающих до ' + pct(needConv) + '</b> (сейчас ' + pct(conv) + ') при той же цене заявки. Это работа с ответом на заявки: скорость, скрипт, оффер.');
+        todo.push('<b>Или поднять прибыль с клиента</b>: допродажи, повторные покупки, чек. Если клиент берёт на ' + rub(cac - ppc) + ' больше, реклама выходит в ноль.');
+      } else if (roi < 0.3) {
+        s = 'thin'; h1 = 'В плюсе, но запас небольшой: ' + sgn(profit) + ' в месяц';
+        h2 = 'Реклама окупается, ROI ' + pct(roi * 100) + '. Заявка может подорожать до ' + rub(allowedCpl) + ' (на ' + pct((allowedCpl / cpl - 1) * 100) + ') и вы окажетесь в нуле.';
+        todo.push('<b>Не наращивайте бюджет сразу.</b> Сначала снижайте цену заявки или повышайте долю покупающих: прибыль вырастет без новых вложений.');
+        todo.push('<b>Следите за ценой заявки</b>: если она превысит ' + rub(allowedCpl) + ', реклама перестанет окупаться.');
+      } else {
+        s = 'good'; h1 = 'Реклама окупается с запасом: ' + sgn(profit) + ' в месяц';
+        h2 = 'ROI ' + pct(roi * 100) + '. Заявка может подорожать до ' + rub(allowedCpl) + ' (на ' + pct((allowedCpl / cpl - 1) * 100) + ') и реклама всё ещё не уйдёт в минус.';
+        todo.push('<b>Можно масштабировать</b>: увеличивайте бюджет шагами по 20–30% и смотрите, как меняется цена заявки.');
+        todo.push('<b>Проверьте мощности</b>: хватит ли людей отвечать на больший поток заявок за те же минуты, иначе доля покупающих упадёт.');
+      }
+      verdict.setAttribute('data-s', s); set('#coV1', h1); set('#coV2', h2);
+      $('#coTodo').innerHTML = line('Что делать', todo);
+      // what-if (same budget)
+      var p1 = (leads / 0.8) * c * ppc - budget, p2 = leads * Math.min(1, c + 0.05) * ppc - budget;
+      $('#coIf').innerHTML = line('Что изменится при том же бюджете', [
+        'Цена заявки ниже на 20%: ' + Math.round(leads / 0.8) + ' заявок вместо ' + Math.round(leads) + ', прибыль <b>' + sgn(p1) + '</b> (' + sgn(p1 - profit) + ' к текущей).',
+        'Доля покупающих выше на 5 пунктов (' + pct(Math.min(100, conv + 5)) + '): прибыль <b>' + sgn(p2) + '</b> (' + sgn(p2 - profit) + ' к текущей).'
+      ]);
+      CALC_LAST = { check: check, margin: margin, budget: budget, leads: leads, conv: conv, rep: rep, cpl: Math.round(cpl), cac: Math.round(cac), profit: Math.round(profit), verdict: s };
     };
-    [A, M, B].forEach(function(r){ r.addEventListener('input', upd); }); upd();
+    ['#cCheck', '#cBudget', '#cLeads'].forEach(function(id){ $(id).addEventListener('input', function(e){ fmtInput(e.target); calc(); }); });
+    ['#cMargin', '#cConv', '#cRep'].forEach(function(id){ $(id).addEventListener('input', function(e){ var v = e.target.value.replace(/[^\d]/g, '').slice(0, 3); if (id !== '#cRep' && +v > 100) v = '100'; if (id === '#cRep' && +v > 50) v = '50'; e.target.value = v; calc(); }); });
+    $('#cExample').addEventListener('click', function(){ $('#cCheck').value = '10 000'; $('#cMargin').value = '30'; $('#cBudget').value = '40 000'; $('#cLeads').value = '40'; $('#cConv').value = '15'; $('#cRep').value = '1'; calc(); });
+    calc(); window.__calc = function(){ return CALC_LAST; };
   }
 
   /* ---------- floating CTA: text follows the block being read ---------- */
