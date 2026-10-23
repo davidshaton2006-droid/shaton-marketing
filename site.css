@@ -229,6 +229,57 @@
   .plan li::before{content:"✓";color:var(--ember-2);flex:none;font-weight:700;}
   .plan .btn{margin-top:auto;justify-content:center;}
 
+  /* ===== SERVICE CARDS (prices) ===== */
+  .pricing-sub{text-align:center;color:var(--text-dim);font-size:14px;margin:-26px auto 34px;max-width:60ch;}
+  .svc-group{font-family:'Space Mono';font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ember-2);margin:34px 0 14px;display:flex;align-items:center;gap:12px;}
+  .svc-group::after{content:"";flex:1;height:1px;background:var(--line);}
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;align-items:stretch;}
+  .svc-grid.g-complex{grid-template-columns:1fr;}
+  .svc{position:relative;display:flex;flex-direction:column;gap:12px;padding:28px 24px 24px;border-radius:22px;border:1px solid var(--line);background:var(--surface);overflow:hidden;
+    opacity:0;transform:translateY(26px) scale(.98);transition:opacity .7s cubic-bezier(.2,.8,.2,1) calc(var(--i)*60ms),transform .7s cubic-bezier(.2,.8,.2,1) calc(var(--i)*60ms),box-shadow .3s,border-color .3s;}
+  .svc.in{opacity:1;transform:none;}
+  .svc::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(420px 220px at var(--mx,50%) var(--my,0%),rgba(255,46,147,.14),transparent 70%);}
+  .svc:hover{border-color:var(--ember-2);box-shadow:0 18px 40px -22px rgba(255,46,147,.55);transform:translateY(-4px);}
+  .svc:hover::before{opacity:1;}
+  .svc h4{font-size:18px;line-height:1.25;margin:0;}
+  .svc .sv-desc{margin:-4px 0 0;font-size:13.5px;color:var(--text-dim);}
+  .svc .sv-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .svc .sv-price b{font-family:'Space Mono';font-size:26px;color:var(--ember-2);font-weight:700;}
+  .svc .sv-price span{font-size:13px;color:var(--text-dim);}
+  .svc .sv-price em{font-style:normal;font-size:13px;color:var(--text-dim);margin-right:-2px;}
+  .svc .sv-term{display:inline-block;align-self:flex-start;padding:5px 12px;border-radius:500px;border:1px dashed var(--line);font-size:12.5px;color:var(--text-dim);}
+  .svc ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:var(--text-dim);}
+  .svc li{display:flex;gap:8px;}.svc li::before{content:"✓";color:var(--ember-2);flex:none;font-weight:700;}
+  .svc .sv-act{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap;padding-top:6px;}
+  .svc .sv-act .btn{flex:1 1 auto;justify-content:center;}
+  .svc .sv-more{flex:1 1 auto;min-height:44px;padding:0 18px;border-radius:500px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-weight:600;font-size:14px;cursor:pointer;transition:border-color .2s,background .2s;}
+  .svc .sv-more:hover{border-color:var(--ember-2);background:rgba(255,46,147,.08);}
+  .svc.flag{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .svc.flag .sv-desc,.svc.flag ul,.svc.flag .sv-term{color:var(--on-dark-dim);}
+  .svc.flag .sv-term{border-color:rgba(255,255,255,.25);}
+  .svc.flag .sv-more{border-color:rgba(255,255,255,.3);}
+  .svc.flag::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:conic-gradient(from var(--ang,0deg),rgba(255,46,147,.0),rgba(255,46,147,.9),rgba(255,46,147,0) 40%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:svSpin 6s linear infinite;}
+  @property --ang{syntax:'<angle>';initial-value:0deg;inherits:false;}
+  @keyframes svSpin{to{--ang:360deg;}}
+  .g-complex .svc ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 24px;}
+  .svc-extra{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .svx{display:flex;flex-direction:column;gap:6px;padding:18px 20px;border-radius:18px;border:1px solid var(--line);background:var(--surface);opacity:0;transform:translateY(18px);transition:opacity .6s calc(var(--i)*70ms),transform .6s calc(var(--i)*70ms),border-color .25s;}
+  .svx.in{opacity:1;transform:none;}.svx:hover{border-color:var(--ember-2);}
+  .svx b{font-size:15.5px;}.svx span{font-size:13.5px;color:var(--text-dim);}
+  .svc-dlg{width:min(720px,calc(100% - 24px));max-height:calc(100dvh - 40px);padding:0;border:0;border-radius:24px;background:var(--surface);color:var(--text,inherit);box-shadow:0 40px 90px -30px rgba(0,0,0,.6);}
+  .svc-dlg::backdrop{background:rgba(10,8,14,.55);backdrop-filter:blur(6px);}
+  .svc-dlg[open]{animation:svDlg .35s cubic-bezier(.2,.9,.3,1.1);}@keyframes svDlg{from{opacity:0;transform:translateY(24px) scale(.97);}}
+  .svc-dlg .dlg-in{padding:30px 28px 26px;max-height:calc(100dvh - 40px);overflow:auto;}
+  .svc-dlg h3{font-size:clamp(19px,3.2vw,24px);margin:0 36px 14px 0;line-height:1.25;}
+  .svc-dlg h4{font-size:15px;margin:20px 0 8px;color:var(--ember-2);}
+  .svc-dlg ul{margin:0 0 6px;padding-left:20px;display:flex;flex-direction:column;gap:7px;font-size:14px;line-height:1.5;}
+  .svc-dlg p{font-size:14px;line-height:1.55;}.svc-dlg .lead{color:var(--text-dim);}
+  .svc-dlg .sv-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);}
+  .svc-dlg .dlg-x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:20px;cursor:pointer;line-height:1;}
+  .svc-dlg .dlg-cta{display:flex;margin-top:16px;}.svc-dlg .dlg-cta .btn{flex:1;justify-content:center;}
+  @media (max-width:560px){ .svc{padding:24px 18px 20px;} .svc-dlg .dlg-in{padding:26px 18px 20px;} }
+  @media (prefers-reduced-motion:reduce){ .svc,.svx{opacity:1!important;transform:none!important;transition:none!important;} .svc.flag::after{animation:none;} .svc-dlg[open]{animation:none;} }
+
   /* ===== GIFT BANNER ===== */
   .gift{position:relative;background:linear-gradient(100deg,var(--ember-2),var(--ember));border-radius:24px;padding:44px 40px;color:#fff;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
   .gift h3{font-size:clamp(19px,2.4vw,26px);max-width:32ch;color:#fff;}

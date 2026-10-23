@@ -246,14 +246,14 @@
   });
 
   var TEXTS = $$('.eyebrow, p, li, details, .task, .quiz, .founder-photo, .quote-photo, .trust-video, .gift')
-    .filter(function(el){ return !el.closest('.hero,.phone,.stick,.cta-form,.q-result,.oc,.chip,.pp') && !el.closest(CARDS) && !el.querySelector('.hw') && !el.closest('.quote-card,.philosophy') || el.matches('.gift,.quiz,.founder-photo,.quote-photo,.trust-video'); });
+    .filter(function(el){ return !el.closest('.hero,.phone,.stick,.cta-form,.q-result,.oc,.chip,.pp,.svc,.svx') && !el.closest(CARDS) && !el.querySelector('.hw') && !el.closest('.quote-card,.philosophy') || el.matches('.gift,.quiz,.founder-photo,.quote-photo,.trust-video'); });
   TEXTS = TEXTS.filter(function(el, i, arr){ return arr.indexOf(el) === i; });
   TEXTS.forEach(function(el){ gsap.set(el, { autoAlpha: 0, y: 28 }); });
   ScrollTrigger.batch(TEXTS, { start: 'top 92%', once: true, onEnter: function(b){
     gsap.to(b, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.07, ease: 'power3.out' });
   } });
 
-  var btns = $$('.btn').filter(function(el){ return !el.closest('.hero,.q-step,.q-result,.pp'); });
+  var btns = $$('.btn').filter(function(el){ return !el.closest('.hero,.q-step,.q-result,.pp,.svc'); });
   btns.forEach(function(el){ gsap.set(el, { autoAlpha: 0, scale: 0.85 }); });
   ScrollTrigger.batch(btns, { start: 'top 94%', once: true, onEnter: function(b){
     gsap.to(b, { autoAlpha: 1, scale: 1, duration: 0.7, stagger: 0.08, ease: 'back.out(1.8)' });
