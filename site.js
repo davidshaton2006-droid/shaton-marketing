@@ -87,23 +87,27 @@
   var orbitPanel = $('.stick-orbit .panel');
   if (orbitPanel) {
     var NODES = [
-      { t: 'Авито',  d: 'Оформляю профиль и объявления и слежу за алгоритмом, чтобы вас находили выше конкурентов и клиенты писали сами' },
-      { t: 'Директ', d: 'Настраиваю рекламу в Яндексе на тех, кто уже ищет вашу услугу, и слежу, чтобы бюджет не сливался' },
-      { t: 'Сайт',   d: 'Делаю сайты и приложения, которые превращают посетителей в заявки, а не просто выглядят красиво' },
-      { t: 'SEO',    d: 'Чтобы клиенты находили вас в поиске сами, даже когда реклама выключена' },
-      { t: 'SMM',    d: 'Веду контент и Reels, которые приводят клиентов, а не просто собирают лайки' }
+      { t: 'Директ',     d: 'Настраиваю рекламу в Яндексе на тех, кто уже ищет вашу услугу, и слежу, чтобы бюджет не сливался' },
+      { t: 'Авито',      d: 'Оформляю профиль и объявления и слежу за алгоритмом, чтобы вас находили выше конкурентов' },
+      { t: 'Лендинги',   d: 'Делаю сайты под задачу: от смысла и текстов до запуска и заявок' },
+      { t: 'Магазины',   d: 'Интернет-магазины с каталогом, оплатой, интеграциями и аналитикой' },
+      { t: 'Боты',       d: 'Telegram-боты и мини-приложения с воронками, оплатой и админкой' },
+      { t: 'Приложения', d: 'Приложения под вашу задачу и любой запрос, стоимость по договорённости' },
+      { t: 'SEO',        d: 'Чтобы клиенты находили вас в поиске сами, даже когда реклама выключена' },
+      { t: 'Автоответы', d: 'Автоматизация: ни одна заявка не потеряется, всё доходит до вас вовремя' },
+      { t: 'Карты',      d: 'Карты и отзывы: чтобы выбирали вас, а не соседа' }
     ];
-    var ALL = { t: 'Один человек', d: 'Все пять направлений — в одной голове, без потери контекста' };
+    var ALL = { t: 'Один человек', d: 'Все девять направлений — в одной голове, без потери контекста' };
     var NS = 'http://www.w3.org/2000/svg';
     var mk = function(n, a, p){ var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
     var spin = $('.spin', orbitPanel), R = 130, nodes = [];
     NODES.forEach(function(n, i){
-      var a = (-90 + i * 72) * Math.PI / 180, x = R * Math.cos(a), y = R * Math.sin(a), len = R;
+      var a = (-90 + i * (360 / NODES.length)) * Math.PI / 180, x = R * Math.cos(a), y = R * Math.sin(a), len = R;
       mk('line', { x1: 0, y1: 0, x2: x, y2: y, stroke: 'rgba(255,120,160,.4)', 'stroke-width': 1.2, 'stroke-dasharray': '2 5' }, spin);
       var line = mk('line', { x1: 0, y1: 0, x2: x, y2: y, stroke: '#ff2e93', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-dasharray': len, 'stroke-dashoffset': len }, spin);
       var ni = mk('g', {}, spin);
-      var c = mk('circle', { cx: x, cy: y, r: 35, fill: '#2a2724', stroke: 'rgba(255,255,255,.18)' }, ni);
-      var tx = mk('text', { x: x, y: y, 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: '#fff', 'font-family': 'Montserrat', 'font-weight': 700, 'font-size': 12.5 }, ni);
+      var c = mk('circle', { cx: x, cy: y, r: 33, fill: '#2a2724', stroke: 'rgba(255,255,255,.18)' }, ni);
+      var tx = mk('text', { x: x, y: y, 'text-anchor': 'middle', 'dominant-baseline': 'central', fill: '#fff', 'font-family': 'Montserrat', 'font-weight': 700, 'font-size': 10.5 }, ni);
       tx.textContent = n.t;
       nodes.push({ line: line, ni: ni, c: c, x: x, y: y, len: len });
     });
@@ -121,13 +125,13 @@
       var all = v === 'all', info = all ? ALL : NODES[v];
       nodes.forEach(function(n, i){
         var on = all || i === v;
-        gsap.to(n.c, { attr: { r: (on && !all) ? 42 : 35 }, fill: on ? '#ff2e93' : '#2a2724', duration: 0.5 * D, ease: 'back.out(2)', overwrite: 'auto' });
+        gsap.to(n.c, { attr: { r: (on && !all) ? 40 : 33 }, fill: on ? '#ff2e93' : '#2a2724', duration: 0.5 * D, ease: 'back.out(2)', overwrite: 'auto' });
         gsap.to(n.ni, { opacity: on ? 1 : 0.4, duration: 0.4 * D, overwrite: 'auto' });
         gsap.to(n.line, { strokeDashoffset: on ? 0 : n.len, duration: 0.7 * D, ease: 'power2.out', overwrite: 'auto' });
       });
       oT.textContent = info.t; oP.textContent = info.d;
       gsap.fromTo([oT, oP], { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5 * D, stagger: 0.08 * D, ease: 'power3.out', overwrite: 'auto' });
-      setDots(orbitPanel, all ? 2 : [0, 1, 3, 4, 5][v]);
+      setDots(orbitPanel, all ? 2 : ([0, 1, 3, 4, 5][v] == null ? 5 : [0, 1, 3, 4, 5][v]));
     }
     setNode('all'); setDots(orbitPanel, 0);
 
