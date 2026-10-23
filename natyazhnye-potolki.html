@@ -28,7 +28,7 @@
 <link rel="preload" href="fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="portrait-office.webp" as="image" fetchpriority="high">
-<link rel="stylesheet" href="site.css?v=1f0a4d88">
+<link rel="stylesheet" href="site.css?v=8b8367b3">
 </head>
 <body>
 
@@ -92,20 +92,6 @@
       <span class="wg-tag">Брифинг</span>
       <h2>Продвижение натяжных потолков: что это и как начать?</h2>
       <p class="wg-lead">Продвижение натяжных потолков — это оформление, реклама и сайт, которые приводят заявки на бесплатный замер. Вы получаете: больше записей на замер, выделение среди конкурентов, понятную стоимость заявки. Как начать: оставьте заявку на бесплатный аудит, я разберу ваш профиль, сайт или рекламу, скажу, что мешает получать заявки, и предложу формат работы. Ответ приходит в течение суток. Аудит бесплатный, даже если мы не будем работать вместе.</p>
-    </div>
-  </div>
-</section>
-<section class="wg" id="why-gta">
-  <div class="wrap">
-    <div class="wg-head">
-      <span class="wg-tag">Подсказка</span>
-      <h2>Почему этот сайт выглядит как из GTA?</h2>
-      <p class="wg-lead">Большинство сайтов в моей нише похожи друг на друга: серые блоки, «команда экспертов», стоковые фото. Их не запоминают. Я сделал иначе, и то же самое делаю с вашими объявлениями и рекламой: чтобы вас замечали в выдаче, а не пролистывали.</p>
-    </div>
-    <div class="wg-grid">
-      <div class="wg-card"><span class="wg-n">Миссия 01</span><h3>Выделиться</h3><p>Игру знают почти все, поэтому такой сайт запоминается с первого взгляда. Так же должно запоминаться и ваше объявление.</p></div>
-      <div class="wg-card"><span class="wg-n">Миссия 02</span><h3>Показать, а не рассказать</h3><p>Анимации, интерактивная орбита, форма заявки: это моя разработка, а не шаблон конструктора.</p></div>
-      <div class="wg-card"><span class="wg-n">Миссия 03</span><h3>Всерьёз под неоном</h3><p>Стиль игровой, работа нет: честный аудит, прозрачная отчётность, один человек ведёт проект лично.</p></div>
     </div>
   </div>
 </section>
@@ -181,11 +167,62 @@
   </div>
 </section>
 
+<!--cv:quiz-->
+<section id="audit" class="wrap-section">
+  <div class="wrap">
+    <div class="gift">
+      <svg class="confetti" width="30" height="30" style="top:10%;right:20%;background:#fff;"></svg>
+      <svg class="confetti" width="18" height="18" style="bottom:15%;right:35%;background:#fff;"></svg>
+      <svg class="confetti" width="14" height="14" style="top:30%;right:10%;background:#fff;"></svg>
+      <div>
+        <h3>Ответьте на 3 вопроса — запишу видео-разбор вашей ниши</h3>
+        <p>Займёт меньше минуты. Разбор пришлю в течение суток.</p>
+      </div>
+      <a href="#quiz" class="btn btn-primary">Получить разбор</a>
+    </div>
+
+    <div class="quiz" id="quiz">
+      <div class="quiz-progress"><i data-bar="0" class="done"></i><i data-bar="1"></i><i data-bar="2"></i></div>
+
+      <div class="q-step active" data-step="0">
+        <h3>1. В какой сфере работаете?</h3>
+        <button class="opt" type="button">Жильё / аренда</button>
+        <button class="opt" type="button">Недвижимость</button>
+        <button class="opt" type="button">Услуги</button>
+        <button class="opt" type="button">Товары</button>
+        <button class="opt" type="button">B2B</button>
+        <div class="q-nav"><span></span><button class="btn btn-primary next" type="button" disabled>Далее</button></div>
+      </div>
+
+      <div class="q-step" data-step="1">
+        <h3>2. Что сейчас с Авито / рекламой?</h3>
+        <button class="opt" type="button">Есть профиль или кампания</button>
+        <button class="opt" type="button">Начинаю с нуля</button>
+        <div class="q-nav"><button class="btn btn-ghost back" type="button">Назад</button><button class="btn btn-primary next" type="button" disabled>Далее</button></div>
+      </div>
+
+      <div class="q-step" data-step="2">
+        <h3>3. Что важнее сейчас?</h3>
+        <button class="opt" type="button">Больше заявок</button>
+        <button class="opt" type="button">Стабильность</button>
+        <button class="opt" type="button">Разбор, почему не работает</button>
+        <div class="q-nav"><button class="btn btn-ghost back" type="button">Назад</button><button class="btn btn-primary finish" type="button" disabled>Готово</button></div>
+      </div>
+
+      <div class="q-result">
+        <h3>Готово.</h3>
+        <p>Последний шаг: куда прислать разбор вашей ниши? Оставьте телефон, и я пришлю его в течение суток.</p><form class="qf" data-ctx="quiz" novalidate><div class="qf-row"><label class="qf-f"><span>Телефон <i>*</i></span><input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><label class="qf-f qf-c"><span>Комментарий <em>(необязательно)</em></span><input type="text" name="comment" maxlength="300" placeholder="Что сейчас с Авито, рекламой или сайтом"></label></div><input type="text" name="website" class="qf-hp" tabindex="-1" autocomplete="off" aria-hidden="true"><label class="qf-consent"><input type="checkbox" name="consent"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a></span></label><button class="btn btn-primary" type="submit">Получить разбор <span aria-hidden="true">→</span></button><div class="qf-status" role="status" aria-live="polite"></div></form>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FIT -->
 <section class="fit wrap-section" data-node="1">
   <div class="wrap">
     <h2>Почему в нише сложно получать заявки?</h2>
     <div class="fit-grid"><div class="fit-card"><h3>Сравнение по цене</h3><p>Клиенты сравнивают цену за квадратный метр и не видят разницы между компаниями.</p></div><div class="fit-card"><h3>Быстрое решение</h3><p>Решение принимается быстро, и побеждает тот, кто ответил и приехал первым.</p></div><div class="fit-card"><h3>Нет доверия</h3><p>Без фото реальных объектов доверия мало: клиент боится испортить ремонт.</p></div><div class="fit-card"><h3>Похожие предложения</h3><p>Много компаний используют одни и те же картинки и тексты, и вас не различают.</p></div></div>
+  <!--cv:mcta--><div class="mcta"><a class="btn btn-outline-ember" href="#quiz">Начните с бесплатного аудита <span aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
@@ -206,10 +243,14 @@
   <div class="wrap">
     <h2>Как я работаю с потолками</h2>
     <div class="proc-grid"><div class="proc-card filled"><div><span class="proc-step-tag">Миссия 01</span><h3>Показываю работы</h3><p>Оформление с фото реальных объектов, видами потолков и цветами, а не общими стоковыми картинками.</p></div></div><div class="proc-card outline"><div><span class="proc-step-tag">Миссия 02</span><h3>Объясняю цену</h3><p>Понятный расчёт «от чего зависит стоимость», чтобы клиент не отсеивался на первой цифре.</p></div></div><div class="proc-card filled"><div><span class="proc-step-tag">Миссия 03</span><h3>Делаю замер целью</h3><p>Каждое объявление и страница ведут к записи на бесплатный замер.</p></div></div><div class="proc-card outline"><div><span class="proc-step-tag">Миссия 04</span><h3>Настраиваю рекламу</h3><p>Запросы вроде «натяжные потолки цена» и «заказать натяжной потолок» в Яндекс Директе.</p></div></div><div class="proc-card filled" style="grid-column:1/-1;"><div><span class="proc-step-tag">Финал</span><h3>Ускоряю ответ</h3><p>Сценарии быстрых ответов и напоминаний, чтобы клиент не ушёл к тому, кто ответил раньше.</p></div></div></div>
+  <!--cv:mcta--><div class="mcta"><a class="btn btn-outline-ember" href="#quiz">Начать с бесплатного аудита <span aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
 <section class="figs-sec wrap-section"><div class="wrap"><h2>Примеры оформления</h2><div class="figs"><figure><img src="pf/c3.webp" alt="Обложка для Авито: натяжные потолки и поток заявок" width="640" height="640" loading="lazy" decoding="async"><figcaption>Обложка для Авито: натяжные потолки и поток заявок</figcaption></figure></div><p class="figs-more">Больше работ в <a href="portfolio.html">полном портфолио</a>.</p></div></section>
+
+<!--cv:calc-->
+<section id="calc" class="calc wrap-section"><div class="wrap"><div class="eyebrow">калькулятор</div><h2>Сколько можно платить за заявку, чтобы остаться в плюсе</h2><p class="lead-sub">Три цифры о вашем бизнесе: покажу ориентир, дороже которого заявку брать нельзя.</p><div class="calc-grid"><div class="calc-in"><label class="cf"><span>Средний чек, ₽ <b id="cvA">10 000</b></span><input type="range" id="calcA" min="500" max="200000" step="500" value="10000"></label><label class="cf"><span>Маржа, % <b id="cvM">30</b></span><input type="range" id="calcM" min="5" max="90" step="1" value="30"></label><label class="cf"><span>Из 100 заявок покупают <b id="cvB">20</b></span><input type="range" id="calcB" min="1" max="100" step="1" value="20"></label></div><div class="calc-out"><div class="co-k">Допустимая цена заявки</div><div class="co-v" id="calcV">600 ₽</div><p class="co-t" id="calcT"></p><p class="co-n">Ориентир без учёта повторных продаж и постоянных расходов.</p><form class="qf" data-ctx="calc" novalidate><div class="qf-h"><b>Хотите точнее?</b><span>Оставьте телефон: посчитаю по вашей нише и цифрам.</span></div><div class="qf-row"><label class="qf-f"><span>Телефон <i>*</i></span><input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><label class="qf-f qf-c"><span>Комментарий <em>(необязательно)</em></span><input type="text" name="comment" maxlength="300" placeholder="Что сейчас с Авито, рекламой или сайтом"></label></div><input type="text" name="website" class="qf-hp" tabindex="-1" autocomplete="off" aria-hidden="true"><label class="qf-consent"><input type="checkbox" name="consent"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a></span></label><button class="btn btn-primary" type="submit">Пересчитайте для моей ниши <span aria-hidden="true">→</span></button><div class="qf-status" role="status" aria-live="polite"></div></form></div></div></div></section>
 
 <!-- EXPERIENCE -->
 <section id="results" class="experience wrap-section" data-node="all">
@@ -323,36 +364,13 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testi wrap-section" data-scr="1">
-  <div class="wrap">
-    <h2>Отзывы клиентов</h2>
-    <div class="testi-track">
-      <div class="testi-card"><div class="stars">★★★★★</div><h4>[Имя клиента]</h4><div class="role">[компания]</div><p>«[Здесь появится реальная цитата клиента о совместной работе]»</p></div>
-      <div class="testi-card"><div class="stars">★★★★★</div><h4>[Имя клиента]</h4><div class="role">[компания]</div><p>«[Отзыв появится после первых завершённых проектов — не заполняю вымышленными именами]»</p></div>
-      <div class="testi-card"><div class="stars">★★★★★</div><h4>[Имя клиента]</h4><div class="role">[компания]</div><p>«[Место под ваш будущий отзыв]»</p></div>
-    </div>
-  </div>
-</section>
-
 <!-- LEAD FORM -->
 <section id="lead" class="lead wrap-section" data-scr="2">
   <div class="wrap">
     <div class="eyebrow">заявка</div>
     <h2>Оставьте заявку — разберу ваш проект</h2>
-    <p class="lead-sub">Отвечу лично в течение суток. Заявка собирается у меня на экране прямо пока вы заполняете форму.</p>
-    <form class="lead-form" id="leadForm" novalidate>
-      <div class="lf-row">
-        <div class="fld"><label for="lf-name">Как к вам обращаться</label><input id="lf-name" name="name" type="text" autocomplete="name" placeholder="Имя"></div>
-        <div class="fld"><label for="lf-contact">Telegram или телефон</label><input id="lf-contact" name="contact" type="text" autocomplete="tel" placeholder="@username или +7"></div>
-      </div>
-      <fieldset class="fld"><legend>Ваша сфера</legend><div class="chips-row" data-key="niche"><button type="button" class="opt-chip">Жильё / аренда</button><button type="button" class="opt-chip">Недвижимость</button><button type="button" class="opt-chip">Услуги</button><button type="button" class="opt-chip">Товары</button><button type="button" class="opt-chip">B2B</button></div></fieldset>
-      <fieldset class="fld"><legend>Что важнее сейчас</legend><div class="chips-row" data-key="goal"><button type="button" class="opt-chip">Больше заявок</button><button type="button" class="opt-chip">Стабильность</button><button type="button" class="opt-chip">Разбор, почему не работает</button></div></fieldset>
-      <div class="fld"><label for="lf-msg">Коротко о задаче <span class="opt">(необязательно)</span></label><textarea id="lf-msg" name="msg" rows="3" placeholder="Что сейчас с Авито, рекламой или сайтом"></textarea></div>
-      <label class="consent-l"><input type="checkbox" id="lf-consent"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a></span></label>
-      <button class="btn btn-primary" type="submit">Отправить заявку <span aria-hidden="true">→</span></button>
-      <div class="lead-status" id="leadStatus" role="status" aria-live="polite"></div>
-    </form>
+    <p class="lead-sub">Отвечу лично в течение суток. Аудит бесплатный, даже если мы не будем работать вместе.</p>
+    <!--cv:lead--><form class="qf" data-ctx="lead" novalidate><div class="qf-row"><label class="qf-f"><span>Телефон <i>*</i></span><input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><label class="qf-f qf-c"><span>Комментарий <em>(необязательно)</em></span><input type="text" name="comment" maxlength="300" placeholder="Что сейчас с Авито, рекламой или сайтом"></label></div><input type="text" name="website" class="qf-hp" tabindex="-1" autocomplete="off" aria-hidden="true"><label class="qf-consent"><input type="checkbox" name="consent"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a></span></label><button class="btn btn-primary" type="submit">Отправить заявку <span aria-hidden="true">→</span></button><div class="qf-status" role="status" aria-live="polite"></div></form>
   </div>
 </section>
 
@@ -385,13 +403,13 @@
     <h3 class="svc-group">Авито</h3>
     <div class="svc-grid g-avito">
 <article class="svc full-list" style="--i:0" data-sv="avito1">
-  <h4>Одноразовая настройка Авито</h4>
+  <span class="sv-badge">Для старта</span><h4>Одноразовая настройка Авито</h4>
   <div class="sv-price"><b>10 000 ₽</b><span>за всё вместе</span></div><div class="sv-term">Срок работы: до 3 дней</div>
   <ul><li>Упаковка профиля</li><li>Аудит по конкурентам и прошлым результатам</li><li>Настройка SEO-описания и фотографий для объявлений: 2 версии для тестирования</li><li>Разработка стратегии продвижения</li><li>Одноразовая настройка рекламы</li></ul>
   <div class="sv-act"><a href="#lead" class="btn btn-outline-ember">Заказать</a></div>
 </article>
 <article class="svc flag full-list" style="--i:1" data-sv="avito2">
-  <h4>Ежемесячное ведение Авито</h4><p class="sv-desc">Всё из одноразовой настройки (без доплаты за первичную настройку) и дополнительно:</p>
+  <span class="sv-badge">Для постоянной работы</span><h4>Ежемесячное ведение Авито</h4><p class="sv-desc">Всё из одноразовой настройки (без доплаты за первичную настройку) и дополнительно:</p>
   <div class="sv-price"><em>в среднем</em><b>25 000 ₽</b><span>в месяц</span></div><div class="sv-term">Возможна оплата за % с продаж</div>
   <ul><li>Ежемесячное отслеживание статистики</li><li>А/Б тестирование</li><li>Работа на понижение рекламного бюджета и повышение количества заявок</li><li>Изменение стратегии в зависимости от сезонности, алгоритмов Авито и результатов тестирования</li><li>Разработка и обновление инфографики</li><li>Постинг</li><li>Подготовка еженедельных и ежемесячных отчётов с ключевыми показателями</li></ul>
   <div class="sv-act"><a href="#lead" class="btn btn-primary">Заказать</a></div>
@@ -400,13 +418,13 @@
     <h3 class="svc-group">Яндекс Директ</h3>
     <div class="svc-grid g-direct">
 <article class="svc" style="--i:2" data-sv="direct1">
-  <h4>Одноразовая настройка Яндекс Директа</h4><p class="sv-desc">Рабочая рекламная система под вашу нишу</p>
+  <span class="sv-badge">Для старта</span><h4>Одноразовая настройка Яндекс Директа</h4><p class="sv-desc">Рабочая рекламная система под вашу нишу</p>
   <div class="sv-price"><b>15 000 ₽</b><span>за всё вместе</span></div><div class="sv-term">Срок работы: до 7 дней</div>
   <ul><li>Анализ продукта, конкурентов, аудитории и посадочной</li><li>Аналитика и семантическое ядро</li><li>Кампании, тексты и визуалы для РСЯ</li><li>Геотаргетинг, расписание, стратегия и лимиты</li></ul>
   <div class="sv-act"><a href="#lead" class="btn btn-outline-ember">Заказать</a><button type="button" class="sv-more" data-svc="direct1" aria-haspopup="dialog">Узнать подробнее</button></div>
 </article>
 <article class="svc flag" style="--i:3" data-sv="direct2">
-  <h4>Ежемесячное ведение Яндекс Директа</h4><p class="sv-desc">Всё из одноразовой настройки и постоянная оптимизация</p>
+  <span class="sv-badge">Для постоянной работы</span><h4>Ежемесячное ведение Яндекс Директа</h4><p class="sv-desc">Всё из одноразовой настройки и постоянная оптимизация</p>
   <div class="sv-price"><em>в среднем</em><b>30 000 ₽</b><span>в месяц</span></div><div class="sv-term">Без доплаты за первичную настройку</div>
   <ul><li>Минусация и чистка трафика, чистка площадок РСЯ</li><li>А/В тестирование картинок, офферов и заголовков</li><li>Управление стратегиями и бюджетом</li><li>Масштабирование и глубокая аналитика (CPL, ROI)</li></ul>
   <div class="sv-act"><a href="#lead" class="btn btn-primary">Заказать</a><button type="button" class="sv-more" data-svc="direct2" aria-haspopup="dialog">Узнать подробнее</button></div>
@@ -436,7 +454,7 @@
     <h3 class="svc-group">Комплексно</h3>
     <div class="svc-grid g-complex">
 <article class="svc flag" style="--i:7" data-sv="complex">
-  <h4>Комплексное ведение рекламы по любым направлениям</h4><p class="sv-desc">Все каналы привлечения клиентов под одним управлением: Авито, Яндекс Директ, SEO, карты и другие</p>
+  <span class="sv-badge">Для нескольких каналов сразу</span><h4>Комплексное ведение рекламы по любым направлениям</h4><p class="sv-desc">Все каналы привлечения клиентов под одним управлением: Авито, Яндекс Директ, SEO, карты и другие</p>
   <div class="sv-price"><em>от</em><b>50 000 ₽</b><span>в месяц</span></div><div class="sv-term">Комплект любых направлений</div>
   <ul><li>Один ответственный и единая стратегия вместо разрозненных подрядчиков</li><li>Бюджет перераспределяется между каналами туда, где заявка обходится дешевле</li><li>Сквозная аналитика: от показа до заявки и продажи в одном отчёте</li><li>Быстрая реакция: правки в рекламе, объявлениях и сайте без цепочки согласований</li></ul>
   <div class="sv-act"><a href="#lead" class="btn btn-primary">Заказать</a><button type="button" class="sv-more" data-svc="complex" aria-haspopup="dialog">Узнать подробнее</button></div>
@@ -452,56 +470,9 @@
     <div class="svc-tpls" hidden><template id="svt-direct1"><h3>Одноразовая настройка Яндекс Директа</h3><p class="lead">Что входит в услугу</p><ul><li>Анализ продукта, конкурентов, целевой аудитории и конверсионности посадочной страницы</li><li>Настройка аналитики</li><li>Сбор семантического ядра</li><li>Сборка рекламных кампаний</li><li>Написание релевантных заголовков и текстов</li><li>Подбор визуалов для РСЯ</li><li>Заполнение всех расширений</li><li>Настройка геотаргетинга и расписания показов</li><li>Выбор стратегии (ручная или автоматическая)</li><li>Установка дневных и недельных лимитов</li></ul><p class="sv-foot"><b>За всё вместе 15 000 ₽. Срок работы: до 7 дней.</b></p></template><template id="svt-direct2"><h3>Ежемесячное ведение Яндекс Директа</h3><p class="lead">Ежемесячное ведение включает (без доплаты за первичную настройку): всё из одноразовой настройки и дополнительно</p><ul><li><b>Минусация и чистка трафика:</b> ежедневный или еженедельный парсинг реальных поисковых запросов пользователей и добавление нового мусора в минус-фразы (чтобы исключить слив бюджета).</li><li><b>Чистка площадок РСЯ:</b> мониторинг сайтов и мобильных приложений, где показывается реклама, и блокировка тех, которые дают высокий процент отказов или дорогие клики без конверсий.</li><li><b>А/В тестирование:</b> постоянный тест новых картинок, офферов и заголовков на замену тем, которые выгорают, теряют CTR или дают слишком дорогие заявки.</li><li><b>Управление стратегиями:</b> обучение алгоритмов Яндекса, смена стратегий (например, переход с «Максимума кликов» на «Оплату за конверсии» после накопления статистики), перераспределение бюджета в пользу самых маржинальных связок.</li><li><b>Масштабирование:</b> добавление новых сегментов аудиторий (look-alike), расширение семантики, запуск новых направлений или акционных предложений.</li><li><b>Глубокая аналитика:</b> контроль стоимости лида (CPL), отслеживание окупаемости (ROI), подготовка ежемесячного отчёта и плана корректировок.</li></ul><p class="sv-foot"><b>За всё вместе в среднем 30 000 ₽ в месяц.</b></p></template><template id="svt-landing"><h3>Создание лендинга</h3><p class="lead">Создание лендинга по любым запросам</p><h4>Маркетинговая архитектура и смыслы</h4><ul><li><b>Анализ ниши:</b> изучение целевой аудитории, конкурентов и самого продукта.</li><li><b>Прототипирование (wireframing):</b> разработка структуры посадочной страницы, выстраивание логики блоков и воронки захвата внимания.</li><li><b>Продающий копирайтинг:</b> написание текстов, формулирование УТП, офферов и призывов к действию (CTA), которые бьют в боли аудитории.</li><li><b>Визуальная концепция:</b> подбор референсов, шрифтовых пар и разработка стилистики.</li></ul><h4>Дизайн и адаптивность</h4><ul><li><b>Адаптивность:</b> отрисовка и проверка макетов для десктопа, планшетов и мобильных устройств (mobile first).</li><li><b>UI-ассеты и анимация:</b> оптимизация графики, создание кастомных иконок и проектирование микроинтеракций (например, плавные появления элементов через GSAP).</li></ul><h4>SEO-основа и скорость</h4><ul><li><b>Мета-теги:</b> прописывание релевантных Title и Description для правильного отображения в поисковой выдаче и красивых сниппетов при репосте в мессенджерах.</li><li><b>Семантическая разметка:</b> строгая иерархия заголовков (H1–H6) и атрибуты alt у изображений.</li><li><b>Техническое SEO:</b> файлы sitemap.xml и robots.txt, микроразметка Open Graph, фавиконы (в том числе WebClip для Apple).</li><li><b>Скорость загрузки:</b> сжатие медиафайлов и минификация кода для высоких баллов в Google PageSpeed Insights.</li></ul><h4>Аналитика и заявки</h4><ul><li><b>Счётчики:</b> установка и базовая настройка Яндекс Метрики и Google Analytics (или пикселей соцсетей).</li><li><b>Настройка целей:</b> разметка всех конверсионных действий (отправка формы, клик по номеру телефона, переход в мессенджер).</li><li><b>Маршрутизация лидов:</b> настройка API для моментальной передачи заявок с сайта, например синхронизация форм напрямую с Telegram-ботом клиента или интеграция с CRM-системой.</li></ul><h4>Запуск и безопасность</h4><ul><li><b>Домен и хостинг:</b> помощь в регистрации доменного имени, прописывание DNS-записей и деплой проекта на облачные платформы (например, Vercel, Render) или классический хостинг.</li><li><b>Безопасность:</b> выпуск и подключение бесплатного или платного SSL-сертификата (перевод сайта на защищённый протокол HTTPS).</li><li><b>Юридическая база:</b> размещение ссылок на политику конфиденциальности, пользовательское соглашение и настройка плашки согласия на обработку cookies (обязательно для форм сбора контактов).</li></ul><p class="sv-foot"><b>Стоимость: от 15 000 ₽. Срок: от 2 до 7 дней.</b></p></template><template id="svt-shop"><h3>Создание интернет-магазина</h3><h4>1. Проектирование и логика каталога</h4><ul><li>Архитектура базы данных: иерархия категорий, подкатегорий и система фильтрации (по цене, бренду, характеристикам).</li><li>Сценарии пользователя (CJM): бесшовный путь клиента от главной страницы до успешной оплаты.</li><li>Прототипирование: структура ключевых страниц: главная, листинг товаров, карточка товара, корзина, страница оформления заказа (checkout) и личный кабинет.</li></ul><h4>2. Дизайн и визуальная упаковка</h4><ul><li>Концепция и UI: уникальный визуальный стиль под продукт, от светлого минимализма до строгого дарк-дизайна с высококонтрастными акцентами и сложной типографикой.</li><li>Карточка товара: галерея изображений, блок с ценой (старая и новая), переключатели вариаций (размер, цвет), отзывы и блок кросс-сейла («С этим товаром покупают»).</li><li>Адаптивная вёрстка: mobile first, так как более 70–80% e-commerce трафика идёт с мобильных устройств.</li><li>Анимации: микроинтеракции для кнопок, ховеров и плавного появления элементов (например, на GSAP) для повышения вовлечённости.</li></ul><h4>3. Бэкенд и техническая разработка</h4><ul><li>Управление товарами: логика добавления, редактирования и удаления товаров на сервере (например, через Node.js или интеграцию с базами данных вроде Firebase).</li><li>Корзина и checkout: подсчёт итоговой стоимости, промокоды, скидки от объёма и расчёт стоимости доставки.</li><li>Личный кабинет: авторизация пользователей, история заказов, избранное (wishlist) и статусы доставки.</li></ul><h4>4. Коммерческие интеграции</h4><ul><li>Платёжные шлюзы: интернет-эквайринг (например, CloudPayments, ЮKassa) и система быстрых платежей (СБП) для приёма оплаты картами прямо на сайте.</li><li>Уведомления: автоматическая отправка заявок и статусов заказов менеджеру и клиенту на email или в Telegram-бота.</li><li>Склад и CRM: базовая интеграция с учётными системами (МойСклад, 1С) для синхронизации остатков и цен, передача лидов в CRM (amoCRM, Bitrix24).</li></ul><h4>5. SEO для e-commerce и аналитика</h4><ul><li>Динамическое SEO: автоматическая генерация мета-тегов (Title, Description) для тысяч страниц товаров по шаблону.</li><li>Микроразметка: Schema.org (Product, Offer, Breadcrumbs), чтобы в поисковой выдаче подтягивались цены, рейтинг товара и статус «В наличии».</li><li>E-commerce аналитика: расширенная электронная коммерция в Яндекс Метрике для отслеживания брошенных корзин, воронки оформления заказа и дохода по каждому источнику трафика.</li></ul><h4>6. Инфраструктура и релиз</h4><ul><li>Серверная часть: подготовка репозиториев (GitHub), настройка хостинга или деплой на облачные платформы (Vercel, Render) для скорости и стабильности при наплыве трафика.</li><li>Тестирование: проверка процесса покупки тестовыми картами, проверка нагрузки и скорости загрузки страниц.</li><li>Обучение клиента: передача доступов, инструкции по добавлению новых товаров и работе с заказами.</li></ul><p class="sv-foot"><b>Стоимость: от 20 000 ₽. Срок: от 5 дней.</b></p></template><template id="svt-bot"><h3>Telegram-бот и мини-приложение</h3><p class="lead">Создание Telegram-бота и, при необходимости, мини-приложения</p><p class="lead">Для заказчика: с любыми воронками, автоматизациями, оплатой и любой логикой по любой цели заказчика.</p><h4>1. Архитектура и проектирование воронок</h4><ul><li>Сценарии использования (CJM): путь клиента от первого запуска бота (/start) до успешной оплаты и повторных покупок.</li><li>Автоворонки: цепочки сообщений для онбординга, прогрева аудитории, дожима брошенных корзин и возврата спящих клиентов.</li><li>Сегментация и тегирование: присвоение тегов пользователям по их действиям для персонализированных рассылок.</li></ul><h4>2. Frontend-разработка Telegram Mini App</h4><ul><li>UX/UI дизайн: интерфейсы под задачи бизнеса, уникальный стиль (например, тёмный техно-минимализм с неоновыми акцентами) и адаптация под системные темы Telegram (Dark/Light).</li><li>Вёрстка и логика: интерактивный фронтенд, имитирующий нативное мобильное приложение.</li><li>Анимация и микроинтеракции: плавное появление экранов, отклик кнопок (Haptic Feedback) и оптимизация скорости во встроенном браузере Telegram на iOS и Android.</li></ul><h4>3. Бэкенд и серверная логика</h4><ul><li>Ядро бота: серверная часть на Node.js для бесперебойной обработки команд, вебхуков и сложных сценариев.</li><li>Базы данных: проектирование БД (например, с Firebase Admin SDK) для безопасного хранения профилей, истории заказов и прогресса в воронках.</li><li>Админка: скрытый интерфейс или веб-панель для владельца: управление каталогом, ценами, массовые рассылки и статистика.</li></ul><h4>4. Коммерческие интеграции и автоматизация</h4><ul><li>Платёжные шлюзы: приём оплаты в один клик внутри Telegram (Telegram Payments, CloudPayments, СБП).</li><li>Бизнес-процессы: автоматическая выдача цифровых товаров после оплаты, бронирования, генерация чеков, расчёт стоимости доставки.</li><li>Уведомления и CRM: мгновенная отправка заявок и статусов заказов менеджерам, передача лидов в сторонние CRM или Google Таблицы.</li></ul><h4>5. Инфраструктура, деплой и техподдержка</h4><ul><li>Серверы: развёртывание бэкенда на облачных платформах (Render, Vercel, Railway) для отказоустойчивости.</li><li>Контроль версий: код в репозиториях GitHub.</li><li>Безопасность: защита API-ключей, SSL, шифрование пользовательских данных и защита от спам-атак.</li><li>Публикация и тестирование: регистрация бота через BotFather, настройка меню, тестирование всех сценариев оплаты и передача исходного кода заказчику.</li></ul><p class="sv-foot"><b>Стоимость: от 5 000 ₽. Срок: от 1 дня.</b></p></template><template id="svt-complex"><h3>Комплексное ведение рекламы по любым направлениям</h3><p class="lead">Комплексное ведение рекламы: что вы получаете</p><p class="lead">В стоимость входит комплект любых направлений привлечения клиентов под ваш бизнес: Авито, Яндекс Директ, SEO, карты и отзывы, соцсети и другие каналы, которые подходят вашей задаче. Состав комплекта согласуем после разбора проекта.</p><h4>Почему такое ведение выгоднее отдельных подрядчиков</h4><ul><li>Один ответственный и единая стратегия: каналы работают вместе, а не тянут бюджет в разные стороны.</li><li>Перераспределение бюджета: деньги уходят туда, где заявка сейчас стоит дешевле, и уходят оттуда, где реклама выгорает.</li><li>Сквозная аналитика: вы видите путь от показа до заявки и продажи в одном понятном отчёте, а не в пяти разных кабинетах.</li><li>Быстрая реакция: правки в рекламе, объявлениях и на сайте вносятся без цепочки согласований между разными исполнителями.</li><li>Перенос того, что сработало: удачные тексты, офферы и визуалы из одного канала быстро тестируются в остальных.</li><li>Один договор и один платёж вместо нескольких подрядчиков и счётов.</li><li>Регулярная связь и отчётность: еженедельные короткие итоги и ежемесячный отчёт с ключевыми показателями (расход, число заявок, стоимость заявки).</li><li>Постоянное тестирование и масштабирование: A/B-тесты, расширение аудиторий и семантики, запуск новых направлений и акций.</li><li>Приоритет в работе: ваш проект ведётся в первую очередь, без очередей на отдельные задачи.</li></ul><p class="note">Точный состав комплекта, объём работ и итоговую стоимость фиксируем после разбора проекта: от 50 000 ₽ в месяц.</p><p class="sv-foot"><b>Стоимость: от 50 000 ₽ в месяц.</b></p></template></div>
   </div>
 </section>
+<!--cv:band-pricing-->
+<section class="qf-band wrap-section"><div class="wrap"><div class="qf-card"><div class="qf-card-t"><h3>Выбрали услугу? Оставьте телефон</h3><p>Перезвоню, отвечу на вопросы и помогу выбрать формат. Консультация бесплатная.</p></div><form class="qf" data-ctx="pricing" novalidate><div class="qf-row"><label class="qf-f"><span>Телефон <i>*</i></span><input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><label class="qf-f qf-c"><span>Комментарий <em>(необязательно)</em></span><input type="text" name="comment" maxlength="300" placeholder="Что сейчас с Авито, рекламой или сайтом"></label></div><input type="text" name="website" class="qf-hp" tabindex="-1" autocomplete="off" aria-hidden="true"><label class="qf-consent"><input type="checkbox" name="consent"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a></span></label><button class="btn btn-primary" type="submit">Перезвоните мне <span aria-hidden="true">→</span></button><div class="qf-status" role="status" aria-live="polite"></div></form></div></div></section>
 
-<!-- GIFT + QUIZ -->
-<section id="audit" class="wrap-section" data-scr="5">
-  <div class="wrap">
-    <div class="gift">
-      <svg class="confetti" width="30" height="30" style="top:10%;right:20%;background:#fff;"></svg>
-      <svg class="confetti" width="18" height="18" style="bottom:15%;right:35%;background:#fff;"></svg>
-      <svg class="confetti" width="14" height="14" style="top:30%;right:10%;background:#fff;"></svg>
-      <div>
-        <h3>Ответьте на 3 вопроса — запишу видео-разбор вашей ниши</h3>
-        <p>Займёт меньше минуты. Разбор пришлю в течение суток.</p>
-      </div>
-      <a href="#quiz" class="btn btn-primary">Получить разбор</a>
-    </div>
-
-    <div class="quiz" id="quiz">
-      <div class="quiz-progress"><i data-bar="0" class="done"></i><i data-bar="1"></i><i data-bar="2"></i></div>
-
-      <div class="q-step active" data-step="0">
-        <h3>1. В какой сфере работаете?</h3>
-        <button class="opt" type="button">Жильё / аренда</button>
-        <button class="opt" type="button">Недвижимость</button>
-        <button class="opt" type="button">Услуги</button>
-        <button class="opt" type="button">Товары</button>
-        <button class="opt" type="button">B2B</button>
-        <div class="q-nav"><span></span><button class="btn btn-primary next" type="button" disabled>Далее</button></div>
-      </div>
-
-      <div class="q-step" data-step="1">
-        <h3>2. Что сейчас с Авито / рекламой?</h3>
-        <button class="opt" type="button">Есть профиль или кампания</button>
-        <button class="opt" type="button">Начинаю с нуля</button>
-        <div class="q-nav"><button class="btn btn-ghost back" type="button">Назад</button><button class="btn btn-primary next" type="button" disabled>Далее</button></div>
-      </div>
-
-      <div class="q-step" data-step="2">
-        <h3>3. Что важнее сейчас?</h3>
-        <button class="opt" type="button">Больше заявок</button>
-        <button class="opt" type="button">Стабильность</button>
-        <button class="opt" type="button">Разбор, почему не работает</button>
-        <div class="q-nav"><button class="btn btn-ghost back" type="button">Назад</button><button class="btn btn-primary finish" type="button" disabled>Готово</button></div>
-      </div>
-
-      <div class="q-result">
-        <h3>Готово.</h3>
-        <p>Ответы перенесены в форму заявки. Оставьте контакт, и я пришлю разбор вашей ниши в течение суток.</p><a href="#lead" class="btn btn-primary" style="margin-top:14px;">Перейти к заявке</a>
-      </div>
-    </div>
-  </div>
-</section>
 
 </div></div></div>
 
@@ -519,14 +490,35 @@
     <div class="pp-more"><a class="btn btn-primary" href="portfolio.html">Смотреть всё портфолио <span aria-hidden="true">→</span></a><em>127 работ: сайты, Авито, баннеры, бланки, презентации, этикетки</em></div>
   </div>
 </section>
-<section class="dirs wrap-section" id="directions"><div class="wrap"><div class="eyebrow" style="text-align:left;">подробнее</div><h2>Услуги и направления работы</h2><p class="paths-lead">Посмотрите, как я работаю по каждой услуге и в вашей сфере: что делаю, что вы получите и какие вопросы обычно возникают. Работаю по любым направлениям.</p><div class="dir-grid"><a class="dir" href="avito.html"><b>Продвижение на Авито</b><span>Оформляю профиль и объявления, слежу за алгоритмом Авито и веду продвижение лично: больше обращений без лишних расходов. Бесплатный аудит профиля.</span></a><a class="dir" href="yandex-direct.html"><b>Настройка Яндекс Директ</b><span>Собираю запросы клиентов, настраиваю кампании и связку с Метрикой, слежу за ставками и стоимостью заявки. Бесплатный аудит вашей рекламы или сайта.</span></a><a class="dir" href="sozdanie-saytov.html"><b>Создание сайтов и приложений</b><span>Разрабатываю лендинги, сайты и приложения с онлайн-бронированием: быстрые, адаптивные, с SEO-основой и аналитикой. Бесплатный аудит вашего сайта.</span></a><a class="dir" href="seo-prodvizhenie.html"><b>SEO-продвижение сайта</b><span>Техническая база, структура под спрос, контент и микроразметка: делаю так, чтобы клиенты находили сайт в Яндексе и Google. Бесплатный аудит сайта.</span></a><a class="dir" href="smm.html"><b>SMM и Reels для бизнеса</b><span>Стратегия, контент-план и Reels, которые приводят клиентов, а не просто набирают лайки. Связываю соцсети с заявками. Бесплатный аудит аккаунтов.</span></a></div><h3 class="dir-h">Для каких сфер я работаю</h3><div class="dir-chips"><a href="b2b.html">Продвижение B2B</a><a href="tovary.html">Продвижение товаров и магазинов</a><a href="nedvizhimost.html">Недвижимость и строительство</a><a href="gostinichnyy-biznes.html">Гостиничный бизнес</a><a href="lokalnye-uslugi.html">Услуги для мастеров и малого бизнеса</a><a href="uslugi.html">Все услуги</a></div><h3 class="dir-h">Смежные страницы</h3><div class="dir-chips"><a href="lokalnye-uslugi.html">Услуги для мастеров и малого бизнеса</a><a href="avito.html">Продвижение на Авито</a><a href="yandex-direct.html">Настройка Яндекс Директ</a><a href="sozdanie-saytov.html">Создание сайтов и приложений</a></div></div></section>
+<!--cv:pp-cta--><div class="wrap"><!--cv:mcta--><div class="mcta"><a class="btn btn-outline-ember" href="#lead">Хочу так же <span aria-hidden="true">→</span></a></div></div>
+<section class="dirs wrap-section" id="directions"><div class="wrap"><div class="eyebrow" style="text-align:left;">подробнее</div><h2>Услуги и направления работы</h2><p class="paths-lead">Посмотрите, как я работаю по каждой услуге и в вашей сфере: что делаю, что вы получите и какие вопросы обычно возникают. Работаю по любым направлениям.</p><div class="dir-grid"><a class="dir" href="avito.html"><b>Продвижение на Авито</b><span>Оформляю профиль и объявления, слежу за алгоритмом Авито и веду продвижение лично: больше обращений без лишних расходов. Бесплатный аудит профиля.</span></a><a class="dir" href="yandex-direct.html"><b>Настройка Яндекс Директ</b><span>Собираю запросы клиентов, настраиваю кампании и связку с Метрикой, слежу за ставками и стоимостью заявки. Бесплатный аудит вашей рекламы или сайта.</span></a><a class="dir" href="sozdanie-saytov.html"><b>Создание сайтов и приложений</b><span>Разрабатываю лендинги, сайты и приложения с онлайн-бронированием: быстрые, адаптивные, с SEO-основой и аналитикой. Бесплатный аудит вашего сайта.</span></a><a class="dir" href="seo-prodvizhenie.html"><b>SEO-продвижение сайта</b><span>Техническая база, структура под спрос, контент и микроразметка: делаю так, чтобы клиенты находили сайт в Яндексе и Google. Бесплатный аудит сайта.</span></a><a class="dir" href="smm.html"><b>SMM и Reels для бизнеса</b><span>Стратегия, контент-план и Reels, которые приводят клиентов, а не просто набирают лайки. Связываю соцсети с заявками. Бесплатный аудит аккаунтов.</span></a></div><h3 class="dir-h">Для каких сфер я работаю</h3><div class="dir-chips"><a href="b2b.html">Продвижение B2B</a><a href="tovary.html">Продвижение товаров и магазинов</a><a href="nedvizhimost.html">Недвижимость и строительство</a><a href="gostinichnyy-biznes.html">Гостиничный бизнес</a><a href="lokalnye-uslugi.html">Услуги для мастеров и малого бизнеса</a><a href="uslugi.html">Все услуги</a></div><h3 class="dir-h">Смежные страницы</h3><div class="dir-chips"><a href="lokalnye-uslugi.html">Услуги для мастеров и малого бизнеса</a><a href="avito.html">Продвижение на Авито</a><a href="yandex-direct.html">Настройка Яндекс Директ</a><a href="sozdanie-saytov.html">Создание сайтов и приложений</a></div><!--cv:mcta--><div class="mcta"><a class="btn btn-outline-ember" href="#lead">Подобрать формат работы <span aria-hidden="true">→</span></a></div>
+  </div></section>
+<!--cv:whygta-->
+<section class="wg" id="why-gta">
+  <div class="wrap">
+    <div class="wg-head">
+      <span class="wg-tag">Подсказка</span>
+      <h2>Почему этот сайт выглядит как из GTA?</h2>
+      <p class="wg-lead">Большинство сайтов в моей нише похожи друг на друга: серые блоки, «команда экспертов», стоковые фото. Их не запоминают. Я сделал иначе, и то же самое делаю с вашими объявлениями и рекламой: чтобы вас замечали в выдаче, а не пролистывали.</p>
+    </div>
+    <div class="wg-grid">
+      <div class="wg-card"><span class="wg-n">Миссия 01</span><h3>Выделиться</h3><p>Игру знают почти все, поэтому такой сайт запоминается с первого взгляда. Так же должно запоминаться и ваше объявление.</p></div>
+      <div class="wg-card"><span class="wg-n">Миссия 02</span><h3>Показать, а не рассказать</h3><p>Анимации, интерактивная орбита, форма заявки: это моя разработка, а не шаблон конструктора.</p></div>
+      <div class="wg-card"><span class="wg-n">Миссия 03</span><h3>Всерьёз под неоном</h3><p>Стиль игровой, работа нет: честный аудит, прозрачная отчётность, один человек ведёт проект лично.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq" class="faq wrap-section">
   <div class="wrap">
     <h2>Часто задаваемые вопросы</h2>
     <div class="faq-list">
-      <details open><summary>Что важнее для потолков: Авито или реклама в Яндексе?</summary><p>Чаще нужны оба канала: Авито приводит быстрые обращения, а Яндекс ловит тех, кто ищет цену в поиске. Соотношение определяю на аудите.</p></details><details><summary>Стоит ли делать сайт с калькулятором?</summary><p>Калькулятор помогает клиенту понять примерную цену и оставить заявку сразу, поэтому такая страница обычно повышает число обращений.</p></details><details><summary>Как отличаться от других компаний?</summary><p>Через реальные работы, ясный оффер, скорость ответа и гарантии. Формулирую их под вашу компанию.</p></details><details><summary>Что входит в бесплатный аудит?</summary><p>Разбор карточек, сайта или кампании, слабых мест воронки и конкретные рекомендации. Аудит я делаю в любом случае: станем ли мы работать вместе или нет.</p></details><details><summary>Где взять бесплатные материалы?</summary><p>PDF-материалы по продвижению выкладываю в своём Telegram-канале, подписка бесплатная. По ним можно разобраться и сделать всё самому.</p></details>
+      <details open><summary>Что важнее для потолков: Авито или реклама в Яндексе?</summary><p>Чаще нужны оба канала: Авито приводит быстрые обращения, а Яндекс ловит тех, кто ищет цену в поиске. Соотношение определяю на аудите.</p></details><details><summary>Стоит ли делать сайт с калькулятором?</summary><p>Калькулятор помогает клиенту понять примерную цену и оставить заявку сразу, поэтому такая страница обычно повышает число обращений.</p></details><details><summary>Как отличаться от других компаний?</summary><p>Через реальные работы, ясный оффер, скорость ответа и гарантии. Формулирую их под вашу компанию.</p></details><details><summary>Что входит в бесплатный аудит?</summary><p>Разбор карточек, сайта или кампании, слабых мест воронки и конкретные рекомендации. Аудит я делаю в любом случае: станем ли мы работать вместе или нет.</p></details><details><summary>Где взять бесплатные материалы?</summary><p>PDF-материалы по продвижению выкладываю в своём Telegram-канале, подписка бесплатная. По ним можно разобраться и сделать всё самому.</p></details><!--cv:faq--><details><summary>Работаешь по договору?</summary><p>Да. Условия, этапы и формат оплаты (разовая, помесячная, а для Авито возможен процент с продаж) фиксируем в договоре до начала работы.</p></details>
+      <details><summary>А если не получится?</summary><p>Результат зависит от ниши, продукта, цены и скорости ответа на заявки, поэтому конкретное число заявок я не обещаю. Обещаю процесс: аудит, понятный план, регулярные отчёты с цифрами, и честно скажу, если канал вам не подходит.</p></details>
+      <details><summary>Что нужно от меня, чтобы начать?</summary><p>Телефон для связи и пара фраз о задаче. Остальное запрошу на аудите: доступы, примеры объявлений и данные по прошлым результатам.</p></details>
     </div>
+  <!--cv:mcta--><div class="mcta"><a class="btn btn-outline-ember" href="https://t.me/shaton_lid">Задать вопрос лично <span aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
@@ -542,7 +534,7 @@
         <li>Рекомендации по следующему шагу</li>
       </ul>
     </div>
-    <div class="cta-form cta-actions"><p>Бесплатно, даже если мы не будем работать вместе.</p><a class="btn btn-primary" href="#lead">Оставить заявку на аудит</a><a class="btn btn-ghost" data-tg href="#">PDF-материалы в Telegram</a><small class="tg-note" data-tgnote>Ссылка на канал появится здесь</small></div>
+    <div class="cta-form cta-actions"><p>Бесплатно, даже если мы не будем работать вместе.</p><!--cv:final--><form class="qf" data-ctx="final" novalidate><div class="qf-row"><label class="qf-f"><span>Телефон <i>*</i></span><input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><label class="qf-f qf-c"><span>Комментарий <em>(необязательно)</em></span><input type="text" name="comment" maxlength="300" placeholder="Что сейчас с Авито, рекламой или сайтом"></label></div><input type="text" name="website" class="qf-hp" tabindex="-1" autocomplete="off" aria-hidden="true"><label class="qf-consent"><input type="checkbox" name="consent"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a></span></label><button class="btn btn-primary" type="submit">Получить разбор <span aria-hidden="true">→</span></button><div class="qf-status" role="status" aria-live="polite"></div></form><a class="btn btn-primary" href="#lead">Оставить заявку на аудит</a><a class="btn btn-ghost" data-tg href="#">PDF-материалы в Telegram</a><small class="tg-note" data-tgnote>Ссылка на канал появится здесь</small></div>
   </div>
 </section>
 
@@ -565,7 +557,8 @@
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
-<script src="site.js?v=0c476fe8"></script>
+<script src="site.js?v=d753474b"></script>
 <script src="pricing.js?v=5c431112" defer></script>
+<script src="leads.js?v=6f3e0f31" defer></script>
 </body>
 </html>

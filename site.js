@@ -541,7 +541,7 @@
   var steps = Array.prototype.slice.call(document.querySelectorAll('.q-step'));
   var bars = Array.prototype.slice.call(document.querySelectorAll('.quiz-progress i'));
   var result = document.querySelector('.q-result');
-  var current = 0, answers = {};
+  var current = 0, answers = {}; window.__quizAnswers = answers;
 
   function showStep(i){
     steps.forEach(function(s,idx){ s.classList.toggle('active', idx===i); });

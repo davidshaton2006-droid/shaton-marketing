@@ -16,6 +16,7 @@
      POST /pts/sync    {initData, events:{key:pts}}     client events are validated by key pattern and clamped -> {ok, total, events}
      GET  /admin/users (X-Admin)                        -> [{uid, name, username, total, guide, friends, ts}]
      POST /admin/grant (X-Admin) {uid, key, pts}        key must start with buy: | sub: | grant:
+   Landing leads: POST /lead {phone, comment, form, page, extra, utm, ref} -> KV ld:* + Telegram ping to the owner; GET /admin/leads (X-Admin)
    AI-Mentor (D1 + FTS5 retrieval + LLM): see mentor.js / mentor.sql
    Public bot @SHATONLAB_bot as a webhook (always on, no PC needed):
      POST /tg          Telegram updates (header X-Telegram-Bot-Api-Secret-Token = secret TG_SECRET); EVERY message / every /start gets the same welcome
@@ -272,6 +273,42 @@ export default {
         if (!rw.includes(id) || !keys[id]) return json(req, { ok: false, error: 'locked' }, 403);
         const enc = await (await fetch(PAGES + 'posts/enc/' + encodeURIComponent(id) + '.enc?t=' + Date.now())).text();
         return json(req, { ok: true, text: await aesText(enc, keys[id]) });
+      }
+      if (path === '/lead' && req.method === 'POST') {
+        const b = await req.json().catch(() => null); if (!b) return json(req, { ok: false, error: 'bad-json' }, 400);
+        const phone = String(b.phone || '').replace(/\D/g, '');
+        if (!/^7\d{10}$/.test(phone)) return json(req, { ok: false, error: 'bad-phone' }, 400);
+        const ip = req.headers.get('CF-Connecting-IP') || 'x', rk = 'rl:' + ip + ':' + new Date().toISOString().slice(0, 13);
+        const n = Number(await env.IDEAS.get(rk)) || 0; if (n >= 5) return json(req, { ok: false, error: 'limit' }, 429);
+        await env.IDEAS.put(rk, String(n + 1), { expirationTtl: 3700 });
+        const cut = (v, m) => String(v == null ? '' : v).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').slice(0, m);
+        const rec = { ts: Date.now(), phone: '+' + phone, comment: cut(b.comment, 300), form: cut(b.form, 30), page: cut(b.page, 80), ref: cut(b.ref, 200), utm: {}, extra: {}, status: 'new' };
+        for (const k of Object.keys(b.utm || {}).slice(0, 5)) rec.utm[cut(k, 20)] = cut(b.utm[k], 80);
+        for (const k of Object.keys(b.extra || {}).slice(0, 8)) rec.extra[cut(k, 20)] = cut(b.extra[k], 120);
+        const id = rec.ts.toString(36) + Math.random().toString(36).slice(2, 6);
+        await env.IDEAS.put('ld:' + id, JSON.stringify(rec));
+        if (env.NOTIFY_TOKEN && env.NOTIFY_CHAT) {
+          const ex = Object.keys(rec.extra).map((k) => k + ': ' + rec.extra[k]).join(', ');
+          const msg = '🔔 Новая заявка с сайта\n📞 ' + rec.phone.replace(/^\+7(\d{3})(\d{3})(\d{2})(\d{2})$/, '+7 ($1) $2-$3-$4') + (rec.comment ? '\n💬 ' + rec.comment : '') + '\n📍 ' + (rec.page || 'index') + ' · форма: ' + (rec.form || '—') + (ex ? '\n📝 ' + ex : '') + (Object.keys(rec.utm).length ? '\n🔗 ' + Object.keys(rec.utm).map((k) => k + '=' + rec.utm[k]).join(' ') : '');
+          await fetch('https://api.telegram.org/bot' + env.NOTIFY_TOKEN + '/sendMessage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: env.NOTIFY_CHAT, text: msg }) }).catch(() => {});
+        }
+        return json(req, { ok: true });
+      }
+      if (path === '/admin/leads' && req.method === 'GET') {
+        if (!isAdmin(req, env)) return json(req, { error: 'forbidden' }, 403);
+        const out = []; let cursor;
+        do {
+          const r = await env.IDEAS.list({ prefix: 'ld:', cursor, limit: 1000 });
+          for (const k of r.keys) { const v = await env.IDEAS.get(k.name, 'json'); if (v) out.push(Object.assign({ key: k.name }, v)); }
+          cursor = r.list_complete ? null : r.cursor;
+        } while (cursor && out.length < 1000);
+        return json(req, out.sort((a, b) => b.ts - a.ts));
+      }
+      if (path === '/admin/leads/status' && req.method === 'POST') {
+        if (!isAdmin(req, env)) return json(req, { error: 'forbidden' }, 403);
+        const b = await req.json(), cur = String(b.key || '').startsWith('ld:') ? await env.IDEAS.get(b.key, 'json') : null;
+        if (!cur || !['new', 'done'].includes(b.status)) return json(req, { ok: false, error: 'bad-input' }, 400);
+        cur.status = b.status; await env.IDEAS.put(b.key, JSON.stringify(cur)); return json(req, { ok: true });
       }
       if (path === '/tg' && req.method === 'POST') {
         if (!env.TG_SECRET || req.headers.get('X-Telegram-Bot-Api-Secret-Token') !== env.TG_SECRET) return new Response('forbidden', { status: 403 });
