@@ -12,3 +12,6 @@ Baseline-аудит больше не считает пустой динамич
 
 ## 2026-11-26 — visual concepts 2.0
 Concept board полностью переработан: пять самостоятельных направлений Optical Foundry, Precision Editorial, Living Systems, Product Gallery и Prismatic Studio; для каждого созданы отдельные desktop/mobile композиции и уникальный прозрачный 3D-объект. Добавлены 10 контрольных кадров и общий overview. Browser QA: 0 page errors, 0 horizontal overflow, 10/10 изображений. GitHub Actions предыдущей QA-итерации завершён успешно; Lighthouse accessibility, Best Practices и SEO достигли 100 во всех восьми профилях.
+
+## 2026-11-26 — delegated art direction / foundation
+A + B/C, исходные изображения сохранены, дизайн-токены, контраст, типографика, grid, работающий style guide, QA. Main не изменена. Новые browser results pending.

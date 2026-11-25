@@ -1,0 +1,149 @@
+{
+  "palette": {
+    "paper": "#F8F9FC",
+    "surface": "#FFFFFF",
+    "mist": "#EEF1F6",
+    "titanium": "#DCE3EE",
+    "ink": "#20283B",
+    "secondary": "#526077",
+    "accent": "#3556B2",
+    "accentHover": "#29458D",
+    "violet": "#67558C",
+    "mint": "#346C69",
+    "border": "#78869A",
+    "focus": "#3059C6",
+    "success": "#216547",
+    "danger": "#A12D3E",
+    "successBg": "#E7F4ED",
+    "dangerBg": "#FCECEF",
+    "ai": "#E6E1F5",
+    "automation": "#E2E9F5",
+    "software": "#E7EDF1",
+    "web": "#E0E8F3",
+    "commerce": "#EFE7DB",
+    "telegram": "#DDEDF5",
+    "integration": "#DCEBE7"
+  },
+  "pairs": [
+    {
+      "foreground": "ink",
+      "background": "paper",
+      "ratio": 13.97,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "secondary",
+      "background": "paper",
+      "ratio": 6.05,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "secondary",
+      "background": "mist",
+      "ratio": 5.62,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "surface",
+      "background": "accent",
+      "ratio": 6.72,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "surface",
+      "background": "accentHover",
+      "ratio": 9.01,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "accent",
+      "background": "paper",
+      "ratio": 6.38,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "violet",
+      "background": "paper",
+      "ratio": 6.13,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "mint",
+      "background": "paper",
+      "ratio": 5.71,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "success",
+      "background": "successBg",
+      "ratio": 6.15,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "danger",
+      "background": "dangerBg",
+      "ratio": 6.21,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "focus",
+      "background": "surface",
+      "ratio": 6.23,
+      "minimum": 3
+    },
+    {
+      "foreground": "border",
+      "background": "surface",
+      "ratio": 3.7,
+      "minimum": 3
+    },
+    {
+      "foreground": "border",
+      "background": "paper",
+      "ratio": 3.51,
+      "minimum": 3
+    },
+    {
+      "foreground": "ink",
+      "background": "ai",
+      "ratio": 11.52,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "ink",
+      "background": "automation",
+      "ratio": 12.05,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "ink",
+      "background": "software",
+      "ratio": 12.45,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "ink",
+      "background": "web",
+      "ratio": 11.91,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "ink",
+      "background": "commerce",
+      "ratio": 11.99,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "ink",
+      "background": "telegram",
+      "ratio": 12.26,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "ink",
+      "background": "integration",
+      "ratio": 11.96,
+      "minimum": 4.5
+    }
+  ]
+}

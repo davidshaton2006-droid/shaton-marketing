@@ -61,3 +61,6 @@ GitHub Actions подтвердил исправления: [run 45716954656](ht
 
 ## Concept board 04
 Пять desktop и пять mobile кадров сняты из `design/concepts.html` в Chromium 1600×1000 после декодирования всех изображений. Результат: 10/10 изображений загружены, `scrollWidth=innerWidth`, page errors отсутствуют. Каждый вариант использует собственный RGBA-рендер; альфа-канал и отсутствие прямоугольной подложки проверены. Общий board имеет `noindex,nofollow` и не заменяет production-страницы.
+
+## Foundation
+Run 45719349950 success (head ac455cb66b103e7681840d0e846e0e1fd9fbeb33), все шаги. Новый контрастный gate: 20 пар passed, border исправлен с 2.17:1. Встроен тест 13: 6 ширин, форма, tabs, dialog, filters, calculator, loading. Новый CI pending, не считать пройденным.

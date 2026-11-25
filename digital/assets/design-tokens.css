@@ -1,0 +1,42 @@
+/* Optical Foundry / Shaton Digital: semantic design tokens. */
+:root{
+ --sd-paper:#F8F9FC;
+ --sd-surface:#FFFFFF;
+ --sd-mist:#EEF1F6;
+ --sd-titanium:#DCE3EE;
+ --sd-ink:#20283B;
+ --sd-secondary:#526077;
+ --sd-accent:#3556B2;
+ --sd-accent-hover:#29458D;
+ --sd-violet:#67558C;
+ --sd-mint:#346C69;
+ --sd-border:#78869A;
+ --sd-focus:#3059C6;
+ --sd-success:#216547;
+ --sd-danger:#A12D3E;
+ --sd-success-bg:#E7F4ED;
+ --sd-danger-bg:#FCECEF;
+ --sd-ai:#E6E1F5;
+ --sd-automation:#E2E9F5;
+ --sd-software:#E7EDF1;
+ --sd-web:#E0E8F3;
+ --sd-commerce:#EFE7DB;
+ --sd-telegram:#DDEDF5;
+ --sd-integration:#DCEBE7;
+ --sd-font:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;
+ --sd-mono:ui-monospace,'SFMono-Regular',Consolas,'Liberation Mono',monospace;
+ --sd-h1:clamp(2.55rem,5.8vw,6.2rem);--sd-h2:clamp(2rem,4vw,4rem);--sd-h3:clamp(1.4rem,2vw,2rem);
+ --sd-h4:1.25rem;--sd-h5:1.0625rem;--sd-h6:.9375rem;--sd-body:clamp(1rem,1.2vw,1.125rem);
+ --sd-small:.875rem;--sd-caption:.8125rem;--sd-label:.75rem;--sd-measure:65ch;
+ --sd-leading:1.6;--sd-leading-display:1.02;--sd-track-display:-.058em;--sd-track-heading:-.035em;
+ --sd-1:.25rem;--sd-2:.5rem;--sd-3:.75rem;--sd-4:1rem;--sd-5:1.25rem;--sd-6:1.5rem;--sd-8:2rem;--sd-10:2.5rem;--sd-12:3rem;--sd-16:4rem;--sd-20:5rem;--sd-24:6rem;
+ --sd-max:92rem;--sd-gutter:clamp(1rem,4vw,4rem);--sd-gap:clamp(.875rem,1.8vw,1.75rem);--sd-section:clamp(3.75rem,8vw,8.5rem);--sd-columns:12;
+ --sd-radius-sm:.5rem;--sd-radius-md:.875rem;--sd-radius-lg:1.5rem;--sd-radius-xl:2rem;--sd-pill:999px;
+ --sd-shadow-sm:0 2px 8px #26384d12;--sd-shadow-md:0 14px 36px #283b5518,0 2px 6px #283b5508;--sd-shadow-lg:0 28px 80px #24394e21;
+ --sd-glass:linear-gradient(145deg,#fffffff2,#f3f6fce6);--sd-edge:inset 0 1px 0 #fff,inset 0 -1px 0 #bac6d822;
+ --sd-halo:radial-gradient(ellipse at 67% 30%,#dce5f5 0%,#e7e2f5 28%,transparent 70%);
+ --sd-spectrum:linear-gradient(115deg,#b6c9e4,#ddd3ee 47%,#e1ece9 83%);
+ --sd-fast:160ms;--sd-normal:280ms;--sd-slow:520ms;--sd-ease:cubic-bezier(.2,.8,.2,1);--sd-target:44px;
+}
+@media(max-width:1024px){:root{--sd-columns:8}}
+@media(max-width:600px){:root{--sd-columns:4;--sd-track-display:-.045em}}

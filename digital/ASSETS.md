@@ -23,3 +23,6 @@
 
 ## Этап 04
 `design/concepts.html` переработан в полноформатную арт-дирекционную доску. Для A–E созданы пять уникальных прозрачных PNG: `concept-a-optical-foundry.webp`, `concept-b-precision-editorial.webp`, `concept-c-living-systems.webp`, `concept-d-product-gallery.webp`, `concept-e-prismatic-studio.webp`. Все файлы RGBA, размер 1672–1774 × 887–941 px, используются только внутри соответствующей концепции. Созданы 10 контрольных кадров desktop/mobile и общий overview в `design/previews/`. Это concept assets; их нельзя автоматически считать production-графикой остальных страниц.
+
+## Foundation
+Сохранены все пять concept-*.webp и 11 preview-файлов. A показан в design/system.html как демонстрация того же выбранного арта, не как повтор независимой production секции.

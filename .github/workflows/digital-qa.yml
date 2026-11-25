@@ -20,6 +20,7 @@ jobs:
           node --check digital/assets/app.js
           node --check digital/assets/studio.js
           node --check digital/assets/daylight.js
+          node --check digital/assets/design-components.js
           node --check digital/qa/baseline-audit.cjs
           node --check digital/qa/lighthouse-audit.cjs
       - name: Install test tools
