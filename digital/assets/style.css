@@ -62,3 +62,14 @@ body:not(.cinematic-home) .partner-hero+.proof-band{margin-top:24px}
 @media(max-width:850px){body:not(.cinematic-home) .page-head{min-height:0;background-position:70% center}body:not(.cinematic-home) .partner-hero{grid-template-columns:1fr;gap:25px}.cinematic-home .header.is-scrolled{top:0}}
 @media(max-width:520px){body:not(.cinematic-home) .page-head{padding:30px 22px;margin-top:20px;border-radius:22px;background-image:linear-gradient(90deg,#172743f2,#24385bd9 72%,#42557979),url('./art/landscape.webp')}body:not(.cinematic-home) .page-head h1{font-size:clamp(33px,9vw,47px)}body:not(.cinematic-home) .page-head>p{font-size:14px}body:not(.cinematic-home) .partner-hero{padding:23px 18px;border-radius:22px}body:not(.cinematic-home) .partner-hero h1{font-size:clamp(35px,9.8vw,51px)}body:not(.cinematic-home) .partner-hero-art{padding:20px 15px}.work-viewer{padding:10px}.work-viewer img{max-height:73svh}.viewer-top b{font-size:13px}}
 @media(max-width:350px){body:not(.cinematic-home) .page-head h1{font-size:31px}body:not(.cinematic-home) .partner-hero h1{font-size:32px}body:not(.cinematic-home) .partner-hero-art .rate-display{font-size:50px}.viewer-bottom{flex-wrap:wrap}}
+
+/* Daylight continuity for Digital inner pages; isolated from the legacy site. */
+body:not(.cinematic-home) .page-head,body:not(.cinematic-home) .partner-hero{background:linear-gradient(90deg,#f7f9fff7,#edf2f9ed 48%,#e2e8f4a8),url('./art/landscape.webp') right 43%/cover;color:#24334f;border-color:#fff;box-shadow:0 16px 44px #52688d18}
+body:not(.cinematic-home) .page-head h1,body:not(.cinematic-home) .partner-hero h1{color:#24334f;text-shadow:none}
+body:not(.cinematic-home) .page-head h1 em,body:not(.cinematic-home) .partner-hero h1 em{color:#5b70a2}
+body:not(.cinematic-home) .page-head>p,body:not(.cinematic-home) .partner-hero>div:first-child>p,body:not(.cinematic-home) .partner-hero .hero-meta{color:#50617e}
+body:not(.cinematic-home) .page-head .eyebrow,body:not(.cinematic-home) .partner-hero>div:first-child>.eyebrow{color:#51658b;border-color:#cdd9ec;background:#fff9}
+body:not(.cinematic-home) .partner-hero .primary{background:#35496d;color:white;border-color:#52678c}body:not(.cinematic-home) .partner-hero .secondary{color:#35496d;background:#fff9;border-color:#c2cfe4}
+body:not(.cinematic-home) .portfolio-art-head .portfolio-camera{opacity:.92}
+body:not(.cinematic-home) .service-card,body:not(.cinematic-home) .price-card,body:not(.cinematic-home) .feature,body:not(.cinematic-home) .portfolio-item,body:not(.cinematic-home) .solution{border-radius:24px;border-color:#fff;box-shadow:0 10px 30px #465b8010,inset 0 0 0 1px #d5dfec88}
+@media(max-width:520px){body:not(.cinematic-home) .page-head,body:not(.cinematic-home) .partner-hero{background-image:linear-gradient(90deg,#f7f9fff5,#edf2f9e8),url('./art/landscape.webp')}}
