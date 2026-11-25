@@ -87,3 +87,5 @@ Run 45720733675 success, all 10 files byte lengths and SHA256 verified before Gi
 
 ## Visual rejection / corrective work
 45724002638 passed automated checks, but screenshots revealed homepage navigation clipped on desktop/mobile and software art absent on desktop. User rejected design. Added explicit header bounds and software art pixel gate; tightened contact, portfolio and partner composition. New run pending. No phase advance until review.
+
+Run 45724650547: direct captures confirm fixed homepage header and software art. Pixel/bounds test passed; found partners 768px overflow, now layout switches at 1000px. Contact/pricing/solutions restructuring and new working entry-point checks pending.

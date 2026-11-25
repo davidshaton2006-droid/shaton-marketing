@@ -15,3 +15,6 @@
 
 
 User rejected visual quality. Run 45724002638 green but visual inspection found offscreen homepage header (legacy transform), missing software sculpture, excessively similar heroes, flat service diagrams, duplicated pricing information and overlong contact intro. Corrected header geometry, direct in-flow software image, contact/privacy density, portfolio framing, partner title. New header bounding box and software screenshot pixel gate. Do not approve visual work merely based on CI. Further bespoke art required; no main merge.
+
+
+Run 45724650547: corrected home header and software artwork visually confirmed, new bounds/pixel test passed; tablet partners overflow +24 px at 768, corrected to one-column hero <=1000. Removed redundant pricing ladder and contact placeholder sequence; quote/brief visible earlier, solutions hero buttons use actual catalogue filtering. Seven original Blender renders started in 45724718527, not yet imported or approved. New QA pending.
