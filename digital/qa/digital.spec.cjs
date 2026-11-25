@@ -1,6 +1,6 @@
 const {test,expect}=require('@playwright/test');const fs=require('fs'),path=require('path');
-const pages=['','services/','services/ai/','services/automation/','services/software/','services/web/','services/commerce/','services/telegram/','services/integration/','solutions/','pricing/','partners/','support/','contact/','privacy/'];
-test('all fifteen pages: local links, no horizontal overflow and no uncaught errors',async({page})=>{
+const pages=['','services/','services/ai/','services/automation/','services/software/','services/web/','services/commerce/','services/telegram/','services/integration/','solutions/','pricing/','partners/','support/','contact/','privacy/','portfolio/'];
+test('all sixteen pages: local links, no horizontal overflow and no uncaught errors',async({page})=>{
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  for(const slug of pages){await page.goto('/digital/'+slug,{waitUntil:'domcontentloaded'});await expect(page.locator('h1')).toBeVisible();await page.evaluate(()=>document.fonts.ready);
  for(const width of [320,390,768,1024,1440]){await page.setViewportSize({width,height:900});const m=await page.evaluate(()=>({w:innerWidth,s:document.documentElement.scrollWidth,over:[...document.querySelectorAll('main h1,main h2')].filter(e=>e.scrollWidth>e.clientWidth+3).map(e=>e.textContent)}));expect(m.s,slug+' overflow at '+width).toBeLessThanOrEqual(m.w+3);expect(m.over,slug+' clipped headings at '+width).toEqual([])}
