@@ -31,10 +31,6 @@ jobs:
       - name: Run independent digital site QA
         working-directory: digital/qa
         run: npm test
-      - name: Visual inspection captures
-        if: always() && github.ref == 'refs/heads/digital-v2'
-        working-directory: digital/qa
-        run: node visual-capture.cjs
       - name: Baseline screenshots and reference observations
         if: always() && github.ref == 'refs/heads/digital-v2'
         working-directory: digital/qa
@@ -50,5 +46,31 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: digital-browser-qa
+          path: digital/qa/test-results/
+          retention-days: 4
+
+  preview:
+    if: github.ref == 'refs/heads/digital-v2'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test tools
+        working-directory: digital/qa
+        run: npm install --no-audit --no-fund && npx playwright install --with-deps chromium
+      - name: Test design previews
+        working-directory: digital/qa
+        run: npx playwright test -g 'Optical Foundry'
+      - name: Visual inspection captures
+        if: always()
+        working-directory: digital/qa
+        run: node visual-capture.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: digital-design-preview
           path: digital/qa/test-results/
           retention-days: 4
