@@ -31,3 +31,6 @@ Golos Text (существующий кириллический шрифт), с�
 assets/design-components.css/js, design/system.html. Scoped sd-root, кнопки, magnetic, icon/link, 4 карточки, форма и validation, checkbox/switch, filters/empty, tabs с клавиатурой, dialog/Escape/focus return, tooltip focus/hover, details, calculator, status/loading/error/success/focus. Минимальный target 44px, reduced motion и fine pointer. Никаких внешних заявок. Подключение новых страниц: tokens, components CSS/JS, sd-root; не заменять старые классы без теста. Все карточки имеют валидные ссылки на существующие разделы.
 ## QA
 Новый Playwright тест 6 widths, интерактивность, 2 полностраничных кадра; результаты ожидаются. Существующие страницы не менялись визуально; добавлен импорт токенов.
+
+## 06.15 — локальная типографика
+Оригинальный Golos Text variable WOFF2 76 748 B, OFL и upstream SHA в assets/fonts/SOURCE.md. Один font-face, font-display:swap, удалён внешний Google Fonts import. Стенд использует тот же файл. Версия CSS и preload production-страниц будут синхронизированы перед выпуском. Проверка 16 страниц добавлена в CI.

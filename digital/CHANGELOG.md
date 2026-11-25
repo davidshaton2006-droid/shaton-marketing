@@ -15,3 +15,6 @@ Concept board полностью переработан: пять самосто
 
 ## 2026-11-26 — delegated art direction / foundation
 A + B/C, исходные изображения сохранены, дизайн-токены, контраст, типографика, grid, работающий style guide, QA. Main не изменена. Новые browser results pending.
+
+## 2026-11-26 — self-hosted typography
+Original licensed Golos Text variable WOFF2, removed external font CSS, integrated font into design system, dedicated browser QA. Production cache version synchronized before release.

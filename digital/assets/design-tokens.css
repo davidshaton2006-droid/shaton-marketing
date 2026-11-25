@@ -1,3 +1,5 @@
+/* Original Golos Text variable WOFF2, SIL OFL 1.1. See fonts/OFL.txt. */
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:400 900;font-display:swap;src:url('./fonts/golos-text-variable.woff2') format('woff2');}
 /* Optical Foundry / Shaton Digital: semantic design tokens. */
 :root{
  --sd-paper:#F8F9FC;

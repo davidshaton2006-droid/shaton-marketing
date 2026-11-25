@@ -64,3 +64,6 @@ GitHub Actions подтвердил исправления: [run 45716954656](ht
 
 ## Foundation
 Run 45719349950 success (head ac455cb66b103e7681840d0e846e0e1fd9fbeb33), все шаги. Новый контрастный gate: 20 пар passed, border исправлен с 2.17:1. Встроен тест 13: 6 ширин, форма, tabs, dialog, filters, calculator, loading. Новый CI pending, не считать пройденным.
+
+## Local typography
+Source WOFF2 hash identical to upstream, OFL included. Google Fonts import removed, dedicated Cyrillic loading check added. Browser and performance verification pending.
