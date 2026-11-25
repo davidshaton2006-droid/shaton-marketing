@@ -79,3 +79,5 @@ Run 45720733675 success, all 10 files byte lengths and SHA256 verified before Gi
 
 ## 2026-11-26 — optical preview visual gate
 45721514514 preview: 2/2 tests passed, all four captures inspected. System art now clean, but hero art remained visually absent on both device captures despite valid image bounds. This is a blocking visual defect. Replaced absolute object positioning with in-flow picture and explicit stacking order; added pixel-difference test (visible versus visibility:hidden screenshot, >=3.5% changed pixels) on 1440 and 390 widths. Do not approve until new actual captures pass and are visually checked.
+
+45721687214 preview: 3/3, including actual pixel check. Independent JPEG capture still inconsistent (desktop hero blank while mobile hero visible), so not visually approved. Removed intermediate wrapper, set direct picture grid child, assert paint change from the exact exported JPEG and record the actual source/size/opacity. The visual gate must fail if the exported frame does not show the art.
