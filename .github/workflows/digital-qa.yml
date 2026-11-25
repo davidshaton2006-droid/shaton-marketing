@@ -1,0 +1,32 @@
+name: Shaton Digital browser QA
+on:
+  push:
+    branches: [main]
+    paths: ['digital/**', '.github/workflows/digital-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: node --check digital/assets/app.js
+      - name: Install test tools
+        working-directory: digital/qa
+        run: npm install --no-audit --no-fund && npx playwright install --with-deps chromium
+      - name: Run independent digital site QA
+        working-directory: digital/qa
+        run: npm test
+      - name: Screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: digital-browser-qa
+          path: digital/qa/test-results/
+          retention-days: 4
