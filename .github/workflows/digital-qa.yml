@@ -1,7 +1,7 @@
 name: Shaton Digital browser QA
 on:
   push:
-    branches: [main]
+    branches: [main, digital-v2]
     paths: ['digital/**', '.github/workflows/digital-qa.yml']
   workflow_dispatch:
 permissions:
@@ -9,20 +9,35 @@ permissions:
 jobs:
   qa:
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Syntax
-        run: node --check digital/assets/app.js
+        run: |
+          node --check digital/assets/app.js
+          node --check digital/assets/studio.js
+          node --check digital/assets/daylight.js
+          node --check digital/qa/baseline-audit.cjs
+          node --check digital/qa/lighthouse-audit.cjs
       - name: Install test tools
         working-directory: digital/qa
         run: npm install --no-audit --no-fund && npx playwright install --with-deps chromium
       - name: Run independent digital site QA
         working-directory: digital/qa
         run: npm test
+      - name: Baseline screenshots and reference observations
+        if: always() && github.ref == 'refs/heads/digital-v2'
+        working-directory: digital/qa
+        env:
+          AUDIT_REFERENCES: '1'
+        run: node baseline-audit.cjs
+      - name: Lighthouse lab baseline
+        if: always() && github.ref == 'refs/heads/digital-v2'
+        working-directory: digital/qa
+        run: node lighthouse-audit.cjs
       - name: Screenshots and logs
         if: always()
         uses: actions/upload-artifact@v4
