@@ -9,3 +9,6 @@ Baseline 4f34af0faad3445bd7748e1f957c4b79836a091b, рабочая ветка dig
 
 ## 2026-11-26 — baseline audit and accessibility repair
 Baseline-аудит больше не считает пустой динамический viewer сломанным изображением; реальные проверки ресурсов сохранены. Исправлены доступные имена логотипа, crawlable viewer link, размеры checkbox и контраст подписи формы. Постоянная hero-анимация исключена из мобильного первого рендера и отложена на desktop. Локально: 12/12 Playwright и 32/32 baseline-представления без broken images, overflow и JS errors. Lighthouse оставлен для подтверждения в GitHub Actions из-за ограничения локального Chrome debugger.
+
+## 2026-11-26 — visual concepts 2.0
+Concept board полностью переработан: пять самостоятельных направлений Optical Foundry, Precision Editorial, Living Systems, Product Gallery и Prismatic Studio; для каждого созданы отдельные desktop/mobile композиции и уникальный прозрачный 3D-объект. Добавлены 10 контрольных кадров и общий overview. Browser QA: 0 page errors, 0 horizontal overflow, 10/10 изображений. GitHub Actions предыдущей QA-итерации завершён успешно; Lighthouse accessibility, Best Practices и SEO достигли 100 во всех восьми профилях.
