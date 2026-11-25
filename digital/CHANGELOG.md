@@ -24,3 +24,6 @@ Five prior generated sources inspected and preserved; material roles and conserv
 
 ## 2026-11-26 — Optical Foundry working hero preview
 Original rendered titanium object + separate backdrop/light, responsive editorial hero, real CTA, scene controls, interactive architecture, mobile menu; isolated preview and QA with visual log captures. Main unchanged.
+
+## 2026-11-26 — Optical Foundry production integration
+All 16 pages use shared optical design; approved original hero, 7 service models, catalogue, pricing, partner, contact, support, privacy and editorial portfolio. Existing form/financial logic preserved. New visual/functional QA. Main unchanged.

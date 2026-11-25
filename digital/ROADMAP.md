@@ -175,18 +175,18 @@
 - [ ] **09.12.** Коллекция уникальных объектов (частично — визуальная инспекция и material/pipeline; подготовка assets ожидает проверки)
 
 ### 10. Графика первого экрана
-- [ ] **10.01.** Светлый фон (частично — hero prototype/asset prep, требуется проверка)
-- [ ] **10.02.** Центральный объект (частично — hero prototype/asset prep, требуется проверка)
+- [x] **10.01.** Светлый фон (verified preview run 45721874072; production QA pending)
+- [x] **10.02.** Центральный объект (verified preview run 45721874072; production QA pending)
 - [ ] **10.03.** Второстепенный объект (частично — hero prototype/asset prep, требуется проверка)
 - [ ] **10.04.** Плавающие элементы (частично — hero prototype/asset prep, требуется проверка)
-- [ ] **10.05.** Оптические эффекты (частично — hero prototype/asset prep, требуется проверка)
-- [ ] **10.06.** Блики (частично — hero prototype/asset prep, требуется проверка)
+- [x] **10.05.** Оптические эффекты (verified preview run 45721874072; production QA pending)
+- [x] **10.06.** Блики (verified preview run 45721874072; production QA pending)
 - [x] **10.07.** Прозрачные версии (10 derivative files verified, original preserved)
-- [ ] **10.08.** Мобильная композиция (частично — hero prototype/asset prep, требуется проверка)
-- [ ] **10.09.** Без квадратных фонов (частично — hero prototype/asset prep, требуется проверка)
+- [x] **10.08.** Мобильная композиция (verified preview run 45721874072; production QA pending)
+- [x] **10.09.** Без квадратных фонов (verified preview run 45721874072; production QA pending)
 - [x] **10.10.** Края прозрачности (A source derivative visually checked, outer 8px alpha 0)
 - [x] **10.11.** Оптимизация (A 120602 B desktop / 50826 B mobile, responsive source; performance measured later)
-- [ ] **10.12.** Независимые слои (частично — hero prototype/asset prep, требуется проверка)
+- [x] **10.12.** Независимые слои (verified preview run 45721874072; production QA pending)
 
 ### 11. Графика направлений
 - [ ] **11.01.** ИИ

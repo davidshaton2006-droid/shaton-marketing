@@ -35,3 +35,6 @@ New separate hero-field.svg (backdrop only) and hero-light.svg (specular layer).
 
 ## Prepared derivatives — verified
 10 files stored in assets/art-v2; source unchanged, SHA256 checked against CI manifest, edge alpha max=0 (8px band), max alpha loss <0.11%. A 120602/50826 bytes (desktop/mobile). A, B, D, E visually acceptable candidates; C retains visible halo/fringe on dark, flagged for additional cleanup, not used. Hero prototype uses A responsive derivatives. See manifest.json.
+
+## Optical Foundry production integration
+Original A home, B service catalogue, D software, E partners. C quarantined. Seven independent SVG service identifiers, native distinct product interface mockups on service pages, original portfolio photographs/previews retained. Service identity artwork reused as shared catalogue component and relevant recommendation, not unrelated decoration. Additional photoreal 3D art remains open.

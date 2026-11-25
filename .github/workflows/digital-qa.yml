@@ -22,6 +22,8 @@ jobs:
           node --check digital/assets/daylight.js
           node --check digital/assets/design-components.js
           node --check digital/design/hero-preview.js
+          node --check digital/assets/optical.js
+          node --check digital/qa/optical-production.cjs
           node --check digital/qa/visual-capture.cjs
           node --check digital/qa/baseline-audit.cjs
           node --check digital/qa/lighthouse-audit.cjs
@@ -68,6 +70,10 @@ jobs:
         if: always()
         working-directory: digital/qa
         run: node visual-capture.cjs
+      - name: Capture all production pages
+        if: always()
+        working-directory: digital/qa
+        run: node optical-production.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
