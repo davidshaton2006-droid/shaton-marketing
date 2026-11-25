@@ -21,6 +21,8 @@ jobs:
           node --check digital/assets/studio.js
           node --check digital/assets/daylight.js
           node --check digital/assets/design-components.js
+          node --check digital/design/hero-preview.js
+          node --check digital/qa/visual-capture.cjs
           node --check digital/qa/baseline-audit.cjs
           node --check digital/qa/lighthouse-audit.cjs
       - name: Install test tools
@@ -29,6 +31,10 @@ jobs:
       - name: Run independent digital site QA
         working-directory: digital/qa
         run: npm test
+      - name: Visual inspection captures
+        if: always() && github.ref == 'refs/heads/digital-v2'
+        working-directory: digital/qa
+        run: node visual-capture.cjs
       - name: Baseline screenshots and reference observations
         if: always() && github.ref == 'refs/heads/digital-v2'
         working-directory: digital/qa

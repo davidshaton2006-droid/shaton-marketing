@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 960" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="base" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfcfd"/><stop offset=".57" stop-color="#edf1f6"/><stop offset="1" stop-color="#e3e9f2"/></linearGradient>
+<radialGradient id="soft" cx="70%" cy="31%" r="54%"><stop stop-color="#ffffff"/><stop offset=".32" stop-color="#f7f9fc"/><stop offset=".64" stop-color="#e9edf7" stop-opacity=".65"/><stop offset="1" stop-color="#d4dde9" stop-opacity="0"/></radialGradient>
+<radialGradient id="tint" cx="80%" cy="64%" r="48%"><stop stop-color="#bdcce3" stop-opacity=".52"/><stop offset=".45" stop-color="#d8d6eb" stop-opacity=".24"/><stop offset="1" stop-color="#eaf0f5" stop-opacity="0"/></radialGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="white" stop-opacity=".8"/><stop offset=".75" stop-color="white" stop-opacity=".05"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+<mask id="gridFade"><rect width="1600" height="960" fill="url(#fade)"/></mask>
+<pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#61768f" stroke-opacity=".10" stroke-width="1"/></pattern>
+<radialGradient id="floor" cx="71%" cy="67%" r="40%"><stop stop-color="#fff" stop-opacity=".65"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+</defs><rect width="1600" height="960" fill="url(#base)"/><rect width="1600" height="960" fill="url(#soft)"/><rect width="1600" height="960" fill="url(#tint)"/><rect width="1600" height="960" fill="url(#grid)" mask="url(#gridFade)"/><ellipse cx="1150" cy="450" rx="405" ry="330" fill="url(#floor)" stroke="#fff" stroke-opacity=".46" stroke-width="1"/><path d="M0 868C410 817 1057 815 1600 900" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/>
+</svg>

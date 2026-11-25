@@ -29,3 +29,6 @@
 
 ## 09 — prior originals inspected
 Five concept sources and A desktop/mobile frames viewed directly. Optical core is leading candidate. Legacy neon imagery does not meet selected aesthetic; dark transparency preview shows stripes/fringes for old architecture art, minor fringes on some new sources. Original files untouched. Separate read-only processing workflow prepares 10 derivatives and light/dark comparison. See design/ART-PRODUCTION.md. Await checked outputs.
+
+## 10 — hero preview
+New separate hero-field.svg (backdrop only) and hero-light.svg (specular layer). Central original A image; no duplicate objects in independent production sections. Prototype not deployed. Distinct secondary rendered objects and final responsive derivatives pending.

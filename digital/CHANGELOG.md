@@ -21,3 +21,6 @@ Original licensed Golos Text variable WOFF2, removed external font CSS, integrat
 
 ## 2026-11-26 — original concept art preparation
 Five prior generated sources inspected and preserved; material roles and conservative transparent derivative pipeline added. Read-only CI; no automatic writes. Full image review pending.
+
+## 2026-11-26 — Optical Foundry working hero preview
+Original rendered titanium object + separate backdrop/light, responsive editorial hero, real CTA, scene controls, interactive architecture, mobile menu; isolated preview and QA with visual log captures. Main unchanged.

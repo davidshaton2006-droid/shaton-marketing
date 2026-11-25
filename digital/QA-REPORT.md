@@ -70,3 +70,6 @@ Source WOFF2 hash identical to upstream, OFL included. Google Fonts import remov
 
 ## Art inspection
 Directly inspected all five original concept WebP and A desktop/mobile frames. New A fits light optical direction. Raw alpha view reveals isolated fringe pixels; legacy architecture image has obvious stripes, not fit for reuse. Read-only asset preparation workflow added; outputs must pass alpha/size/hash checks and light/dark composite inspection. Functional QA steps for runs 45720251540 and 45720447288 success; full run pending.
+
+## Hero prototype
+Added 7-width overflow/heading checks, image decode, scene controls, architecture node links, mobile nav/Escape/focus and screenshots. CI visual-capture.cjs emits small JPEGs through read-only logs for direct visual inspection (no credentials). Results pending.
