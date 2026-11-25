@@ -24,3 +24,14 @@ body:not(.cinematic-home) .service-grid .service-art{height:175px}.service-grid 
 
 .portfolio-art-head .portfolio-camera{position:absolute;right:3%;bottom:-5%;width:30%;height:100%;object-fit:contain;z-index:-1;filter:drop-shadow(0 14px 28px #080f394d);opacity:.86;pointer-events:none}.portfolio-art-head h1{max-width:76%!important}.portfolio-art-head>p{max-width:69%!important}.portfolio-art-head{isolation:isolate}
 @media(max-width:650px){.portfolio-art-head .portfolio-camera{width:52%;opacity:.28;right:-7%;bottom:-5%}.portfolio-art-head h1,.portfolio-art-head>p{max-width:100%!important}}
+
+/* Alpha-cleaned portal and original architecture render. */
+.cinema-portal,.hero-portal{background:transparent}
+.cinematic-home .architecture{align-items:center;gap:clamp(16px,2vw,30px)}
+.cinematic-home .arch-render{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:0;min-height:0;padding:12px 0;background:radial-gradient(ellipse at 50% 40%,#9291ec26,transparent 68%);overflow:visible;isolation:isolate}
+.architecture-figure{display:block;width:100%;max-width:470px;height:auto;object-fit:contain;filter:drop-shadow(0 12px 18px #080b2c3b);animation:network-float 7s ease-in-out infinite;transform-origin:center}
+.arch-render b{font-size:clamp(16px,1.5vw,22px);color:#f4f4ff;position:relative}.arch-render small{font-size:12px;color:#c1cce5;position:relative;line-height:1.5}
+@keyframes network-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(max-width:850px){.cinematic-home .architecture{gap:15px}.cinematic-home .arch-render{padding:0}.architecture-figure{max-width:340px;width:100%}}
+@media(max-width:520px){.cinematic-home .arch-render{padding:10px 0 15px}.architecture-figure{width:100%;max-width:280px}.cinematic-home .arch-render b{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.architecture-figure{animation:none!important}}
