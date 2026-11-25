@@ -13,7 +13,7 @@ if(!reduced&&'IntersectionObserver'in window){let motion=null;import('https://cd
 })();
 
 /* Cinematic discovery: decorative motion is progressive; keyboard search is native. */
-(()=>{'use strict';const d=document,scene=d.querySelector('.cinema-hero');if(!scene)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+(()=>{'use strict';const d=document,scene=d.querySelector('.cinema-hero,.hp-hero');if(!scene)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 d.querySelectorAll('[data-scene-select]').forEach(b=>b.addEventListener('click',()=>{scene.dataset.scene=b.dataset.sceneSelect;d.querySelectorAll('[data-scene-select]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))}));
 if(!reduce&&matchMedia('(hover:hover) and (pointer:fine)').matches){let raf=0,xx=0,yy=0;scene.addEventListener('pointermove',e=>{const r=scene.getBoundingClientRect();xx=(e.clientX-r.left)/r.width-.5;yy=(e.clientY-r.top)/r.height-.5;if(!raf)raf=requestAnimationFrame(()=>{scene.style.setProperty('--scene-x',(-xx*20)+'px');scene.style.setProperty('--scene-y',(-yy*14)+'px');scene.style.setProperty('--light-x',((xx+.5)*100)+'%');scene.style.setProperty('--light-y',((yy+.5)*100)+'%');raf=0})},{passive:true});scene.addEventListener('pointerleave',()=>{scene.style.setProperty('--scene-x','0px');scene.style.setProperty('--scene-y','0px')})}
 const dialog=d.querySelector('[data-command]'),input=d.querySelector('[data-command-input]'),list=d.querySelector('[data-command-results]'),open=d.querySelector('[data-open-search]');if(!dialog||!input||!list)return;
