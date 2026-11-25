@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -29,6 +30,26 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
+      # The artifact upload API can finalize before the Pages metadata API sees it.
+      - name: Wait for Pages artifact metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          endpoint="repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts"
+          for attempt in $(seq 1 24); do
+            count=$(gh api "$endpoint" --jq '[.artifacts[] | select(.name == "github-pages" and .expired == false)] | length' 2>/dev/null || echo 0)
+            if [[ "$count" == "1" ]]; then
+              echo "Pages artifact is visible to the REST API."
+              sleep 8
+              exit 0
+            fi
+            echo "Waiting for Pages artifact metadata (attempt $attempt/24)."
+            sleep 5
+          done
+          echo "::error::Pages artifact metadata did not become available."
+          exit 1
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
