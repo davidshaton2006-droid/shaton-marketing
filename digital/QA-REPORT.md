@@ -84,3 +84,6 @@ Run 45720733675 success, all 10 files byte lengths and SHA256 verified before Gi
 
 ## Optical Foundry integration
 45721874072 success, hero direct desktop/mobile inspection passed. New production layouts across 16 pages. Previous hero tests adapted to equivalent current selectors; new seven scenarios and 96 viewport checks, 32 viewport captures + 32 full-page captures. New run pending. No production deployment before verification.
+
+## Visual rejection / corrective work
+45724002638 passed automated checks, but screenshots revealed homepage navigation clipped on desktop/mobile and software art absent on desktop. User rejected design. Added explicit header bounds and software art pixel gate; tightened contact, portfolio and partner composition. New run pending. No phase advance until review.
