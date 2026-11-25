@@ -1,0 +1,37 @@
+name: Optical Foundry original service renders
+on:
+  push:
+    branches: [digital-v2]
+    paths:
+      - 'digital/design/render-service-art.py'
+      - 'digital/design/export-service-art.py'
+      - '.github/workflows/digital-service-render.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    if: github.ref == 'refs/heads/digital-v2'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ai, automation, software, web, commerce, telegram, integration]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Blender and image tooling
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq blender python3-pil
+      - name: Render independent studio sculpture
+        run: blender -b -t 2 -P digital/design/render-service-art.py -- ${{ matrix.service }} render.png
+      - name: Prepare transparent responsive artwork
+        run: /usr/bin/python3 digital/design/export-service-art.py ${{ matrix.service }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: optical-render-${{ matrix.service }}
+          path: |
+            *.webp
+            render.png
+          retention-days: 7
