@@ -10,3 +10,7 @@
 @media(max-width:1050px){.header nav{gap:10px}.header nav a{font-size:11px}.portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:850px){.header nav a{font-size:16px}.founder-panel{grid-template-columns:.75fr 1fr;gap:20px}.founder-copy h2{font-size:clamp(30px,5vw,46px)}}
 @media(max-width:520px){.portfolio-grid,.founder-panel{grid-template-columns:1fr}.founder-photo{aspect-ratio:5/4;max-height:350px}.founder-copy h2{font-size:36px}.portfolio-text{padding:20px}}
+/* Keep decorative glow inside small viewport; retain text readability at 320px. */
+@media(max-width:850px){.hero-visual:before{inset:-9% 0 -5%}}
+@media(max-width:520px){.page-head h1,.section-head h2,.split h2,.cta-panel h2,.partner-banner h2,.founder-copy h2{overflow-wrap:break-word;hyphens:auto}.hero-visual{width:100%;min-width:0}.section-head,.partner-banner,.founder-panel,.calculator,.contact-layout,.split,.architecture{min-width:0}.demo-actions>span{min-width:0;overflow-wrap:anywhere}.hero-meta>span{max-width:100%}.rate-steps,.art-bottom{min-width:0}.rate-steps>div,.art-bottom>div{min-width:0}}
+@media(max-width:350px){.page-head h1{font-size:35px}.section-head h2,.split h2,.cta-panel h2,.partner-banner h2,.founder-copy h2{font-size:30px}}
