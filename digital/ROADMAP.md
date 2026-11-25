@@ -181,11 +181,11 @@
 - [ ] **10.04.** Плавающие элементы (частично — hero prototype/asset prep, требуется проверка)
 - [ ] **10.05.** Оптические эффекты (частично — hero prototype/asset prep, требуется проверка)
 - [ ] **10.06.** Блики (частично — hero prototype/asset prep, требуется проверка)
-- [ ] **10.07.** Прозрачные версии (частично — hero prototype/asset prep, требуется проверка)
+- [x] **10.07.** Прозрачные версии (10 derivative files verified, original preserved)
 - [ ] **10.08.** Мобильная композиция (частично — hero prototype/asset prep, требуется проверка)
 - [ ] **10.09.** Без квадратных фонов (частично — hero prototype/asset prep, требуется проверка)
-- [ ] **10.10.** Края прозрачности (частично — hero prototype/asset prep, требуется проверка)
-- [ ] **10.11.** Оптимизация (частично — hero prototype/asset prep, требуется проверка)
+- [x] **10.10.** Края прозрачности (A source derivative visually checked, outer 8px alpha 0)
+- [x] **10.11.** Оптимизация (A 120602 B desktop / 50826 B mobile, responsive source; performance measured later)
 - [ ] **10.12.** Независимые слои (частично — hero prototype/asset prep, требуется проверка)
 
 ### 11. Графика направлений

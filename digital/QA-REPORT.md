@@ -73,3 +73,6 @@ Directly inspected all five original concept WebP and A desktop/mobile frames. N
 
 ## Hero prototype
 Added 7-width overflow/heading checks, image decode, scene controls, architecture node links, mobile nav/Escape/focus and screenshots. CI visual-capture.cjs emits small JPEGs through read-only logs for direct visual inspection (no credentials). Results pending.
+
+## Verified asset derivatives
+Run 45720733675 success, all 10 files byte lengths and SHA256 verified before Git blob creation. Outer 8-pixel alpha band=0 in all. Max alpha mass removal 0.10254%, C 0%. A/B/D/E desktop visually reviewed (transparent preview); C still visible halo/fringe, quarantined. Hero uses A responsive derivatives, final browser visual gate pending. Foundation run 45720251540 success.

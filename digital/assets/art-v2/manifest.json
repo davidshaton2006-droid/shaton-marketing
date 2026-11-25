@@ -1,0 +1,172 @@
+{
+  "method": "conservative alpha fringe clean, crop, transparent padding, Lanczos resize; unchanged originals",
+  "files": [
+    {
+      "file": "optical-core-desktop.webp",
+      "source": "concept-a-optical-foundry.webp",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        1440,
+        752
+      ],
+      "bytes": 120602,
+      "sha256": "3ca733c0b36cf89f50678c6c67fe99bed260ba3ab134f29e674e4e6a607bac53",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0.0002519
+    },
+    {
+      "file": "optical-core-mobile.webp",
+      "source": "concept-a-optical-foundry.webp",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        820,
+        427
+      ],
+      "bytes": 50826,
+      "sha256": "9cec6fd31ce3e0f209af469d842e202cf60b0f17f42b40570d1377d25f1b1717",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0.0002519
+    },
+    {
+      "file": "titanium-fold-desktop.webp",
+      "source": "concept-b-precision-editorial.webp",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        1440,
+        736
+      ],
+      "bytes": 72894,
+      "sha256": "9f54a68515d10a91b01fd0e7e41cd563e783985f3b69feb74803e052679c553a",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0.0005854
+    },
+    {
+      "file": "titanium-fold-mobile.webp",
+      "source": "concept-b-precision-editorial.webp",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        820,
+        419
+      ],
+      "bytes": 34682,
+      "sha256": "2852c273fb85bdefbad4746878baabf17e269a0d5edd04762b750d686e035d1e",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0.0005854
+    },
+    {
+      "file": "connected-core-desktop.webp",
+      "source": "concept-c-living-systems.webp",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        1440,
+        756
+      ],
+      "bytes": 265960,
+      "sha256": "c64d2e89fd448582dc5f4e6fb6e536112889cd91fc1fcb61f906a2dcf9c58c95",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0
+    },
+    {
+      "file": "connected-core-mobile.webp",
+      "source": "concept-c-living-systems.webp",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        820,
+        430
+      ],
+      "bytes": 98034,
+      "sha256": "0b6c9e1a6f303641402cfa7e7e1a134eed99d3b5c0b1b7d5dd9e818f972c1b22",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0
+    },
+    {
+      "file": "product-layers-desktop.webp",
+      "source": "concept-d-product-gallery.webp",
+      "original_size": [
+        1672,
+        941
+      ],
+      "size": [
+        1440,
+        899
+      ],
+      "bytes": 141938,
+      "sha256": "c089e16eda4e9f2d807a9b275107c50a5f5ec600126bcf02d9f1b3a2aedfe538",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0.0010254
+    },
+    {
+      "file": "product-layers-mobile.webp",
+      "source": "concept-d-product-gallery.webp",
+      "original_size": [
+        1672,
+        941
+      ],
+      "size": [
+        820,
+        512
+      ],
+      "bytes": 67322,
+      "sha256": "85eafe09cd422162abebec7c8534e10b7228b6899845a87f6f97f1b718f3ce2c",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0.0010254
+    },
+    {
+      "file": "spectral-prism-desktop.webp",
+      "source": "concept-e-prismatic-studio.webp",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        1440,
+        759
+      ],
+      "bytes": 149794,
+      "sha256": "327b1509564aae286eca93969698d3280e9175f3411b79c6bbec5ccb63a17985",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0.0007304
+    },
+    {
+      "file": "spectral-prism-mobile.webp",
+      "source": "concept-e-prismatic-studio.webp",
+      "original_size": [
+        1774,
+        887
+      ],
+      "size": [
+        820,
+        432
+      ],
+      "bytes": 65064,
+      "sha256": "27f832c2f76bb57dcbbb5e3c0fcef632ce662e316b8ac7a627870b7079ba2a5e",
+      "edge_alpha_max": 0,
+      "alpha_mass_removed_fraction": 0.0007304
+    }
+  ],
+  "provenance": {
+    "run": 45720733675,
+    "job": 139578100065,
+    "source_commit": "9d5f0605ba24ef31b61ae5b4f7caa3f380d0b79c",
+    "verified_sha256": true,
+    "production_review": "optical-core, titanium-fold, product-layers, spectral-prism visually acceptable as candidates; connected-core retains halo/fringe on dark and must not ship as final without cleanup"
+  }
+}

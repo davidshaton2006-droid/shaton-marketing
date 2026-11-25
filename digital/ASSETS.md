@@ -32,3 +32,6 @@ Five concept sources and A desktop/mobile frames viewed directly. Optical core i
 
 ## 10 — hero preview
 New separate hero-field.svg (backdrop only) and hero-light.svg (specular layer). Central original A image; no duplicate objects in independent production sections. Prototype not deployed. Distinct secondary rendered objects and final responsive derivatives pending.
+
+## Prepared derivatives — verified
+10 files stored in assets/art-v2; source unchanged, SHA256 checked against CI manifest, edge alpha max=0 (8px band), max alpha loss <0.11%. A 120602/50826 bytes (desktop/mobile). A, B, D, E visually acceptable candidates; C retains visible halo/fringe on dark, flagged for additional cleanup, not used. Hero prototype uses A responsive derivatives. See manifest.json.

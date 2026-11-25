@@ -16,3 +16,6 @@
 
 
 10: создан рабочий prototype design/hero-preview.html с оригинальным A, отдельными SVG световым фоном/бликом, живой схемой, переключением освещения, mobile menu, reduced motion и fine pointer. Проверка в новом CI; не production. 09 asset pipeline ещё выполняется.
+
+
+Asset-prep run 45720733675 success; 10 responsive derivatives imported with SHA256 verification and alpha edge checks. A connected to hero prototype, C quarantined for halo cleanup. Stage 09/10 still partly open (additional unique art, final browser validation). Stage 06–08 foundation run 45720251540 success; final font run functional step success.
