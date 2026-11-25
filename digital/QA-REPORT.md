@@ -67,3 +67,6 @@ Run 45719349950 success (head ac455cb66b103e7681840d0e846e0e1fd9fbeb33), все 
 
 ## Local typography
 Source WOFF2 hash identical to upstream, OFL included. Google Fonts import removed, dedicated Cyrillic loading check added. Browser and performance verification pending.
+
+## Art inspection
+Directly inspected all five original concept WebP and A desktop/mobile frames. New A fits light optical direction. Raw alpha view reveals isolated fringe pixels; legacy architecture image has obvious stripes, not fit for reuse. Read-only asset preparation workflow added; outputs must pass alpha/size/hash checks and light/dark composite inspection. Functional QA steps for runs 45720251540 and 45720447288 success; full run pending.

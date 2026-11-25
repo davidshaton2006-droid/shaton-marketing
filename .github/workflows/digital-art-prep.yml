@@ -1,0 +1,31 @@
+name: Shaton Digital asset preparation
+on:
+  push:
+    branches: [digital-v2]
+    paths:
+      - 'digital/design/prepare-art.py'
+      - 'digital/design/assets/**'
+      - '.github/workflows/digital-art-prep.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/digital-v2'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned image tooling
+        run: python -m pip install Pillow==11.3.0
+      - name: Prepare and validate original transparent artwork
+        run: python digital/design/prepare-art.py
+      - name: Asset inspection board and derivatives
+        uses: actions/upload-artifact@v4
+        with:
+          name: digital-art-derivatives
+          path: digital/design/art-output/
+          retention-days: 7

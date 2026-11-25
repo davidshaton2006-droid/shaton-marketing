@@ -18,3 +18,6 @@ A + B/C, исходные изображения сохранены, дизай�
 
 ## 2026-11-26 — self-hosted typography
 Original licensed Golos Text variable WOFF2, removed external font CSS, integrated font into design system, dedicated browser QA. Production cache version synchronized before release.
+
+## 2026-11-26 — original concept art preparation
+Five prior generated sources inspected and preserved; material roles and conservative transparent derivative pipeline added. Read-only CI; no automatic writes. Full image review pending.
