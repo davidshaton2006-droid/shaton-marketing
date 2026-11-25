@@ -73,3 +73,8 @@ body:not(.cinematic-home) .partner-hero .primary{background:#35496d;color:white;
 body:not(.cinematic-home) .portfolio-art-head .portfolio-camera{opacity:.92}
 body:not(.cinematic-home) .service-card,body:not(.cinematic-home) .price-card,body:not(.cinematic-home) .feature,body:not(.cinematic-home) .portfolio-item,body:not(.cinematic-home) .solution{border-radius:24px;border-color:#fff;box-shadow:0 10px 30px #465b8010,inset 0 0 0 1px #d5dfec88}
 @media(max-width:520px){body:not(.cinematic-home) .page-head,body:not(.cinematic-home) .partner-hero{background-image:linear-gradient(90deg,#f7f9fff5,#edf2f9e8),url('./art/landscape.webp')}}
+
+/* Baseline accessibility repairs: readable secondary copy and 24px pointer targets. */
+.choice-grid label span small{color:#596272;font-size:12px}
+.check-label input{inline-size:24px;block-size:24px;flex:0 0 24px}
+.check-label{gap:12px;min-height:44px;align-items:center}
