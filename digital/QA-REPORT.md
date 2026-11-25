@@ -76,3 +76,6 @@ Added 7-width overflow/heading checks, image decode, scene controls, architectur
 
 ## Verified asset derivatives
 Run 45720733675 success, all 10 files byte lengths and SHA256 verified before Git blob creation. Outer 8-pixel alpha band=0 in all. Max alpha mass removal 0.10254%, C 0%. A/B/D/E desktop visually reviewed (transparent preview); C still visible halo/fringe, quarantined. Hero uses A responsive derivatives, final browser visual gate pending. Foundation run 45720251540 success.
+
+## 2026-11-26 — optical preview visual gate
+45721514514 preview: 2/2 tests passed, all four captures inspected. System art now clean, but hero art remained visually absent on both device captures despite valid image bounds. This is a blocking visual defect. Replaced absolute object positioning with in-flow picture and explicit stacking order; added pixel-difference test (visible versus visibility:hidden screenshot, >=3.5% changed pixels) on 1440 and 390 widths. Do not approve until new actual captures pass and are visually checked.

@@ -24,13 +24,13 @@ assets/design-tokens.css + design/contrast.json: основные и допол�
 - ink / integration: 11.96:1, минимум 4.5
 Декоративная граница может быть менее контрастной, граница интерактивного поля — нет. Контраст токенов не доказывает WCAG для всех будущих страниц.
 ## 06. Типографика
-Golos Text (существующий кириллический шрифт), системный fallback; технический ui-monospace. H1 2.55–6.2rem, H2 2–4rem, H3 1.4–2rem, H4 1.25, H5 1.0625, H6 .9375, body 1–1.125rem, caption .8125, label .75. 65ch, line-height 1.02/1.6, tracking -.058em / -.045em mobile / -.035em heading, balance/pretty, tabular-nums. Не загружать новый шрифт; проверить существующую загрузку и 16 страниц на 06.15–16. Preview пока использует системный fallback если Golos не установлен.
+Golos Text (существующий кириллический шрифт), системный fallback; технический ui-monospace. H1 2.55–6.2rem, H2 2–4rem, H3 1.4–2rem, H4 1.25, H5 1.0625, H6 .9375, body 1–1.125rem, caption .8125, label .75. 65ch, line-height 1.02/1.6, tracking -.058em / -.045em mobile / -.035em heading, balance/pretty, tabular-nums. Не загружать новый шрифт; проверить существующую загрузку и 16 страниц на 06.15–16. Preview загружает локальный Golos WOFF2 с системным fallback.
 ## 07. Сетка
 12/8/4 колонки (>1024/601–1024/≤600), max 92rem, gutter 1–4rem, gap .875–1.75rem, секции 3.75–8.5rem, шкала 4–96px, радиусы 8/14/24/32/pill. Full-bleed hero, 7/5 editorial split, 4/4/4 bento, широкая кейс-полоса, mobile отдельный порядок. Стыки и плотность проверить на полноразмерных макетах 13.
 ## 08. Библиотека
 assets/design-components.css/js, design/system.html. Scoped sd-root, кнопки, magnetic, icon/link, 4 карточки, форма и validation, checkbox/switch, filters/empty, tabs с клавиатурой, dialog/Escape/focus return, tooltip focus/hover, details, calculator, status/loading/error/success/focus. Минимальный target 44px, reduced motion и fine pointer. Никаких внешних заявок. Подключение новых страниц: tokens, components CSS/JS, sd-root; не заменять старые классы без теста. Все карточки имеют валидные ссылки на существующие разделы.
 ## QA
-Новый Playwright тест 6 widths, интерактивность, 2 полностраничных кадра; результаты ожидаются. Существующие страницы не менялись визуально; добавлен импорт токенов.
+Новый Playwright тест 6 widths, интерактивность, 2 полностраничных кадра; run 45720447288: 14/14, шрифт на 16 страницах; run 45721514514 preview: 2/2; кадры system просмотрены, чистый фон. Существующие страницы не менялись визуально; добавлен импорт токенов.
 
 ## 06.15 — локальная типографика
 Оригинальный Golos Text variable WOFF2 76 748 B, OFL и upstream SHA в assets/fonts/SOURCE.md. Один font-face, font-display:swap, удалён внешний Google Fonts import. Стенд использует тот же файл. Версия CSS и preload production-страниц будут синхронизированы перед выпуском. Проверка 16 страниц добавлена в CI.
