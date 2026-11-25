@@ -7,7 +7,7 @@ from pathlib import Path
 kind, output=sys.argv[sys.argv.index('--')+1:]
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
 scene=bpy.context.scene
-scene.render.engine='CYCLES';scene.cycles.samples=36;scene.cycles.use_denoising=True
+scene.render.engine='CYCLES';scene.cycles.samples=96;scene.cycles.use_denoising=False;scene.cycles.adaptive_threshold=.035;scene.cycles.max_bounces=7;scene.cycles.transmission_bounces=5
 scene.render.resolution_x=960;scene.render.resolution_y=720;scene.render.resolution_percentage=100
 scene.render.film_transparent=True
 scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGBA'

@@ -18,3 +18,5 @@ User rejected visual quality. Run 45724002638 green but visual inspection found 
 
 
 Run 45724650547: corrected home header and software artwork visually confirmed, new bounds/pixel test passed; tablet partners overflow +24 px at 768, corrected to one-column hero <=1000. Removed redundant pricing ladder and contact placeholder sequence; quote/brief visible earlier, solutions hero buttons use actual catalogue filtering. Seven original Blender renders started in 45724718527, not yet imported or approved. New QA pending.
+
+First renderer run failed: distro Blender 4.0.2 built without OpenImageDenoiser. Denoising disabled; increased samples and set adaptive sampling. Rerender required; no artwork imported.
